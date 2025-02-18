@@ -12,11 +12,13 @@ export default function Signup() {
     const [confPassword, setConfPassword] = useState('')
 
     return (
-        <div id='signup-container'>
+        <div className='signup-container'>
             <div className='signup-logo'>
                 <img src={logo}></img>
-                <h4>Đăng ký ngay để nhận được nhiều</h4>
-                <h4>khuyến mãi đặc biệt</h4>
+                <h4>
+                    Đăng ký ngay để nhận được nhiều<br/>
+                    khuyến mãi đặc biệt
+                </h4>
             </div>
             <form id='signup'>
                 <h2>Tạo tài khoản</h2>
@@ -53,7 +55,6 @@ export default function Signup() {
 
                 <div className='signup-btns'>
                     <button><Link to='/login'>Quay lại</Link></button>
-
                     <button>Đăng ký</button>
                 </div>
             </form>

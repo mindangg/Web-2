@@ -1,12 +1,27 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import logo from '../assets/WEBTOON_Logo.png'
+
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     return (
-        <div>
+        <div className='login-container'>
+            <div className='login-logo'>
+                <img src={logo}></img>
+                <h4>
+                    Hi there, do you have money? Tell<br/>
+                    me how much, i will you things<br/>
+                    you need<br/>
+                </h4>
+
+                <div>
+                    <i className="fa-solid fa-reply"></i>
+                    Trang chủ
+                </div>
+            </div>
             <form id='login'>
                 <div>
                     <input type='text' placeholder='Email'
@@ -23,7 +38,7 @@ export default function Login() {
                 </div>
 
                 <div>
-                    <Link to='#'><i>Bạn quên mật khẩu?</i></Link><br/>
+                    <Link to='#'><i>Bạn quên mật khẩu?</i></Link>
                 </div>
 
                 <div>
