@@ -17,10 +17,12 @@ export default function Login() {
                     you need<br/>
                 </h4>
 
+                <Link to='/'>
                 <div>
                     <i className="fa-solid fa-reply"></i>
                     Trang chủ
                 </div>
+                </Link>
             </div>
             <form id='login'>
                 <div>

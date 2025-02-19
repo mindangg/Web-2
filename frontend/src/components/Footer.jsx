@@ -33,6 +33,10 @@ export default function Footer() {
             </div>
             <div>
                 <h3>SOCIAL MEDIA</h3>
+                <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                    <i className="fa-brands fa-facebook"></i>
+                    <i className="fa-brands fa-instagram"></i>
+                </div>
             </div>
         </footer>
     )

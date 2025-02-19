@@ -1,7 +1,11 @@
 footer{
+    position: relative;
+    bottom: 0;
     background-color: var(--gray);
     display: flex;
     justify-content: space-between;
+    padding: 30px 10px;
+    width: 100%;
 }
 
 footer img{
@@ -10,4 +14,13 @@ footer img{
 
 footer *{
     color: white;
+}
+
+footer p{
+    margin-bottom: 5px;
+
+}
+
+footer i{
+    font-size: 35px;
 }
