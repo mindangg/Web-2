@@ -1,0 +1,55 @@
+.header-ad{
+    display: flex;
+    width: 100%;
+    background-color: var(--gray);
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 12%;
+    padding: 20px;
+}
+
+.header-ad div:nth-of-type(2){
+    color:white;
+}
+
+.header-logo{
+
+    height: 100px;
+}
+.header-logo img{
+    width: 100px;
+    margin-top: 0px;
+}
+
+.menu{
+    position: fixed;
+    top: 12%;
+    background-color: var(--gray);
+    color: white;
+    width: 15%;
+    height: 88%;
+    padding: 20px;
+}
+
+.menu *{
+    font-weight: bold;
+}
+
+.menu div:nth-of-type(1){
+    margin: 10px 10px 20px 10px;
+}
+
+.menu div{
+    margin: 10px;
+}
+
+.menu a{
+    margin: 20px;
+}
+
+.menu div i{
+    font-size: 10px;
+}
