@@ -49,6 +49,10 @@
     margin-right: 10px;
 }
 
+.cart-delete i{
+    cursor: pointer;
+}
+
 /* responsive */
 @media (max-width: 768px) {
     .cart-item {
