@@ -5,7 +5,9 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation  } from 'react-rout
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Product from './pages/Product'
 import Admin from './pages/Admin'
+
 
 //components
 import Header from './components/Header'
