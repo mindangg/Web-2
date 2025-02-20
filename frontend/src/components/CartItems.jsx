@@ -15,7 +15,7 @@ export default function CartItems() {
             </div>
             <div className='cart-quantity'>
                 <button id='decrease'>-</button>
-                <input value={10} readOnly/>
+                <input value={10}/>
                 <button id='increase'>+</button>
             </div>
             <div className='cart-total'>
