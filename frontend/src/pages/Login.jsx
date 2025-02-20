@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import logo from '../assets/WEBTOON_Logo.png'
+import logo from '../assets/logo.png'
 
 export default function Login() {
     const [email, setEmail] = useState('')

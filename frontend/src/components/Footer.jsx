@@ -1,6 +1,6 @@
 import React from 'react'
 
-import logo from '../assets/WEBTOON_Logo.png'
+import logo from '../assets/SGU STORE.png'
 
 import '../styles/Footer.css'
 

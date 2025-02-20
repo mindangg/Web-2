@@ -22,5 +22,9 @@ footer p{
 }
 
 footer i{
-    font-size: 35px;
+    font-size: 40px;
+}
+
+footer h3{
+    margin-bottom: 27px;
 }

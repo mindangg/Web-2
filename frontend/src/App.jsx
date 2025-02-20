@@ -9,6 +9,7 @@ import Signup from './pages/Signup'
 //components
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Product from './pages/Product'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
+          <Route path='/product' element={<Product/>}/>
         </Routes>
       </BrowserRouter>
         <Footer/>
