@@ -18,7 +18,7 @@ export default function Header() {
 
                 <div className='action'>
                     <Link to='/login'>Đăng nhập </Link>
-                    <i className="fa-solid fa-bag-shopping"></i>
+                    <Link to='/cart'><i className="fa-solid fa-bag-shopping"></i></Link>
                 </div>
             </div>
 

@@ -5,11 +5,15 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation  } from 'react-rout
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Product from './pages/Product'
+import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
+import Admin from './pages/Admin'
 
 //components
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Product from './pages/Product'
+
 
 export default function App() {
   return (
@@ -21,6 +25,9 @@ export default function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/product' element={<Product/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/checkout' element={<Checkout/>}/>
+          <Route path='/admin' element={<Admin/>}/>
         </Routes>
       </BrowserRouter>
         <Footer/>
