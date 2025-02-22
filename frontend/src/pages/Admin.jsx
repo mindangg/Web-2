@@ -2,6 +2,7 @@ import React from 'react'
 
 import logo from '../assets/SGU STORE.png'
 import '../styles/Admin.css'
+import CreateProduct from '../components/CreateProduct'
 
 export default function Admin() {
     return (
@@ -20,8 +21,9 @@ export default function Admin() {
             <div><i className="fa-solid fa-user"></i><a>Sản phẩm</a><i className="fa-solid fa-chevron-down"></i></div>
             <div><i className="fa-solid fa-user"></i><a>Danh mục</a><i className="fa-solid fa-chevron-down"></i></div>
             <div><i className="fa-solid fa-user"></i><a>Đơn hàng</a><i className="fa-solid fa-chevron-down"></i></div>
-            <div><i className="fa-solid fa-user"></i><a>Khách hàng</a><i className="fa-solid fa-chevron-down"></i></div>
+            <div><i className="fa-solid fa-user"></i><a>Khách hàng</a><i className="fa-solid fa-chevron-down"></i></div>  
         </div>
+        <div className = 'createProduct'><CreateProduct/></div>
         </>
 
     )
