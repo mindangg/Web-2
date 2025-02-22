@@ -1,7 +1,7 @@
 .header-ad{
     display: flex;
     width: 100%;
-    background-color: var(--gray);
+    background-color: #4F4F4F;
     justify-content: space-between;
     align-items: center;
     position: fixed;
@@ -28,7 +28,7 @@
     position: fixed;
     top: 12%;
     background-color: var(--gray);
-    color: white;
+    color: rgb(144, 144, 144);
     width: 15%;
     height: 88%;
     padding: 20px;
@@ -40,6 +40,7 @@
 
 .menu div:nth-of-type(1){
     margin: 10px 10px 20px 10px;
+    color: white;
 }
 
 .menu div{
@@ -49,6 +50,7 @@
 .menu a{
     margin: 20px;
 }
+
 
 .menu div i{
     font-size: 10px;
