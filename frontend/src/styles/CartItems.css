@@ -36,6 +36,12 @@
     text-align: center;
 }
 
+.cart-quantity input::-webkit-outer-spin-button,
+.cart-quantity input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .cart-quantity button {
     height: 100%;
     width: 30px;

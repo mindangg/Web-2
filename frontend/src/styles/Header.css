@@ -72,7 +72,7 @@ header{
     height: 50px;
     display: flex;
     align-items: center;
-    padding-left: 9%;
+    padding-left: 8%;
     background: linear-gradient(to right, var(--yellow), #ffd454, #ffc454,#ffa454);
 }
 

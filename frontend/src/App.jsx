@@ -13,22 +13,33 @@ import Admin from './pages/Admin'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
+const Layout = () => {
+  const hideLayout = useLocation().pathname === '/admin'
 
-export default function App() {
   return (
     <div className='App'>
-      <BrowserRouter>
-        <Header/>
+      {!hideLayout && <Header/>}
+      <div className='pages'>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/admin' element={<Admin/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/checkout' element={<Checkout/>}/>
-          <Route path='/admin' element={<Admin/>}/>
         </Routes>
-      </BrowserRouter>
-        <Footer/>
+      </div>
+      {/* <Notification/>
+      <CardDetails/> */}
+      {!hideLayout && <Footer/>}
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Layout/>
+    </BrowserRouter>
   )
 }

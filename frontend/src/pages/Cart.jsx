@@ -5,6 +5,7 @@ import '../styles/Cart.css';
 import CartItems from '../components/CartItems';
 
 export default function Cart() {
+
     return (
         <div className='cart'>
             <h2>Chi tiết giỏ hàng</h2>
