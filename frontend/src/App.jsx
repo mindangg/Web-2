@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation  } from 'react-rout
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Product from './pages/Product'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Admin from './pages/Admin'
@@ -24,7 +23,6 @@ export default function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path='/product' element={<Product/>}/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/checkout' element={<Checkout/>}/>
           <Route path='/admin' element={<Admin/>}/>
