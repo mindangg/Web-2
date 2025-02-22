@@ -5,6 +5,7 @@ import '../styles/Cart.css';
 import CartItems from '../components/CartItems';
 
 export default function Cart() {
+
     return (
         <div className='cart'>
             <h2>Chi tiết giỏ hàng</h2>
@@ -23,7 +24,7 @@ export default function Cart() {
             </div>
             
             <div className='cart-controller'>
-                <button><i className="fa-solid fa-reply"></i>Tiếp tục mua hàng</button>
+                <Link to='/'><button><i className="fa-solid fa-reply"></i>Tiếp tục mua hàng</button></Link>
 
                 <div className='cart-summary'>
                     <h3>Tổng tiền: 30.000.000 đ</h3>

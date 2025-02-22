@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ip12 from '../assets/iphone-12-pro-blue-hero.png';
 
 import '../styles/CartItems.css';
 
 export default function CartItems() {
+    const [quantity, setQuantity] = useState(1)
+
     return (
         <div className='cart-item'>
             <div className='cart-info'>
@@ -14,9 +16,14 @@ export default function CartItems() {
                 </div>
             </div>
             <div className='cart-quantity'>
-                <button id='decrease'>-</button>
-                <input value={10}/>
-                <button id='increase'>+</button>
+                <button id='decrease'
+                        onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                        disabled={quantity === 1}>-</button>
+                <input value={quantity}
+                        type='number'/>
+                <button id='increase'
+                        onClick={() => setQuantity((next) => next + 1)}
+                        >+</button>
             </div>
             <div className='cart-total'>
                 <p>30.000.000 đ</p>
