@@ -1,7 +1,7 @@
 .header-ad{
     display: flex;
     width: 100%;
-    background-color: var(--gray);
+    background-color: #4F4F4F;
     justify-content: space-between;
     align-items: center;
     position: fixed;
@@ -52,4 +52,9 @@
 
 .menu div i{
     font-size: 10px;
+}
+.createProduct{
+    position: fixed;
+    top: 12%;
+    left: 15%;
 }
