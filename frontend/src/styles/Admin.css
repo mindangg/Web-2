@@ -55,3 +55,8 @@
 .menu div i{
     font-size: 10px;
 }
+.createProduct{
+    position: fixed;
+    top: 12%;
+    left: 15%;
+}
