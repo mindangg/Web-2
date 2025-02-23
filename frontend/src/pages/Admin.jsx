@@ -22,8 +22,9 @@ export default function Admin() {
             <div><i className="fa-solid fa-user"></i><a>Danh mục</a><i className="fa-solid fa-chevron-down"></i></div>
             <div><i className="fa-solid fa-user"></i><a>Đơn hàng</a><i className="fa-solid fa-chevron-down"></i></div>
             <div><i className="fa-solid fa-user"></i><a>Khách hàng</a><i className="fa-solid fa-chevron-down"></i></div>  
+            <div className = 'createProduct'><CreateProduct/></div>
+        
         </div>
-        <div className = 'createProduct'><CreateProduct/></div>
         </>
 
     )

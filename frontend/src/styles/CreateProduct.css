@@ -1,45 +1,54 @@
 .page{
-    padding: 10px 50px;
+    padding: 0px 50px;
     
 }
 .page .title:nth-of-type(1){
-    font-size: 27px;
+    font-size: 26px;
     font-weight: 550;
-    padding: 10px 0px;
+    color: black;
 }
 .page .title:nth-of-type(2){
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 550;
     background: #56CCF2;
     width: 500px;
     height: 50px;
-    padding: 10px;
+    padding: 12px;
+    color: black;
+
 }
 .page button:nth-of-type(1){
     background-color: #6FCF97;
     width: 150px;
     height: 50px;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 550;
     border : none;
-    margin: 15px 0px;
+    margin-left: 10px;
+    margin-bottom: 0px;
     border-radius: 4px;
+    color: black;
+
 
 }
 .page button:nth-of-type(2){
     background-color: #6FCF97;
-    width: 100px;
-    height: 50px;
+    width: 90px;
+    height: 40px;
     font-size: 20px;
     font-weight: 550;
     border : none;
-    margin: 20px 0px;
-    border-radius: 4px;
+    margin: 0px 10px;
+    border-radius: 3px;
+    color: black;
+
 }
-.page .list{
-    font-size: 20px;
+.page  .list{
+    font-size: 18px;
     font-weight: 550;
-    margin: 10px 0px;
+    margin: 5px 0px;
+    color: black;
+
 
 }
 .page .content{
@@ -47,6 +56,8 @@
     height: 40px;
     border-radius: 7px;
     width: 300px;
+    color: black;
+    margin-bottom: 7px;
 
 }
 .page select{
@@ -56,4 +67,35 @@
     width: 300px;
     font-size: 17px;
     padding:10px;
+    font-weight: 100;
+    margin-bottom: 7px;
+}
+.page .container-content{
+    display:flex;
+    margin: 0px;
+}
+.page input{
+    font-size: 15px;
+    font-weight: 100;
+    padding: 5px ;
+}
+.page .container-content .box2{
+    margin-left: 80px;
+}
+.page .container-content .box2 .content{
+    border: solid 1px black;
+    height: 120px;
+    border-radius: 7px;
+    width: 300px;
+    color: black;
+    margin-bottom: 7px;
+    font-size: 13px;
+
+
+}
+.page .container-content .box2 .list{
+    font-size: 18px;
+    font-weight: 550;
+    margin: 5px 0px;
+    color: black;
 }

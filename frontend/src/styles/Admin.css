@@ -7,7 +7,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 12%;
+    height: 13%;
     padding: 20px;
 }
 
@@ -26,11 +26,11 @@
 
 .menu{
     position: fixed;
-    top: 12%;
+    top: 13%;
     background-color: var(--gray);
     color: rgb(144, 144, 144);
     width: 15%;
-    height: 88%;
+    height: 87%;
     padding: 20px;
 }
 
