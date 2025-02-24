@@ -60,3 +60,45 @@
     top: 12%;
     left: 15%;
 }
+.deleteProduct{
+    position: fixed;
+    top: 12%;
+    left: 15%;
+}
+.page{
+    padding: 0px 50px;
+    
+}
+.page .title:nth-of-type(1){
+    font-size: 26px;
+    font-weight: 550;
+    color: black;
+}
+.page .title:nth-of-type(2){
+    font-size: 19px;
+    font-weight: 550;
+    background: #56CCF2;
+    width: 500px;
+    height: 50px;
+    padding: 12px;
+    color: black;
+
+}
+.page button:nth-of-type(1){
+    background-color: #6FCF97;
+    width: 150px;
+    height: 50px;
+    font-size: 19px;
+    font-weight: 550;
+    border : none;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    border-radius: 3px;
+    color: black;
+}
+.createCatalog{
+    position: fixed;
+    top: 12%;
+    left: 15%;
+
+}

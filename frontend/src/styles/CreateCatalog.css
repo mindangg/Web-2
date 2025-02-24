@@ -1,0 +1,12 @@
+
+.page button:nth-of-type(2){
+    background-color: #6FCF97;
+    width: 90px;
+    height: 40px;
+    font-size: 19px;
+    font-weight: 550;
+    border : none;
+    margin: 10px 10px;
+    border-radius: 3px;
+    color: black;
+}

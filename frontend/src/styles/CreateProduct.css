@@ -1,36 +1,4 @@
-.page{
-    padding: 0px 50px;
-    
-}
-.page .title:nth-of-type(1){
-    font-size: 26px;
-    font-weight: 550;
-    color: black;
-}
-.page .title:nth-of-type(2){
-    font-size: 19px;
-    font-weight: 550;
-    background: #56CCF2;
-    width: 500px;
-    height: 50px;
-    padding: 12px;
-    color: black;
 
-}
-.page button:nth-of-type(1){
-    background-color: #6FCF97;
-    width: 150px;
-    height: 50px;
-    font-size: 19px;
-    font-weight: 550;
-    border : none;
-    margin-left: 10px;
-    margin-bottom: 0px;
-    border-radius: 4px;
-    color: black;
-
-
-}
 .page button:nth-of-type(2){
     background-color: #6FCF97;
     width: 90px;
@@ -43,7 +11,7 @@
     color: black;
 
 }
-.page  .list{
+.page .container-content  .list{
     font-size: 18px;
     font-weight: 550;
     margin: 5px 0px;
@@ -79,21 +47,23 @@
     font-weight: 100;
     padding: 5px ;
 }
-.page .container-content .box2{
+.page .container-content .box{
     margin-left: 80px;
 }
-.page .container-content .box2 .content{
+.page .container-content .box .content{
     border: solid 1px black;
     height: 120px;
     border-radius: 7px;
     width: 300px;
     color: black;
     margin-bottom: 7px;
-    font-size: 13px;
-
+    font-size: 15px;
+    font-weight: 100;
+    font-family:inherit;
+    padding: 10px;
 
 }
-.page .container-content .box2 .list{
+.page .container-content .box .list{
     font-size: 18px;
     font-weight: 550;
     margin: 5px 0px;
