@@ -22,7 +22,7 @@ export const CardDetailsContextProvider = ({ children }) => {
         }
     }
 
-    const clearManga = () => {
+    const clearPhone = () => {
         setPhone(null)
     }
 
