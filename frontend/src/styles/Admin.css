@@ -7,7 +7,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 12%;
+    height: 13%;
     padding: 20px;
 }
 
@@ -26,11 +26,11 @@
 
 .menu{
     position: fixed;
-    top: 12%;
+    top: 13%;
     background-color: var(--gray);
-    color: white;
+    color: rgb(144, 144, 144);
     width: 15%;
-    height: 88%;
+    height: 87%;
     padding: 20px;
 }
 
@@ -40,6 +40,7 @@
 
 .menu div:nth-of-type(1){
     margin: 10px 10px 20px 10px;
+    color: white;
 }
 
 .menu div{
@@ -50,6 +51,7 @@
     margin: 20px;
 }
 
+
 .menu div i{
     font-size: 10px;
 }
@@ -57,4 +59,46 @@
     position: fixed;
     top: 12%;
     left: 15%;
+}
+.deleteProduct{
+    position: fixed;
+    top: 12%;
+    left: 15%;
+}
+.page{
+    padding: 0px 50px;
+    
+}
+.page .title:nth-of-type(1){
+    font-size: 26px;
+    font-weight: 550;
+    color: black;
+}
+.page .title:nth-of-type(2){
+    font-size: 19px;
+    font-weight: 550;
+    background: #56CCF2;
+    width: 500px;
+    height: 50px;
+    padding: 12px;
+    color: black;
+
+}
+.page button:nth-of-type(1){
+    background-color: #6FCF97;
+    width: 150px;
+    height: 50px;
+    font-size: 19px;
+    font-weight: 550;
+    border : none;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    border-radius: 3px;
+    color: black;
+}
+.createCatalog{
+    position: fixed;
+    top: 12%;
+    left: 15%;
+
 }
