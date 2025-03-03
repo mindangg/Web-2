@@ -28,9 +28,7 @@ export default function Admin() {
             <div><i className="fa-solid fa-user"></i><a>Khách hàng</a><i className="fa-solid fa-chevron-down"></i></div>  
             {/* <div className = 'createProduct'><CreateProduct/></div> */}
             {/* <div className = 'deleteProduct'><DeleteProduct/></div> */}
-            <div className = 'createCatalog'><CreateCatalog/></div>
-
-
+            {/* <div className = 'createCatalog'><CreateCatalog/></div> */}
         
         </div>
         </>
