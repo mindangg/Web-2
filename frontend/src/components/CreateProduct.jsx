@@ -20,10 +20,14 @@ export default function CreateProduct(){
                 <label for='option'></label>
                 <select id='option'> 
                     <option value='' selected disabled>[--Chọn danh mục--]</option>
-                    <option value='1'>IPhone</option>
-                    <option value='2'>Samsung</option>
-                    <option value='3'>Xiaomi</option>
-                    <option value='4'>Oppo</option>
+                    <option value='iPhone'>iPhone</option>
+                    <option value='Samsung'>Samsung</option>
+                    <option value='Oppo'>Oppo</option>
+                    <option value='Huawei'>Huawei</option>
+                    <option value='Realme'>Realme</option>
+                    <option value='Vivo'>Vivo</option>
+                    <option value='Xiaomi'>Xiaomi</option>
+
                 </select>
                 <div className ='list'>Số lượng</div>
                 <input className ='content'/>
@@ -43,10 +47,7 @@ export default function CreateProduct(){
             </div>
 
         <button>Tạo</button>
-
-
         </div>
-
         </>
     )
 }
