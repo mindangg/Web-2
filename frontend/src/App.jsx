@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation  } from 'react-router-dom'
+import 'react'
+import { BrowserRouter, Routes, Route, useLocation  } from 'react-router-dom'
 
 // pages
 import Home from './pages/Home'
