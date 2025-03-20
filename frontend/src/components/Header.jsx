@@ -11,7 +11,7 @@ export default function Header() {
         <header>
             <div className='header'>
                 <div className='search'>
-                    <img src={logo}></img>
+                    <img src={'/'}></img>
                     <input placeholder={'Nhập thứ cần tìm...'}></input>
                     <span><i className='fa-solid fa-magnifying-glass'></i></span>
                 </div>
@@ -26,13 +26,13 @@ export default function Header() {
                 <nav className='nav'>
                     <Link to='/' className='navlink'>HOME</Link>
                     <Link to={'/product'} className='navlink'>PRODUCT</Link>
-                    <Link to={'/product'} className='navlink'>IPHONE</Link>
-                    <Link className='navlink'>SAMSUNG</Link>
-                    <Link className='navlink'>OPPO</Link>
-                    <Link className='navlink'>HUAWEI</Link>
-                    <Link className='navlink'>REALME</Link>
-                    <Link className='navlink'>VIVO</Link>
-                    <Link className='navlink'>XIAOMI</Link>
+                    <Link to={'/product?brand=apple'} className='navlink'>IPHONE</Link>
+                    <Link to={'/product?brand=samsung'} className='navlink'>SAMSUNG</Link>
+                    <Link to={'/product?brand=oppo'} className='navlink'>OPPO</Link>
+                    <Link to={'/product?brand=huawei'} className='navlink'>HUAWEI</Link>
+                    <Link to={'/product?brand=realme'} className='navlink'>REALME</Link>
+                    <Link to={'/product?brand=vivo'} className='navlink'>VIVO</Link>
+                    <Link to={'/product?brand=xiaomi'} className='navlink'>XIAOMI</Link>
                 </nav>
             </div>
         </header>
