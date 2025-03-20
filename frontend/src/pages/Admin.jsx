@@ -38,7 +38,7 @@ export default function Admin() {
             {/* <div className='user-container'>
                 <div className='user-header'>
                     <span>Họ tên</span>
-                    <span>User name</span>
+                    <span>User name</span>o
                     <span>Email</span>
                     <span>Số điện thoại</span>
                     <span>Địa chỉ</span>

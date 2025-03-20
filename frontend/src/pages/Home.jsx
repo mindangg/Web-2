@@ -5,6 +5,8 @@ import '../styles/Home.css'
 import Display from '../components/Display'
 import Pagination from '../components/Pagination'
 
+import banner from '../assets/banner.png'
+
 export default function Home() {
     const [phone, setPhone] = useState([])
     const [currentPage, setCurrentPage] = useState(1) 
@@ -16,6 +18,9 @@ export default function Home() {
 
     return (
         <div className='home'>   
+            <div className='banner'>
+                <img src={banner}></img>
+            </div>
             <Display/>
             <Pagination
                 totalProducts={phone.length} 
