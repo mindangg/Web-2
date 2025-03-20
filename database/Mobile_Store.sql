@@ -23,34 +23,6 @@ CREATE TABLE user_information
         ON UPDATE CASCADE
 );
 
-CREATE TABLE receipt
-(
-    id                  INT PRIMARY KEY AUTO_INCREMENT,
-    account_id          INT,
-    user_information_id INT,
-    date                DATE,
-    total_price         INT,
-    status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered'),
-    FOREIGN KEY (account_id) REFERENCES user_account (id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
-
-CREATE TABLE receipt_detail
-(
-    detail_id  INT PRIMARY KEY AUTO_INCREMENT,
-    receipt_id INT,
-    sku_id     INT,
-    quantity   INT,
-    price      INT,
-    FOREIGN KEY (receipt_id) REFERENCES receipt (id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (sku_id) REFERENCES sku (id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
-
 CREATE TABLE brand
 (
     id   INT PRIMARY KEY AUTO_INCREMENT,
@@ -98,13 +70,14 @@ CREATE TABLE sku
     product_id    INT,
     internal_id   INT,
     color_id      INT,
-    sku_code      VARCHAR(30),
-    sku_name      VARCHAR(50),
+    sku_code      VARCHAR(255),
+    sku_name      VARCHAR(255),
     image         VARCHAR(255),
     import_price  INT,
     invoice_price INT,
+    sold          INT,
     stock         TINYINT,
-    update_date   DATE,
+    update_date   DATETIME DEFAULT (CURRENT_TIMESTAMP),
     FOREIGN KEY (product_id) REFERENCES product (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
@@ -112,6 +85,34 @@ CREATE TABLE sku
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (color_id) REFERENCES color (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE receipt
+(
+    id                  INT PRIMARY KEY AUTO_INCREMENT,
+    account_id          INT,
+    user_information_id INT,
+    date                DATETIME DEFAULT (CURRENT_TIMESTAMP),
+    total_price         INT,
+    status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered'),
+    FOREIGN KEY (account_id) REFERENCES user_account (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE receipt_detail
+(
+    detail_id  INT PRIMARY KEY AUTO_INCREMENT,
+    receipt_id INT,
+    sku_id     INT,
+    quantity   INT,
+    price      INT,
+    FOREIGN KEY (receipt_id) REFERENCES receipt (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (sku_id) REFERENCES sku (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -169,7 +170,7 @@ CREATE TABLE import
 (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
-    date        DATE,
+    date        DATETIME DEFAULT (CURRENT_TIMESTAMP),
     total       INT,
     provider_id INT,
     FOREIGN KEY (employee_id) REFERENCES employee (id)
@@ -218,7 +219,7 @@ CREATE TABLE warranty_detail
     user_information_id INT,
     receipt_id          INT,
     imei                VARCHAR(20),
-    date                DATE,
+    date                DATE DEFAULT (CURRENT_DATE),
     status              ENUM ('Pending', 'Success', 'Decline'),
     FOREIGN KEY (employee_id) REFERENCES employee (id)
         ON DELETE CASCADE
@@ -233,3 +234,7 @@ CREATE TABLE warranty_detail
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+SELECT *
+FROM product
+WHERE status = 1;

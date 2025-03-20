@@ -24,8 +24,9 @@ export default function Header() {
 
             <div className='nav-container'>
                 <nav className='nav'>
-                    <Link to='/' className='navlink'>TRANG CHỦ</Link>
-                    <Link className='navlink'>IPHONE</Link>
+                    <Link to='/' className='navlink'>HOME</Link>
+                    <Link to={'/product'} className='navlink'>PRODUCT</Link>
+                    <Link to={'/product'} className='navlink'>IPHONE</Link>
                     <Link className='navlink'>SAMSUNG</Link>
                     <Link className='navlink'>OPPO</Link>
                     <Link className='navlink'>HUAWEI</Link>

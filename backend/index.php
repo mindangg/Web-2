@@ -1,28 +1,21 @@
 <?php
-    header('Access-Control-Allow-Origin: *');
-    header('Content-Type: application/json');
-    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization');
+declare(strict_types=1);
+spl_autoload_register(function ($class) {
+    require __DIR__ . "/src/controller/$class.php";
+});
+set_error_handler("ExceptionHandler::handleError");
+set_exception_handler("ExceptionHandler::handleException");
+header('Access-Control-Allow-Origin: *');
+header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-    include('./controllers/userController.php');
-    include('./database.php');
+include('./database.php');
 
-    $requestMethod = $_SERVER['REQUEST_METHOD'];
+$request = explode("/", $_SERVER["REQUEST_URI"]);
 
-    if ($requestMethod == 'GET') {
-        $user = getAllUsers();
-        echo $user;
-    }
-    if ($requestMethod == 'POST') {
-        $input = json_decode(file_get_contents('php:/input'), true);
-        echo $input;
-    }
-    else {
-        $data = [
-            'status' => 405,
-            'message' => $requestMethod. ' Method Not Allowed'
-        ];
-        header('HTTP/1.05 405 Method Not Allowed');
-        echo json_encode($data);
-    }
-?>
+
+if ($request == 'POST') {
+    $data = (array) json_decode(file_get_contents("php://input"), true);
+}
+
