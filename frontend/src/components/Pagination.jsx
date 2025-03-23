@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Pagination({ totalProducts, productPerPages, currentPage, setCurrentPage }) {
+export default function Pagination({totalProducts, productPerPages, currentPage, setCurrentPage }) {
     let totalPages = totalProducts / productPerPages
 
     return (

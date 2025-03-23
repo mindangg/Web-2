@@ -1,8 +1,7 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
-
-import logo from '../assets/SGU STORE.png'
+import logo from '../assets/logo.png'
 
 import '../styles/Header.css'
 
@@ -11,7 +10,9 @@ export default function Header() {
         <header>
             <div className='header'>
                 <div className='search'>
-                    <img src={'/'}></img>
+                    <Link to={'/'}>
+                        <img src={logo} alt='logo'></img>
+                    </Link>
                     <input placeholder={'Nhập thứ cần tìm...'}></input>
                     <span><i className='fa-solid fa-magnifying-glass'></i></span>
                 </div>

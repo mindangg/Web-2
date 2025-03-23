@@ -1,13 +1,13 @@
 <?php
 
+
 namespace exception;
 
 use ErrorException;
-use Throwable;
 
 class ExceptionHandler
 {
-    public static function handleException(Throwable $exception): void
+    public static function handleException($exception): void
     {
         http_response_code(500);
         echo json_encode([
@@ -18,11 +18,7 @@ class ExceptionHandler
         ]);
     }
 
-    public static function handleError(int    $errno,
-                                       string $errstr,
-                                       string $errfile,
-                                       int    $errline,): bool
-    {
-        throw new ErrorException($errstr, 0, $errfile, $errline);
+    public static function handleError($errno, $errstr, $errfile, $errline) {
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
     }
 }

@@ -5,7 +5,7 @@ USE mobile_store;
 
 CREATE TABLE user_account
 (
-    id       INT PRIMARY KEY AUTO_INCREMENT,
+    user_account_id       INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE,
     password VARCHAR(50),
     email    VARCHAR(50)
@@ -13,38 +13,42 @@ CREATE TABLE user_account
 
 CREATE TABLE user_information
 (
-    id           INT PRIMARY KEY AUTO_INCREMENT,
+    user_information_id           INT PRIMARY KEY AUTO_INCREMENT,
     account_id   INT,
     full_name    VARCHAR(30),
-    address      VARCHAR(255),
     phone_number VARCHAR(10),
-    FOREIGN KEY (account_id) REFERENCES user_account (id)
+    house_number VARCHAR(10),
+    street       VARCHAR(50),
+    ward         VARCHAR(50),
+    district     VARCHAR(50),
+    city         VARCHAR(50),
+    FOREIGN KEY (account_id) REFERENCES user_account (user_account_id )
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE brand
 (
-    id   INT PRIMARY KEY AUTO_INCREMENT,
+    brand_id   INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE internal_option
 (
-    id      INT PRIMARY KEY AUTO_INCREMENT,
+    internal_option_id      INT PRIMARY KEY AUTO_INCREMENT,
     storage ENUM ('128GB', '256GB', '512GB', '1TB', '2TB'),
     ram     ENUM ('4GB', '6GB', '8GB', '10GB', '12GB', '16GB', '18GB')
 );
 
 CREATE TABLE color
 (
-    id    INT PRIMARY KEY AUTO_INCREMENT,
+    color_id    INT PRIMARY KEY AUTO_INCREMENT,
     color VARCHAR(30)
 );
 
 CREATE TABLE product
 (
-    id              INT PRIMARY KEY AUTO_INCREMENT,
+    product_id              INT PRIMARY KEY AUTO_INCREMENT,
     brand           INT,
     series          VARCHAR(50),
     name            VARCHAR(50),
@@ -59,14 +63,14 @@ CREATE TABLE product
     release_date    DATE,
     warranty_period TINYINT,
     status          BOOLEAN,
-    FOREIGN KEY (brand) REFERENCES brand (id)
+    FOREIGN KEY (brand) REFERENCES brand (brand_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE sku
 (
-    id            INT PRIMARY KEY AUTO_INCREMENT,
+    sku_id            INT PRIMARY KEY AUTO_INCREMENT,
     product_id    INT,
     internal_id   INT,
     color_id      INT,
@@ -78,26 +82,26 @@ CREATE TABLE sku
     sold          INT,
     stock         TINYINT,
     update_date   DATETIME DEFAULT (CURRENT_TIMESTAMP),
-    FOREIGN KEY (product_id) REFERENCES product (id)
+    FOREIGN KEY (product_id) REFERENCES product (product_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (internal_id) REFERENCES internal_option (id)
+    FOREIGN KEY (internal_id) REFERENCES internal_option (internal_option_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (color_id) REFERENCES color (id)
+    FOREIGN KEY (color_id) REFERENCES color (color_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE receipt
 (
-    id                  INT PRIMARY KEY AUTO_INCREMENT,
+    receipt_id                  INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     user_information_id INT,
     date                DATETIME DEFAULT (CURRENT_TIMESTAMP),
     total_price         INT,
     status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered'),
-    FOREIGN KEY (account_id) REFERENCES user_account (id)
+    FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -109,23 +113,23 @@ CREATE TABLE receipt_detail
     sku_id     INT,
     quantity   INT,
     price      INT,
-    FOREIGN KEY (receipt_id) REFERENCES receipt (id)
+    FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (sku_id) REFERENCES sku (id)
+    FOREIGN KEY (sku_id) REFERENCES sku (sku_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE role
 (
-    id        INT PRIMARY KEY AUTO_INCREMENT,
+    role_id        INT PRIMARY KEY AUTO_INCREMENT,
     role_name VARCHAR(30)
 );
 
 CREATE TABLE functional
 (
-    id            INT PRIMARY KEY AUTO_INCREMENT,
+    functional_id            INT PRIMARY KEY AUTO_INCREMENT,
     function_name VARCHAR(30)
 );
 
@@ -135,17 +139,17 @@ CREATE TABLE role_function
     function_id INT,
     action      VARCHAR(30),
     PRIMARY KEY (role_id, function_id),
-    FOREIGN KEY (role_id) REFERENCES role (id)
+    FOREIGN KEY (role_id) REFERENCES role (role_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (function_id) REFERENCES functional (id)
+    FOREIGN KEY (function_id) REFERENCES functional (functional_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE employee
 (
-    id            INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id            INT PRIMARY KEY AUTO_INCREMENT,
     account_id    INT,
     email         VARCHAR(50) UNIQUE,
     gender        BOOLEAN,
@@ -153,14 +157,14 @@ CREATE TABLE employee
     phone_number  VARCHAR(10),
     address       VARCHAR(255),
     role          INT,
-    FOREIGN KEY (role) REFERENCES role (id)
+    FOREIGN KEY (role) REFERENCES role (role_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE provider
 (
-    id      INT PRIMARY KEY AUTO_INCREMENT,
+    provider_id      INT PRIMARY KEY AUTO_INCREMENT,
     name    VARCHAR(30),
     phone   VARCHAR(20),
     address VARCHAR(255)
@@ -168,30 +172,30 @@ CREATE TABLE provider
 
 CREATE TABLE import
 (
-    id          INT PRIMARY KEY AUTO_INCREMENT,
+    import_id          INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
     date        DATETIME DEFAULT (CURRENT_TIMESTAMP),
     total       INT,
     provider_id INT,
-    FOREIGN KEY (employee_id) REFERENCES employee (id)
+    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (provider_id) REFERENCES provider (id)
+    FOREIGN KEY (provider_id) REFERENCES provider (provider_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE import_detail
 (
-    id        INT PRIMARY KEY AUTO_INCREMENT,
+    import_detail_id        INT PRIMARY KEY AUTO_INCREMENT,
     import_id INT,
     sku_id    INT,
     quantity  INT,
     price     INT,
-    FOREIGN KEY (import_id) REFERENCES import (id)
+    FOREIGN KEY (import_id) REFERENCES import (import_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (sku_id) REFERENCES sku (id)
+    FOREIGN KEY (sku_id) REFERENCES sku (sku_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -203,31 +207,31 @@ CREATE TABLE imei
     receipt_detail_id INT,
     import_detail_id  INT,
     expired_date      DATE,
-    FOREIGN KEY (sku_id) REFERENCES sku (id),
+    FOREIGN KEY (sku_id) REFERENCES sku (sku_id),
     FOREIGN KEY (receipt_detail_id) REFERENCES receipt_detail (detail_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (import_detail_id) REFERENCES import_detail (id)
+    FOREIGN KEY (import_detail_id) REFERENCES import_detail (import_detail_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE warranty_detail
 (
-    id                  INT PRIMARY KEY AUTO_INCREMENT,
+    warranty_detail_id  INT PRIMARY KEY AUTO_INCREMENT,
     employee_id         INT,
     user_information_id INT,
     receipt_id          INT,
     imei                VARCHAR(20),
     date                DATE DEFAULT (CURRENT_DATE),
     status              ENUM ('Pending', 'Success', 'Decline'),
-    FOREIGN KEY (employee_id) REFERENCES employee (id)
+    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (user_information_id) REFERENCES user_information (id)
+    FOREIGN KEY (user_information_id) REFERENCES user_information (user_information_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (receipt_id) REFERENCES receipt (id)
+    FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (imei) REFERENCES imei (imei)

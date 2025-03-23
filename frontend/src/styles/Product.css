@@ -1,0 +1,9 @@
+.container {
+    margin: 20px auto 20px auto;
+    width: 100%;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    padding: 10px 20px 10px 20px;
+    background: linear-gradient(to right, var(--yellow), #ffd454, #ffc454, #ffa454);
+    gap: 0px;
+}

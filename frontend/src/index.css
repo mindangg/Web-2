@@ -201,12 +201,12 @@ body{
 .pagination span{
     color: black;
     width: 50px;
-    height: 40px;  
+    height: 40px;
     font-weight: bold;
     display: flex;
     justify-content: center;
-    align-items: center; 
-    text-align: center;     
+    align-items: center;
+    text-align: center;
     margin: 0 10px;
 }
 
@@ -252,6 +252,8 @@ body{
     flex-wrap: wrap;
     gap: 80px 25px;
 }
+
+
 
 
 

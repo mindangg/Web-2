@@ -1,5 +1,5 @@
 import 'react'
-import { BrowserRouter, Routes, Route, useLocation  } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 
 // pages
 import Home from './pages/Home'
@@ -12,6 +12,7 @@ import Admin from './pages/Admin'
 //components
 import Header from './components/Header'
 import Footer from './components/Footer'
+import {Product} from "./pages/Product.jsx";
 
 const Layout = () => {
   const hideLayout = useLocation().pathname === '/admin'
@@ -22,6 +23,7 @@ const Layout = () => {
       <div className='pages'>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path={`/product`} element={<Product/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
