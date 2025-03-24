@@ -15,28 +15,67 @@ class ProductRepository
         $this->pdo = $database->getConnection();
     }
 
-    public function findAll(?string $brand, ?string $sort, ?string $sort_dir, ?int $min_price, ?int $max_price, ?string $search): array
+    public function findAll(?string $brand,
+                            ?string $sort,
+                            ?string $sort_dir,
+                            ?int    $max_price,
+                            ?int    $min_price,
+                            ?string $search,
+                            ?int    $limit,
+                            ?int    $page): array
     {
-        $sql = "SELECT * FROM product WHERE 1=1";
+        $sql = "";
+        $additional = "";
+        $totalQuery = "";
+
         if ($brand) {
-            $sql = substr_replace($sql," JOIN brand ON product.brand = brand.brand_id", 21, 0);
-            $sql .= " AND brand.name LIKE '%$brand%'";
+            $sql .= "SELECT *
+                    FROM product
+                    JOIN brand ON product.brand = brand.brand_id
+                    WHERE 1=1";
+            $totalQuery = "SELECT COUNT(*)
+                    FROM product
+                    JOIN brand ON product.brand = brand.brand_id
+                    WHERE 1=1";
+            $additional .= " AND brand.brand_name LIKE '%$brand%'";
+        } else {
+            $sql .= "SELECT *
+                    FROM product
+                    WHERE 1=1";
+            $totalQuery = "SELECT COUNT(*)
+                    FROM product
+                    WHERE 1=1";
         }
         if ($min_price) {
-            $sql .= " AND price >= $min_price";
+            $additional .= " AND base_price >= $min_price";
         }
         if ($max_price) {
-            $sql .= " AND price <= $max_price";
+            $additional .= " AND base_price <= $max_price";
         }
         if ($search) {
-            $sql .= " AND name LIKE '%$search%'";
+            $additional .= " AND name LIKE '%$search%'";
         }
-        if ($sort && $sort_dir) {
-            $sql .= " ORDER BY $sort $sort_dir";
+        if ($sort) {
+            $additional .= " ORDER BY $sort $sort_dir";
         }
-        $stmt = $this->pdo->prepare($sql);
+
+        $total = $this->pdo->query($totalQuery . $additional)->fetchColumn();
+
+        $offset = ($page - 1) * $limit;
+        $additional .= " LIMIT $limit OFFSET $offset";
+
+        $stmt = $this->pdo->prepare($sql . $additional);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $response = [
+            'totalProduct' => $total,
+            'totalPage' => ceil($total / $limit),
+            'currentPage' => $page,
+            'products' => $products
+        ];
+
+        return $response;
     }
 
     public function findById(int $id)

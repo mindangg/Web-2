@@ -1,39 +1,71 @@
 import {useEffect, useState} from "react";
-import { useLocation } from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 import Card from "../components/Card.jsx";
+import Pagination from "../components/Pagination.jsx";
 import '../styles/Product.css'
+import {Sort} from "../components/Sort.jsx";
+
+const PRODUCT_PER_PAGE = 10;
 
 export const Product = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
     const [products, setProducts] = useState([])
-    const location = useLocation();
-    let url = `http://localhost/api/product${location.search}`;
+    const [searchParams, setSearchParams] = useSearchParams(`limit=${PRODUCT_PER_PAGE}`);
+
+    let url = `http://localhost/api/product?${searchParams.toString()}`;
+
     useEffect( () => {
-        fetch(url)
-            .then(response => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const fetchData = async () => {
+            try {
+                const response = await fetch(url, { signal });
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
                 }
-                return response.json();
-            })
-            .then(data => {
-                setProducts(data);
-            })
-            .catch(error => {
-                console.error('Error fetching products:', error.message);
-            });
-        console.log(products)
-    }, [location.search, products, url]);
+                const data = await response.json();
+                setProducts(data.products);
+                setTotalPage(data.totalPage);
+                setCurrentPage(data.currentPage);
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.log('Fetch aborted');
+                } else {
+                    console.error(error);
+                }
+            }
+        };
+        fetchData()
+        return () => {
+            controller.abort();
+        };
+    }, [searchParams]);
+
     return (
         <>
             {products.length === 0 ? (
-                <h1 className="text-center mt-4 mb-4">No products found</h1>
+                <div className={'container'}>
+                    <h1 className="text-center mt-4 mb-4">No products found</h1>
+                </div>
             ) : (
                 <>
                     <h1 className="text-center mt-4 mb-4">Products</h1>
-                    <div className={'container d-flex flex-wrap justify-content-center'}>
+                    <div className={'container'}>
+                        <Sort />
                         {products.map((product) => (
-                            <Card key={product.product_id} phone={product}/>
+                            <Card key={product.product_id}
+                                  phone={product}
+                                  onClick={() => {
+                                  }}
+                            />
                         ))}
+                        {totalPage > 1 && (
+                            <Pagination
+                                totalPage={totalPage}
+                                currentPage={currentPage}
+                            />
+                        )}
                     </div>
                 </>
             )}

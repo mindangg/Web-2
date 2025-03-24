@@ -19,11 +19,15 @@ class ProductService
         $max_price = intval($_GET['max_price'] ?? 0);
         $min_price = intval($_GET['min_price'] ?? 0);
         $search = $_GET['search'] ?? "";
-        $products = $this->productRepository->findAll($brand, $sort, $sort_dir, $max_price, $min_price, $search);
-        if(!$products) {
+        $limit = intval($_GET['limit'] ?? 10);
+        $page = intval($_GET['page'] ?? 1);
+
+        $response = $this->productRepository->findAll($brand, $sort, $sort_dir, $max_price, $min_price, $search, $limit, $page);
+
+        if(!$response === null) {
             throw new \PDOException('No products found', 404);
         } else {
-            return $products;
+            return $response;
         }
     }
 

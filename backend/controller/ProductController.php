@@ -31,8 +31,8 @@ class ProductController
 
     private function getAllProducts(): void
     {
-        $products = $this->productService->getAllProducts();
-        echo json_encode($products);
+        $response = $this->productService->getAllProducts();
+        echo json_encode($response);
     }
 
     private function getProductById(int $id): void

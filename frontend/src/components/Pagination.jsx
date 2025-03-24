@@ -1,21 +1,41 @@
 import React from 'react'
+import '../styles/Pagination.css'
+import {useSearchParams} from "react-router-dom";
 
-export default function Pagination({totalProducts, productPerPages, currentPage, setCurrentPage }) {
-    let totalPages = totalProducts / productPerPages
+export default function Pagination({totalPage, currentPage}) {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const goToPrevPage = () => {
+        if (currentPage > 1) {
+            setSearchParams({ page: currentPage - 1 });
+        }
+    }
+    const goToNextPage = () => {
+        if (currentPage < totalPage) {
+            setSearchParams({ page: currentPage + 1 });
+        }
+    }
 
     return (
-        <div className='pagination'>
-            <button id='pagination--prev' className='pagination__btn' 
-                onClick={() => setCurrentPage(prev => prev === 1 ? 1 : prev - 1)}>
-                <i className="fa-solid fa-angle-left" id="left__angle"></i>
-                <i className="fa-solid fa-arrow-left" id="left__arrow"></i>
-            </button>
-                <span>{currentPage} / {totalPages}</span>
-            <button id='pagination--next' className='pagination__btn'
-                onClick={() => setCurrentPage(next => next >= totalPages ? totalPages : next + 1)}>
-                <i className="fa-solid fa-angle-right" id="right__angle"></i>
-                <i className="fa-solid fa-arrow-right" id="right__arrow"></i>
-            </button>
-        </div>
+        <>
+            <ul className="pagination justify-content-center">
+                <li className={`page-item page-link ${currentPage > 1 ? '' : 'disabled'}`}
+                    onClick={goToPrevPage}>
+                    <span aria-hidden="true">&laquo;</span>
+                </li>
+                {
+                    [...Array(totalPage)].map((_, i) => (
+                        <li key={i + 1}
+                            className={`page-item page-link ${currentPage === i + 1 ? 'active' : ''}`}
+                            onClick={() => setSearchParams({ page: i + 1 })}>
+                            <span>{i + 1}</span>
+                        </li>
+                    ))
+                }
+                <li className={`page-item page-link ${currentPage < totalPage ? '' : 'disabled'}`}
+                    onClick={goToNextPage}>
+                    <span aria-hidden="true">&raquo;</span>
+                </li>
+            </ul>
+        </>
     )
 }

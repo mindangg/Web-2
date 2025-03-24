@@ -30,7 +30,7 @@ CREATE TABLE user_information
 CREATE TABLE brand
 (
     brand_id   INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(30) NOT NULL
+    brand_name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE internal_option

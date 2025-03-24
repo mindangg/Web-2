@@ -13,6 +13,7 @@ import Admin from './pages/Admin'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import {Product} from "./pages/Product.jsx";
+import CardDetails from "./components/CardDetails.jsx";
 
 const Layout = () => {
   const hideLayout = useLocation().pathname === '/admin'
@@ -24,6 +25,7 @@ const Layout = () => {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path={`/product`} element={<Product/>}/>
+          <Route path='/product/:id' element={<CardDetails/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>

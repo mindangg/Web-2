@@ -1020,7 +1020,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="295" parent="1" name="mobile_store">
-      <LastIntrospectionLocalTimestamp>2025-03-23.13:33:43</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-03-23.16:11:02</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="296" parent="1" name="quanlysieuthimini">
@@ -1123,7 +1123,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="320" parent="301" name="name">
+    <column id="320" parent="301" name="brand_name">
       <DasType>varchar(30)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
