@@ -15,7 +15,7 @@ class ProductService
     {
         $brand = $_GET['brand'] ?? "";
         $sort = $_GET['sort'] ?? "";
-        $sort_dir = $_GET['sort_dir'] ?? "";
+        $sort_dir = $_GET['sort_dir'] ?? "asc";
         $max_price = intval($_GET['max_price'] ?? 0);
         $min_price = intval($_GET['min_price'] ?? 0);
         $search = $_GET['search'] ?? "";

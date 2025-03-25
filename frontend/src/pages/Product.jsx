@@ -3,7 +3,7 @@ import {useSearchParams} from 'react-router-dom';
 import Card from "../components/Card.jsx";
 import Pagination from "../components/Pagination.jsx";
 import '../styles/Product.css'
-import {Sort} from "../components/Sort.jsx";
+import {Filter} from "../components/Filter.jsx";
 
 const PRODUCT_PER_PAGE = 10;
 
@@ -52,7 +52,7 @@ export const Product = () => {
                 <>
                     <h1 className="text-center mt-4 mb-4">Products</h1>
                     <div className={'container'}>
-                        <Sort />
+                        <Filter />
                         {products.map((product) => (
                             <Card key={product.product_id}
                                   phone={product}

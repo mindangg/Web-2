@@ -6,12 +6,14 @@ export default function Pagination({totalPage, currentPage}) {
     const [searchParams, setSearchParams] = useSearchParams();
     const goToPrevPage = () => {
         if (currentPage > 1) {
-            setSearchParams({ page: currentPage - 1 });
+            searchParams.set('page', currentPage - 1);
+            setSearchParams(searchParams);
         }
     }
     const goToNextPage = () => {
         if (currentPage < totalPage) {
-            setSearchParams({ page: currentPage + 1 });
+            searchParams.set('page', currentPage + 1);
+            setSearchParams(searchParams);
         }
     }
 
@@ -26,7 +28,11 @@ export default function Pagination({totalPage, currentPage}) {
                     [...Array(totalPage)].map((_, i) => (
                         <li key={i + 1}
                             className={`page-item page-link ${currentPage === i + 1 ? 'active' : ''}`}
-                            onClick={() => setSearchParams({ page: i + 1 })}>
+                            onClick={() => {
+                                searchParams.set('page', i + 1);
+                                setSearchParams(searchParams)
+                            }}
+                        >
                             <span>{i + 1}</span>
                         </li>
                     ))
