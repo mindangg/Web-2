@@ -53,6 +53,52 @@ class UserRepository
         return $result['count'] > 0;
     }
 
+    public function loginUser(string $username, string $password): ?array
+    {
+        $sql = "SELECT user_account_id, username, email, password 
+        FROM user_account 
+        WHERE username = :username";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            return [
+                "message" => "Username not found"
+            ];
+        }
+
+        // var_dump($user['password']);
+        // $plainPassword = "mindang";
+        // $storedHashedPassword = $user['password']; // Example
+
+        // if (password_verify($plainPassword, $storedHashedPassword)) {
+        //     echo "Password matches!";
+        // } else {
+        //     echo "Invalid password!";
+        // }
+        // die();
+
+        if (!password_verify($password, $user['password'])) {
+            return [
+                "message" => "Incorrect password"
+            ];
+        }
+
+        return [
+            "user" => [
+                "id" => $user['user_account_id'],
+                "username" => $user['username'],
+                "email" => $user['email']
+            ]
+        ];
+
+        return null;
+    }
+
     public function signupUser(string $username, string $email, string $password): ?int
     {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);

@@ -62,7 +62,7 @@
 //     )
 // }
 
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import logo from '../assets/logo.png'
@@ -93,7 +93,7 @@ export default function Signup() {
             <form id='signup'>
                 <div>
                     <input type='text' placeholder='Username'
-                            value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                            value={username} onChange={(e) => setUsername(e.target.value)}></input>
                 </div>
 
                 <div>
