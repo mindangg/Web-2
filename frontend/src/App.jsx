@@ -15,6 +15,8 @@ import Footer from './components/Footer'
 import {Product} from "./pages/Product.jsx";
 import CardDetails from "./components/CardDetails.jsx";
 
+import Notification from './components/Notification.jsx'
+
 const Layout = () => {
   const hideLayout = useLocation().pathname === '/admin'
 
@@ -33,8 +35,9 @@ const Layout = () => {
           <Route path='/checkout' element={<Checkout/>}/>
         </Routes>
       </div>
-      {/* <Notification/>
-      <CardDetails/> */}
+      <Notification/>
+      {/* <CardDetails/> */}
+            
       {!hideLayout && <Footer/>}
     </div>
   )

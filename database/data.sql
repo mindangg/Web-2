@@ -44,7 +44,7 @@ VALUES ('user1', 'pass1', 'user1@example.com'),
        ('user14', 'pass14', 'user14@example.com'),
        ('user15', 'pass15', 'user15@example.com');
 
-INSERT INTO brand (name)
+INSERT INTO brand (brand_name)
 VALUES ('Apple'),
        ('Samsung'),
        ('Xiaomi'),

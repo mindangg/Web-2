@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 export default function Login() {
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     return (
@@ -13,7 +13,7 @@ export default function Login() {
                 <img src={logo}></img>
                 <h4>
                     Hi there, do you have money? Tell<br/>
-                    me how much, i will you things<br/>
+                    me how much, i will give you things<br/>
                     you need<br/>
                 </h4>
 
@@ -26,8 +26,8 @@ export default function Login() {
             </div>
             <form id='login'>
                 <div>
-                    <input type='text' placeholder='Email'
-                            value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                    <input type='text' placeholder='Username'
+                            value={username} onChange={(e) => setUsername(e.target.value)}></input>
                 </div>
 
                 <div>
