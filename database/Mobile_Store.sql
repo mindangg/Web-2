@@ -238,7 +238,3 @@ CREATE TABLE warranty_detail
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
-
-SELECT *
-FROM product
-WHERE status = 1;

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import testCover from '../assets/iphone-12-pro-blue-hero.png'
+import testCover from '../../assets/iphone-12-pro-blue-hero.png'
 
 export default function ProductCard() {
     return (

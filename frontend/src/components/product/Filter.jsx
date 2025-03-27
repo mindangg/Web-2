@@ -1,7 +1,7 @@
 import {useSearchParams} from "react-router-dom";
-import '../styles/Filter.css'
-import ascSortLogo from '../assets/ascending-sort.svg'
-import descSortLogo from '../assets/descending-sort.svg'
+import '../../styles/Filter.css'
+import ascSortLogo from '../../assets/ascending-sort.svg'
+import descSortLogo from '../../assets/descending-sort.svg'
 import {useState} from "react";
 
 export const Filter = () => {
