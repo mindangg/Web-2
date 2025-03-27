@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 
 import '../styles/Home.css'
 
-import Display from '../components/Display'
 import Pagination from '../components/Pagination'
 import Slider from '../components/Slider'
 

@@ -6,8 +6,6 @@ use service\UserService;
 
 use middleware\AuthMiddleware;
 
-const JWT_SECRET = 'web2jsonwebtoken';
-
 class UserController
 {
     private UserService $userService;
