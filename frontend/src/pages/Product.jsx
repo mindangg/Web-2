@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {useSearchParams} from 'react-router-dom';
-import Card from "../components/Card.jsx";
+import Card from "../components/product/Card.jsx";
 import Pagination from "../components/Pagination.jsx";
 import '../styles/Product.css'
-import {Filter} from "../components/Filter.jsx";
+import {Filter} from "../components/product/Filter.jsx";
 
 const PRODUCT_PER_PAGE = 10;
 

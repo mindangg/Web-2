@@ -5,55 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/config/Database.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/controller/ProductController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/styles/Product.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Database.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/ProductController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/userController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/exception/ExceptionHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/exception/ExceptionHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/ProductRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/service/ProductService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/ProductService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/utils/database_properties.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/iphone13pro.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/iphone13pro.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/iphone13prowhite.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/iphone13prowhite.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/iphone14promax.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promax.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/iphone14promaxblack.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promaxblack.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/iphone15promax.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/iphone15promax.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/oppofindx5pro.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/oppofindx5pro.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/opporeno10pro+.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/opporeno10pro+.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/opporeno8pro.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/opporeno8pro.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/redminote12pro.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/redminote12pro.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/samsunggalaxys22plus.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys22plus.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/samsunggalaxys22pluspink.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys22pluspink.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/samsunggalaxys23ultra.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultra.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/samsunggalaxys23ultrablack.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrablack.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/samsunggalaxyzfold5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxyzfold5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/vivov23.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/vivov23.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/vivox80pro.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/vivox80pro.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/vivoy100.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/vivoy100.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/xiaomi11ultra.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/xiaomi11ultra.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/xiaomi12pro.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/xiaomi12pro.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/product/xiaomi12problue.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/product/xiaomi12problue.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Card.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Card.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Card.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Card.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Header.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,44 +48,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ChatTagsLlmMigration": "true",
-    "RunOnceActivity.CodyAccountHistoryMigration": "true",
-    "RunOnceActivity.CodyAccountsIdsRefresh": "true",
-    "RunOnceActivity.CodyAssignOrphanedChatsToActiveAccount": "true",
-    "RunOnceActivity.CodyConvertUrlToCodebaseName": "true",
-    "RunOnceActivity.CodyHistoryLlmMigration": "true",
-    "RunOnceActivity.CodyMigrateChatHistory-v2": "true",
-    "RunOnceActivity.CodyProjectSettingsMigration": "true",
-    "RunOnceActivity.DeprecatedChatLlmMigration": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.ToggleCodyToolWindowAfterMigration": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "qbao",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/CODE/Projects/Springboot-React-demo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "com.android.studio.ml.bot.mainConfigurable",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.6\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ChatTagsLlmMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyAccountHistoryMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyAccountsIdsRefresh&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyAssignOrphanedChatsToActiveAccount&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyConvertUrlToCodebaseName&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyHistoryLlmMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyMigrateChatHistory-v2&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyProjectSettingsMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.DeprecatedChatLlmMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ToggleCodyToolWindowAfterMigration&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;qbao&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/CODE/Projects/Springboot-React-demo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.6\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -189,6 +143,11 @@
       <workItem from="1742716149132" duration="6698000" />
       <workItem from="1742727774444" duration="55000" />
       <workItem from="1742727851285" duration="4027000" />
+      <workItem from="1742885593723" duration="8275000" />
+      <workItem from="1742914222359" duration="100000" />
+      <workItem from="1742914342997" duration="674000" />
+      <workItem from="1742998149064" duration="2986000" />
+      <workItem from="1743035262042" duration="6232000" />
     </task>
     <servers />
   </component>

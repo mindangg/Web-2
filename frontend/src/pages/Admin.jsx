@@ -8,7 +8,7 @@ import CreateCatalog from '../components/CreateCatalog'
 
 import UserCard from '../components/UserCard'
 import OrderCard from '../components/OrderCard'
-import ProductCard from '../components/ProductCard'
+import ProductCard from '../components/product/ProductCard.jsx'
 
 
 
