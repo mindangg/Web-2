@@ -9,7 +9,7 @@ class Database
     private string $host = 'localhost';
     private string $dbname = 'mobile_store';
     private string $username = 'root';
-    private string $password = '100205';
+    private string $password = '';
     private ?PDO $pdo = null;
 
     public function getConnection(): PDO

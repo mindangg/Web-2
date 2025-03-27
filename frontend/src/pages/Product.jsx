@@ -16,6 +16,7 @@ export const Product = () => {
     let url = `http://localhost/api/product?${searchParams.toString()}`;
 
     useEffect( () => {
+        
         const controller = new AbortController();
         const signal = controller.signal;
         const fetchData = async () => {
