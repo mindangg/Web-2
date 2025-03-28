@@ -15,27 +15,6 @@ class UserService
         $this->userRepository = new UserRepository();
     }
 
-    public function getAllUsers(): array
-    {
-        $users = $this->userRepository->findAll();
-
-        if(!$users) {
-            throw new \PDOException('No users found', 404);
-        } else {
-            return $users;
-        }
-    }
-
-    public function getUserById(int $id)
-    {
-        $user = $this->userRepository->findById($id);
-        if(!$user) {
-            throw new \PDOException('User not found', 404);
-        } else {
-            return $user;
-        }
-    }
-
     public function loginUser(string $username, string $password): void
     {
         $user= $this->userRepository->loginUser($username, $password);
@@ -122,41 +101,56 @@ class UserService
         ]);
     }
 
-    // public function deleteUser(): void
-    // {
-    //     $data = json_decode(file_get_contents("php://input"), true);
+    public function getAllUsers(): array
+    {
+        $users = $this->userRepository->findAll();
 
-    //     if (!isset($data['id'])) {
-    //         http_response_code(400);
-    //         echo json_encode(["message" => "User ID is required"]);
-    //         return;
-    //     }
-
-    //     if ($deleted) {
-    //         echo json_encode(["message" => "User deleted successfully"]);
-    //     } else {
-    //         http_response_code(400);
-    //         echo json_encode(["message" => "Failed to delete user"]);
-    //     }
-    // }
-
-    // public function updateUser(): void
-    // {
-    //     $data = json_decode(file_get_contents("php://input"), true);
+        if(!$users)
+            throw new \PDOException('No users found', 404);
         
-    //     if (!isset($data['id']) || !isset($data['email'])) {
-    //         http_response_code(400);
-    //         echo json_encode(["message" => "Missing user ID or email"]);
-    //         return;
-    //     }
+        else
+            return $users;
+    }
+
+    public function getUserById(int $id)
+    {
+        $user = $this->userRepository->findById($id);
+        if(!$user)
+            throw new \PDOException('User not found', 404);
+        
+        else
+            return $user;
+    }
+
+    public function deleteUserById(int $id)
+    {
+        $user = $this->userRepository->deleteById($id);
+        // var_dump($id);
+        // die();
+        if(!$user)
+            throw new \PDOException('User not found', 404);
+        
+        else
+            return json_encode(["message" => "Delete user successfully"]);
+    }
+
+    public function updateUserById(int $id): void
+    {
+        // $data = json_decode(file_get_contents("php://input"), true);
+        
+        // if (!isset($data['id']) || !isset($data['email'])) {
+        //     http_response_code(400);
+        //     echo json_encode(["message" => "Missing user ID or email"]);
+        //     return;
+        // }
 
         
-    //     if ($updated) {
-    //         echo json_encode(["message" => "User updated successfully"]);
-    //     } else {
-    //         http_response_code(400);
-    //         echo json_encode(["message" => "Failed to update user"]);
-    //     }
-    // }
+        // if ($updated) {
+        //     echo json_encode(["message" => "User updated successfully"]);
+        // } else {
+        //     http_response_code(400);
+        //     echo json_encode(["message" => "Failed to update user"]);
+        // }
+    }
 }
 ?>

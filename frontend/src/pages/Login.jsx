@@ -3,9 +3,19 @@ import { Link } from 'react-router-dom'
 
 import logo from '../assets/logo.png'
 
+import { useLogin } from '../hooks/useLogin'
+
 export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    const { login, error, isLoading } = useLogin()
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        await login(username, password)
+    }
 
     return (
         <div className='login-container'>
@@ -36,7 +46,7 @@ export default function Login() {
                 </div>
 
                 <div>
-                    <button>Đăng nhập</button>
+                    <button type='submit' disabled={isLoading}>Đăng nhập</button>
                 </div>
 
                 <div>

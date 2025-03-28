@@ -1,6 +1,6 @@
 import { useAuthContext } from './useAuthContext'
 import { useNotificationContext } from './useNotificationContext'
-import { useCartContext } from './useCartContext'
+// import { useCartContext } from './useCartContext'
 
 export const useLogout = () => {
     const { dispatch } = useAuthContext()
@@ -16,7 +16,7 @@ export const useLogout = () => {
 
         // dispatch logout action'
         dispatch({ type: 'LOGOUT' })
-        cartDispatch({type: 'CLEAR_ITEM'})
+        // cartDispatch({type: 'CLEAR_ITEM'})
     }
 
     return { logout }

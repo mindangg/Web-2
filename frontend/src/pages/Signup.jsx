@@ -62,16 +62,32 @@
 //     )
 // }
 
-import React, { use, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import logo from '../assets/logo.png'
+
+import { useSignup } from '../hooks/useSignup'
 
 export default function Signup() {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confPassword, setConfPassword] = useState('')
+
+    const { signup, error, setError, isLoading } = useSignup()
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        if (password !== confPassword) {
+            console.log('Password does not match')
+            return setError('Password does not match')
+        }
+
+
+        await signup(username, email, password)
+    }
 
     return (
         <div className='signup-container'>
@@ -90,7 +106,7 @@ export default function Signup() {
                 </div>
                 </Link>
             </div>
-            <form id='signup'>
+            <form id='signup' onSubmit={handleSubmit}>
                 <div>
                     <input type='text' placeholder='Username'
                             value={username} onChange={(e) => setUsername(e.target.value)}></input>
@@ -112,7 +128,7 @@ export default function Signup() {
                 </div>
 
                 <div style={{textAlign: 'center'}}>
-                    <button>Đăng ký</button>
+                    <button type='submit' disabled={isLoading}>Đăng ký</button>
                 </div>
 
                 <div>

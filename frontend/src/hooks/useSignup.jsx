@@ -8,37 +8,43 @@ export const useSignup = () => {
     const { dispatch } = useAuthContext()
     const { showNotification } = useNotificationContext()
 
-    const signup = async (username, email, password, phone, address) => {
+    const signup = async (username, email, password) => {
         setIsLoading(true)
         setError(null)
         
-        const response = await fetch('http://localhost:4000/api/user/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, email, password, phone, address })
-        })
-    
-        const json = await response.json()
-    
-        if (!response.ok) {
-            setIsLoading(false)
-            setError(json.error)
-        }
-    
-        if (response.ok) {
-            // save user to local storage
-            localStorage.setItem('user', JSON.stringify(json))
+        try {
+            const response = await fetch('http://localhost/api/user/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            })
+        
+            if (!response.ok) {
+                setIsLoading(false)
+                // setError(json.error)
+                throw new Error('Failed to signup user', response.status)
+            }
 
-            // show notification login
-            showNotification(`Hello ${username}`)
+            const json = await response.json()
+            console.log(json)
+        
+            // save user to local storage
+            // localStorage.setItem('user', JSON.stringify(json))
+
+            // // show notification login
+            // showNotification(`Hello ${username}`)
     
-            // update the auth context
-            dispatch({type: 'LOGIN', payload: json})
+            // // update the auth context
+            // dispatch({type: 'LOGIN', payload: json})
     
-            setIsLoading(false)
+            // setIsLoading(false)
         }
+        catch (error) {
+            console.error(error)
+        }
+
     }
 
     return { signup, error, setError, isLoading }

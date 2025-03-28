@@ -18,8 +18,8 @@ class UserController
     public function processRequest(string $method, ?string $param): void
     {
         switch ($method) {
+            // AuthMiddleware::verifyToken();
             case 'GET':
-                AuthMiddleware::verifyToken();
                 if (is_numeric($param))
                     $this->getUserById((int)$param);
                 
@@ -32,7 +32,7 @@ class UserController
                 if ($param === 'signup')
                     $this->signupUser();
 
-                elseif ($param === 'login')
+                else if ($param === 'login')
                     $this->loginUser();
                 
                 else {
@@ -42,30 +42,16 @@ class UserController
                 break;
 
             case 'DELETE':
-                AuthMiddleware::verifyToken();
-                $this->deleteUser();
+                $this->deleteUser((int)$param);
                 break;
 
             case 'PUT':
-                AuthMiddleware::verifyToken();
-                $this->updateUser();
+                $this->updateUser((int)$param);
                 break;
             default:
                 http_response_code(405);
                 header("Allow: GET POST PATCH DELETE");
         }
-    }
-
-    private function getAllUsers(): void
-    {
-        $response = $this->userService->getAllUsers();
-        echo json_encode($response);
-    }
-
-    private function getUserById(int $id): void
-    {
-        $user = $this->userService->getUserById($id);
-        echo json_encode($user);
     }
 
     private function validateRequiredFields(array $data, array $fields): ?string
@@ -111,18 +97,29 @@ class UserController
     
         echo json_encode($user);
     }
-    
-    private function deleteUser(): void
+
+    private function getAllUsers(): void
     {
-        // $user = $this->userService->deleteUser();
-        // echo json_encode($user);
+        $response = $this->userService->getAllUsers();
+        echo json_encode($response);
     }
 
-    private function updateUser(): void
+    private function getUserById(int $id): void
     {
-        // $user = $this->userService->updateUser();
+        $user = $this->userService->getUserById($id);
+        echo json_encode($user);
+    }
+    
+    private function deleteUser(int $id): void
+    {
+        $user = $this->userService->deleteUserById($id);
+        echo json_encode($user);
+    }
+
+    private function updateUser(int $id): void
+    {
+        // $user = $this->userService->updateUserById($id);
         // echo json_encode($user);
     }
- 
 }
 ?>

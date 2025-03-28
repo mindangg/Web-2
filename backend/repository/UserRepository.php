@@ -16,27 +16,6 @@ class UserRepository
         $this->pdo = $database->getConnection();
     }
 
-    public function findAll()
-    {
-        $sql = "SELECT * 
-        FROM user_account";
-
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function findById(int $id)
-    {
-        $sql = "SELECT * 
-        FROM user_account;
-        WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
     public function userExists(string $username, string $email): bool
     {
         $sql = "SELECT COUNT(*) as count 
@@ -48,9 +27,7 @@ class UserRepository
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result['count'] > 0;
+        return $stmt->fetchColumn() > 0;
     }
 
     public function loginUser(string $username, string $password): ?array
@@ -113,6 +90,49 @@ class UserRepository
             return $this->pdo->lastInsertId();
         }
         return null;
+    }
+
+    public function findAll(): array
+    {
+        $sql = "SELECT * 
+        FROM user_account";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findById(int $id)
+    {
+        $sql = "SELECT * 
+        FROM user_account
+        WHERE user_account_id = :id";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteById(int $id)
+    {
+        // Check if the user exists
+        $checkSql = "SELECT COUNT(*) FROM user_account WHERE user_account_id = :id";
+        $checkStmt = $this->pdo->prepare($checkSql);
+        $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $checkStmt->execute();
+        $userExists = $checkStmt->fetchColumn();
+
+        if (!$userExists)
+            return false;
+
+        $sql = "DELETE
+        FROM user_account
+        WHERE user_account_id = :id";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
 
