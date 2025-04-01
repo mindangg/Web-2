@@ -1,0 +1,23 @@
+.checkout{
+    width: 700px;
+    margin: 0 auto ;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: solid black 3px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px;
+}
+.checkout img{
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    display: block;
+}
+.checkout button{
+    display: block;
+    margin: 20px auto;
+    background-color: yellow;
+    border-radius: 10px;
+    padding: 10px;
+}

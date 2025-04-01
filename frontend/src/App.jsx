@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Admin from './pages/Admin'
+import Payment from './pages/Payment.jsx'
 
 //components
 import Header from './components/Header'
@@ -30,6 +31,7 @@ const Layout = () => {
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/cart' element={<Cart/>}/>
+          <Route path='/payment' element={<Payment/>}/>
           <Route path='/checkout' element={<Checkout/>}/>
         </Routes>
       </div>

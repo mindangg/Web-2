@@ -1,0 +1,27 @@
+.info-product{
+    margin: 10px 10px 10px 10px;
+    width: 45%;
+}
+.info-product h5{
+    text-align: center;
+}
+.info-product table{
+    border: solid 3px #C4C4C4;
+}
+.info-product tr,td,th{
+    border: solid 3px #C4C4C4;
+    padding: 5px 5px;
+}
+.info-product img{
+    width: 50px;
+    height: 70px;
+}
+.info-product button{
+    background-color: yellow;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 5px;
+    margin-top: 20px;
+    margin-right: 5px;
+    float: right;
+}
