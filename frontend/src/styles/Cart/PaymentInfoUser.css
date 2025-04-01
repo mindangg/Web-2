@@ -1,0 +1,13 @@
+.info-user{
+    margin: 10px 10px 10px 10px;
+    width: 45%;
+}
+.info-user h5{
+    text-align: center;
+}
+#address{
+    width: 100%;
+}
+#payment{
+    width: 100%;
+}

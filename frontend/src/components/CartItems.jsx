@@ -5,6 +5,9 @@ import '../styles/CartItems.css';
 
 export default function CartItems() {
     const [quantity, setQuantity] = useState(1)
+    const handleDelete = () => {
+        alert("Bạn muốn xóa sản phẩm này ?")
+      };
 
     return (
         <div className='cart-item'>
@@ -19,8 +22,15 @@ export default function CartItems() {
                 <button id='decrease'
                         onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
                         disabled={quantity === 1}>-</button>
-                <input value={quantity}
-                        type='number'/>
+                <input 
+                    value={quantity}
+                    type='number'
+                    min="1"
+                    onChange={(e) => {
+                        const value = parseInt(e.target.value) || 1;
+                        setQuantity(Math.max(1,value));
+                    }}
+                    />
                 <button id='increase'
                         onClick={() => setQuantity((next) => next + 1)}
                         >+</button>
@@ -29,8 +39,8 @@ export default function CartItems() {
                 <p>30.000.000 đ</p>
             </div>
 
-            <div className='cart-delete'>
-                <i className="fa-solid fa-trash-can"></i>
+            <div className='cart-delete' onClick={() => handleDelete()}>
+                <i className="fa-solid fa-trash-can" ></i>
             </div>
         </div>
     )

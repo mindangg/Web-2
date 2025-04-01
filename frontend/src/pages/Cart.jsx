@@ -28,9 +28,9 @@ export default function Cart() {
 
                 <div className='cart-summary'>
                     <h3>Tổng tiền: 30.000.000 đ</h3>
-                    <Link to='/checkout'>
-                    <button id='checkout-btn'>Thanh Toán</button>
-                </Link>
+                    <Link to='/payment'>
+                        <button id='checkout-btn'>Thanh Toán</button>
+                    </Link>
                 </div>
             </div>
         </div>
