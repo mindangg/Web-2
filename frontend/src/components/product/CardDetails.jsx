@@ -1,8 +1,8 @@
 import React from 'react'
 
-import ip12 from '../assets/iphone-12-pro-blue-hero.png'
+import ip12 from '../../assets/iphone-12-pro-blue-hero.png'
 
-import '../styles/CardDetails.css'
+import '../../styles/CardDetails.css'
 
 export default function CardDetails() {
     return (

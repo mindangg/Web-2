@@ -5,7 +5,13 @@ import logo from '../assets/logo.png'
 
 import '../styles/Header.css'
 
+import { useAuthContext } from '../hooks/useAuthContext'
+import { useLogout } from '../hooks/useLogout'
+
 export default function Header() {
+    const { user } = useAuthContext()
+    const { logout } = useLogout()
+
     return (
         <header>
             <div className='header'>
@@ -18,7 +24,7 @@ export default function Header() {
                 </div>
 
                 <div className='action'>
-                    <Link to='/login'>Đăng nhập </Link>
+                    {!user ? <Link to='/login'>Đăng nhập</Link> : <Link onClick={logout}>Đăng xuất</Link>}
                     <Link to='/cart'><i className='fa-solid fa-bag-shopping'></i></Link>
                 </div>
             </div>

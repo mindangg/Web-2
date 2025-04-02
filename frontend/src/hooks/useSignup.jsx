@@ -11,7 +11,6 @@ export const useSignup = () => {
     const signup = async (username, email, password) => {
         setIsLoading(true)
         setError(null)
-        
         try {
             const response = await fetch('http://localhost/api/user/signup', {
                 method: 'POST',
@@ -21,31 +20,32 @@ export const useSignup = () => {
                 body: JSON.stringify({ username, email, password })
             })
         
+            const json = await response.json()
+        
             if (!response.ok) {
                 setIsLoading(false)
-                // setError(json.error)
-                throw new Error('Failed to signup user', response.status)
+                setError(json.error)
+                throw new Error('Failed to signup user')
             }
 
-            const json = await response.json()
-            console.log(json)
+            console.log(response.data)
         
             // save user to local storage
-            // localStorage.setItem('user', JSON.stringify(json))
+            localStorage.setItem('user', JSON.stringify(json))
 
-            // // show notification login
-            // showNotification(`Hello ${username}`)
-    
-            // // update the auth context
-            // dispatch({type: 'LOGIN', payload: json})
-    
-            // setIsLoading(false)
+            // show notification login
+            showNotification(`Hello ${username}`)
+            
+            // update the auth context
+            dispatch({type: 'LOGIN', payload: json})
         }
-        catch (error) {
+        catch (error)  {
             console.error(error)
         }
-
-    }
+        finally {
+            setIsLoading(false)
+        }
+    } 
 
     return { signup, error, setError, isLoading }
 }

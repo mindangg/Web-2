@@ -85,7 +85,6 @@ export default function Signup() {
             return setError('Password does not match')
         }
 
-
         await signup(username, email, password)
     }
 

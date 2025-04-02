@@ -36,11 +36,12 @@ export const useLogin = () => {
             
             // update the auth context
             dispatch({type: 'LOGIN', payload: json})
-    
-            setIsLoading(false)
         }
         catch (error) {
             console.error(error)
+        }
+        finally {
+            setIsLoading(false)
         }
     }
 

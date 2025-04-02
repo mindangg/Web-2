@@ -5,7 +5,7 @@ import { useNotificationContext } from './useNotificationContext'
 export const useLogout = () => {
     const { dispatch } = useAuthContext()
     const { showNotification } = useNotificationContext()
-    const { dispatch: cartDispatch } = useCartContext()
+    // const { dispatch: cartDispatch } = useCartContext()
 
     const logout = () => {
         // remove user from local storage
