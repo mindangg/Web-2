@@ -1,4 +1,4 @@
-import ip12 from 'C:/xampp/htdocs/Projects/Web-2/frontend/src/assets/iphone-12-pro-blue-hero.png';
+// import ip12 from 'C:/xampp/htdocs/Projects/Web-2/frontend/src/assets/iphone-12-pro-blue-hero.png';
 import "../../styles/Cart/PaymentInfoProduct.css"
 function PaymentInfoProduct(){
     return(
@@ -16,7 +16,7 @@ function PaymentInfoProduct(){
                 <tbody>
                     <tr>
                         <td >
-                            <img src={ip12} alt="iPhone 12 Pro Max"/>
+                            <img alt="iPhone 12 Pro Max"/>
                         </td>
                         <td>
                             iPhone 12 Pro Max (256GB) | Chính hãng VN/A - Xanh Dương
