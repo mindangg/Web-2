@@ -17,9 +17,12 @@ import {Product} from "./pages/Product.jsx";
 import CardDetails from "./components/CardDetails.jsx";
 
 import Notification from './components/Notification.jsx'
+import { useAuthContext } from './hooks/useAuthContext.jsx'
 
 const Layout = () => {
   const hideLayout = useLocation().pathname === '/admin'
+
+  const { user } = useAuthContext()
 
   return (
     <div className='App'>
@@ -30,8 +33,8 @@ const Layout = () => {
           <Route path={`/product`} element={<Product/>}/>
           <Route path='/product/:id' element={<CardDetails/>}/>
           <Route path='/admin' element={<Admin/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/login' element={user ? <Login/> : <Home/>}/>
+          <Route path='/signup' element={user ? <Signup/> : <Home/>}/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/payment' element={<Payment/>}/>
           <Route path='/checkout' element={<Checkout/>}/>

@@ -34,7 +34,7 @@ export default function Login() {
                 </div>
                 </Link>
             </div>
-            <form id='login'>
+            <form id='login' onSubmit={handleSubmit}>
                 <div>
                     <input type='text' placeholder='Username'
                             value={username} onChange={(e) => setUsername(e.target.value)}></input>
