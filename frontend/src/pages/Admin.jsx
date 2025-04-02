@@ -12,6 +12,8 @@ import AdminUser from '../pages/AdminUser'
 import AdminEmployee from '../pages/AdminEmployee'
 import AdminOrderStatistic from '../pages/AdminOrderStatistic'
 
+import AdminLogin from './AdminLogin'
+
 export default function Admin() {
     const [toggle, setToggle] = useState('product')
 
@@ -60,5 +62,7 @@ export default function Admin() {
             {/* {toggle === 'stock-statistic' && canAccess('stock-statistic') && <AdminStockStatistic />} */}
         </div>
     </div>
+
+    // <AdminLogin/>
     )
 }

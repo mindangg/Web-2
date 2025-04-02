@@ -12,7 +12,7 @@ export const useSignup = () => {
         setIsLoading(true)
         setError(null)
         try {
-            const response = await axios.post('http://localhost/api/user/signup', {
+            const response = await fetch('http://localhost/api/user/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
