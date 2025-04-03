@@ -39,6 +39,7 @@ switch ($request[2]){
         $productController = new ProductController();
         $productController->processRequest($_SERVER['REQUEST_METHOD'], isset($request[3]) ? (int)$request[3] : null);
         break;
+        
     case 'user':
         $userController = new UserController();
         $userController->processRequest(

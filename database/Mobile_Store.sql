@@ -7,7 +7,7 @@ CREATE TABLE user_account
 (
     user_account_id       INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE,
-    password VARCHAR(80), -- hash password 60 kí tự
+    password VARCHAR(60), -- hash password 60 kí tự
     email    VARCHAR(50)
 );
 

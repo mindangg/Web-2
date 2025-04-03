@@ -32,7 +32,6 @@ export default function Admin() {
                         <li onClick={() => setToggle('order')}><i className='fa-solid fa-basket-shopping'></i> Order</li>
                         <li onClick={() => setToggle('employee')}><i className='fa-solid fa-user-tie'></i> Employee</li>
                         <li onClick={() => setToggle('order-statistic')}><i className='fa-solid fa-chart-simple'></i> Order Statistic</li>
-                        <li onClick={() => setToggle('stock-statistic')}><i className='fa-solid fa-chart-simple'></i> Stock Statistic</li>
                     </ul>
                 </div>
             </div>
