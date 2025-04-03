@@ -48,22 +48,11 @@ class UserRepository
             ];
         }
 
-        // var_dump($user['password']);
-        // $plainPassword = "mindang";
-        // $storedHashedPassword = $user['password']; // Example
-
-        // if (password_verify($plainPassword, $storedHashedPassword)) {
-        //     echo "Password matches!";
-        // } else {
-        //     echo "Invalid password!";
-        // }
-        // die();
-
-        // if (!password_verify($password, $user['password'])) {
-        //     return [
-        //         "message" => "Incorrect password"
-        //     ];
-        // }
+        if (!password_verify($password, $user['password'])) {
+            return [
+                "message" => "Incorrect password"
+            ];
+        }
 
         return [
             "user" => [
@@ -73,7 +62,6 @@ class UserRepository
             ]
         ];
 
-        return null;
     }
 
     public function signupUser(string $username, string $email, string $password): ?int
@@ -85,11 +73,9 @@ class UserRepository
         $stmt->bindValue(':username', $username, PDO::PARAM_STR);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
+        $stmt->execute();
 
-        if ($stmt->execute()) {
-            return $this->pdo->lastInsertId();
-        }
-        return null;
+        return $this->pdo->lastInsertId();
     }
 
     public function findAll(): array

@@ -24,7 +24,7 @@ class UserService
             echo json_encode([
                 "message" => $user["message"]
             ]);
-            return;
+            exit;
         }
 
         $payload = [
@@ -44,6 +44,7 @@ class UserService
                 "email" => $user['user']["email"]
             ]
         ]);
+        exit;
     }
 
     private function isStrongPassword(string $password): bool
@@ -64,14 +65,14 @@ class UserService
         if ($this->userRepository->userExists($username, $email)) {
             http_response_code(400);
             echo json_encode(["message" => "Username or email already exists"]);
-            return;
+            exit;
         }
 
          // Check password strength
         if (!$this->isStrongPassword($password)) {
             http_response_code(400);
             echo json_encode(["message" => "Password must be at least 6 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"]);
-            return;
+            exit;
         }
 
         $userId = $this->userRepository->signupUser($username, $email, $password);
@@ -79,7 +80,6 @@ class UserService
         if (!$userId) {
             http_response_code(500);
             echo json_encode(["message" => "Error signing up"]);
-            return;
         }
 
         $payload = [
@@ -99,6 +99,7 @@ class UserService
                 "email" => $email
             ]
         ]);
+        exit;
     }
 
     public function getAllUsers(): array

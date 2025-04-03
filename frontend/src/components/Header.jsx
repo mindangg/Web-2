@@ -1,16 +1,26 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 import '../styles/Header.css'
 
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../hooks/useLogout'
+import { useNotificationContext } from '../hooks/useNotificationContext'
 
 export default function Header() {
     const { user } = useAuthContext()
     const { logout } = useLogout()
+    const { showNotification } = useNotificationContext()
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        if (!user)
+            showNotification('Please login to view cart') 
+        else
+            navigate('/cart')
+    }
 
     return (
         <header>
@@ -25,7 +35,7 @@ export default function Header() {
 
                 <div className='action'>
                     {!user ? <Link to='/login'>Đăng nhập</Link> : <Link onClick={logout}>Đăng xuất</Link>}
-                    <Link to='/cart'><i className='fa-solid fa-bag-shopping'></i></Link>
+                    <i className='fa-solid fa-bag-shopping'></i>
                 </div>
             </div>
 
