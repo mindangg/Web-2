@@ -15,16 +15,19 @@ class UserService
         $this->userRepository = new UserRepository();
     }
 
+    private function respond(int $code, array $message): void 
+    {
+        http_response_code($code);
+        echo json_encode($message);
+        exit;
+    }
+
     public function loginUser(string $username, string $password): void
     {
         $user= $this->userRepository->loginUser($username, $password);
 
         if (!isset($user['user'])) {
-            http_response_code(400);
-            echo json_encode([
-                "message" => $user["message"]
-            ]);
-            exit;
+            $this->respond(400, ["message" => $user["message"]]);
         }
 
         $payload = [
@@ -56,23 +59,22 @@ class UserService
     {
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            http_response_code(400);
-            echo json_encode(["message" => "Invalid email format"]);
-            return;
+            $this->respond(400, ["message" => "Invalid email format"]);
         }
 
         // Check if username or email exists
-        if ($this->userRepository->userExists($username, $email)) {
-            http_response_code(400);
-            echo json_encode(["message" => "Username or email already exists"]);
-            exit;
+        if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
+            $this->respond(400, ["message" => "Username already exists"]);
         }
 
-         // Check password strength
+        if (isset($data['email']) && $this->userRepository->userExists($data['email'])) {
+            $this->respond(400, ["message" => "Email already exists"]);
+        }
+
+        // Check password strength
         if (!$this->isStrongPassword($password)) {
-            http_response_code(400);
-            echo json_encode(["message" => "Password must be at least 6 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"]);
-            exit;
+            $this->respond(400, ["message" => "Password must be at least 6 characters long, 
+                                include an uppercase letter, a lowercase letter, a number, and a special character"]);
         }
 
         $userId = $this->userRepository->signupUser($username, $email, $password);
@@ -97,6 +99,79 @@ class UserService
                 "id" => $userId,
                 "username" => $username,
                 "email" => $email
+            ]
+        ]);
+        exit;
+    }
+
+    public function createUser(array $data): void
+    {
+        // Validate email format
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->respond(400, ["message" => "Invalid email format"]);
+        }
+
+        // Validate phone number
+        if (!preg_match('/^\d{10}$/', $data['phone_number'])) {
+            $this->respond(400, ["message" => "Invalid phone number format"]);
+        }
+
+        // Validate address fields
+        // $fields = ['house_number', 'street', 'ward', 'district', 'city'];
+        // $patterns = [
+        //     'house_number' => '/^[\w\s\-\/]+$/',
+        //     'street'       => '/^[a-zA-Z\s\-\.]+$/u',
+        //     'ward'         => '/^[a-zA-Z\s\-\.]+$/u',
+        //     'district'     => '/^[a-zA-Z\s\-\.]+$/u',
+        //     'city'         => '/^[a-zA-Z\s\-\.]+$/u'
+        // ];
+
+        // foreach ($fields as $field) {
+        //     if (empty($data[$field]) || !preg_match($patterns[$field], $data[$field])) {
+        // $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
+        //     }
+        // }
+
+        // Check if username or email or phone_number exists
+        if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
+            $this->respond(400, ["message" => "Username already exists"]);
+        }
+
+        if (isset($data['email']) && $this->userRepository->userExists($data['email'])) {
+            $this->respond(400, ["message" => "Email already exists"]);
+        }
+
+        if (isset($data['phone_number']) && $this->userRepository->userExists($data['phone_number'])) {
+            $this->respond(400, ["message" => "Phone_number already exists"]);
+        }
+
+        // Check password strength
+        if (!$this->isStrongPassword($data['password'])) {
+            $this->respond(400, ["message" => "Password must be at least 6 characters long, 
+                                include an uppercase letter, a lowercase letter, a number, and a special character"]);
+        }
+
+        $userId = $this->userRepository->createUser($data);
+
+        if (!$userId) {
+            http_response_code(500);
+            echo json_encode(["message" => "Error creating user"]);
+        }
+
+        http_response_code(200);
+        echo json_encode([
+            "message" => "Created user successfully",
+            "user" => [
+                "id" => $userId,
+                "username" => $data['username'],
+                "email" => $data['email'],
+                "full_name" => $data['full_name'],
+                "phone_number" => $data['phone_number'],
+                "house_number" => $data['house_number'],
+                "street" => $data['street'],
+                "ward" => $data['ward'],
+                "district" => $data['district'],
+                "city" => $data['city']
             ]
         ]);
         exit;
@@ -135,23 +210,71 @@ class UserService
             return json_encode(["message" => "Delete user successfully"]);
     }
 
-    public function updateUserById(int $id): void
+    public function updateUserById(int $id, array $data): void
     {
-        // $data = json_decode(file_get_contents("php://input"), true);
-        
-        // if (!isset($data['id']) || !isset($data['email'])) {
-        //     http_response_code(400);
-        //     echo json_encode(["message" => "Missing user ID or email"]);
-        //     return;
+        // Validate email format
+        if (isset($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->respond(400, ["message" => "Invalid email format"]);
+        }
+
+        // Validate phone number
+        if (isset($data['phone_number']) && !preg_match('/^\d{10}$/', $data['phone_number'])) {
+            $this->respond(400, ["message" => "Invalid phone number format"]);
+        }
+
+        // Validate address fields
+        // $fields = ['house_number', 'street', 'ward', 'district', 'city'];
+        // $patterns = [
+        //     'house_number' => '/^[\w\s\-\/]+$/',
+        //     'street'       => '/^[a-zA-Z\s\-\.]+$/u',
+        //     'ward'         => '/^[a-zA-Z\s\-\.]+$/u',
+        //     'district'     => '/^[a-zA-Z\s\-\.]+$/u',
+        //     'city'         => '/^[a-zA-Z\s\-\.]+$/u'
+        // ];
+
+        // foreach ($fields as $field) {
+        //     if (isset($data[$field]) && (empty($data[$field]) || !preg_match($patterns[$field], $data[$field]))) {
+        // $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
+        //     }
         // }
 
+        // Check if username or email or phone_number exists
+        if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
+            $this->respond(400, ["message" => "Username already exists"]);
+        }
+
+        if (isset($data['email']) && $this->userRepository->userExists($data['email'])) {
+            $this->respond(400, ["message" => "Email already exists"]);
+        }
+
+        if (isset($data['phone_number']) && $this->userRepository->userExists($data['phone_number'])) {
+            $this->respond(400, ["message" => "Phone_number already exists"]);
+        }
         
-        // if ($updated) {
-        //     echo json_encode(["message" => "User updated successfully"]);
-        // } else {
-        //     http_response_code(400);
-        //     echo json_encode(["message" => "Failed to update user"]);
-        // }
+        $userId = $this->userRepository->updateById($id, $data);
+
+        if (!$userId) {
+            http_response_code(500);
+            echo json_encode(["message" => "Error creating user"]);
+        }
+
+        http_response_code(200);
+        echo json_encode([
+            "message" => "Updated user successfully",
+            "user" => [
+                "id" => $userId,
+                "username" => $data['username'],
+                "email" => $data['email'],
+                "full_name" => $data['full_name'],
+                "phone_number" => $data['phone_number'],
+                "house_number" => $data['house_number'],
+                "street" => $data['street'],
+                "ward" => $data['ward'],
+                "district" => $data['district'],
+                "city" => $data['city']
+            ]
+        ]);
+        exit;
     }
 }
 ?>
