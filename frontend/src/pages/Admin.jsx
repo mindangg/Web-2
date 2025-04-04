@@ -26,12 +26,12 @@ export default function Admin() {
                 </div>
                 <div className='middlenav'>
                     <ul>
-                        <li onClick={() => setToggle('product')}><i className='fa-solid fa-book'></i> Product</li>
-                        <li onClick={() => setToggle('supplier')}><i className='fa-solid fa-truck-field'></i> Supplier</li>
-                        <li onClick={() => setToggle('user')}><i className='fa-solid fa-users'></i> User</li>
-                        <li onClick={() => setToggle('order')}><i className='fa-solid fa-basket-shopping'></i> Order</li>
-                        <li onClick={() => setToggle('employee')}><i className='fa-solid fa-user-tie'></i> Employee</li>
-                        <li onClick={() => setToggle('order-statistic')}><i className='fa-solid fa-chart-simple'></i> Order Statistic</li>
+                        <li onClick={() => setToggle('product')}><i className='fa-solid fa-book'></i> Sản phẩm</li>
+                        <li onClick={() => setToggle('supplier')}><i className='fa-solid fa-truck-field'></i> Kho hàng</li>
+                        <li onClick={() => setToggle('user')}><i className='fa-solid fa-users'></i> Người dùng</li>
+                        <li onClick={() => setToggle('order')}><i className='fa-solid fa-basket-shopping'></i> Đơn hàng</li>
+                        <li onClick={() => setToggle('employee')}><i className='fa-solid fa-user-tie'></i> Nhân viên</li>
+                        <li onClick={() => setToggle('order-statistic')}><i className='fa-solid fa-chart-simple'></i> Thống kê</li>
                     </ul>
                 </div>
             </div>

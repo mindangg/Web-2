@@ -34,6 +34,9 @@ class UserController
 
                 else if ($param === 'login')
                     $this->loginUser();
+
+                else if ($param === 'create')
+                    $this->createUser();
                 
                 else {
                     http_response_code(400);
@@ -45,9 +48,10 @@ class UserController
                 $this->deleteUser((int)$param);
                 break;
 
-            case 'PUT':
+            case 'PATCH':
                 $this->updateUser((int)$param);
                 break;
+                
             default:
                 http_response_code(405);
                 header("Allow: GET POST PATCH DELETE");
@@ -81,6 +85,7 @@ class UserController
         echo json_encode($user);
     }
 
+        
     private function signupUser(): void
     {
         $data = json_decode(file_get_contents("php://input"), true);
@@ -94,6 +99,25 @@ class UserController
 
         else
             $user = $this->userService->signupUser($data['username'], $data['email'], $data['password']);
+    
+        echo json_encode($user);
+    }
+
+    private function createUser(): void
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+    
+        // Validate input
+        $validationError = $this->validateRequiredFields($data, ["username", "email", "password", "full_name", 
+                                            "phone_number", "house_number", "street", "ward", "district", "city"]);
+
+        if ($validationError) {
+            http_response_code(400);
+            echo json_encode(["message" => $validationError]);
+        }
+        
+        else
+            $user = $this->userService->createUser($data);
     
         echo json_encode($user);
     }
@@ -118,8 +142,11 @@ class UserController
 
     private function updateUser(int $id): void
     {
-        // $user = $this->userService->updateUserById($id);
-        // echo json_encode($user);
+        $data = json_decode(file_get_contents("php://input"), true);
+        var_dump($data); die();
+
+        $user = $this->userService->updateUserById($id, $data);
+        echo json_encode($user);
     }
 }
 ?>

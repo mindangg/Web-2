@@ -1,7 +1,7 @@
 import '../../styles/Card.css'
 
 import { useAddToCart } from '../../hooks/useAddToCart'
-import { useAuthContext } from '../../hooks/useAddToCart'
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 export default function Card({ phone }) {
     const { addToCart } = useAddToCart()
