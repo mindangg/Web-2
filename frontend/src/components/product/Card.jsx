@@ -8,11 +8,11 @@ export default function Card({phone}) {
                 </div>
                 <div className='card-body'>
                     <h5>{phone.name}</h5>
-                    <p>${phone.base_price}</p>
-                    <div className='card-btns'>
-                        <button><i className="fa-solid fa-magnifying-glass-plus"></i></button>
-                        <button>Thêm vào <i className="fa-solid fa-cart-shopping"></i></button>
-                    </div>
+                    <p className={`text-danger`}>${phone.base_price}</p>
+                    {/*<div className='card-btns'>*/}
+                    {/*    <button><i className="fa-solid fa-magnifying-glass-plus"></i></button>*/}
+                    {/*    <button>Thêm vào <i className="fa-solid fa-cart-shopping"></i></button>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         )

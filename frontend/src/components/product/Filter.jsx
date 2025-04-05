@@ -75,7 +75,6 @@ export const Filter = () => {
                         >Apply</button>
                     </div>
                 </div>
-
             </div>
         </>
     )

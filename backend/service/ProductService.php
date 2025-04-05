@@ -2,13 +2,16 @@
 
 namespace service;
 use repository\ProductRepository;
+use repository\SkuRepository;
 
 class ProductService
 {
     private ProductRepository $productRepository;
+    private SkuRepository $skuRepository;
 
     public function __construct() {
         $this->productRepository = new ProductRepository();
+        $this->skuRepository = new SkuRepository();
     }
 
     public function getAllProducts(): array
@@ -31,13 +34,13 @@ class ProductService
         }
     }
 
-    public function getProductById(int $id)
+    public function getProductById(int $id):array
     {
-        $product = $this->productRepository->findById($id);
-        if(!$product) {
+        $sku = $this->skuRepository->findAll($id);
+        if(!$sku) {
             throw new \PDOException('Product not found', 404);
         } else {
-            return $product;
+            return $sku;
         }
     }
 }

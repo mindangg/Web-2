@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/SkuRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/service/ProductService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/ProductService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/Card.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/product/Card.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/Filter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/product/Filter.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +102,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\components\product" />
       <recent name="C:\xampp\htdocs\Projects\Web-2" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\public" />
     </key>
@@ -148,6 +154,20 @@
       <workItem from="1742914342997" duration="674000" />
       <workItem from="1742998149064" duration="2986000" />
       <workItem from="1743035262042" duration="6232000" />
+      <workItem from="1743045023270" duration="2138000" />
+      <workItem from="1743055254423" duration="148000" />
+      <workItem from="1743178378986" duration="31000" />
+      <workItem from="1743317862964" duration="718000" />
+      <workItem from="1743322581680" duration="13000" />
+      <workItem from="1743348324085" duration="65000" />
+      <workItem from="1743353708015" duration="34000" />
+      <workItem from="1743353822146" duration="630000" />
+      <workItem from="1743356162318" duration="13000" />
+      <workItem from="1743405489673" duration="881000" />
+      <workItem from="1743420052492" duration="172000" />
+      <workItem from="1743439977655" duration="20000" />
+      <workItem from="1743492686219" duration="7000" />
+      <workItem from="1743654009137" duration="20000" />
     </task>
     <servers />
   </component>
