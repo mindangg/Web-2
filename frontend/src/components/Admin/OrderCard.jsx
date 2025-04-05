@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../../styles/Admin.css'
+
 export default function OrderCard() {
     return (
         <div className='order-info'>

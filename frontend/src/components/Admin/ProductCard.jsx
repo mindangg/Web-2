@@ -2,6 +2,8 @@ import React from 'react'
 
 import testCover from '../../assets/iphone-12-pro-blue-hero.png'
 
+import '../../styles/Admin.css'
+
 export default function ProductCard() {
     return (
         <div className='product-info'>
@@ -13,7 +15,6 @@ export default function ProductCard() {
             <span>Rom Com</span>
             <span>20.000.000đ</span>
             <span>150</span>
-            <span>  </span>
             <span className='product-action'>
                 <i className='fa-solid fa-pen-to-square'></i>
                 <i className='fa-solid fa-trash-can'></i>

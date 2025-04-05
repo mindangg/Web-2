@@ -7,9 +7,11 @@ CREATE TABLE user_account
 (
     user_account_id       INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE,
-    password VARCHAR(50),
-    email    VARCHAR(50)
-);
+    password VARCHAR(60), -- hash password 60 kí tự
+    email    VARCHAR(50),
+    status ENUM('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE user_information
 (
@@ -25,7 +27,7 @@ CREATE TABLE user_information
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id )
         ON DELETE CASCADE
         ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE brand
 (
@@ -125,13 +127,13 @@ CREATE TABLE role
 (
     role_id        INT PRIMARY KEY AUTO_INCREMENT,
     role_name VARCHAR(30)
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE functional
 (
     functional_id            INT PRIMARY KEY AUTO_INCREMENT,
     function_name VARCHAR(30)
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE role_function
 (
@@ -145,7 +147,7 @@ CREATE TABLE role_function
     FOREIGN KEY (function_id) REFERENCES functional (functional_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE employee
 (
@@ -160,7 +162,7 @@ CREATE TABLE employee
     FOREIGN KEY (role) REFERENCES role (role_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE provider
 (

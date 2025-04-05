@@ -1,11 +1,43 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import { useState } from 'react'
 
 import '../styles/Header.css'
 
+import { useAuthContext } from '../hooks/useAuthContext'
+import { useLogout } from '../hooks/useLogout'
+import { useNotificationContext } from '../hooks/useNotificationContext'
+
 export default function Header() {
+    const { user } = useAuthContext()
+    const { logout } = useLogout()
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { showNotification } = useNotificationContext()
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        if (!user)
+            showNotification('Please login to view cart') 
+        else
+            navigate('/cart')
+    }
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            searchParams.set('search', searchQuery.trim());
+            navigate(`/product?${searchParams.toString()}`);
+            setSearchQuery('');
+        }
+    };
+
     return (
         <header>
             <div className='header'>
@@ -13,13 +45,23 @@ export default function Header() {
                     <Link to={'/'}>
                         <img src={logo} alt='logo'></img>
                     </Link>
-                    <input placeholder={'Nhập thứ cần tìm...'}></input>
-                    <span><i className='fa-solid fa-magnifying-glass'></i></span>
+                    <input placeholder={'Nhập thứ cần tìm...'}
+                           onChange={handleSearchChange}
+                           onKeyDown={(e) => {
+                               if (e.key === 'Enter') {
+                                   handleSearchSubmit(e);
+                               }
+                           }}
+                    >
+                    </input>
+                    <button type="submit" onClick={handleSearchSubmit}>
+                        <i className="fas fa-search"></i>
+                    </button>
                 </div>
 
                 <div className='action'>
-                    <Link to='/login'>Đăng nhập </Link>
-                    <Link to='/cart'><i className='fa-solid fa-bag-shopping'></i></Link>
+                    {!user ? <Link to='/login'>Đăng nhập</Link> : <Link onClick={logout}>Đăng xuất</Link>}
+                    <i className='fa-solid fa-bag-shopping'></i>
                 </div>
             </div>
 
