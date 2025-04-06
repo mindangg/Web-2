@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-
-import '../../styles/Admin.css'
+import React from 'react'
 
 import { useUserContext } from '../../hooks/useUserContext'
 

@@ -226,86 +226,6 @@
     color: black!important;
 }
 
-/* .add-user-container{
-    position: fixed; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1;
-}
-
-.add-user{
-    position: absolute;
-    top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    padding: 20px;
-    background-color: var(--black);
-    width: 90%;
-    max-width: 520px;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-}
-
-.add-user i{
-    position: absolute;
-    font-size: 18px;
-    top: 3%;
-    right: 3%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.add-user i:hover{
-    transform: translateY(-5px);
-}
-
-.add-user label{
-    color: white;
-    font-weight: bold;
-}
-
-.add-user input{
-    background: transparent;
-    padding: 10px;
-    font-size: 16px;
-    color: white;
-    width: 100%;
-    border: solid 1px #363636;
-    outline: none;
-    margin: 10px 0 10px;
-    border-radius: 5px;
-}
-
-.add-user button{
-    padding: 7px 7px 7px 5px;
-    background-color: var(--green);
-    color: black;
-    border: none;
-    font-size: 20px;
-    width: 100px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin: auto;
-    border-radius: 5px;
-}
-
-.add-user button:hover {
-    background-color: var(--green-l);
-}
-
-.add-user h2 {
-    text-align: center;
-    margin-bottom: 25px;
-} */
-/* .add-user-container{
-    border-radius: 20px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-    padding: 20px;
-} */
 .add-user{
     display: flex;
     /* border: 1px solid red; */
@@ -449,84 +369,21 @@
     margin-right: 10px;
 }
 
+
 .employee-container{
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* .employee-controller{
-    display: flex;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.employee-controller input{
-    background-color: var(--black);
-    border-radius: 5px;
-    border: 1px solid var(--gray);
-    height: 36px;
-    color: white;
-    margin-right: 25px;
-    width: 420px;
-    padding: 0 10px 0 40px;
-    font-size: 16px;
-    flex-grow: 1;
-}
-
-.employee-controller input[type='date']{
-    width: 15%;
-    padding: 0 10px;
-    color: var(--gray);
-}
-
-.employee-controller button{
-    color: black;
-    background-color: var(--green);
-    border: none;
-    border-radius: 5px;
-    width: 90px;
-    height: 35px;
-    margin-left: 15px;
-}
-
-.employee-controller button:hover{
-    cursor: pointer;
-    background-color: var(--green-l);
-}
-
-.employee-controller button i{
-    color: black;
-}
-
-.employee-search{
-    position: relative;
-}
-
-.employee-search i{
-    position: absolute;
-    left: 10px;   
-    top: 50%;
-    transform: translateY(-50%); 
-    color: white;
-}
-
-.employee-controller i:nth-of-type(1){
-    color: white;
-}
-
-.employee-controller label{
-    color: white;
-    margin: 0 10px;
-} */
-
 .employee-header{
     font-weight: bold;
 }
+
 .employee-header,
 .employee-info{
     display: grid;
-    grid-template-columns: 3fr 2.5fr 3fr 2fr 2fr;
+    grid-template-columns: 3fr 3fr 2.5fr 3fr 2fr 2fr;
     padding: 25px 0;
     text-align: center;
     align-items: center;
@@ -534,14 +391,21 @@
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
 } 
 
-.employee-status-Active{
+.employee-role-admin{
+    background-color: #f84c2c;
+
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.employee-role-stocker{
     background-color: #28ac64;
     padding: 5px;
     border-radius: 5px;
 }
 
-.employee-status-Disabled{
-    background-color: #f84c2c;
+.employee-role-seller{
+    background-color: #e69e19;
     padding: 5px;
     border-radius: 5px;
 }
@@ -581,82 +445,51 @@
     color: black!important;
 }
 
-/* .add-employee-container{
-    position: fixed; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1;
-}
-
 .add-employee{
-    position: absolute;
-    top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    padding: 20px;
-    background-color: var(--black);
-    width: 90%;
-    max-width: 520px;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-}
-
-.add-employee i{
-    position: absolute;
-    font-size: 18px;
-    top: 3%;
-    right: 3%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.add-employee i:hover{
-    transform: translateY(-5px);
+    display: flex;
+    /* border: 1px solid red; */
 }
 
 .add-employee label{
-    color: white;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .add-employee input{
-    background: transparent;
-    padding: 10px;
-    font-size: 16px;
-    color: white;
-    width: 100%;
-    border: solid 1px #363636;
-    outline: none;
-    margin: 10px 0 10px;
+    border: 1px solid gray;
     border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
 }
 
-.add-employee button{
-    padding: 7px 7px 7px 5px;
-    background-color: var(--green);
-    color: black;
+.add-employee select{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+.add-employee div:nth-child(1){
+    width: 40%;
+}
+
+.add-employee-container .title{
+    border-radius: 5px;
     border: none;
-    font-size: 20px;
-    width: 100px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin: auto;
+    padding: 7px 20px;
+    background: #58ccf4;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.add-employee-container button{
     border-radius: 5px;
+    border: none;
+    padding: 7px 20px;
+    background: #70cc94;
+    font-weight: bold;
+    margin: 10px 0;
 }
-
-.add-employee button:hover {
-    background-color: var(--green-l);
-}
-
-.add-employee h2 {
-    text-align: center;
-    margin-bottom: 25px;
-} */
-
 
 
 .order-statistic-container{

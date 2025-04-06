@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use controller\ProductController;
 use controller\UserController;
+use controller\EmployeeController;
 use exception\ExceptionHandler;
 
 spl_autoload_register(function ($class) {
@@ -14,6 +15,7 @@ require_once __DIR__ . '/exception/ExceptionHandler.php';
 require_once __DIR__ . '/config/Database.php';
 require_once __DIR__ . '/repository/ProductRepository.php';
 require_once __DIR__ . '/repository/UserRepository.php';
+require_once __DIR__ . '/repository/EmployeeRepository.php';
 
 set_error_handler([ExceptionHandler::class, 'handleError']);
 set_exception_handler([ExceptionHandler::class, 'handleException']);
@@ -43,6 +45,13 @@ switch ($request[2]){
     case 'user':
         $userController = new UserController();
         $userController->processRequest(
+            $_SERVER['REQUEST_METHOD'], 
+            $request[3] ?? null);
+        break;
+        
+    case 'employee':
+        $employeeController = new EmployeeController();
+        $employeeController->processRequest(
             $_SERVER['REQUEST_METHOD'], 
             $request[3] ?? null);
         break;
