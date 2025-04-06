@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {useSearchParams} from 'react-router-dom';
-import Card from "../components/product/Card.jsx";
+import Card from "../components/Product/Card.jsx";
 import Pagination from "../components/Pagination.jsx";
 import '../styles/Product.css'
-import {Filter} from "../components/product/Filter.jsx";
+import {Filter} from "../components/Product/Filter.jsx";
 
 const PRODUCT_PER_PAGE = 10;
 
@@ -40,7 +40,7 @@ export const Product = () => {
         return () => {
             controller.abort();
         };
-    }, [searchParams]);
+    }, [searchParams, url]);
 
     return (
         <>
@@ -56,8 +56,6 @@ export const Product = () => {
                         {products.map((product) => (
                             <Card key={product.product_id}
                                   phone={product}
-                                  onClick={() => {
-                                  }}
                             />
                         ))}
                         {totalPage > 1 && (

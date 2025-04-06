@@ -82,7 +82,7 @@ class ProductRepository
     {
         $sql = "SELECT * 
         FROM product
-        WHERE id = :id";
+        WHERE product_id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();

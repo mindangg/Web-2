@@ -18,8 +18,9 @@ class SkuRepository
                 FROM sku
                     JOIN color on sku.color_id = color.color_id
                     JOIN internal_option on sku.internal_id = internal_option.internal_option_id
-                    WHERE product_id = $id";
+                WHERE product_id = :id";
         $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

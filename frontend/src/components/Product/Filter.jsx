@@ -3,11 +3,13 @@ import '../../styles/Filter.css'
 import ascSortLogo from '../../assets/ascending-sort.svg'
 import descSortLogo from '../../assets/descending-sort.svg'
 import {useState} from "react";
+import {useNotificationContext} from "../../hooks/useNotificationContext.jsx";
 
 export const Filter = () => {
     const [queryParams, setQueryParams] = useSearchParams();
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
+    const {showNotification} = useNotificationContext()
     return (
         <>
             <div className={'filter-container d-flex justify-content-start'}>
@@ -58,7 +60,7 @@ export const Filter = () => {
                         <button className={'btn btn-primary'}
                                 onClick={() => {
                                     if (parseInt(maxPrice) < parseInt(minPrice)) {
-                                        alert('Maximum price can not be lower than minimum price')
+                                        showNotification('Maximum price can not be lower than minimum price')
                                         setMinPrice("");
                                         setMaxPrice("");
                                         return

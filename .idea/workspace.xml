@@ -5,53 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/autoload.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/ClassLoader.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/InstalledVersions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_files.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_namespaces.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_real.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_static.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/installed.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/installed.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/composer/platform_check.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/firebase/php-jwt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/graham-campbell/result-type" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/phpoption/phpoption" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/symfony/polyfill-ctype" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/symfony/polyfill-mbstring" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/symfony/polyfill-php80" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/vendor/vlucas/phpdotenv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Web-2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Web-2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/ProductRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/service/ProductService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/ProductService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CardDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/product/CardDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CartItems.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CartItems.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/OrderCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/OrderCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserCard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/Card.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/product/Card.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ProductCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Cart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Cart.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Checkout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Checkout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Signup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/Card.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/Card.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/CardDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/CardDetails.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/Filter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/Filter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CardDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/CardDetails.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +87,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.ToggleCodyToolWindowAfterMigration": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Merging qbao",
+    "git-widget-placeholder": "qbao",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "E:/CODE/Projects/Springboot-React-demo",
@@ -133,7 +100,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.6\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.7\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -211,7 +178,8 @@
       <workItem from="1743439977655" duration="20000" />
       <workItem from="1743492686219" duration="7000" />
       <workItem from="1743654009137" duration="20000" />
-      <workItem from="1743861954181" duration="1434000" />
+      <workItem from="1743861954181" duration="2070000" />
+      <workItem from="1743946679977" duration="3290000" />
     </task>
     <servers />
   </component>

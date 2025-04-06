@@ -36,11 +36,18 @@ class ProductService
 
     public function getProductById(int $id):array
     {
+        $product = $this->productRepository->findById($id);
+        if(!$product) {
+            throw new \PDOException(`Product not found with id: $id`, 404);
+        }
         $sku = $this->skuRepository->findAll($id);
         if(!$sku) {
             throw new \PDOException('Product not found', 404);
         } else {
-            return $sku;
+            return $response = [
+                'product' => $product,
+                'sku' => $sku
+            ];
         }
     }
 }

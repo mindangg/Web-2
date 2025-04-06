@@ -96,10 +96,20 @@ VALUES (1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A16 B
 
 INSERT INTO sku (product_id, internal_id, color_id, sku_code, sku_name, image, import_price, invoice_price, sold, stock)
 VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxblack.jpg', 1400, 1500, 0, 10),
+       (1, 2, 2, 'IPHONE14PROMAX-WHITE-6GB/256GB', 'iPhone 14 Pro Max 6GB/256GB White', 'iphone14promaxwhite.jpg', 1450, 1550, 0, 8),
+       (1, 3, 3, 'IPHONE14PROMAX-BLUE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB Blue', 'iphone14promaxblue.jpg', 1500, 1600, 0, 5),
        (2, 7, 2, 'IPHONE13PRO-WHITE-4GB/128GB', 'iPhone 13 Pro 6GB/256GB White', 'iphone13prowhite.jpg', 1200, 1300, 10, 15),
+       (2, 8, 3, 'IPHONE13PRO-BLUE-8GB/512GB', 'iPhone 13 Pro 8GB/512GB Blue', 'iphone13problue.jpg', 1250, 1350, 5, 10),
+       (2, 9, 4, 'IPHONE13PRO-RED-12GB/1TB', 'iPhone 13 Pro 12GB/1TB Red', 'iphone13prored.jpg', 1300, 1400, 2, 7),
        (3, 13, 1, 'SAMSUNGGALAXYS23ULTRA-BLACK-8GB/512GB', 'Samsung Galaxy S23 Ultra 8GB/512GB Black', 'samsunggalaxys23ultrablack.jpg', 1300, 1400, 4, 12),
+       (3, 14, 2, 'SAMSUNGGALAXYS23ULTRA-WHITE-12GB/1TB', 'Samsung Galaxy S23 Ultra 12GB/1TB White', 'samsunggalaxys23ultrawhite.jpg', 1350, 1450, 3, 9),
+       (3, 15, 3, 'SAMSUNGGALAXYS23ULTRA-BLUE-16GB/2TB', 'Samsung Galaxy S23 Ultra 16GB/2TB Blue', 'samsunggalaxys23ultrablue.jpg', 1400, 1500, 1, 6),
        (4, 24, 6, 'SAMSUNGGALAXYS22PLUS-PINK-12GB/1TB', 'Samsung Galaxy S22 Plus 12GB/1TB Pink', 'samsunggalaxys22pluspink.jpg', 1000, 1100, 0, 18),
-       (5, 30, 3, 'XIAOMI12PRO-BLUE-16GB/2TB', 'Xiaomi 12 Pro 16GB/2TB Blue', 'xiaomi12problue.jpg', 900, 1000, 5, 14);
+       (4, 25, 1, 'SAMSUNGGALAXYS22PLUS-BLACK-8GB/512GB', 'Samsung Galaxy S22 Plus 8GB/512GB Black', 'samsunggalaxys22plusblack.jpg', 950, 1050, 0, 12),
+       (4, 26, 2, 'SAMSUNGGALAXYS22PLUS-WHITE-6GB/256GB', 'Samsung Galaxy S22 Plus 6GB/256GB White', 'samsunggalaxys22pluswhite.jpg', 900, 1000, 0, 15),
+       (5, 30, 3, 'XIAOMI12PRO-BLUE-16GB/2TB', 'Xiaomi 12 Pro 16GB/2TB Blue', 'xiaomi12problue.jpg', 900, 1000, 5, 14),
+       (5, 31, 4, 'XIAOMI12PRO-RED-12GB/1TB', 'Xiaomi 12 Pro 12GB/1TB Red', 'xiaomi12prored.jpg', 850, 950, 3, 10),
+       (5, 32, 5, 'XIAOMI12PRO-GREEN-8GB/512GB', 'Xiaomi 12 Pro 8GB/512GB Green', 'xiaomi12progreen.jpg', 800, 900, 2, 8);
 
 
 
