@@ -19,10 +19,25 @@ export default function Admin() {
 
     const [toggle, setToggle] = useState('user')
 
+    const [showSideNav, setShowSideNav] = useState(false);
+
+
     return admin ? (
     <div>
-        <div className='sidenav'>
-            <div className='ok'>
+        <button
+            className="hamburger-btn"
+            onClick={() => setShowSideNav(prev => !prev)}
+        >
+            <i className="fa-solid fa-bars"></i>
+        </button>
+
+        {/* Optional overlay to click outside and close sidenav */}
+        {/* {showSideNav && (
+            <div className="overlay" onClick={() => setShowSideNav(false)}></div>
+        )} */}
+
+        <div className={`sidenav ${showSideNav ? 'show' : 'hide'}`}>
+            <div>
                 <div className='topnav'>
                         <img src={logo} alt='Logo' />
                 </div>
