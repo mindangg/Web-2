@@ -42,7 +42,17 @@ VALUES ('Black'),
        ('Blue'),
        ('Red'),
        ('Green'),
-       ('Pink');
+       ('Pink'),
+       ('Purple'),
+       ('Gold'),
+       ('Silver'),
+       ('Gray'),
+       ('Yellow'),
+       ('Orange'),
+       ('Brown'),
+       ('Beige'),
+       ('Teal'),
+       ('Navy Blue');
 
 INSERT INTO product (brand, series, name, image, cpu, screen, battery, front_camera, back_camera, description,
                      base_price, release_date, warranty_period, status)
@@ -79,7 +89,11 @@ VALUES (1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A16 B
 
 INSERT INTO sku (product_id, internal_id, color_id, sku_code, sku_name, image, import_price, invoice_price, sold, stock)
 VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxblack.jpg', 1400, 1500, 0, 10),
-       (2, 7, 2, 'IPHONE13PRO-WHITE-4GB/128GB', 'iPhone 13 Pro 6GB/256GB White', 'iphone13prowhite.jpg', 1200, 1300, 10, 15),
+       (1, 7, 2, 'IPHONE14PROMAX-WHITE-6GB/256GB', 'iPhone 14 Pro Max 6GB/256GB White', 'iphone14promaxwhite.jpg', 1450, 1550, 0, 8),
+       (1, 13, 7, 'IPHONE14PROMAX-PURPLE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB Purple', 'iphone14promaxpurple.jpg', 1500, 1600, 0, 5),
+       (2, 1, 2, 'IPHONE13PRO-WHITE-4GB/128GB', 'iPhone 13 Pro 6GB/256GB White', 'iphone13prowhite.jpg', 1200, 1300, 10, 15),
+       (2, 13, 3, 'IPHONE13PRO-BLUE-8GB/512GB', 'iPhone 13 Pro 8GB/512GB Blue', 'iphone13problue.jpg', 1250, 1350, 5, 10),
+       (2, 25, 5, 'IPHONE13PRO-GREEN-12GB/1TB', 'iPhone 13 Pro 12GB/1TB Green', 'iphone13progreen.jpg', 1300, 1400, 2, 7),
        (3, 13, 1, 'SAMSUNGGALAXYS23ULTRA-BLACK-8GB/512GB', 'Samsung Galaxy S23 Ultra 8GB/512GB Black', 'samsunggalaxys23ultrablack.jpg', 1300, 1400, 4, 12),
        (4, 24, 6, 'SAMSUNGGALAXYS22PLUS-PINK-12GB/1TB', 'Samsung Galaxy S22 Plus 12GB/1TB Pink', 'samsunggalaxys22pluspink.jpg', 1000, 1100, 0, 18),
        (5, 30, 3, 'XIAOMI12PRO-BLUE-16GB/2TB', 'Xiaomi 12 Pro 16GB/2TB Blue', 'xiaomi12problue.jpg', 900, 1000, 5, 14);

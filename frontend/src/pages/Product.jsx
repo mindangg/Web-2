@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
 import {useSearchParams} from 'react-router-dom';
-import Card from "../components/product/Card.jsx";
+import Card from "../components/Product/Card.jsx";
 import Pagination from "../components/Pagination.jsx";
 import '../styles/Product.css'
-import {Filter} from "../components/product/Filter.jsx";
-
-const PRODUCT_PER_PAGE = 10;
+import {Filter} from "../components/Product/Filter.jsx";
+import {PRODUCT_API_URL, PRODUCT_PER_PAGE} from "../utils/Constant.jsx";
 
 export const Product = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -13,14 +12,12 @@ export const Product = () => {
     const [products, setProducts] = useState([])
     const [searchParams, setSearchParams] = useSearchParams(`limit=${PRODUCT_PER_PAGE}`);
 
-    let url = `http://localhost/api/product?${searchParams.toString()}`;
-
     useEffect( () => {
         const controller = new AbortController();
         const signal = controller.signal;
         const fetchData = async () => {
             try {
-                const response = await fetch(url, { signal });
+                const response = await fetch(`${PRODUCT_API_URL}?${searchParams.toString()}`, { signal });
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
                 }
@@ -56,8 +53,6 @@ export const Product = () => {
                         {products.map((product) => (
                             <Card key={product.product_id}
                                   phone={product}
-                                  onClick={() => {
-                                  }}
                             />
                         ))}
                         {totalPage > 1 && (
