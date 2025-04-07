@@ -45,21 +45,6 @@ class UserRepository
         return $stmt->fetchColumn() > 0;
     }
 
-    // public function userExists(string $username, string $email, string $phone_number): bool
-    // {
-    //     $sql = "SELECT COUNT(*) as count 
-    //     FROM user_account 
-    //     WHERE username = :username OR email = :email OR phone_number = :phone_number";
-
-    //     $stmt = $this->pdo->prepare($sql);
-    //     $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-    //     $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-    //     $stmt->bindValue(':phone_number', $phone_number, PDO::PARAM_STR);
-    //     $stmt->execute();
-
-    //     return $stmt->fetchColumn() > 0;
-    // }
-
     public function loginUser(string $username, string $password): ?array
     {
         $sql = "SELECT user_account_id, username, email, password 
@@ -84,14 +69,14 @@ class UserRepository
             ];
         }
 
-        return [
-            "user" => [
-                "id" => $user['user_account_id'],
-                "username" => $user['username'],
-                "email" => $user['email']
-            ]
-        ];
+        // return [
+        //     "user" => [
+        //         "user_account_id" => $user['user_account_id'],
+        //         "username" => $user['username'],
+        //     ]
+        // ];
 
+        return $this->findById($user['user_account_id']);
     }
 
     public function signupUser(string $username, string $email, string $password): ?int
@@ -108,7 +93,7 @@ class UserRepository
         return $this->pdo->lastInsertId();
     }
 
-    public function createUser(array $data): ?int
+    public function createUser(array $data): ?array
     {
         // Transaction ensure both success or failed
         $this->pdo->beginTransaction();
@@ -144,7 +129,7 @@ class UserRepository
         // Commit the transaction to make sure both success or fail
         $this->pdo->commit();
 
-        return $userAccountId;
+        return $this->findById($userAccountId);
     }    
 
     public function findAll(): array
@@ -227,7 +212,8 @@ class UserRepository
         $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
         $checkStmt->execute();
 
-        if (!$checkStmt->fetchColumn()) return false;
+        if (!$checkStmt->fetchColumn()) 
+            return false;
 
         $this->pdo->beginTransaction();
 
@@ -273,82 +259,15 @@ class UserRepository
 
         if ($success) {
             $this->pdo->commit();
-            return true;
+            // return true;
+
+            return $this->findById($id);
         } 
         else {
             $this->pdo->rollBack();
             return false;
         }
     }
-
-
-    // public function updateById(int $id, array $data)
-    // {
-    //     // Check if the user exists
-    //     $checkSql = "SELECT COUNT(*) FROM user_account WHERE user_account_id = :id";
-    //     $checkStmt = $this->pdo->prepare($checkSql);
-    //     $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
-    //     $checkStmt->execute();
-    //     $userExists = $checkStmt->fetchColumn();
-
-    //     if (!$userExists)
-    //         return false;
-
-    //     // Begin transaction
-    //     $this->pdo->beginTransaction();
-
-    //     // Update the user_account
-    //     $updateSql = "UPDATE user_account SET 
-    //                     username = :username, 
-    //                     email = :email, 
-    //                     status = :status 
-    //                     WHERE user_account_id = :id";
-
-    //     $updateStmt = $this->pdo->prepare($updateSql);
-    //     $updateStmt->bindValue(':id', $id, PDO::PARAM_INT);
-    //     $updateStmt->bindValue(':username', $data['username'], PDO::PARAM_STR);
-    //     $updateStmt->bindValue(':email', $data['email'], PDO::PARAM_STR);
-    //     $updateStmt->bindValue(':status', $data['status'], PDO::PARAM_STR);
-    //     $updateStmt->execute();
-        
-    //     // Update the user_information
-    //     $updateInfoSql = "UPDATE user_information SET 
-    //                         full_name = :full_name, 
-    //                         phone_number = :phone_number, 
-    //                         house_number = :house_number, 
-    //                         street = :street, 
-    //                         ward = :ward, 
-    //                         district = :district, 
-    //                         city = :city 
-    //                         WHERE account_id = :id";
-            
-    //     $updateInfoStmt = $this->pdo->prepare($updateInfoSql);
-    //     $updateInfoStmt->bindValue(':id', $id, PDO::PARAM_INT);
-    //     $updateInfoStmt->bindValue(':full_name', $data['full_name'], PDO::PARAM_STR);
-    //     $updateInfoStmt->bindValue(':phone_number', $data['phone_number'], PDO::PARAM_STR);
-    //     $updateInfoStmt->bindValue(':house_number', $data['house_number'], PDO::PARAM_STR);
-    //     $updateInfoStmt->bindValue(':street', $data['street'], PDO::PARAM_STR);
-    //     $updateInfoStmt->bindValue(':ward', $data['ward'], PDO::PARAM_STR);
-    //     $updateInfoStmt->bindValue(':district', $data['district'], PDO::PARAM_STR);
-    //     $updateInfoStmt->bindValue(':city', $data['city'], PDO::PARAM_STR);
-
-    //     // $this->pdo->commit();
-
-    //     // return $updateInfoStmt->execute();
-
-    //     // Execute the update for user_information
-    //     $updateInfoSuccess = $updateInfoStmt->execute();
-
-    //     // If both updates succeed, commit the transaction
-    //     if ($updateStmt->rowCount() > 0 && $updateInfoSuccess) {
-    //         $this->pdo->commit();
-    //         return $updateInfoSuccess;
-    //     } else {
-    //         // If any update fails, roll back the transaction
-    //         $this->pdo->rollBack();
-    //         return false;
-    //     }
-    // }
 }
 
 ?>

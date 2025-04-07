@@ -26,12 +26,12 @@ class UserService
     {
         $user= $this->userRepository->loginUser($username, $password);
 
-        if (!isset($user['user'])) {
+        if (!isset($user)) {
             $this->respond(400, ["message" => $user["message"]]);
         }
 
         $payload = [
-            "id" => $user['user']['id'],
+            "id" => $user['user_account_id'],
             "exp" => time() + (3 * 24 * 60 * 60) // 3 days
         ];
 
@@ -41,11 +41,12 @@ class UserService
         echo json_encode([
             "message" => "User login successfully",
             "token" => $jwt,
-            "user" => [
-                "id" => $user['user']["id"],
-                "username" => $user['user']["username"],
-                "email" => $user['user']["email"]
-            ]
+            // "user" => [
+            //     "id" => $user['user']["id"],
+            //     "username" => $user['user']["username"],
+            //     "email" => $user['user']["email"]
+            // ]
+            "user" => $user
         ]);
         exit;
     }
@@ -96,7 +97,7 @@ class UserService
             "message" => "User signed up successfully",
             "token" => $jwt,
             "user" => [
-                "id" => $userId,
+                "user_account_id" => $userId,
                 "username" => $username,
                 "email" => $email
             ]
@@ -151,9 +152,9 @@ class UserService
                                 include an uppercase letter, a lowercase letter, a number, and a special character"]);
         }
 
-        $userId = $this->userRepository->createUser($data);
+        $createdUser = $this->userRepository->createUser($data);
 
-        if (!$userId) {
+        if (!$createdUser) {
             http_response_code(500);
             echo json_encode(["message" => "Error creating user"]);
         }
@@ -161,18 +162,7 @@ class UserService
         http_response_code(200);
         echo json_encode([
             "message" => "Created user successfully",
-            "user" => [
-                "id" => $userId,
-                "username" => $data['username'],
-                "email" => $data['email'],
-                "full_name" => $data['full_name'],
-                "phone_number" => $data['phone_number'],
-                "house_number" => $data['house_number'],
-                "street" => $data['street'],
-                "ward" => $data['ward'],
-                "district" => $data['district'],
-                "city" => $data['city']
-            ]
+            "user" => $createdUser
         ]);
         exit;
     }
@@ -251,28 +241,17 @@ class UserService
             $this->respond(400, ["message" => "Phone_number already exists"]);
         }
         
-        $userId = $this->userRepository->updateById($id, $data);
+        $updatedUser = $this->userRepository->updateById($id, $data);
 
-        if (!$userId) {
+        if (!$updatedUser) {
             http_response_code(500);
-            echo json_encode(["message" => "Error creating user"]);
+            echo json_encode(["message" => "Error updating user"]);
         }
 
         http_response_code(200);
         echo json_encode([
             "message" => "Updated user successfully",
-            "user" => [
-                "id" => $userId,
-                "username" => $data['username'],
-                "email" => $data['email'],
-                "full_name" => $data['full_name'],
-                "phone_number" => $data['phone_number'],
-                "house_number" => $data['house_number'],
-                "street" => $data['street'],
-                "ward" => $data['ward'],
-                "district" => $data['district'],
-                "city" => $data['city']
-            ]
+            "user" => $updatedUser
         ]);
         exit;
     }

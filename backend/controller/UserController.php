@@ -61,9 +61,8 @@ class UserController
     private function validateRequiredFields(array $data, array $fields): ?string
     {
         foreach ($fields as $field) {
-            if (empty($data[$field])) {
+            if (empty($data[$field]))
                 return "Please fill in your $field";
-            }
         }
         return null;
     }
@@ -143,7 +142,6 @@ class UserController
     private function updateUser(int $id): void
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        var_dump($data); die();
 
         $user = $this->userService->updateUserById($id, $data);
         echo json_encode($user);

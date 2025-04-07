@@ -27,23 +27,6 @@ FROM (SELECT '4GB' AS ram
       UNION
       SELECT '128GB') AS s;
 
-INSERT INTO user_account (username, password, email)
-VALUES ('user1', 'pass1', 'user1@example.com'),
-       ('user2', 'pass2', 'user2@example.com'),
-       ('user3', 'pass3', 'user3@example.com'),
-       ('user4', 'pass4', 'user4@example.com'),
-       ('user5', 'pass5', 'user5@example.com'),
-       ('user6', 'pass6', 'user6@example.com'),
-       ('user7', 'pass7', 'user7@example.com'),
-       ('user8', 'pass8', 'user8@example.com'),
-       ('user9', 'pass9', 'user9@example.com'),
-       ('user10', 'pass10', 'user10@example.com'),
-       ('user11', 'pass11', 'user11@example.com'),
-       ('user12', 'pass12', 'user12@example.com'),
-       ('user13', 'pass13', 'user13@example.com'),
-       ('user14', 'pass14', 'user14@example.com'),
-       ('user15', 'pass15', 'user15@example.com');
-
 INSERT INTO brand (brand_name)
 VALUES ('Apple'),
        ('Samsung'),
@@ -112,9 +95,129 @@ VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB 
        (2, 13, 3, 'IPHONE13PRO-BLUE-8GB/512GB', 'iPhone 13 Pro 8GB/512GB Blue', 'iphone13problue.jpg', 1250, 1350, 5, 10),
        (2, 25, 5, 'IPHONE13PRO-GREEN-12GB/1TB', 'iPhone 13 Pro 12GB/1TB Green', 'iphone13progreen.jpg', 1300, 1400, 2, 7),
        (3, 13, 1, 'SAMSUNGGALAXYS23ULTRA-BLACK-8GB/512GB', 'Samsung Galaxy S23 Ultra 8GB/512GB Black', 'samsunggalaxys23ultrablack.jpg', 1300, 1400, 4, 12),
-       (3, 24, 2, 'SAMSUNGGALAXYS23ULTRA-WHITE-12GB/1TB', 'Samsung Galaxy S23 Ultra 12GB/1TB White', 'samsunggalaxys23ultrawhite.jpg', 1350, 1450, 3, 9),
-       (3, 30, 7, 'SAMSUNGGALAXYS23ULTRA-PURPLE-16GB/2TB', 'Samsung Galaxy S23 Ultra 16GB/2TB Purple', 'samsunggalaxys23ultrapurple.jpg', 1400, 1500, 1, 6),
-       (1, 1, 2, 'IPHONE14PROMAX-WHITE-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB White', 'iphone14promaxwhite.jpg', 1400, 1500, 0, 10),
-       (1, 13, 2, 'IPHONE14PROMAX-WHITE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB White', 'iphone14promaxwhite.jpg', 1500, 1600, 0, 0)
+       (4, 24, 6, 'SAMSUNGGALAXYS22PLUS-PINK-12GB/1TB', 'Samsung Galaxy S22 Plus 12GB/1TB Pink', 'samsunggalaxys22pluspink.jpg', 1000, 1100, 0, 18),
+       (5, 30, 3, 'XIAOMI12PRO-BLUE-16GB/2TB', 'Xiaomi 12 Pro 16GB/2TB Blue', 'xiaomi12problue.jpg', 900, 1000, 5, 14);
+
+
+INSERT INTO user_account (username, password, email)
+VALUES ('user1', 'pass1', 'user1@example.com'),
+       ('user2', 'pass2', 'user2@example.com'),
+       ('user3', 'pass3', 'user3@example.com'),
+       ('user4', 'pass4', 'user4@example.com'),
+       ('user5', 'pass5', 'user5@example.com'),
+       ('user6', 'pass6', 'user6@example.com'),
+       ('user7', 'pass7', 'user7@example.com'),
+       ('user8', 'pass8', 'user8@example.com'),
+       ('user9', 'pass9', 'user9@example.com'),
+       ('user10', 'pass10', 'user10@example.com'),
+       ('user11', 'pass11', 'user11@example.com'),
+       ('user12', 'pass12', 'user12@example.com'),
+       ('user13', 'pass13', 'user13@example.com'),
+       ('user14', 'pass14', 'user14@example.com'),
+       ('user15', 'pass15', 'user15@example.com');
+       
+INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city)
+VALUES (1, 'Alice Nguyen', '0909123456', '12', 'Nguyen Trai', 'Ward 1', 'District 1', 'Ho Chi Minh City'),
+       (2, 'Bao Tran', '0909876543', '45', 'Le Loi', 'Ward 5', 'District 3', 'Ho Chi Minh City'),
+       (3, 'Chi Le', '0912345678', '89', 'Tran Hung Dao', 'Ward 3', 'District 5', 'Ho Chi Minh City'),
+       (4, 'Duy Vo', '0934567890', '7', 'Pham Ngu Lao', 'Ward 2', 'District 1', 'Ho Chi Minh City'),
+       (5, 'Emi Pham', '0908765432', '101', 'Ly Thuong Kiet', 'Ward 10', 'District 10', 'Ho Chi Minh City'),
+       (6, 'Phuc Tran', '0911122334', '33', 'Nguyen Hue', 'Ward 7', 'District 4', 'Ho Chi Minh City'),
+       (7, 'Giang Dang', '0933445566', '55', 'Le Van Sy', 'Ward 8', 'District 3', 'Ho Chi Minh City'),
+       (8, 'Hoa Nguyen', '0922334455', '77', 'CMT8', 'Ward 6', 'District 10', 'Ho Chi Minh City'),
+       (9, 'Huy Hoang', '0909988776', '90', 'Hoang Sa', 'Ward 11', 'District 3', 'Ho Chi Minh City'),
+       (10, 'Khanh Do', '0944556677', '22', 'Bach Dang', 'Ward 9', 'District Binh Thanh', 'Ho Chi Minh City'),
+       (11, 'Lan Truong', '0933667788', '100', 'To Hien Thanh', 'Ward 13', 'District 10', 'Ho Chi Minh City'),
+       (12, 'Minh Chau', '0911999888', '68', 'Vo Thi Sau', 'Ward 5', 'District 1', 'Ho Chi Minh City'),
+       (13, 'Nam Pham', '0922446688', '29', 'Dien Bien Phu', 'Ward 15', 'District Binh Thanh', 'Ho Chi Minh City'),
+       (14, 'Oanh Le', '0933778899', '44', 'Tran Quang Khai', 'Ward 12', 'District 1', 'Ho Chi Minh City'),
+       (15, 'Phuong Mai', '0909333222', '37', 'Pasteur', 'Ward 14', 'District 3', 'Ho Chi Minh City'); 
+
+
+INSERT INTO role (role_name)
+VALUES ('Điều hành'),
+       ('Admin'),
+       ('Quản lí kho'),
+       ('Bán hàng');
+
+INSERT INTO functional (function_name)
+VALUES ('User'),
+       ('Employee'),
+       ('Product'),
+       ('Stock'),
+       ('Order'),
+       ('Statistic');
+
+INSERT INTO role_function (role_id, function_id, action)
+VALUES (1, 1, 'Create'),
+       (1, 1, 'Read'),
+       (1, 1, 'Update'),
+       (1, 1, 'Delete'),
+       (1, 2, 'Create'),
+       (1, 2, 'Read'),
+       (1, 2, 'Update'),
+       (1, 2, 'Delete'),
+       (1, 3, 'Create'),
+       (1, 3, 'Read'),
+       (1, 3, 'Update'),
+       (1, 3, 'Delete'),
+       (1, 4, 'Create'),
+       (1, 4, 'Read'),
+       (1, 4, 'Update'),
+       (1, 4, 'Delete'),
+       (1, 5, 'Create'),
+       (1, 5, 'Read'),
+       (1, 5, 'Update'),
+       (1, 5, 'Delete'),
+       (1, 6, 'Create'),
+       (1, 6, 'Read'),
+       (1, 6, 'Update'),
+       (1, 6, 'Delete'),
+       (2, 1, 'Create'),
+       (2, 1, 'Read'),
+       (2, 1, 'Update'),
+       (2, 1, 'Delete'),
+       (2, 2, 'Create'),
+       (2, 2, 'Read'),
+       (2, 2, 'Update'),
+       (2, 2, 'Delete'),
+       (3, 3, 'Create'),
+       (3, 3, 'Read'),
+       (3, 3, 'Update'),
+       (3, 3, 'Delete'),
+       (3, 4, 'Create'),
+       (3, 4, 'Read'),
+       (3, 4, 'Update'),
+       (3, 4, 'Delete'),
+       (4, 5, 'Create'),
+       (4, 5, 'Read'),
+       (4, 5, 'Update'),
+       (4, 5, 'Delete'),
+       (4, 6, 'Create'),
+       (4, 6, 'Read'),
+       (4, 6, 'Update'),
+       (4, 6, 'Delete');
+
+INSERT INTO employee (full_name, password, email, phone_number, role)
+VALUES ('user1', 'pass1', 'user1@example.com', '0900000001', 1),
+       ('user2', 'pass2', 'user2@example.com', '0900000002', 2),
+       ('user3', 'pass3', 'user3@example.com', '0900000003', 3),
+       ('user4', 'pass4', 'user4@example.com', '0900000004', 4),
+       ('user5', 'pass5', 'user5@example.com', '0900000005', 1),
+       ('user6', 'pass6', 'user6@example.com', '0900000006', 2),
+       ('user7', 'pass7', 'user7@example.com', '0900000007', 3),
+       ('user8', 'pass8', 'user8@example.com', '0900000008', 4),
+       ('user9', 'pass9', 'user9@example.com', '0900000009', 1),
+       ('user10', 'pass10', 'user10@example.com', '0900000010', 2),
+       ('user11', 'pass11', 'user11@example.com', '0900000011', 3),
+       ('user12', 'pass12', 'user12@example.com', '0900000012', 4),
+       ('user13', 'pass13', 'user13@example.com', '0900000013', 1),
+       ('user14', 'pass14', 'user14@example.com', '0900000014', 2),
+       ('user15', 'pass15', 'user15@example.com', '0900000015', 3),
+       ('user16', 'pass16', 'user16@example.com', '0900000016', 4);
+
+
+
+
 
 
