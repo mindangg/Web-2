@@ -45,7 +45,8 @@ body{
 
 .login-logo img{
     width: 100px;
-    margin-bottom: 50px;
+    height: 100px;
+    margin-bottom: 20px;
 }
 
 .login-logo div{
@@ -57,7 +58,8 @@ body{
 }
 
 #login{
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
     height: 430px;
     padding: 50px 70px;
     background-color: var(--yellow);
@@ -146,7 +148,8 @@ body{
 
 .signup-logo img{
     width: 100px;
-    margin-bottom: 50px;
+    height: 100px;
+    margin-bottom: 20px;
 }
 
 .signup-logo div{
@@ -158,7 +161,8 @@ body{
 }
 
 #signup{
-    width: 450px;
+    width: 90%;
+    max-width: 450px;
     height: 570px;
     padding: 50px 70px;
     background-color: var(--yellow);
@@ -223,6 +227,20 @@ body{
 
 #signup label{
     margin-right: 5px;
+}
+
+@media (max-width: 820px) {
+    .login-logo h4,
+    .signup-logo h4{
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 620px) {
+    .login-logo,
+    .signup-logo{
+        display: none;
+    }
 }
 
 /* pagination */

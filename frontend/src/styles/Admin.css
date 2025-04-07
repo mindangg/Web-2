@@ -36,7 +36,7 @@
     position: fixed;
     top: 70px;
     left: 0;
-    width: 15%;
+    width: 230px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -45,16 +45,42 @@
     background-color: #383434;
 }
 
+.sidenav ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
 .sidenav li{
     color: white;
     list-style: none;
     font-size: 16px;
     font-weight: bold;
     padding: 14px;
+    padding-left: 30px;
+    width: 100%;
+    transition: 0.2s ease;
+    border-radius: 4px;
 }
 
 .sidenav li:hover{
     cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidenav li.active{
+    background-color: rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.sidenav li.active::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 5px;
+    background: linear-gradient(to bottom, var(--yellow), #ffd454, #ffc454,#ffa454);
 }
 
 @media (max-width: 1200px) {
@@ -64,9 +90,7 @@
 
     .sidenav {
         position: fixed;
-        top: 60px;
         left: 0;
-        width: 50%;
         z-index: 5;
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
@@ -79,13 +103,6 @@
     .sidenav.hide {
         transform: translateX(-100%);
     }
-
-    /* .content {
-        width: 100%;
-        left: 0;
-        padding: 20px;
-    } */
-
 }
 
 .content{
@@ -165,129 +182,6 @@
     color: black!important;
 }
 
-/* Responsive styles for user section */
-@media (max-width: 1200px) {
-    .content {
-        left: 0;
-        width: 100%;
-        padding: 20px 30px;
-    }
-
-    .user-header,
-    .user-info {
-        grid-template-columns: 2fr 2fr 2fr 3fr 2fr 2fr 2fr;
-        font-size: 14px;
-        padding: 15px 0;
-    }
-
-    .user-icon button {
-        padding: 0 8px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 768px) {
-    .content {
-        padding: 20px 15px;
-        left: 0;
-        width: 100%;
-    }
-
-    .user-header {
-        display: none; /* Hide header since layout is now stacked */
-    }
-
-    .user-info {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        background-color: #fff;
-    }
-
-    .user-info > div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 5px 0;
-        font-size: 14px;
-    }
-
-    .user-info > div span:first-child {
-        font-weight: bold;
-        color: #333;
-    }
-
-    .user-status,
-    .user-status-lock {
-        width: fit-content;
-        padding: 4px 8px;
-        font-size: 13px;
-    }
-
-    .user-icon {
-        margin-top: 10px;
-        display: flex;
-        gap: 10px;
-    }
-
-    .user-icon button {
-        font-size: 13px;
-        height: 35px;
-        padding: 0 10px;
-        flex: 1;
-    }
-
-    .user-action {
-        margin-top: 10px;
-        display: flex;
-        gap: 15px;
-        font-size: 18px;
-    }
-
-    .user-action i {
-        cursor: pointer;
-    }
-}
-
-@media (max-width: 480px) {
-    .user-info {
-        padding: 10px;
-    }
-
-    .user-info > div {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-    }
-
-    .user-icon {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .user-icon button {
-        width: 100%;
-    }
-
-    .user-action {
-        justify-content: flex-start;
-        gap: 10px;
-    }
-}
-
-
-
-
-
-
-
-
-
-
 .add-user{
     display: flex;
     /* border: 1px solid red; */
@@ -333,21 +227,6 @@
     font-weight: bold;
     margin: 10px 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .order-container{
@@ -428,7 +307,7 @@
 .product-info{
     display: grid;
     grid-template-columns: 2fr 4fr 2fr 2fr 1.5fr 2fr 1fr;
-    padding: 25px 0;
+    padding: 10px 0;
     text-align: center;
     align-items: center;
     color: black;
@@ -437,6 +316,7 @@
 
 .product-info img{
     width: 90px;
+    height: 100px;
 }
 
 .product-action i{
@@ -471,7 +351,6 @@
 
 .employee-role-admin{
     background-color: #f84c2c;
-
     padding: 5px;
     border-radius: 5px;
 }
@@ -525,7 +404,6 @@
 
 .add-employee{
     display: flex;
-    /* border: 1px solid red; */
 }
 
 .add-employee label{
@@ -634,8 +512,6 @@
 
 .order-statistic-controller i:nth-of-type(1){
     color: white;
-    /* padding: 10px;
-    background-color: var(--gray); */
 }
 
 .order-statistic-controller label{
@@ -728,6 +604,170 @@
     color: black;
 }
 
+/* Responsive admin */
+@media (max-width: 1200px) {
+    .content {
+        left: 0;
+        width: 100%;
+        padding: 20px 30px;
+    }
+
+    .user-header,
+    .user-info {
+        grid-template-columns: 2fr 2fr 2fr 3fr 2fr 2fr 2fr;
+        font-size: 14px;
+        padding: 15px 0;
+    }
+
+    .user-icon button {
+        padding: 0 8px;
+        font-size: 14px;
+    }
+
+    .order-header,
+    .order-info {
+        grid-template-columns: 1fr 2.5fr 2fr 2fr 1.5fr 1.5fr;
+        font-size: 14px;
+        padding: 15px 0;
+    }
+
+    .employee-header,
+    .employee-info {
+        grid-template-columns: 2.5fr 2.5fr 2fr 2.5fr 1.5fr 1.5fr;
+        font-size: 14px;
+        padding: 15px 0;
+    }
+    
+    .employee-icon button {
+        padding: 0 8px;
+        font-size: 14px;
+    }
+
+    .product-header,
+    .product-info {
+        grid-template-columns: 2fr 2fr 2fr 3fr 2fr 2fr 1.5fr 1.5fr;
+        font-size: 14px;
+        padding: 15px 0;
+    }
+
+    .product-info img {
+        width: 80px;
+        height: 90px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 20px 15px;
+        left: 0;
+        width: 100%;
+    }
+
+    .user-header,
+    .employee-header,
+    .order-header,
+    .product-header {
+        display: none;
+    }
+
+    .user-info,
+    .employee-info,
+    .order-info,
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        background-color: #fff;
+    }
+
+    .user-info > div,
+    .employee-info > div, 
+    .order-info > div,
+    .product-info > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        font-size: 14px;
+    }
+
+    .user-info > div span:first-child,
+    .employee-info > div span:first-child,
+    .order-info > div span:first-child,
+    .product-info > div span:first-child {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .user-status,
+    .user-status-lock {
+        width: fit-content;
+        padding: 4px 8px;
+        font-size: 13px;
+    }
+
+    .user-icon,
+    .employee-icon {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .user-icon button,
+    .employee-icon button {
+        font-size: 13px;
+        height: 35px;
+        padding: 0 10px;
+        flex: 1;
+    }
+
+    .user-action,
+    .employee-action,
+    .order-action,
+    .product-action {
+        margin-top: 10px;
+        display: flex;
+        gap: 15px;
+        font-size: 18px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-info,
+    .employee-info,
+    .order-info,
+    .product-info {
+        padding: 10px;
+    }
+
+    .user-info > div,
+    .employee-info > div,
+    .order-info > div,
+    .product-info > div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .user-icon,
+    .employee-icon{
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .user-action,
+    .employee-action,
+    .order-action,
+    .product-action {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+}
 
 
 

@@ -39,28 +39,20 @@ export default function Admin() {
 
         <div className={`sidenav ${showSideNav ? 'show' : 'hide'}`}>
             <ul>
-                <li onClick={() => setToggle('user')} style={{paddingTop: '0px'}}><i className='fa-solid fa-users'></i> Người dùng</li>
-                <li onClick={() => setToggle('employee')}><i className='fa-solid fa-user-tie'></i> Nhân viên</li>
-                <li onClick={() => setToggle('product')}><i className='fa-solid fa-book'></i> Sản phẩm</li>
-                <li onClick={() => setToggle('supplier')}><i className='fa-solid fa-truck-field'></i> Kho hàng</li>
-                <li onClick={() => setToggle('order')}><i className='fa-solid fa-basket-shopping'></i> Đơn hàng</li>
-                <li onClick={() => setToggle('order-statistic')}><i className='fa-solid fa-chart-simple'></i> Thống kê</li>
+                <li className={toggle === 'user' ? 'active' : ''} onClick={() => setToggle('user')}><i className='fa-solid fa-users'></i> Người dùng</li>
+                <li className={toggle === 'employee' ? 'active' : ''} onClick={() => setToggle('employee')}><i className='fa-solid fa-user-tie'></i> Nhân viên</li>
+                <li className={toggle === 'product' ? 'active' : ''} onClick={() => setToggle('product')}><i className='fa-solid fa-book'></i> Sản phẩm</li>
+                <li className={toggle === 'supplier' ? 'active' : ''} onClick={() => setToggle('supplier')}><i className='fa-solid fa-truck-field'></i> Kho hàng</li>
+                <li className={toggle === 'order' ? 'active' : ''} onClick={() => setToggle('order')}><i className='fa-solid fa-basket-shopping'></i> Đơn hàng</li>
+                <li className={toggle === 'order-statistic' ? 'active' : ''} onClick={() => setToggle('order-statistic')}><i className='fa-solid fa-chart-simple'></i> Thống kê</li>
             </ul>
             
             <ul>
-                <li><i className="fa-solid fa-pen-ruler"></i> {admin.employee.role_name}</li>
+                <li><i className="fa-solid fa-pen-ruler" style={{paddingTop: '0px'}}></i> {admin.employee.role_name}</li>
                 <li><i className='fa-regular fa-circle-user'></i> {admin.employee.full_name}</li>
                 <li onClick={logout}><i className='fa-solid fa-arrow-right-from-bracket'></i> Logout</li>
             </ul>
         </div>
-        {/* <div className ="menu">
-            <div>Hệ thống quản trị</div>
-            <div><i className="fa-solid fa-user"></i><a>Sản phẩm</a><i className="fa-solid fa-chevron-down"></i></div>
-            <div><i className="fa-solid fa-user"></i><a>Danh mục</a><i className="fa-solid fa-chevron-down"></i></div>
-            <div><i className="fa-solid fa-user"></i><a>Đơn hàng</a><i className="fa-solid fa-chevron-down"></i></div>
-            <div><i className="fa-solid fa-user"></i><a>Khách hàng</a><i className="fa-solid fa-chevron-down"></i></div>  
-
-        </div> */}
         <div className='content'>
             {toggle === 'product' && <AdminProduct />}
             {/* {toggle === 'supplier' && <AdminSupplier />} */}
