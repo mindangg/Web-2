@@ -5,20 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Web-2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Web-2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone13problue.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone13progreen.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promaxpurple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promaxwhite.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrapurple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrawhite.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/ProductRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/service/ProductService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/ProductService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/data.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/Card.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/Card.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/CardDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/CardDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/product/Filter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/Filter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Product/CardDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CardDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/CardDetails.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CardDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/ProductDetails.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,44 +72,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ChatTagsLlmMigration": "true",
-    "RunOnceActivity.CodyAccountHistoryMigration": "true",
-    "RunOnceActivity.CodyAccountsIdsRefresh": "true",
-    "RunOnceActivity.CodyAssignOrphanedChatsToActiveAccount": "true",
-    "RunOnceActivity.CodyConvertUrlToCodebaseName": "true",
-    "RunOnceActivity.CodyHistoryLlmMigration": "true",
-    "RunOnceActivity.CodyMigrateChatHistory-v2": "true",
-    "RunOnceActivity.CodyProjectSettingsMigration": "true",
-    "RunOnceActivity.DeprecatedChatLlmMigration": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.ToggleCodyToolWindowAfterMigration": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "qbao",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/CODE/Projects/Springboot-React-demo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.7\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ChatTagsLlmMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyAccountHistoryMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyAccountsIdsRefresh&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyAssignOrphanedChatsToActiveAccount&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyConvertUrlToCodebaseName&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyHistoryLlmMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyMigrateChatHistory-v2&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyProjectSettingsMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.DeprecatedChatLlmMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ToggleCodyToolWindowAfterMigration&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;qbao&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/CODE/Projects/Springboot-React-demo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.sourcegraph.cody.config.ui.CodyConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.7\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -120,6 +121,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\pages" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\components\product" />
       <recent name="C:\xampp\htdocs\Projects\Web-2" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\public" />
@@ -179,7 +181,9 @@
       <workItem from="1743492686219" duration="7000" />
       <workItem from="1743654009137" duration="20000" />
       <workItem from="1743861954181" duration="2070000" />
-      <workItem from="1743946679977" duration="3290000" />
+      <workItem from="1743946679977" duration="10460000" />
+      <workItem from="1743960198844" duration="1434000" />
+      <workItem from="1744009664999" duration="8407000" />
     </task>
     <servers />
   </component>

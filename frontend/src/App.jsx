@@ -14,7 +14,7 @@ import Payment from './pages/Payment.jsx'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import {Product} from "./pages/Product.jsx";
-import CardDetails from "./components/Product/CardDetails.jsx";
+import CardDetails from "./pages/ProductDetail.jsx";
 
 import Notification from './components/Notification.jsx'
 import { useAuthContext } from './hooks/useAuthContext.jsx'

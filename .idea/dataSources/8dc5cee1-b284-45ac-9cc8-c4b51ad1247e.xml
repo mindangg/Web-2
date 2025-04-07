@@ -1005,7 +1005,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
     <schema id="290" parent="1" name="mobile_store">
-      <LastIntrospectionLocalTimestamp>2025-04-06.16:28:35</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-04-06.17:46:54</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="291" parent="1" name="mysql">
