@@ -105,7 +105,7 @@ class UserService
         exit;
     }
 
-    public function createUser(array $data): void
+    public function createUser(array $data)
     {
         // Validate email format
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {

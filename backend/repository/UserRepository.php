@@ -45,7 +45,7 @@ class UserRepository
         return $stmt->fetchColumn() > 0;
     }
 
-    public function loginUser(string $username, string $password): ?array
+    public function loginUser(string $username, string $password)
     {
         $sql = "SELECT user_account_id, username, email, password 
         FROM user_account 

@@ -168,6 +168,7 @@ const ProductDetail = () => {
                         className="w-100 py-1 mt-2 rounded-4"
                         style={{height: "40px"}}
                         onClick={handleAddToCart}
+                        disabled={!sku}
                     >
                         ADD TO CART
                     </Button>
@@ -187,7 +188,7 @@ const ProductDetail = () => {
                 <Col md={6}
                      className={'p-0'}
                 >
-                    <Card className="text-center w-100 m-0" style={{ maxHeight: "150px" }}>
+                    <Card className="text-center w-100 m-0" style={{ maxHeight: "250px" }}>
                         <Card.Header className="fw-bold">SPECIFICATION</Card.Header>
 
                         <div style={{ width: "100%", overflowY: "auto" }}>

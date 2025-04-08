@@ -61,7 +61,7 @@ export default function Header() {
                 </div>
 
                 <div className='action'>
-                    <i class="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-user"></i>
                     {!user ? <Link to='/login'>Đăng nhập</Link> : <Link onClick={logout}>Đăng xuất</Link>}
                     <i className="fa-solid fa-basket-shopping"></i>
                     <Link onClick={handleClick}>Giỏ hàng</Link>
