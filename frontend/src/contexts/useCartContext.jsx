@@ -17,9 +17,14 @@ export const CartProvider = ({ children }) => {
     // }, [user])
 
     useEffect(() => {
-        const userId = user?.id || 1 // fallback user id để test
-        const savedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || []
-        setCart(savedCart)
+        if(user){
+            const userId = user.user.user_account_id
+            const savedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || []
+            setCart(savedCart)
+        }
+        else{
+            setCart([])
+        }
     }, [user])
 
     // const updateCart = (newCart) => {
@@ -31,7 +36,7 @@ export const CartProvider = ({ children }) => {
 
     const updateCart = (newCart) => {
         setCart(newCart)
-        const userId = user?.id || 1
+        const userId = user.user.user_account_id 
         localStorage.setItem(`cart_${userId}`, JSON.stringify(newCart))
     }
 

@@ -21,7 +21,7 @@ export default function Card({ phone }) {
                             navigator(`/product/${phone.product_id}`)
                         }}
                     ><i className="fa-solid fa-magnifying-glass-plus"></i></button>
-                    <button onClick={() => addToCart()}>Thêm vào<i className="fa-solid fa-cart-shopping"></i></button>
+                    <button onClick={() => addToCart(phone)}>Thêm vào<i className="fa-solid fa-cart-shopping"></i></button>
                 </div>
             </div>
         </div>

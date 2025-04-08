@@ -11,20 +11,20 @@ export default function CartItems({ item }) {
 
     const handleDelete = () => {
         if (window.confirm("Bạn muốn xóa sản phẩm này?")) {
-            const userId = user?.id || 1;
-            deleteCart(userId, item.product_id );
+            const userId = user.user.user_account_id;
+            deleteCart( item.product_id );
             // Cập nhật lại giỏ hàng sau khi xóa
-            const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
-            updateCart(updatedCart);
+            // const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+            // updateCart(updatedCart);
         }
     };
 
     const handleQuantityChange = (type) => {
-        const userId = user?.id || 1;
-        handleQuantity(item, userId, type);
+        const userId = user.user.user_account_id
+        handleQuantity(item, type);
         // Cập nhật lại giỏ hàng sau khi thay đổi số lượng
-        const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
-        updateCart(updatedCart);
+        // const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+        // updateCart(updatedCart);
     };
 
     return (
