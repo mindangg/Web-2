@@ -14,7 +14,7 @@ import Payment from './pages/Payment.jsx'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import {Product} from "./pages/Product.jsx";
-import CardDetails from "./components/product/CardDetails.jsx";
+import CardDetails from "./pages/ProductDetail.jsx";
 
 import Notification from './components/Notification.jsx'
 import { useAuthContext } from './hooks/useAuthContext.jsx'
@@ -31,7 +31,7 @@ const Layout = () => {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path={`/product`} element={<Product/>}/>
-          {/* <Route path='/product/:id' element={<CardDetails/>}/> */}
+           <Route path='/product/:id' element={<CardDetails/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/login' element={!user ? <Login/> : <Navigate to='/'/>}/>
           <Route path='/signup' element={!user ? <Signup/> : <Navigate to='/'/>}/>

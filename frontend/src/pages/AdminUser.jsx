@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import UserCard from '../components/Admin/UserCard'
 
-import '../styles/Admin.css'
-
 import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
@@ -46,12 +44,27 @@ export default function AdminUser() {
       }
 
       const json = await response.json()
-
-      dispatch({ type: 'SET_USER', payload: json})
+      dispatch({ type: 'SET_USER', payload: json })
     }
 
     fetchUser()
   }, [dispatch])
+
+  const resetForm = () => {
+    setUsername('')
+    setEmail('')
+    setFullName('')
+    setPhoneNumber('')
+    setHouseNumber('')
+    setStreet('')
+    setWard('')
+    setDistrict('')
+    setCity('')
+    setStatus('')
+
+    if (selectedUser)
+      setSelectedUser(null)
+  }
 
   const handleEdit = (user) => {
     setSelectedUser(user)
@@ -70,30 +83,27 @@ export default function AdminUser() {
 
   const handleSave = async (e) => {
       e.preventDefault()
+
       if (!selectedUser) 
-          return
+        return
 
-      // Create an object to store the updated data
-      const updatedData = {};
+      const updatedData = {}
 
-      // List of fields to compare between selectedUser and state
       const fields = [
           'username', 'email', 'full_name', 'phone_number', 
           'house_number', 'street', 'ward', 'district', 'city', 'status'
-      ];
+      ]
 
       // Loop through the fields and add changed values to updatedData
       fields.forEach(field => {
         if (selectedUser[field] !== eval(field)) {
-          updatedData[field] = eval(field);
+          updatedData[field] = eval(field)
         }
-      });
+      })
 
       // If no data has changed, don't proceed with the API call
-      if (Object.keys(updatedData).length === 0) {
-        console.log("No changes made to the user");
-        return;
-      }
+      if (Object.keys(updatedData).length === 0)
+        return
 
       console.log(updatedData)
 
@@ -104,28 +114,19 @@ export default function AdminUser() {
                   'Content-Type': 'application/json',
                   // 'Authorization': `Bearer ${admin.token}`
               },
-              // body: JSON.stringify({ updatedData })
-              body: JSON.stringify({ username: 'ABCXYZ' })
+              body: JSON.stringify(updatedData)
           })
 
           if (!response.ok)
               throw new Error('Failed to update user')
 
           const json = await response.json()
-          dispatch({ type: 'UPDATE_USER', payload: json })
-
+          console.log(json)
           setIsToggle(false)
-          setUsername('')
-          setEmail('')
-          setFullName('')
-          setPhoneNumber('')
-          setHouseNumber('')
-          setStreet('')
-          setWard('')
-          setDistrict('')
-          setCity('')
-          setStatus('')
-          setSelectedUser(null)
+          showNotification(json.message)
+          dispatch({ type: 'UPDATE_USER', payload: json.user })
+
+          resetForm()
       } 
       catch (error) {
           console.error('Error updating user:', error)
@@ -156,25 +157,16 @@ export default function AdminUser() {
 
           dispatch({type: 'ADD_USER', payload: json.user})
 
-          setUsername('')
-          setEmail('')
-          setFullName('')
-          setPhoneNumber('')
-          setHouseNumber('')
-          setStreet('')
-          setWard('')
-          setDistrict('')
-          setCity('')
-          setStatus('')
+          resetForm()
       }
       catch (error) {
           console.error(error)
       }
   }
 
-  useEffect(() => {
-    console.log("Updated users list:", users);  // This should show the updated list with the new user
-}, [users]);  // Trigger re-render when users state changes
+//   useEffect(() => {
+//     console.log('Updated users list:', users)  // This should show the updated list with the new user
+// }, [users])  // Trigger re-render when users state changes
   
   return (
     <>
@@ -235,10 +227,10 @@ export default function AdminUser() {
               
             : (
               <>
-                <label>Password</label><br/>
+                <label>Mật khẩu</label><br/>
                 <input
                   type='text'
-                  placeholder='Password'
+                  placeholder='Mật khẩu'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 /><br/>

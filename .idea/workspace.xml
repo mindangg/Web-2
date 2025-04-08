@@ -5,16 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone13problue.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone13progreen.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promaxpurple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promaxwhite.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrapurple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrawhite.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Product/CardDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CardDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/ProductDetails.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/backend/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -36,7 +49,18 @@
     &quot;accountId&quot;: &quot;b6495330-7424-499e-a759-034b11fe5c1b&quot;
   }
 }</component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Program Files\php-8.4.4-nts-Win32-vs17-x64\php.exe" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Program Files\php-8.4.4-nts-Win32-vs17-x64\php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/backend/vendor/composer" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/backend/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/backend/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/backend/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpoption/phpoption" />
+    </include_path>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -76,8 +100,8 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.6\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.sourcegraph.cody.config.ui.CodyConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.7\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -97,17 +121,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\pages" />
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\components\product" />
       <recent name="C:\xampp\htdocs\Projects\Web-2" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\public" />
     </key>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -148,6 +166,24 @@
       <workItem from="1742914342997" duration="674000" />
       <workItem from="1742998149064" duration="2986000" />
       <workItem from="1743035262042" duration="6232000" />
+      <workItem from="1743045023270" duration="2138000" />
+      <workItem from="1743055254423" duration="148000" />
+      <workItem from="1743178378986" duration="31000" />
+      <workItem from="1743317862964" duration="718000" />
+      <workItem from="1743322581680" duration="13000" />
+      <workItem from="1743348324085" duration="65000" />
+      <workItem from="1743353708015" duration="34000" />
+      <workItem from="1743353822146" duration="630000" />
+      <workItem from="1743356162318" duration="13000" />
+      <workItem from="1743405489673" duration="881000" />
+      <workItem from="1743420052492" duration="172000" />
+      <workItem from="1743439977655" duration="20000" />
+      <workItem from="1743492686219" duration="7000" />
+      <workItem from="1743654009137" duration="20000" />
+      <workItem from="1743861954181" duration="2070000" />
+      <workItem from="1743946679977" duration="10460000" />
+      <workItem from="1743960198844" duration="1434000" />
+      <workItem from="1744009664999" duration="8407000" />
     </task>
     <servers />
   </component>
