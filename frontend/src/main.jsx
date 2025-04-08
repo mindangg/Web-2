@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')).render(
         <AuthContextProvider>
           <NotificationContextProvider>
             <CardDetailsContextProvider>
-              <CartProvider>
+              <CartProvider> 
                 <App />
               </CartProvider>
             </CardDetailsContextProvider>
