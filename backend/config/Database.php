@@ -3,7 +3,7 @@
 namespace config;
 use PDO;
 use PDOException;
-
+//mysql:host=localhost;dbname=mobile_store
 class Database
 {
     private string $host = 'localhost';

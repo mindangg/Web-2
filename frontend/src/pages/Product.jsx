@@ -56,7 +56,7 @@ export const Product = () => {
                         {products.map((product) => (
                             <Card key={product.product_id}
                                   phone={product}
-                                  onClick={() => {
+                                  onClick={() => { 
                                   }}
                             />
                         ))}

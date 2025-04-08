@@ -15,7 +15,7 @@ export default function Card({ phone }) {
                 <p>${phone.base_price}</p>
                 <div className='card-btns'>
                     <button><i className="fa-solid fa-magnifying-glass-plus"></i></button>
-                    <button onClick={() => addToCart()}>Thêm vào<i className="fa-solid fa-cart-shopping"></i></button>
+                    <button onClick={() => addToCart(phone)}>Thêm vào<i className="fa-solid fa-cart-shopping"></i></button>
                 </div>
             </div>
         </div>
