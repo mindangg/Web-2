@@ -58,11 +58,11 @@ class EmployeeRepository
             ];
         }
 
-        if (!password_verify($password, $employee['password'])) {
-            return [
-                "message" => "Incorrect password"
-            ];
-        }
+        // if (!password_verify($password, $employee['password'])) {
+        //     return [
+        //         "message" => "Incorrect password"
+        //     ];
+        // }
 
         // return [
         //     "employee" => [

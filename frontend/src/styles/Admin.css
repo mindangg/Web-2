@@ -349,8 +349,14 @@
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
 } 
 
-.employee-role-admin{
+.employee-role-manager{
     background-color: #f84c2c;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.employee-role-admin{
+    background-color: #4ca0ff;
     padding: 5px;
     border-radius: 5px;
 }
