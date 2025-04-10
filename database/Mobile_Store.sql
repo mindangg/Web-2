@@ -10,7 +10,7 @@ CREATE TABLE user_account
     password VARCHAR(60), -- hash password 60 kí tự
     email    VARCHAR(50) UNIQUE,
     status ENUM('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
-    is_delete ENUM('0', '1') DEFAULT '0',
+    is_delete BOOLEAN DEFAULT FALSE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

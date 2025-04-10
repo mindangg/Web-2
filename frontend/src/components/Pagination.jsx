@@ -16,12 +16,25 @@ export default function Pagination({totalPage, currentPage}) {
             setSearchParams(searchParams);
         }
     }
+    
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    // const scrollToTop = () => {
+    //     setTimeout(() => {
+    //         window.scrollTo({ top: 0, behavior: 'smooth' })
+    //     }, 10)
+    // }
 
     return (
         <>
             <ul className="pagination justify-content-center">
                 <li className={`page-item page-link ${currentPage > 1 ? '' : 'disabled'}`}
-                    onClick={goToPrevPage}>
+                    onClick={() => {
+                        goToPrevPage();
+                        scrollToTop();
+                      }}>
                     <span aria-hidden="true">&laquo;</span>
                 </li>
                 {
@@ -30,7 +43,8 @@ export default function Pagination({totalPage, currentPage}) {
                             className={`page-item page-link ${currentPage === i + 1 ? 'active' : ''}`}
                             onClick={() => {
                                 searchParams.set('page', i + 1);
-                                setSearchParams(searchParams)
+                                setSearchParams(searchParams);
+                                scrollToTop()
                             }}
                         >
                             <span>{i + 1}</span>
@@ -38,7 +52,10 @@ export default function Pagination({totalPage, currentPage}) {
                     ))
                 }
                 <li className={`page-item page-link ${currentPage < totalPage ? '' : 'disabled'}`}
-                    onClick={goToNextPage}>
+                    onClick={() => {
+                        goToNextPage();
+                        scrollToTop();
+                      }}>
                     <span aria-hidden="true">&raquo;</span>
                 </li>
             </ul>

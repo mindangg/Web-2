@@ -54,7 +54,7 @@ class EmployeeRepository
 
         if (!$employee) {
             return [
-                "message" => "Email not found"
+                "message" => "Không tìm thấy email"
             ];
         }
 
@@ -63,13 +63,6 @@ class EmployeeRepository
         //         "message" => "Incorrect password"
         //     ];
         // }
-
-        // return [
-        //     "employee" => [
-        //         "employee_id" => ,
-        //         "email" => $employee['email']
-        //     ]
-        // ];
 
         return $this->findById($employee['employee_id']);
     }
@@ -93,8 +86,30 @@ class EmployeeRepository
         return $this->findById($this->pdo->lastInsertId());
     }    
 
-    public function findAll(): array
+    public function findAll(?string $full_name, 
+                            ?string $role,
+                            ?int    $limit = 10,
+                            ?int    $page = 1,): array
     {
+        $conditions = [];
+        $params = [];
+        
+        if ($full_name) {
+            $conditions[] = "LOWER(e.full_name) LIKE LOWER(:full_name)";
+            $params[':full_name'] = '%'.$full_name.'%';            
+        }
+
+        if ($role) {
+            $conditions[] = "r.role_name = :role";
+            $params[':role'] = $role;
+        }
+
+        $whereClause = "";
+        if (!empty($conditions))
+            $whereClause = " WHERE " . implode(" AND ", $conditions);
+        
+        $offset = ($page - 1) * $limit;
+
         $sql = "SELECT 
             e.employee_id, 
             e.full_name, 
@@ -107,11 +122,41 @@ class EmployeeRepository
         FROM employee AS e
         INNER JOIN role AS r 
             ON e.role = r.role_id
-        ORDER BY FIELD(e.role, 1, 2, 3, 4), e.created_at DESC";
+        $whereClause
+        ORDER BY FIELD(e.role, 1, 2, 3, 4), e.created_at DESC
+        LIMIT :limit OFFSET :offset";
 
         $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        foreach ($params as $key => $value)
+            $stmt->bindValue($key, $value);
+    
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $employees =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Total query (without LIMIT/OFFSET)
+        $totalQuery = "SELECT COUNT(*) as total
+                        FROM employee AS e
+                        INNER JOIN role AS r 
+                            ON e.role = r.role_id
+                        $whereClause";
+
+        $totalStmt = $this->pdo->prepare($totalQuery);
+        foreach ($params as $key => $value)
+            $totalStmt->bindValue($key, $value);
+
+        $totalStmt->execute();
+        $totalRow = $totalStmt->fetch(PDO::FETCH_ASSOC);
+        $total = $totalRow['total'];
+        $totalPages = ceil($total / $limit);
+
+        return [
+            'totalEmployees' => $employees,
+            'totalPage' => $totalPages,
+            'currentPage' => $page,
+        ];
     }
 
     public function findById(int $id)

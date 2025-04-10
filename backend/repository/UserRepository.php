@@ -47,7 +47,7 @@ class UserRepository
 
     public function loginUser(string $username, string $password)
     {
-        $sql = "SELECT user_account_id, username, email, password 
+        $sql = "SELECT user_account_id, username, email, password, status, is_delete 
         FROM user_account 
         WHERE username = :username";
 
@@ -59,22 +59,27 @@ class UserRepository
 
         if (!$user) {
             return [
-                "message" => "Username not found"
+                "message" => "Không tìm thấy username"
+            ];
+        }
+
+        if ($user['status'] == 'Bị khóa') {
+            return [
+                "message" => "Tài khoản này đã bị khóa"
+            ];
+        }
+
+        if ($user['is_delete']) {
+            return [
+                "message" => "Tài khoản này đã bị xóa"
             ];
         }
 
         if (!password_verify($password, $user['password'])) {
             return [
-                "message" => "Incorrect password"
+                "message" => "Sai mật khẩu"
             ];
         }
-
-        // return [
-        //     "user" => [
-        //         "user_account_id" => $user['user_account_id'],
-        //         "username" => $user['username'],
-        //     ]
-        // ];
 
         return $this->findById($user['user_account_id']);
     }
@@ -132,16 +137,43 @@ class UserRepository
         return $this->findById($userAccountId);
     }    
 
-    public function findAll(): array
+    public function findAll(?string $full_name, 
+                            ?string $status,
+                            ?int    $limit = 10,
+                            ?int    $page = 1,                        
+                            bool    $includeDeleted = false): array
     {
-        $sql = "SELECT 
+        $conditions = [];
+        $params = [];
+
+        if (!$includeDeleted)
+            $conditions[] = "ua.is_delete = FALSE";
+        
+        if ($full_name) {
+            $conditions[] = "LOWER(ui.full_name) LIKE LOWER(:full_name)";
+            $params[':full_name'] = '%'.$full_name.'%';            
+        }
+
+        if ($status) {
+            $conditions[] = "ua.status = :status";
+            $params[':status'] = $status;
+        }
+
+        $whereClause = "";
+        if (!empty($conditions))
+            $whereClause = " WHERE " . implode(" AND ", $conditions);
+        
+        $offset = ($page - 1) * $limit;
+
+        $sql = "SELECT
             ua.user_account_id, 
             ua.username, 
             ua.email, 
             ua.status, 
+            ua.is_delete,
             DATE_FORMAT(ua.created_at, '%d/%m/%Y') as created_at, 
             ui.full_name, 
-            ui.phone_number, 
+            ui.phone_number,
             ui.house_number, 
             ui.street, 
             ui.ward, 
@@ -150,32 +182,64 @@ class UserRepository
         FROM user_account AS ua
         LEFT JOIN user_information AS ui 
             ON ua.user_account_id = ui.account_id
-        ORDER BY ua.created_at desc";
+        $whereClause
+        ORDER BY ua.created_at DESC
+        LIMIT :limit OFFSET :offset";
 
         $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        foreach ($params as $key => $value)
+            $stmt->bindValue($key, $value);
+    
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $users =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Total query (without LIMIT/OFFSET)
+        $totalQuery = "SELECT COUNT(*) as total
+                       FROM user_account AS ua
+                       LEFT JOIN user_information AS ui 
+                            ON ua.user_account_id = ui.account_id
+                       $whereClause";
+
+        $totalStmt = $this->pdo->prepare($totalQuery);
+        foreach ($params as $key => $value)
+            $totalStmt->bindValue($key, $value);
+
+        $totalStmt->execute();
+        $totalRow = $totalStmt->fetch(PDO::FETCH_ASSOC);
+        $total = $totalRow['total'];
+        $totalPages = ceil($total / $limit);
+
+        return [
+            'totalUsers' => $users,
+            'totalPage' => $totalPages,
+            'currentPage' => $page,
+        ];
     }
 
     public function findById(int $id)
     {
-        $sql = "SELECT 
-            ua.user_account_id, 
-            ua.username, 
-            ua.email, 
-            ua.status, 
-            DATE_FORMAT(ua.created_at, '%d/%m/%Y') as created_at, 
-            ui.full_name, 
-            ui.phone_number, 
-            ui.house_number, 
-            ui.street, 
-            ui.ward, 
-            ui.district, 
-            ui.city
-        FROM user_account AS ua
-        LEFT JOIN user_information AS ui 
-            ON ua.user_account_id = ui.account_id
-        WHERE ua.user_account_id = :id";
+            $sql = "SELECT 
+                ua.user_account_id, 
+                ua.username, 
+                ua.email, 
+                ua.status,
+                ua.is_delete,
+                DATE_FORMAT(ua.created_at, '%d/%m/%Y') as created_at, 
+                ui.full_name, 
+                ui.phone_number, 
+                ui.house_number, 
+                ui.street, 
+                ui.ward, 
+                ui.district, 
+                ui.city
+            FROM user_account AS ua
+            LEFT JOIN user_information AS ui 
+                ON ua.user_account_id = ui.account_id
+            WHERE ua.user_account_id = :id
+            AND ua.is_delete = FALSE";
         
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -195,9 +259,15 @@ class UserRepository
         if (!$userExists)
             return false;
 
+        // function to check if the account has order
+        // if (true)
+        // $sql = "UPDATE user_account
+        //         SET is_delete = TRUE
+        //         WHERE user_account_id = :id;"
+
         $sql = "DELETE
-        FROM user_account
-        WHERE user_account_id = :id";
+                FROM user_account
+                WHERE user_account_id = :id";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
