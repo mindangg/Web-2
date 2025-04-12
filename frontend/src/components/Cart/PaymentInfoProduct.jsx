@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import { useCartContext } from "../../contexts/useCartContext";
 import "../../styles/Cart/PaymentInfoProduct.css"
+import { Link } from "react-router-dom";
 function PaymentInfoProduct(){
-    const { cart } = useCartContext() // ✅ Sử dụng từ context
+    const { cart } = useCartContext() 
     const totalAmount = cart.reduce((sum, item) => sum + (item.base_price * item.quantity), 0)
        
         return(
@@ -37,7 +38,7 @@ function PaymentInfoProduct(){
                         </tr>
                     </tfoot>
                 </table>
-                <button><i className="fa-solid fa-reply"></i>Sửa đổi</button>
+                <Link to='/cart'><button><i className="fa-solid fa-reply"></i>Sửa đổi</button></Link>
             </div>
     );
 } export default PaymentInfoProduct

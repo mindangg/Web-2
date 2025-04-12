@@ -15,17 +15,18 @@ class UserController
         $this->userService = new UserService();
     }
 
-    public function processRequest(string $method, ?string $param): void
+    public function processRequest(string $method, ?string $param, ?string $subRoute = null): void
     {
         switch ($method) {
             // AuthMiddleware::verifyToken();
             case 'GET':
-                if (is_numeric($param))
+                if ($param === 'addresses' && is_numeric($subRoute)) {
+                    $this->getUserAddresses((int)$subRoute);
+                } elseif (is_numeric($param)) {
                     $this->getUserById((int)$param);
-                
-                else
+                } else {
                     $this->getAllUsers();
-        
+                }
                 break;
 
             case 'POST':
@@ -37,6 +38,9 @@ class UserController
 
                 else if ($param === 'create')
                     $this->createUser();
+                else if($param==='addresses'){
+                    $this->addUserAddress();
+                }
                 
                 else {
                     http_response_code(400);
@@ -58,11 +62,21 @@ class UserController
         }
     }
 
+    // private function validateRequiredFields(array $data, array $fields): ?string
+    // {
+    //     foreach ($fields as $field) {
+    //         if (empty($data[$field]))
+    //             return "Please fill in your $field";
+    //     }
+    //     return null;
+    // }
+
     private function validateRequiredFields(array $data, array $fields): ?string
     {
         foreach ($fields as $field) {
-            if (empty($data[$field]))
+            if (empty($data[$field])) {
                 return "Please fill in your $field";
+            }
         }
         return null;
     }
@@ -145,6 +159,33 @@ class UserController
 
         $user = $this->userService->updateUserById($id, $data);
         echo json_encode($user);
+    }
+     //address cart
+     private function getUserAddresses(int $userId): void
+     {
+        $addresses = $this->userService->getUserAddresses($userId);
+        echo json_encode($addresses);
+     }
+
+     private function addUserAddress(): void
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        
+        $validationError = $this->validateRequiredFields($data, [
+            "account_id", "full_name", "phone_number", "house_number", "street", "ward", "district", "city"
+        ]);
+
+        if ($validationError) {
+            http_response_code(400);
+            echo json_encode(["message" => $validationError]);
+            return;
+        }
+
+        $address = $this->userService->addUserAddress($data);
+        echo json_encode([
+            "message" => "Address added successfully",
+            "address" => $address
+        ]);
     }
 }
 ?>

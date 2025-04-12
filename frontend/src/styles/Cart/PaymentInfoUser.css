@@ -1,13 +1,165 @@
 .info-user{
-    margin: 10px 10px 10px 10px;
+    margin: 10px;
     width: 45%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fdfdfd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
 .info-user h5{
     text-align: center;
 }
-#address{
+
+.info-user label{
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.info-user input{
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    font-size: 16px;
+    padding-left: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.info-user select{
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    font-size: 16px;
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+    box-sizing: border-box;
+}
+.address-list{
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px dashed #aaa;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.address-list div{
+    display: flex;
+    border: solid gray 1px;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+.address-list input[type="radio"] {
+    margin-right: 10px;
+    height: 20px;
+}
+
+.address-list button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.address-list button:hover {
+    background-color: #0056b3;
+}
+#selectAddressBtn{
+    margin-top: 10px;
+    padding: 10px 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.add-address-form {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px dashed #aaa;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+#addAddress{
+    margin-top: 10px;
+    padding: 10px 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+
+}
+#confirm-btn{
+    margin-top: 10px;
+    padding: 10px 14px;
+    background-color: #2c75e3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+#cancel-btn{
+    margin-top: 10px;
+    padding: 10px 14px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: 20px;
+}
+.form-actions{
+    text-align: center;
+}
+
+.address-radio {
+    display: flex;
+    align-items: flex-start; /* Cho radio nằm trên cùng với text */
+    gap: 12px; /* Khoảng cách giữa radio và nội dung */
+  }
+  
+  .address-radio input[type="radio"] {
+    margin-top: 5px; /* Căn chỉnh để nằm ngang hàng tên */
+    width: 16px;
+    height: 16px;
+    accent-color: #007bff; /* Màu cho nút tích */
+    cursor: pointer;
+  }
+  
+  .address-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.4;
+    width: 300px;
+    border: solid 1px gray;
+    padding: 20px;
+    border-radius: 30px;
+  }
+
+/* #address{
     width: 100%;
 }
 #payment{
     width: 100%;
-}
+} */

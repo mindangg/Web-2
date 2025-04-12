@@ -46,7 +46,10 @@ switch ($request[2]){
         $userController = new UserController();
         $userController->processRequest(
             $_SERVER['REQUEST_METHOD'], 
-            $request[3] ?? null);
+            $request[3] ?? null,
+            //address
+            $request[4] ?? null);
+        
         break;
         
     case 'employee':
