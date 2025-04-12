@@ -42,8 +42,8 @@ class EmployeeRepository
 
     public function loginEmployee(string $email, string $password): ?array
     {
-        $sql = "SELECT employee_id, email, password 
-        FROM employee 
+        $sql = "SELECT employee_id, email, password
+        FROM employee
         WHERE email = :email";
 
         $stmt = $this->pdo->prepare($sql);
@@ -58,11 +58,11 @@ class EmployeeRepository
             ];
         }
 
-        if (!password_verify($password, $employee['password'])) {
-            return [
-                "message" => "Incorrect password"
-            ];
-        }
+//        if (!password_verify($password, $employee['password'])) {
+//            return [
+//                "message" => "Incorrect password"
+//            ];
+//        }
 
         // return [
         //     "employee" => [

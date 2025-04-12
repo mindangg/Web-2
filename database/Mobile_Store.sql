@@ -5,29 +5,31 @@ USE mobile_store;
 
 CREATE TABLE user_account
 (
-    user_account_id       INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE,
-    password VARCHAR(60), -- hash password 60 kí tự
-    email    VARCHAR(50) UNIQUE,
-    status ENUM('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    user_account_id INT PRIMARY KEY AUTO_INCREMENT,
+    username        VARCHAR(50) UNIQUE,
+    password        VARCHAR(60), -- hash password 60 kí tự
+    email           VARCHAR(50) UNIQUE,
+    status          ENUM ('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
+    created_at      DATETIME                      DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE user_information
 (
-    user_information_id           INT PRIMARY KEY AUTO_INCREMENT,
-    account_id   INT,
-    full_name    VARCHAR(30),
-    phone_number VARCHAR(10) UNIQUE,
-    house_number VARCHAR(10),
-    street       VARCHAR(50),
-    ward         VARCHAR(50),
-    district     VARCHAR(50),
-    city         VARCHAR(50),
-    FOREIGN KEY (account_id) REFERENCES user_account (user_account_id )
+    user_information_id INT PRIMARY KEY AUTO_INCREMENT,
+    account_id          INT,
+    full_name           VARCHAR(30),
+    phone_number        VARCHAR(10) UNIQUE,
+    house_number        VARCHAR(10),
+    street              VARCHAR(50),
+    ward                VARCHAR(50),
+    district            VARCHAR(50),
+    city                VARCHAR(50),
+    FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE brand
 (
@@ -37,20 +39,20 @@ CREATE TABLE brand
 
 CREATE TABLE internal_option
 (
-    internal_option_id      INT PRIMARY KEY AUTO_INCREMENT,
-    storage ENUM ('128GB', '256GB', '512GB', '1TB', '2TB'),
-    ram     ENUM ('4GB', '6GB', '8GB', '10GB', '12GB', '16GB', '18GB')
+    internal_option_id INT PRIMARY KEY AUTO_INCREMENT,
+    storage            ENUM ('128GB', '256GB', '512GB', '1TB', '2TB'),
+    ram                ENUM ('4GB', '6GB', '8GB', '10GB', '12GB', '16GB', '18GB')
 );
 
 CREATE TABLE color
 (
-    color_id    INT PRIMARY KEY AUTO_INCREMENT,
-    color VARCHAR(30)
+    color_id INT PRIMARY KEY AUTO_INCREMENT,
+    color    VARCHAR(30)
 );
 
 CREATE TABLE product
 (
-    product_id              INT PRIMARY KEY AUTO_INCREMENT,
+    product_id      INT PRIMARY KEY AUTO_INCREMENT,
     brand           INT,
     series          VARCHAR(50),
     name            VARCHAR(50),
@@ -72,7 +74,7 @@ CREATE TABLE product
 
 CREATE TABLE sku
 (
-    sku_id            INT PRIMARY KEY AUTO_INCREMENT,
+    sku_id        INT PRIMARY KEY AUTO_INCREMENT,
     product_id    INT,
     internal_id   INT,
     color_id      INT,
@@ -97,7 +99,7 @@ CREATE TABLE sku
 
 CREATE TABLE receipt
 (
-    receipt_id                  INT PRIMARY KEY AUTO_INCREMENT,
+    receipt_id          INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     user_information_id INT,
     date                DATETIME DEFAULT (CURRENT_TIMESTAMP),
@@ -125,14 +127,15 @@ CREATE TABLE receipt_detail
 
 CREATE TABLE role
 (
-    role_id        INT PRIMARY KEY AUTO_INCREMENT,
-    role_name      ENUM ('Điều hành', 'Admin', 'Quản lí kho', 'Bán hàng')
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    role_id   INT PRIMARY KEY AUTO_INCREMENT,
+    role_name ENUM ('Điều hành', 'Admin', 'Quản lí kho', 'Bán hàng')
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE functional
 (
-    functional_id  INT PRIMARY KEY AUTO_INCREMENT,
-    function_name  VARCHAR(30)
+    functional_id INT PRIMARY KEY AUTO_INCREMENT,
+    function_name VARCHAR(30)
 );
 
 CREATE TABLE role_function
@@ -151,29 +154,30 @@ CREATE TABLE role_function
 
 CREATE TABLE employee
 (
-    employee_id            INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id  INT PRIMARY KEY AUTO_INCREMENT,
     full_name    VARCHAR(30),
-    email         VARCHAR(50) UNIQUE,
-    password VARCHAR(60), -- hash password 60 kí tự
-    phone_number  VARCHAR(10) UNIQUE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    role          INT,
+    email        VARCHAR(50) UNIQUE,
+    password     VARCHAR(60), -- hash password 60 kí tự
+    phone_number VARCHAR(10) UNIQUE,
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    role         INT,
     FOREIGN KEY (role) REFERENCES role (role_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; 
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE provider
 (
-    provider_id      INT PRIMARY KEY AUTO_INCREMENT,
-    name    VARCHAR(30),
-    phone   VARCHAR(20),
-    address VARCHAR(255)
+    provider_id INT PRIMARY KEY AUTO_INCREMENT,
+    name        VARCHAR(30),
+    phone       VARCHAR(20),
+    address     VARCHAR(255)
 );
 
 CREATE TABLE import
 (
-    import_id          INT PRIMARY KEY AUTO_INCREMENT,
+    import_id   INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
     date        DATETIME DEFAULT (CURRENT_TIMESTAMP),
     total       INT,
@@ -188,11 +192,11 @@ CREATE TABLE import
 
 CREATE TABLE import_detail
 (
-    import_detail_id        INT PRIMARY KEY AUTO_INCREMENT,
-    import_id INT,
-    sku_id    INT,
-    quantity  INT,
-    price     INT,
+    import_detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    import_id        INT,
+    sku_id           INT,
+    quantity         INT,
+    price            INT,
     FOREIGN KEY (import_id) REFERENCES import (import_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,

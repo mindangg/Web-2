@@ -141,7 +141,7 @@ const ProductDetail = () => {
 
                     {uniqueStorages.length > 0 && (
                         <div className="mb-4">
-                            <h3 className="h5 mb-0">Chọn kích thước</h3>
+                            <h3 className="h5 mb-0">Storages</h3>
                             <div className="d-flex flex-wrap" style={{ marginTop: "30px" }}>
                                 {uniqueStorages
                                     .sort((a, b) => a.internal_id - b.internal_id)
