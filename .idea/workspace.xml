@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone13problue.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone13progreen.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promaxpurple.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/iphone14promaxwhite.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrapurple.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrawhite.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controller/BrandController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/BrandRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/service/BrandService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Product/CardDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CardDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/ProductDetails.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/repository/EmployeeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/EmployeeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/ERD.png" beforeDir="false" afterPath="$PROJECT_DIR$/database/ERD.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useAdminLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useAdminLogin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Header.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,6 +181,12 @@
       <workItem from="1743946679977" duration="10460000" />
       <workItem from="1743960198844" duration="1434000" />
       <workItem from="1744009664999" duration="8407000" />
+      <workItem from="1744096754706" duration="160000" />
+      <workItem from="1744124102760" duration="129000" />
+      <workItem from="1744158959202" duration="3883000" />
+      <workItem from="1744255094847" duration="3478000" />
+      <workItem from="1744262955048" duration="18000" />
+      <workItem from="1744462473827" duration="641000" />
     </task>
     <servers />
   </component>

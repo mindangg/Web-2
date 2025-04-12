@@ -41,13 +41,10 @@ class ProductService
             throw new \PDOException(`Product not found with id: $id`, 404);
         }
         $sku = $this->skuRepository->findAll($id);
-        if(!$sku) {
-            throw new \PDOException('Product not found', 404);
-        } else {
-            return $response = [
-                'product' => $product,
-                'sku' => $sku
-            ];
-        }
+
+        return $response = [
+            'product' => $product,
+            'sku' => $sku
+        ];
     }
 }

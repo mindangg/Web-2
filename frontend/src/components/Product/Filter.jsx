@@ -14,7 +14,7 @@ export const Filter = () => {
         <>
             <div className={'filter-container d-flex justify-content-start'}>
                 <div className={'filter-component'}>
-                    <h4>Sort by</h4>
+                    <h4>Sort by price</h4>
                     <div className={'d-flex justify-content-start'}>
                         <div className={'filter-item'}
                              onClick={() => {
@@ -25,7 +25,7 @@ export const Filter = () => {
                              }}
                         >
                             <img className={'icon-link'} src={ascSortLogo}/>
-                            <span>Price increasing</span>
+                            <span>Increase</span>
                         </div>
                         <div className={'filter-item'}
                              onClick={() => {
@@ -36,7 +36,7 @@ export const Filter = () => {
                              }}
                         >
                             <img className={'icon-link'} src={descSortLogo}/>
-                            <span>Price decreasing</span>
+                            <span>Decrease</span>
                         </div>
                     </div>
                 </div>

@@ -141,7 +141,7 @@ const ProductDetail = () => {
 
                     {uniqueStorages.length > 0 && (
                         <div className="mb-4">
-                            <h3 className="h5 mb-0">Chọn kích thước</h3>
+                            <h3 className="h5 mb-0">Storages</h3>
                             <div className="d-flex flex-wrap" style={{ marginTop: "30px" }}>
                                 {uniqueStorages
                                     .sort((a, b) => a.internal_id - b.internal_id)
@@ -168,6 +168,7 @@ const ProductDetail = () => {
                         className="w-100 py-1 mt-2 rounded-4"
                         style={{height: "40px"}}
                         onClick={handleAddToCart}
+                        disabled={!sku}
                     >
                         ADD TO CART
                     </Button>
@@ -187,7 +188,7 @@ const ProductDetail = () => {
                 <Col md={6}
                      className={'p-0'}
                 >
-                    <Card className="text-center w-100 m-0" style={{ maxHeight: "150px" }}>
+                    <Card className="text-center w-100 m-0" style={{ maxHeight: "250px" }}>
                         <Card.Header className="fw-bold">SPECIFICATION</Card.Header>
 
                         <div style={{ width: "100%", overflowY: "auto" }}>
