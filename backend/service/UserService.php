@@ -255,5 +255,29 @@ class UserService
         ]);
         exit;
     }
+
+    //address
+    public function getUserAddresses(int $userId): array
+    {
+        $addresses = $this->userRepository->getUserAddresses($userId);
+        if (!$addresses) {
+            throw new \PDOException('No addresses found', 404);
+        }
+        return $addresses;
+    }
+
+    public function addUserAddress(array $data): array
+    {
+        // Validate account_id exists
+        if (!$this->userRepository->findById($data['account_id'])) {
+            $this->respond(400, ["message" => "User does not exist"]);
+        }
+
+        $address = $this->userRepository->addUserAddress($data);
+        if (!$address) {
+            $this->respond(500, ["message" => "Error adding address"]);
+        }
+        return $address;
+    }
 }
 ?>

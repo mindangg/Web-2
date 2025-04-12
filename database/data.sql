@@ -117,22 +117,41 @@ VALUES ('user1', 'pass1', 'user1@example.com'),
        ('user14', 'pass14', 'user14@example.com'),
        ('user15', 'pass15', 'user15@example.com');
        
-INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city)
-VALUES (1, 'Alice Nguyen', '0909123456', '12', 'Nguyen Trai', 'Ward 1', 'District 1', 'Ho Chi Minh City'),
-       (2, 'Bao Tran', '0909876543', '45', 'Le Loi', 'Ward 5', 'District 3', 'Ho Chi Minh City'),
-       (3, 'Chi Le', '0912345678', '89', 'Tran Hung Dao', 'Ward 3', 'District 5', 'Ho Chi Minh City'),
-       (4, 'Duy Vo', '0934567890', '7', 'Pham Ngu Lao', 'Ward 2', 'District 1', 'Ho Chi Minh City'),
-       (5, 'Emi Pham', '0908765432', '101', 'Ly Thuong Kiet', 'Ward 10', 'District 10', 'Ho Chi Minh City'),
-       (6, 'Phuc Tran', '0911122334', '33', 'Nguyen Hue', 'Ward 7', 'District 4', 'Ho Chi Minh City'),
-       (7, 'Giang Dang', '0933445566', '55', 'Le Van Sy', 'Ward 8', 'District 3', 'Ho Chi Minh City'),
-       (8, 'Hoa Nguyen', '0922334455', '77', 'CMT8', 'Ward 6', 'District 10', 'Ho Chi Minh City'),
-       (9, 'Huy Hoang', '0909988776', '90', 'Hoang Sa', 'Ward 11', 'District 3', 'Ho Chi Minh City'),
-       (10, 'Khanh Do', '0944556677', '22', 'Bach Dang', 'Ward 9', 'District Binh Thanh', 'Ho Chi Minh City'),
-       (11, 'Lan Truong', '0933667788', '100', 'To Hien Thanh', 'Ward 13', 'District 10', 'Ho Chi Minh City'),
-       (12, 'Minh Chau', '0911999888', '68', 'Vo Thi Sau', 'Ward 5', 'District 1', 'Ho Chi Minh City'),
-       (13, 'Nam Pham', '0922446688', '29', 'Dien Bien Phu', 'Ward 15', 'District Binh Thanh', 'Ho Chi Minh City'),
-       (14, 'Oanh Le', '0933778899', '44', 'Tran Quang Khai', 'Ward 12', 'District 1', 'Ho Chi Minh City'),
-       (15, 'Phuong Mai', '0909333222', '37', 'Pasteur', 'Ward 14', 'District 3', 'Ho Chi Minh City'); 
+-- INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city)
+-- VALUES (1, 'Alice Nguyen', '0909123456', '12', 'Nguyen Trai', 'Ward 1', 'District 1', 'Ho Chi Minh City'),
+--        (2, 'Bao Tran', '0909876543', '45', 'Le Loi', 'Ward 5', 'District 3', 'Ho Chi Minh City'),
+--        (3, 'Chi Le', '0912345678', '89', 'Tran Hung Dao', 'Ward 3', 'District 5', 'Ho Chi Minh City'),
+--        (4, 'Duy Vo', '0934567890', '7', 'Pham Ngu Lao', 'Ward 2', 'District 1', 'Ho Chi Minh City'),
+--        (5, 'Emi Pham', '0908765432', '101', 'Ly Thuong Kiet', 'Ward 10', 'District 10', 'Ho Chi Minh City'),
+--        (6, 'Phuc Tran', '0911122334', '33', 'Nguyen Hue', 'Ward 7', 'District 4', 'Ho Chi Minh City'),
+--        (7, 'Giang Dang', '0933445566', '55', 'Le Van Sy', 'Ward 8', 'District 3', 'Ho Chi Minh City'),
+--        (8, 'Hoa Nguyen', '0922334455', '77', 'CMT8', 'Ward 6', 'District 10', 'Ho Chi Minh City'),
+--        (9, 'Huy Hoang', '0909988776', '90', 'Hoang Sa', 'Ward 11', 'District 3', 'Ho Chi Minh City'),
+--        (10, 'Khanh Do', '0944556677', '22', 'Bach Dang', 'Ward 9', 'District Binh Thanh', 'Ho Chi Minh City'),
+--        (11, 'Lan Truong', '0933667788', '100', 'To Hien Thanh', 'Ward 13', 'District 10', 'Ho Chi Minh City'),
+--        (12, 'Minh Chau', '0911999888', '68', 'Vo Thi Sau', 'Ward 5', 'District 1', 'Ho Chi Minh City'),
+--        (13, 'Nam Pham', '0922446688', '29', 'Dien Bien Phu', 'Ward 15', 'District Binh Thanh', 'Ho Chi Minh City'),
+--        (14, 'Oanh Le', '0933778899', '44', 'Tran Quang Khai', 'Ward 12', 'District 1', 'Ho Chi Minh City'),
+--        (15, 'Phuong Mai', '0909333222', '37', 'Pasteur', 'Ward 14', 'District 3', 'Ho Chi Minh City'); 
+
+INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city, is_default)
+VALUES 
+(1, 'Nguyễn Văn A', '0901234567', '123', 'Lê Lợi', 'Phường Bến Thành', 'Quận 1', 'TP.HCM', TRUE),
+(1, 'Nguyễn Văn A', '0901234567', '456', 'Nguyễn Huệ', 'Phường Bến Nghé', 'Quận 1', 'TP.HCM', FALSE),
+(2, 'Trần Thị B', '0912345678', '78A', 'Trần Hưng Đạo', 'Phường Cầu Kho', 'Quận 1', 'TP.HCM', TRUE),
+(3, 'Lê Văn C', '0923456789', '35', 'Phạm Văn Đồng', 'Phường Hiệp Bình Chánh', 'TP.Thủ Đức', 'TP.HCM', TRUE),
+(4, 'Phạm Thị D', '0934567890', '99', 'Cách Mạng Tháng 8', 'Phường 15', 'Quận 10', 'TP.HCM', TRUE),
+(5, 'Hoàng Văn E', '0945678901', '12', 'Quang Trung', 'Phường 11', 'Quận Gò Vấp', 'TP.HCM', TRUE),
+(6, 'Đinh Thị F', '0956789012', '88', 'Nguyễn Thái Học', 'Phường Cầu Ông Lãnh', 'Quận 1', 'TP.HCM', TRUE),
+(7, 'Võ Văn G', '0967890123', '21', 'Lý Thường Kiệt', 'Phường 7', 'Quận Tân Bình', 'TP.HCM', TRUE),
+(8, 'Ngô Thị H', '0978901234', '47', '3/2', 'Phường 14', 'Quận 10', 'TP.HCM', TRUE),
+(9, 'Bùi Văn I', '0989012345', '05', 'Nguyễn Trãi', 'Phường Nguyễn Cư Trinh', 'Quận 1', 'TP.HCM', TRUE),
+(10, 'Đỗ Thị K', '0990123456', '66', 'Hòa Bình', 'Phường Hiệp Tân', 'Quận Tân Phú', 'TP.HCM', TRUE),
+(3, 'Lê Văn C', '0923456789', '198', 'Kha Vạn Cân', 'Phường Linh Tây', 'TP.Thủ Đức', 'TP.HCM', FALSE),
+(5, 'Hoàng Văn E', '0945678901', '201', 'Lê Đức Thọ', 'Phường 6', 'Quận Gò Vấp', 'TP.HCM', FALSE),
+(2, 'Trần Thị B', '0912345678', '789', 'Đinh Tiên Hoàng', 'Phường Đa Kao', 'Quận 1', 'TP.HCM', FALSE),
+(6, 'Đinh Thị F', '0956789012', '301', 'Nguyễn Văn Cừ', 'Phường 4', 'Quận 5', 'TP.HCM', FALSE);
+
 
 
 INSERT INTO role (role_name)

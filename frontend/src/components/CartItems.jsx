@@ -1,46 +1,73 @@
-import React, { useState } from 'react';
-import ip12 from '../assets/iphone-12-pro-blue-hero.png';
-
+import React from 'react';
 import '../styles/CartItems.css';
+import { useCartContext } from '../contexts/useCartContext';
+import { useAddToCart } from '../hooks/useAddToCart';
+import { useAuthContext } from '../hooks/useAuthContext';
 
-export default function CartItems() {
-    const [quantity, setQuantity] = useState(1)
+export default function CartItems({ item }) {
+    const { updateCart } = useCartContext();
+    const { deleteCart, handleQuantity } = useAddToCart();
+    const { user } = useAuthContext();
+
     const handleDelete = () => {
-        alert("Bạn muốn xóa sản phẩm này ?")
-      };
+        if (window.confirm("Bạn muốn xóa sản phẩm này?")) {
+            const userId = user.user.user_account_id;
+            deleteCart( item.product_id );
+            // Cập nhật lại giỏ hàng sau khi xóa
+            // const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+            // updateCart(updatedCart);
+        }
+    };
+
+    const handleQuantityChange = (type) => {
+        const userId = user.user.user_account_id
+        handleQuantity(item, type);
+        // Cập nhật lại giỏ hàng sau khi thay đổi số lượng
+        // const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+        // updateCart(updatedCart);
+    };
 
     return (
         <div className='cart-item'>
             <div className='cart-info'>
-                <img src={ip12} alt="iPhone 12 Pro Max"/>
+                <img 
+                    src={`./product/${item.image}`} 
+                    alt={item.name}
+                    onError={(e) => {
+                        e.target.src = '../assets/default-product-image.png';
+                    }}
+                />
                 <div className="cart-details">
-                    <p>iPhone 12 Pro Max (256GB) | Chính hãng VN/A - Xanh Dương</p>
-                    <p>12.000.000 đ</p>
+                    <p>{item.name}</p>
+                    <p>{item.base_price.toLocaleString()} đ</p>
                 </div>
             </div>
             <div className='cart-quantity'>
-                <button id='decrease'
-                        onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                        disabled={quantity === 1}>-</button>
+                <button 
+                    id='decrease'
+                    onClick={() => handleQuantityChange('decrease')}
+                    disabled={item.quantity === 1}
+                >
+                    -
+                </button>
                 <input 
-                    value={quantity}
+                    value={item.quantity}
                     type='number'
                     min="1"
-                    onChange={(e) => {
-                        const value = parseInt(e.target.value) || 1;
-                        setQuantity(Math.max(1,value));
-                    }}
-                    />
-                <button id='increase'
-                        onClick={() => setQuantity((next) => next + 1)}
-                        >+</button>
+                    readOnly
+                />
+                <button 
+                    id='increase'
+                    onClick={() => handleQuantityChange('increase')}
+                >
+                    +
+                </button>
             </div>
             <div className='cart-total'>
-                <p>30.000.000 đ</p>
+                <p>{(item.base_price * item.quantity).toLocaleString()} đ</p>
             </div>
-
-            <div className='cart-delete' onClick={() => handleDelete()}>
-                <i className="fa-solid fa-trash-can" ></i>
+            <div className='cart-delete' onClick={handleDelete}>
+                <i className="fa-solid fa-trash-can"></i>
             </div>
         </div>
     )

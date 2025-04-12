@@ -268,6 +268,57 @@ class UserRepository
             return false;
         }
     }
+
+    //address
+    public function getUserAddresses(int $userId): array
+    {
+        $sql = "SELECT user_information_id, full_name, phone_number, house_number, street, ward, district, city, is_default
+                FROM user_information
+                WHERE account_id = :user_id
+                ORDER BY is_default DESC, user_information_id ASC";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addUserAddress(array $data): array
+    {
+        // Check if this is the first address to set as default
+        $sqlCheck = "SELECT COUNT(*) FROM user_information WHERE account_id = :account_id";
+        $stmtCheck = $this->pdo->prepare($sqlCheck);
+        $stmtCheck->bindValue(':account_id', $data['account_id'], PDO::PARAM_INT);
+        $stmtCheck->execute();
+        $isFirstAddress = $stmtCheck->fetchColumn() == 0;
+
+        $sql = "INSERT INTO user_information (
+                    account_id, full_name, phone_number, house_number, street, ward, district, city, is_default
+                ) VALUES (
+                    :account_id, :full_name, :phone_number, :house_number, :street, :ward, :district, :city, :is_default
+                )";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':account_id', $data['account_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':full_name', $data['full_name'], PDO::PARAM_STR);
+        $stmt->bindValue(':phone_number', $data['phone_number'], PDO::PARAM_STR);
+        $stmt->bindValue(':house_number', $data['house_number'], PDO::PARAM_STR);
+        $stmt->bindValue(':street', $data['street'], PDO::PARAM_STR);
+        $stmt->bindValue(':ward', $data['ward'], PDO::PARAM_STR);
+        $stmt->bindValue(':district', $data['district'], PDO::PARAM_STR);
+        $stmt->bindValue(':city', $data['city'], PDO::PARAM_STR);
+        $stmt->bindValue(':is_default', $isFirstAddress ? 1 : 0, PDO::PARAM_BOOL);
+        $stmt->execute();
+
+        $addressId = $this->pdo->lastInsertId();
+
+        $sqlSelect = "SELECT user_information_id, full_name, phone_number, house_number, street, ward, district, city, is_default
+                      FROM user_information WHERE user_information_id = :address_id";
+        $stmtSelect = $this->pdo->prepare($sqlSelect);
+        $stmtSelect->bindValue(':address_id', $addressId, PDO::PARAM_INT);
+        $stmtSelect->execute();
+        return $stmtSelect->fetch(PDO::FETCH_ASSOC);
+    }
 }
 
 ?>

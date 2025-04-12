@@ -19,18 +19,17 @@ CREATE TABLE user_information
     user_information_id INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     full_name           VARCHAR(30),
-    phone_number        VARCHAR(10) UNIQUE,
+    phone_number        VARCHAR(10), -- Bỏ UNIQUE để hỗ trợ nhiều địa chỉ
     house_number        VARCHAR(10),
     street              VARCHAR(50),
     ward                VARCHAR(50),
     district            VARCHAR(50),
     city                VARCHAR(50),
+    is_default          BOOLEAN DEFAULT FALSE, -- Thêm để đánh dấu địa chỉ mặc định
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE TABLE brand
 (
     brand_id   INT PRIMARY KEY AUTO_INCREMENT,
