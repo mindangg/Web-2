@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use controller\BrandController;
 use controller\ProductController;
 use controller\UserController;
 use controller\EmployeeController;
@@ -41,12 +42,20 @@ switch ($request[2]){
         $productController = new ProductController();
         $productController->processRequest($_SERVER['REQUEST_METHOD'], isset($request[3]) ? (int)$request[3] : null);
         break;
+
+    case 'brand':
+        $brandController = new BrandController();
+        $brandController->processRequest($_SERVER['REQUEST_METHOD']);
+        break;
         
     case 'user':
         $userController = new UserController();
         $userController->processRequest(
             $_SERVER['REQUEST_METHOD'], 
-            $request[3] ?? null);
+            $request[3] ?? null,
+            //address
+            $request[4] ?? null);
+        
         break;
         
     case 'employee':

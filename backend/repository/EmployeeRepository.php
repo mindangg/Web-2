@@ -42,8 +42,8 @@ class EmployeeRepository
 
     public function loginEmployee(string $email, string $password): ?array
     {
-        $sql = "SELECT employee_id, email, password 
-        FROM employee 
+        $sql = "SELECT employee_id, email, password
+        FROM employee
         WHERE email = :email";
 
         $stmt = $this->pdo->prepare($sql);

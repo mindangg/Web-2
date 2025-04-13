@@ -1,65 +1,93 @@
 import { useNotificationContext } from '../hooks/useNotificationContext'
+import { useAuthContext } from './useAuthContext'
+import { useCartContext } from '../contexts/useCartContext'
 
-export const useAddToCart = (product, userID) => {
+export const useAddToCart = () => {
     const { showNotification } = useNotificationContext()
+    const { user } = useAuthContext()
 
-    const addToCart = async () => {
-        if (!userID) {
+    const {updateCart} = useCartContext()
+    const addToCart = async (product) => {
+        // const userId = user?.user_account_id || 1
+        if (!user) {
             showNotification('Please log in to add to cart')
-            console.log('test')
             return
         }
+        // console.log('Current user:', user)
+        const userId = user.user.user_account_id
 
         // if (stock <= 0) {
         //     showNotification('Out of stock')
         //     return
         // }
 
-        let cart = JSON.parse(localStorage.getItem(`cart_${userID}`)) || []
+        let cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || []
 
-        const exists = cart.some(item => item.id === product.id)
+        console.log('Current product ID:', product.product_id); // Kiểm tra ID sản phẩm
+        console.log('Current cart:', cart); // Kiểm tra giỏ hàng hiện tại
+
+        const exists = cart.some(item => item.product_id === product.product_id)
         
         if (exists) {
             cart = cart.map(item =>
-                item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                item.product_id === product.product_id ? { ...item, quantity: item.quantity + 1 } : item
             )
         } 
         else
             cart.push({ ...product, quantity: 1 })
         
-        localStorage.setItem(`cart_${userID}`, JSON.stringify(cart))
+        localStorage.setItem(`cart_${userId}`, JSON.stringify(cart))
+        updateCart(cart) // Cập nhật state giỏ hàng
+        showNotification('Đã thêm sản phẩm vào giỏ hàng')
     }
 
-    const deleteCart = async (userID, productID) => {
-        if (productID)
-            localStorage.removeItem(`cart_${userID}`)
-
-        else {
-            let cart = JSON.parse(localStorage.getItem(`cart_${userID}`)) || []
-    
-            cart = cart.filter(item => item.id !== productID)
-    
-            localStorage.setItem(`cart_${userID}`, JSON.stringify(cart))
+    const deleteCart = async ( productID) => {
+        const userId = user.user.user_account_id
+        try{
+            let cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || []
+             
+            cart = cart.filter(item => item.product_id !== productID)
+            localStorage.setItem(`cart_${userId}`,JSON.stringify(cart))
+            updateCart(cart)
+            showNotification("Đã xóa sản phẩm khỏi giỏ hàng")
+        }
+        catch(error){
+            console.error('Lỗi khi xóa giỏ hàng:', error)
+            showNotification('Có lỗi xảy ra khi xóa sản phẩm')
         }
     }
 
-    const handleQuantity = async (product, userID, type) => {
-        let cart = JSON.parse(localStorage.getItem(`cart_${userID}`)) || []
-        
-        const item = cart.find(item => item.id === product.id)
+    const handleQuantity = async (product, type) => {
+        const userId = user.user.user_account_id
+        try{
+            let cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || []
+            const itemIndex = cart.findIndex(item => item.product_id === product.product_id)
+            if(itemIndex === -1) return
 
-        if (type === 'increase')
-            item.quantity += 1
+            const updateItem = {...cart[itemIndex]}
 
-        else if (type === 'decrease') {
-            if (item.quantity > 1)
-                item.quantity += 1
+            if (type === 'increase') {
+                updateItem.quantity += 1
+            } 
+            else if (type === 'decrease') {
+                if (updateItem.quantity > 1) {
+                    updateItem.quantity -= 1 // Sửa từ += thành -=
+                } else {
+                    // Nếu số lượng = 1 và click giảm, xóa sản phẩm
+                    await deleteCart( product.product_id)
+                    return
+                }
+            }
+
+        cart[itemIndex] = updateItem
+        localStorage.setItem(`cart_${userId}`, JSON.stringify(cart))
+        updateCart(cart)
             
-            else
-                deleteCart(userID)
         }
-
-        localStorage.setItem(`cart_${userID}`, JSON.stringify(cart))
+        catch(error){
+            console.error("Lỗi khi thay đổi số lượng: ", error)
+            showNotification("Có lỗi xảy ra khi cập nhật số lượng")
+        }
     }
 
     return { addToCart, deleteCart, handleQuantity }

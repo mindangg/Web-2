@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controller/BrandController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/BrandRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/service/BrandService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/repository/EmployeeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/EmployeeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/ERD.png" beforeDir="false" afterPath="$PROJECT_DIR$/database/ERD.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useAdminLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useAdminLogin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Header.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +85,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ToggleCodyToolWindowAfterMigration&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;qbao&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/CODE/Projects/Springboot-React-demo&quot;,
@@ -172,6 +182,11 @@
       <workItem from="1743960198844" duration="1434000" />
       <workItem from="1744009664999" duration="8407000" />
       <workItem from="1744096754706" duration="160000" />
+      <workItem from="1744124102760" duration="129000" />
+      <workItem from="1744158959202" duration="3883000" />
+      <workItem from="1744255094847" duration="3478000" />
+      <workItem from="1744262955048" duration="18000" />
+      <workItem from="1744462473827" duration="641000" />
     </task>
     <servers />
   </component>

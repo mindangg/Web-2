@@ -16,7 +16,7 @@ header{
     align-items: center;
 }
 
-.search img{
+header img{
     width: 80px;
     height: 80px;
     margin-left: 30px;
@@ -24,14 +24,13 @@ header{
     cursor: pointer;
 }
 
-.search input{
+.search .search-field{
     width: 450px;
-    height: 45px;
+    height: 43px;
     padding: 10px 20px;
     border: 1px solid black;
     border-radius: 5px;
-    margin-right: 3px;
-    margin-left: 10px;
+    margin: 0 5px;
     background-color: #f8f4f4;
 }
 
@@ -40,8 +39,9 @@ header{
 }
 
 .search button{
+    margin: 0;
     display: flex;
-    height: 47px;
+    height: 45px;
     width: 62px;
     background-color: var(--yellow);
     align-items: center;
