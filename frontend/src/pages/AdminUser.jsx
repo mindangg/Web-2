@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import UserCard from '../components/Admin/UserCard'
 
+import { useAdminContext } from '../hooks/useAdminContext'
 import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
@@ -11,6 +12,7 @@ import Pagination from '../components/Pagination.jsx';
 import { useSearchParams } from 'react-router-dom';
 
 export default function AdminUser() {
+  const { admin } = useAdminContext()
   const { users, dispatch } = useUserContext()
   const { showNotification } = useNotificationContext()
 
@@ -43,9 +45,9 @@ export default function AdminUser() {
     const fetchUser = async () => {
       const url = 'http://localhost/api/user'
       const response = await fetch(`${url}?${searchParams.toString()}`, {
-        // headers: {
-        //   'Authoriztion': `Bearer ${admin.token}`
-        // }
+        headers: {
+          'Authorization': `Bearer ${admin.token}`
+        }
       })
 
         
@@ -125,7 +127,7 @@ export default function AdminUser() {
               method: 'PATCH',
               headers: {
                   'Content-Type': 'application/json',
-                  // 'Authorization': `Bearer ${admin.token}`
+                  'Authorization': `Bearer ${admin.token}`
               },
               body: JSON.stringify(updatedData)
           })
@@ -154,7 +156,7 @@ export default function AdminUser() {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
-                  // 'Authorization': `Bearer ${admin.token}`
+                  'Authorization': `Bearer ${admin.token}`
               },
               body: JSON.stringify({ username, email, password, full_name, phone_number, 
                                     house_number, street, ward, district, city })
@@ -164,6 +166,7 @@ export default function AdminUser() {
               throw new Error(`HTTP error! Status: ${response.status}`)
 
           const json = await response.json()
+          console.log(json)
 
           setIsToggle(false)
           showNotification(json.message)
@@ -196,10 +199,6 @@ export default function AdminUser() {
         setSearchParams(searchParams)
     }
   }
-
-//   useEffect(() => {
-//     console.log('Updated users list:', users)
-// }, [users])
   
   return (
     <>

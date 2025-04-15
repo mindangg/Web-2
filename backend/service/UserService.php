@@ -26,7 +26,7 @@ class UserService
     {
         $user= $this->userRepository->loginUser($username, $password);
 
-        if (!isset($user)) {
+        if (isset($user["message"])) {
             $this->respond(400, ["message" => $user["message"]]);
         }
 

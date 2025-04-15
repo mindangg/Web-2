@@ -13,15 +13,15 @@ import AdminOrderStatistic from '../pages/AdminOrderStatistic'
 import { useAdminContext } from '../hooks/useAdminContext'
 import { useAdminLogout } from '../hooks/useAdminLogout'
 
+import Confirm from '../components/Confirm'
+
 export default function Admin() {
     const { admin } = useAdminContext()
     const { logout } = useAdminLogout()
 
     const [toggle, setToggle] = useState('user')
 
-    const [showHeader, setShowHeader] = useState(false)
     const [showSideNav, setShowSideNav] = useState(true)
-
 
     return admin ? (
     <div>

@@ -100,7 +100,6 @@ header img{
     width: 0;
     height: 4px;
     background-color: #ffa454;
-    /* background-color: #ffa454; */
     transition: 0.3s;
 }
 
@@ -116,7 +115,6 @@ header img{
     width: 100%;
     height: 4px;
     background-color: #ffa454;
-    /* background-color: #ffa454; */
     transition: 0.3s;
 }
 

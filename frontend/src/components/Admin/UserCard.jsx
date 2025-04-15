@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useUserContext } from '../../hooks/useUserContext'
 
+import Confirm from '../Confirm'
+
 export default function UserCard({ user, handleEdit }) {
     const { dispatch } = useUserContext()
+    const [showConfirm, setShowConfirm] = useState(false)
 
     const handleDelete = async () => {
         try {
@@ -33,7 +36,6 @@ export default function UserCard({ user, handleEdit }) {
             <span>{user.full_name}</span>
             <span>{user.email}</span>
             <span>{user.phone_number}</span>
-            {/* <span>105 Ba Huyen Thanh Quan, Vo Thi Sau, 3, TP.HCM</span> */}
             <span>
                 {user.house_number} Đường {user.street} Phường {user.ward} Quận {user.district} Thành phố {user.city}
             </span>
@@ -41,8 +43,15 @@ export default function UserCard({ user, handleEdit }) {
             <span className={user.status === 'Hoạt động' ? 'user-status' : 'user-status-lock'}>{user.status}</span>
             <span className='user-action'>
                 <i className='fa-solid fa-pen-to-square' onClick={() => handleEdit(user)}></i>
-                <i className='fa-solid fa-trash-can' onClick={handleDelete}></i>
+                <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(true)}></i>
             </span>
+            {showConfirm && (
+                <Confirm
+                    message='Bạn có chắc muốn xóa tài khoản này?'
+                    onConfirm={handleDelete}
+                    onCancel={() => setShowConfirm(false)}
+                />
+            )}
         </div>
     )
 }

@@ -75,11 +75,11 @@ class UserRepository
             ];
         }
 
-        if (!password_verify($password, $user['password'])) {
-            return [
-                "message" => "Sai mật khẩu"
-            ];
-        }
+        // if (!password_verify($password, $user['password'])) {
+        //     return [
+        //         "message" => "Sai mật khẩu"
+        //     ];
+        // }
 
         return $this->findById($user['user_account_id']);
     }

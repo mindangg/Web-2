@@ -7,6 +7,8 @@ use Firebase\JWT\Key;
 
 const JWT_SECRET = 'web2jsonwebtoken';
 
+use middleware\AuthMiddleware;
+
 class EmployeeService
 {
     private EmployeeRepository $employeeRepository;
@@ -96,12 +98,15 @@ class EmployeeService
 
     public function getAllEmployees(): array
     {   
+        $admin = AuthMiddleware::verifyToken();
+        $adminRole = $admin['role_name'] ?? null;
+
         $full_name = $_GET['full_name'] ?? "";
         $role = $_GET['role'] ?? "";
         $limit = intval($_GET['limit'] ?? 10);
         $page = intval($_GET['page'] ?? 1);
 
-        $employees = $this->employeeRepository->findAll($full_name, $role, $limit, $page);
+        $employees = $this->employeeRepository->findAll($full_name, $role, $limit, $page, $adminRole);
 
         if(!$employees)
             throw new \PDOException('Không tìm thấy nhân viên', 404);

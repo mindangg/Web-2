@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useAdminContext } from '../../hooks/useAdminContext'
 import { useUserContext } from '../../hooks/useUserContext'
 
+import Confirm from '../Confirm'
+
 export default function EmployeeCard({ employee, handleEdit }) {
     const { admin } = useAdminContext()
     const { dispatch } = useUserContext()
+    const [showConfirm, setShowConfirm] = useState(false)
 
     const handleDelete = async () => {
         if (admin.employee.employee_id === employee.employee_id) {
@@ -40,7 +43,7 @@ export default function EmployeeCard({ employee, handleEdit }) {
         'Admin': 'admin',
         'Bán hàng': 'seller',
         'Quản lí kho': 'stocker',
-      };
+    }
     
     return (
         <div className='employee-info'>
@@ -51,8 +54,15 @@ export default function EmployeeCard({ employee, handleEdit }) {
             <span className={`employee-role-${roleClassMap[employee.role_name] || 'default'}`}>{employee.role_name}</span>
             <span className='employee-action'>
                 <i className='fa-solid fa-pen-to-square' onClick={() => handleEdit(employee)}></i>
-                <i className='fa-solid fa-trash-can' onClick={handleDelete}></i>
+                <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(true)}></i>
             </span>
+            {showConfirm && (
+                <Confirm
+                    message='Bạn có chắc muốn xóa nhân viên này?'
+                    onConfirm={handleDelete}
+                    onCancel={() => setShowConfirm(false)}
+                />
+            )}
         </div>
     )
 }

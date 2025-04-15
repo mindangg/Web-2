@@ -10,10 +10,8 @@ export const userReducer = (state, action) => {
             }
 
         case 'ADD_USER':
-            console.log('state: ', state.users[0])
-            console.log('updated: ', action.payload)
             return { 
-                users: [...state.users, action.payload]
+                users: [action.payload, ...state.users]
             }
 
         case 'DELETE_USER':

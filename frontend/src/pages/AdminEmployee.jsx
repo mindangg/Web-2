@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import EmployeeCard from '../components/Admin/EmployeeCard'
 
+import { useAdminContext } from '../hooks/useAdminContext'
 import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
@@ -11,6 +12,7 @@ import Pagination from '../components/Pagination.jsx';
 import { useSearchParams } from 'react-router-dom';
 
 export default function AdminEmployee() {
+    const { admin } = useAdminContext()
     const { users, dispatch } = useUserContext()
     const { showNotification } = useNotificationContext()
 
@@ -37,9 +39,9 @@ export default function AdminEmployee() {
     const fetchEmployee = async () => {
         const url = 'http://localhost/api/employee'
         const response = await fetch(`${url}?${searchParams.toString()}`, {
-        // headers: {
-        //   'Authoriztion': `Bearer ${admin.token}`
-        // }
+            headers: {
+                'Authorization': `Bearer ${admin.token}`
+            }
         })
 
         
@@ -107,7 +109,7 @@ export default function AdminEmployee() {
               method: 'PATCH',
               headers: {
                   'Content-Type': 'application/json',
-                  // 'Authorization': `Bearer ${admin.token}`
+                  'Authorization': `Bearer ${admin.token}`
               },
               body: JSON.stringify(updatedData)
           })
@@ -137,7 +139,7 @@ export default function AdminEmployee() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${admin.token}`
+                    'Authorization': `Bearer ${admin.token}`
                 },
                 body: JSON.stringify({ full_name, email, password, phone_number, role })
             })

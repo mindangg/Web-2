@@ -57,6 +57,9 @@ export default function Login() {
                     <label><i>Bạn chưa có tài khoản?</i></label>
                     <Link to='/signup'><i>Đăng ký</i></Link>
                 </div>
+
+                {error && <div className='error'>{error}</div>}
+                {/* <div className='error'>Error fuck you</div> */}
             </form>
         </div>
   )

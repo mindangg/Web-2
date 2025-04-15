@@ -219,22 +219,22 @@ VALUES (1, 1, 'Create'),
        (4, 6, 'Delete');
 
 INSERT INTO employee (full_name, password, email, phone_number, role)
-VALUES ('user1', 'pass1', 'user1@example.com', '0900000001', 1),
-       ('user2', 'pass2', 'user2@example.com', '0900000002', 2),
-       ('user3', 'pass3', 'user3@example.com', '0900000003', 3),
-       ('user4', 'pass4', 'user4@example.com', '0900000004', 4),
-       ('user5', 'pass5', 'user5@example.com', '0900000005', 1),
-       ('user6', 'pass6', 'user6@example.com', '0900000006', 2),
-       ('user7', 'pass7', 'user7@example.com', '0900000007', 3),
-       ('user8', 'pass8', 'user8@example.com', '0900000008', 4),
-       ('user9', 'pass9', 'user9@example.com', '0900000009', 1),
-       ('user10', 'pass10', 'user10@example.com', '0900000010', 2),
-       ('user11', 'pass11', 'user11@example.com', '0900000011', 3),
-       ('user12', 'pass12', 'user12@example.com', '0900000012', 4),
-       ('user13', 'pass13', 'user13@example.com', '0900000013', 1),
-       ('user14', 'pass14', 'user14@example.com', '0900000014', 2),
-       ('user15', 'pass15', 'user15@example.com', '0900000015', 3),
-       ('user16', 'pass16', 'user16@example.com', '0900000016', 4);
+VALUES ('Nguyễn Bảo Trân', 'employee1', 'employee1@gmail.com', '0900000001', 1),
+       ('Trần Đặng Minh', 'employee2', 'employee2@gmail.com', '0900000002', 2),
+       ('Lê Thị Hồng', 'employee3', 'employee3@gmail.com', '0900000003', 3),
+       ('Phạm Anh Tuấn', 'employee4', 'employee4@gmail.com', '0900000004', 4),
+       ('Võ Hoàng Nam', 'employee5', 'employee5@gmail.com', '0900000005', 1),
+       ('Đặng Thùy Linh', 'employee6', 'employee6@gmail.com', '0900000006', 2),
+       ('Bùi Quốc Huy', 'employee7', 'employee7@gmail.com', '0900000007', 3),
+       ('Ngô Thanh Mai', 'employee8', 'employee8@gmail.com', '0900000008', 4),
+       ('Huỳnh Khánh Vy', 'employee9', 'employee9@gmail.com', '0900000009', 1),
+       ('Đỗ Duy Phúc', 'employee10', 'employee10@gmail.com', '0900000010', 2),
+       ('Tăng Ngọc Hà', 'employee11', 'employee11@gmail.com', '0900000011', 3),
+       ('Phan Thanh Tùng', 'employee12', 'employee12@gmail.com', '0900000012', 4),
+       ('Lý Trúc Anh', 'employee13', 'employee13@gmail.com', '0900000013', 1),
+       ('Châu Thiên Long', 'employee14', 'employee14@gmail.com', '0900000014', 2),
+       ('Tô Hải My', 'employee15', 'employee15@gmail.com', '0900000015', 3),
+       ('Vương Bảo Khánh', 'employee16', 'employee16@gmail.com', '0900000016', 4);
 
 
 

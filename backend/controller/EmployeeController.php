@@ -17,8 +17,10 @@ class EmployeeController
 
     public function processRequest(string $method, ?string $param): void
     {
+        if (!($method === "POST" && $param === "login"))
+            AuthMiddleware::verifyToken();
+
         switch ($method) {
-            // AuthMiddleware::verifyToken();
             case "GET":
                 if (is_numeric($param))
                     $this->getEmployeeById((int)$param);
@@ -59,7 +61,7 @@ class EmployeeController
     {
         foreach ($fields as $field) {
             if (empty($data[$field]))
-                return "Please fill in your $field";
+                return "Vui lòng điền vô $field";
         }
         return null;
     }

@@ -60,7 +60,7 @@ class EmployeeRepository
 
         // if (!password_verify($password, $employee['password'])) {
         //     return [
-        //         "message" => "Incorrect password"
+        //         "message" => "Sai mật khẩu"
         //     ];
         // }
 
@@ -89,10 +89,16 @@ class EmployeeRepository
     public function findAll(?string $full_name, 
                             ?string $role,
                             ?int    $limit = 10,
-                            ?int    $page = 1,): array
+                            ?int    $page = 1,
+                            ?string $adminRole): array
     {
         $conditions = [];
         $params = [];
+
+        if ($adminRole !== 'Manager') {
+            $conditions[] = "r.role_name != :excludeManager";
+            $params[':excludeManager'] = 'Manager';
+        }           
         
         if ($full_name) {
             $conditions[] = "LOWER(e.full_name) LIKE LOWER(:full_name)";
