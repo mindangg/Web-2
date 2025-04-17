@@ -6,10 +6,10 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Exception;
 
+const JWT_SECRET = 'web_2_phone_store';
+
 class AuthMiddleware
 {
-    private static string $secretKey = "web_2_phone_store";
-
     public static function verifyToken(): ?array
     {
         $headers = getallheaders();
@@ -20,10 +20,9 @@ class AuthMiddleware
         }
 
         $token = str_replace("Bearer ", "", $headers['Authorization']);
-        print($token);
 
         try {
-            $decoded = JWT::decode($token, new Key(self::$secretKey, 'HS256'));
+            $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
             return (array) $decoded;
         } 
         catch (Exception $e) {

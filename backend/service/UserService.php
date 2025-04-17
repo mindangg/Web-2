@@ -3,9 +3,8 @@ namespace service;
 use repository\userRepository;
 
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
-const JWT_SECRET = 'web2jsonwebtoken';
+const JWT_SECRET = 'web_2_phone_store';
 
 class UserService
 {

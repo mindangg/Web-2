@@ -101,21 +101,21 @@ VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB 
        (1, 13, 2, 'IPHONE14PROMAX-WHITE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB White', 'iphone14promaxwhite.jpg', 1500, 1600, 0, 0);
 
 INSERT INTO user_account (username, password, email)
-VALUES ('user1', 'pass1', 'user1@example.com'),
-       ('user2', 'pass2', 'user2@example.com'),
-       ('user3', 'pass3', 'user3@example.com'),
-       ('user4', 'pass4', 'user4@example.com'),
-       ('user5', 'pass5', 'user5@example.com'),
-       ('user6', 'pass6', 'user6@example.com'),
-       ('user7', 'pass7', 'user7@example.com'),
-       ('user8', 'pass8', 'user8@example.com'),
-       ('user9', 'pass9', 'user9@example.com'),
-       ('user10', 'pass10', 'user10@example.com'),
-       ('user11', 'pass11', 'user11@example.com'),
-       ('user12', 'pass12', 'user12@example.com'),
-       ('user13', 'pass13', 'user13@example.com'),
-       ('user14', 'pass14', 'user14@example.com'),
-       ('user15', 'pass15', 'user15@example.com');
+VALUES ('user1', 'user1', 'user1@example.com'),
+       ('user2', 'user2', 'user2@example.com'),
+       ('user3', 'user3', 'user3@example.com'),
+       ('user4', 'user4', 'user4@example.com'),
+       ('user5', 'user5', 'user5@example.com'),
+       ('user6', 'user6', 'user6@example.com'),
+       ('user7', 'user7', 'user7@example.com'),
+       ('user8', 'user8', 'user8@example.com'),
+       ('user9', 'user9', 'user9@example.com'),
+       ('user10', 'user10', 'user10@example.com'),
+       ('user11', 'user11', 'user11@example.com'),
+       ('user12', 'user12', 'user12@example.com'),
+       ('user13', 'user13', 'user13@example.com'),
+       ('user14', 'user14', 'user14@example.com'),
+       ('user15', 'user15', 'user15@example.com');
        
 -- INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city)
 -- VALUES (1, 'Alice Nguyen', '0909123456', '12', 'Nguyen Trai', 'Ward 1', 'District 1', 'Ho Chi Minh City'),
@@ -137,20 +137,20 @@ VALUES ('user1', 'pass1', 'user1@example.com'),
 INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city, is_default)
 VALUES 
 (1, 'Nguyễn Văn A', '0901234567', '123', 'Lê Lợi', 'Phường Bến Thành', 'Quận 1', 'TP.HCM', TRUE),
-(1, 'Nguyễn Văn A', '0901234567', '456', 'Nguyễn Huệ', 'Phường Bến Nghé', 'Quận 1', 'TP.HCM', FALSE),
-(2, 'Trần Thị B', '0912345678', '78A', 'Trần Hưng Đạo', 'Phường Cầu Kho', 'Quận 1', 'TP.HCM', TRUE),
-(3, 'Lê Văn C', '0923456789', '35', 'Phạm Văn Đồng', 'Phường Hiệp Bình Chánh', 'TP.Thủ Đức', 'TP.HCM', TRUE),
-(4, 'Phạm Thị D', '0934567890', '99', 'Cách Mạng Tháng 8', 'Phường 15', 'Quận 10', 'TP.HCM', TRUE),
-(5, 'Hoàng Văn E', '0945678901', '12', 'Quang Trung', 'Phường 11', 'Quận Gò Vấp', 'TP.HCM', TRUE),
-(6, 'Đinh Thị F', '0956789012', '88', 'Nguyễn Thái Học', 'Phường Cầu Ông Lãnh', 'Quận 1', 'TP.HCM', TRUE),
-(7, 'Võ Văn G', '0967890123', '21', 'Lý Thường Kiệt', 'Phường 7', 'Quận Tân Bình', 'TP.HCM', TRUE),
-(8, 'Ngô Thị H', '0978901234', '47', '3/2', 'Phường 14', 'Quận 10', 'TP.HCM', TRUE),
-(9, 'Bùi Văn I', '0989012345', '05', 'Nguyễn Trãi', 'Phường Nguyễn Cư Trinh', 'Quận 1', 'TP.HCM', TRUE),
-(10, 'Đỗ Thị K', '0990123456', '66', 'Hòa Bình', 'Phường Hiệp Tân', 'Quận Tân Phú', 'TP.HCM', TRUE),
-(3, 'Lê Văn C', '0923456789', '198', 'Kha Vạn Cân', 'Phường Linh Tây', 'TP.Thủ Đức', 'TP.HCM', FALSE),
-(5, 'Hoàng Văn E', '0945678901', '201', 'Lê Đức Thọ', 'Phường 6', 'Quận Gò Vấp', 'TP.HCM', FALSE),
-(2, 'Trần Thị B', '0912345678', '789', 'Đinh Tiên Hoàng', 'Phường Đa Kao', 'Quận 1', 'TP.HCM', FALSE),
-(6, 'Đinh Thị F', '0956789012', '301', 'Nguyễn Văn Cừ', 'Phường 4', 'Quận 5', 'TP.HCM', FALSE);
+(2, 'Nguyễn Văn A', '0901234567', '456', 'Nguyễn Huệ', 'Phường Bến Nghé', 'Quận 1', 'TP.HCM', FALSE),
+(3, 'Trần Thị B', '0912345678', '78A', 'Trần Hưng Đạo', 'Phường Cầu Kho', 'Quận 1', 'TP.HCM', TRUE),
+(4, 'Lê Văn C', '0923456789', '35', 'Phạm Văn Đồng', 'Phường Hiệp Bình Chánh', 'TP.Thủ Đức', 'TP.HCM', TRUE),
+(5, 'Phạm Thị D', '0934567890', '99', 'Cách Mạng Tháng 8', 'Phường 15', 'Quận 10', 'TP.HCM', TRUE),
+(6, 'Hoàng Văn E', '0945678901', '12', 'Quang Trung', 'Phường 11', 'Quận Gò Vấp', 'TP.HCM', TRUE),
+(7, 'Đinh Thị F', '0956789012', '88', 'Nguyễn Thái Học', 'Phường Cầu Ông Lãnh', 'Quận 1', 'TP.HCM', TRUE),
+(8, 'Võ Văn G', '0967890123', '21', 'Lý Thường Kiệt', 'Phường 7', 'Quận Tân Bình', 'TP.HCM', TRUE),
+(9, 'Ngô Thị H', '0978901234', '47', '3/2', 'Phường 14', 'Quận 10', 'TP.HCM', TRUE),
+(10, 'Bùi Văn I', '0989012345', '05', 'Nguyễn Trãi', 'Phường Nguyễn Cư Trinh', 'Quận 1', 'TP.HCM', TRUE),
+(11, 'Đỗ Thị K', '0990123456', '66', 'Hòa Bình', 'Phường Hiệp Tân', 'Quận Tân Phú', 'TP.HCM', TRUE),
+(12, 'Lê Văn C', '0923456789', '198', 'Kha Vạn Cân', 'Phường Linh Tây', 'TP.Thủ Đức', 'TP.HCM', FALSE),
+(13, 'Hoàng Văn E', '0945678901', '201', 'Lê Đức Thọ', 'Phường 6', 'Quận Gò Vấp', 'TP.HCM', FALSE),
+(14, 'Trần Thị B', '0912345678', '789', 'Đinh Tiên Hoàng', 'Phường Đa Kao', 'Quận 1', 'TP.HCM', FALSE),
+(15, 'Đinh Thị F', '0956789012', '301', 'Nguyễn Văn Cừ', 'Phường 4', 'Quận 5', 'TP.HCM', FALSE);
 
 
 

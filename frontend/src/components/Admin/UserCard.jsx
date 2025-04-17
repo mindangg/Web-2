@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
+import { useAdminContext } from '../../hooks/useAdminContext'
 import { useUserContext } from '../../hooks/useUserContext'
 
 import Confirm from '../Confirm'
 
 export default function UserCard({ user, handleEdit }) {
+    const { admin } = useAdminContext()
     const { dispatch } = useUserContext()
     const [showConfirm, setShowConfirm] = useState(false)
 
@@ -12,9 +14,9 @@ export default function UserCard({ user, handleEdit }) {
         try {
             const response = await fetch('http://localhost/api/user/' + user.user_account_id, {
                 method: 'DELETE',
-                // headers: {
-                //     'Authorization': `Bearer ${admin.token}`
-                // }
+                headers: {
+                    'Authorization': `Bearer ${admin.token}`
+                }
             })
     
             if (!response.ok) {

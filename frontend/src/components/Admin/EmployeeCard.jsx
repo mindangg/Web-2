@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useAdminContext } from '../../hooks/useAdminContext'
 import { useUserContext } from '../../hooks/useUserContext'
@@ -19,9 +19,9 @@ export default function EmployeeCard({ employee, handleEdit }) {
         try {
             const response = await fetch('http://localhost/api/employee/' + employee.employee_id, {
                 method: 'DELETE',
-                // headers: {
-                //     'Authorization': `Bearer ${admin.token}`
-                // }
+                headers: {
+                    'Authorization': `Bearer ${admin.token}`
+                }
             })
     
             if (!response.ok) {
@@ -29,9 +29,7 @@ export default function EmployeeCard({ employee, handleEdit }) {
                 return
             }
             dispatch({type: 'DELETE_EMPLOYEE', payload: employee.employee_id})
-
-            // remove user from local storage
-            localStorage.removeItem('employee')
+            
         }
         catch (error) {
             console.error(error)

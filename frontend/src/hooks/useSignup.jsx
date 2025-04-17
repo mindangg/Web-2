@@ -34,7 +34,7 @@ export const useSignup = () => {
             localStorage.setItem('user', JSON.stringify(json))
 
             // show notification login
-            showNotification(`Hello ${username}`)
+            showNotification(`Xin chào ${username}`)
             
             // update the auth context
             dispatch({type: 'LOGIN', payload: json})

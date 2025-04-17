@@ -80,22 +80,21 @@ export default function AdminEmployee() {
     }
 
     const handleSave = async (e) => {
-      e.preventDefault()
+        e.preventDefault()
 
-      if (!selectedEmployee) 
+    if (!selectedEmployee) 
         return
 
-      const updatedData = {}
+    const updatedData = {}
 
-      const fields = [
-          'full_name', 'email', 'phone_number', 'role'
+    const fields = [
+        'full_name', 'email', 'phone_number', 'role'
       ]
 
       // Loop through the fields and add changed values to updatedData
       fields.forEach(field => {
-        if (selectedEmployee[field] !== eval(field)) {
-          updatedData[field] = eval(field)
-        }
+        if (selectedEmployee[field] !== eval(field))
+            updatedData[field] = eval(field)
       })
 
       // If no data has changed, don't proceed with the API call
