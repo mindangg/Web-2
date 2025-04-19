@@ -31,15 +31,9 @@ export default function Cart() {
                 </div>
 
                 <div className='cart-items'>
-                    {cart && cart.length > 0 ? (
-                        cart.map(item => (
-                            <CartItems key={item.sku_id} item={item} />
-                        ))
-                    ) : (
-                        <div className='empty-cart'>
-                            <img src={empty}></img>
-                        </div>
-                    )}
+                    {cart.map(item => (
+                        <CartItems key={item.sku_id} item={item} />
+                    ))}
                 </div>
             </div>
             
@@ -48,7 +42,7 @@ export default function Cart() {
 
                 {cart && cart.length > 0 && (
                     <div className='cart-summary'>
-                        <h3>Tổng tiền: {cart?.items?.reduce((sum, item) => sum + (item.product.base_price * item.quantity), 0)} $</h3>
+                        <h3>Tổng tiền: {cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)} $</h3>
                         <Link to='/checkout'>
                             <button id='checkout-btn'>Thanh Toán</button>
                         </Link>
@@ -59,7 +53,7 @@ export default function Cart() {
     ) : (
         <div className='cart-empty'>
             <h2>Giỏ hàng trống</h2>
-            <img src={empty}></img>
+            <img src={empty} alt='Empty Cart'></img>
             <Link to='/'><button><i className='fa-solid fa-reply'></i>Quay lại trang chủ</button></Link>
         </div>
     )

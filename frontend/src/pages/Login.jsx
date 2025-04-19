@@ -49,9 +49,9 @@ export default function Login() {
                     <button type='submit' disabled={isLoading}>Đăng nhập</button>
                 </div>
 
-                <div>
+                {/* <div>
                     <Link to='#'><i>Bạn quên mật khẩu?</i></Link>
-                </div>
+                </div> */}
 
                 <div>
                     <label><i>Bạn chưa có tài khoản?</i></label>
@@ -59,7 +59,6 @@ export default function Login() {
                 </div>
 
                 {error && <div className='error'>{error}</div>}
-                {/* <div className='error'>Error fuck you</div> */}
             </form>
         </div>
   )

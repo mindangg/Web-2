@@ -101,9 +101,9 @@ CREATE TABLE receipt
     receipt_id          INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     user_information_id INT,
-    date                DATETIME DEFAULT (CURRENT_TIMESTAMP),
+    created_at             DATETIME DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
-    status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered'),
+    status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE

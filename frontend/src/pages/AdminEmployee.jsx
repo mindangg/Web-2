@@ -32,6 +32,10 @@ export default function AdminEmployee() {
     const toggle = () => {
         setIsToggle(!isToggle)
     }
+
+    useEffect(() => {
+        console.log(admin.employee)
+    }, [])
      
     const [selectedEmployee, setSelectedEmployee] = useState(null)
     

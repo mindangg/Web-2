@@ -119,10 +119,12 @@ class UserController
     
         // Validate input
         $validationError = $this->validateRequiredFields($data, ["username", "email", "password", "full_name", 
-                                            "phone_number", "house_number", "street", "ward", "district", "city"]);
+        "phone_number", "house_number", "street", "ward", "district", "city"]);
 
-        if ($validationError)
-            $this->respond(400, ["message" => $validationError]);
+        if ($validationError) {
+            http_response_code(400);
+            echo json_encode(["message" => $validationError]);
+        }
         
         else
             $user = $this->userService->createUser($data);

@@ -13,8 +13,9 @@ import { CartContextProvider } from './contexts/CartContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AdminContextProvider>
+    <AuthContextProvider>
       <UserContextProvider>
-        <AuthContextProvider>
+
           <CartContextProvider>
           <NotificationContextProvider>
             <CardDetailsContextProvider>
@@ -22,8 +23,9 @@ createRoot(document.getElementById('root')).render(
             </CardDetailsContextProvider>
           </NotificationContextProvider>
           </CartContextProvider>
-        </AuthContextProvider>
+
       </UserContextProvider>
+      </AuthContextProvider>
     </AdminContextProvider>
   </StrictMode>,
 )
