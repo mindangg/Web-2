@@ -12,7 +12,7 @@ export const useLogout = () => {
         localStorage.removeItem('user')
         
         // show notification logout
-        showNotification(`See you again`)
+        showNotification(`Hẹn gặp lại`)
 
         // dispatch logout action'
         dispatch({ type: 'LOGOUT' })

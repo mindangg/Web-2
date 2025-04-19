@@ -1,16 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/Cart.css';
-import CartItems from '../components/CartItems';
-import { useCartContext } from '../contexts/useCartContext';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import '../styles/Cart.css'
+import CartItems from '../components/CartItems'
+import { useAuthContext } from '../hooks/useAuthContext'
+import { useCartContext } from '../hooks/useCartContext'
+
+import empty from '../assets/cart-empty.jpg'
 
 export default function Cart() {
-    const { cart } = useCartContext();
+    const { user } = useAuthContext()
+    const { cart, dispatch } = useCartContext()
     
-    // Tính tổng tiền
-    const totalAmount = cart.reduce((sum, item) => sum + (item.base_price * item.quantity), 0);
+    useEffect(() => {
+        if (user?.user?.user_account_id) {
+            const exists = JSON.parse(localStorage.getItem(`cart_${user.user.user_account_id}`)) || []
 
-    return (
+            dispatch({ type: 'DISPLAY_ITEM', payload: exists})
+        }
+    }, [user, dispatch])
+
+    return cart && cart.length > 0 ? (
         <div className='cart'>
             <h2>Chi tiết giỏ hàng</h2>
             <div className='cart-display'>
@@ -18,31 +27,34 @@ export default function Cart() {
                     <h3>Sản phẩm</h3>
                     <h3>Số lượng</h3>
                     <h3>Tổng</h3>
+                    <h3></h3>
                 </div>
 
                 <div className='cart-items'>
-                    {cart.length > 0 ? (
-                        cart.map(item => (
-                            <CartItems key={item.product_id } item={item} />
-                        ))
-                    ) : (
-                        <p className="empty-cart">Giỏ hàng trống</p>
-                    )}
+                    {cart.map(item => (
+                        <CartItems key={item.sku_id} item={item} />
+                    ))}
                 </div>
             </div>
             
             <div className='cart-controller'>
-                <Link to='/'><button><i className="fa-solid fa-reply"></i>Tiếp tục mua hàng</button></Link>
+                <Link to='/'><button><i className='fa-solid fa-reply'></i>Tiếp tục mua hàng</button></Link>
 
-                {cart.length > 0 && (
+                {cart && cart.length > 0 && (
                     <div className='cart-summary'>
-                        <h3>Tổng tiền: {totalAmount.toLocaleString()} đ</h3>
-                        <Link to='/payment'>
+                        <h3>Tổng tiền: {cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)} $</h3>
+                        <Link to='/checkout'>
                             <button id='checkout-btn'>Thanh Toán</button>
                         </Link>
                     </div>
                 )}
             </div>
+        </div>
+    ) : (
+        <div className='cart-empty'>
+            <h2>Giỏ hàng trống</h2>
+            <img src={empty} alt='Empty Cart'></img>
+            <Link to='/'><button><i className='fa-solid fa-reply'></i>Quay lại trang chủ</button></Link>
         </div>
     )
 }

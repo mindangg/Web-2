@@ -1,74 +1,72 @@
-import React from 'react';
-import '../styles/CartItems.css';
-import { useCartContext } from '../contexts/useCartContext';
-import { useAddToCart } from '../hooks/useAddToCart';
-import { useAuthContext } from '../hooks/useAuthContext';
+import React, { useState, useEffect } from 'react'
+
+import { useAddToCart } from '../hooks/useAddToCart'
+
+import Confirm from '../components/Confirm'
 
 export default function CartItems({ item }) {
-    const { updateCart } = useCartContext();
-    const { deleteCart, handleQuantity } = useAddToCart();
-    const { user } = useAuthContext();
+    const { handleDelete, handleQuantity } = useAddToCart()
+    const [showConfirm, setShowConfirm] = useState(false)
 
-    const handleDelete = () => {
-        if (window.confirm("Bạn muốn xóa sản phẩm này?")) {
-            const userId = user.user.user_account_id;
-            deleteCart( item.product_id );
-            // Cập nhật lại giỏ hàng sau khi xóa
-            // const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
-            // updateCart(updatedCart);
-        }
-    };
-
-    const handleQuantityChange = (type) => {
-        const userId = user.user.user_account_id
-        handleQuantity(item, type);
-        // Cập nhật lại giỏ hàng sau khi thay đổi số lượng
-        // const updatedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
-        // updateCart(updatedCart);
-    };
+    // useEffect(() => {
+    //     console.log(item)
+    // })
 
     return (
         <div className='cart-item'>
             <div className='cart-info'>
                 <img 
                     src={`./product/${item.image}`} 
-                    alt={item.name}
+                    alt={item.sku_name}
                     onError={(e) => {
-                        e.target.src = '../assets/default-product-image.png';
+                        e.target.src = '../assets/default-product-image.png'
                     }}
                 />
-                <div className="cart-details">
-                    <p>{item.name}</p>
-                    <p>{item.base_price.toLocaleString()} đ</p>
+                <div className='cart-details'>
+                    <p>{item.sku_name}</p>
+                    {/* <p>{item.base_price.toLocaleString()} đ</p> */}
                 </div>
             </div>
+
             <div className='cart-quantity'>
                 <button 
                     id='decrease'
-                    onClick={() => handleQuantityChange('decrease')}
-                    disabled={item.quantity === 1}
+                    onClick={item.quantity === 1
+                        ? () => setShowConfirm(true)
+                        : () => handleQuantity(item, 'decrease')
+                      }
                 >
                     -
                 </button>
                 <input 
                     value={item.quantity}
                     type='number'
-                    min="1"
+                    min='1'
                     readOnly
                 />
                 <button 
                     id='increase'
-                    onClick={() => handleQuantityChange('increase')}
+                    onClick={() => handleQuantity(item, 'increase')}
                 >
                     +
                 </button>
             </div>
+
             <div className='cart-total'>
-                <p>{(item.base_price * item.quantity).toLocaleString()} đ</p>
+                <p>{item.invoice_price * item.quantity} $</p>
             </div>
-            <div className='cart-delete' onClick={handleDelete}>
-                <i className="fa-solid fa-trash-can"></i>
+
+            <div className='cart-delete' onClick={() => setShowConfirm(true)}>
+                <i className='fa-solid fa-trash-can'></i>
             </div>
+            
+            {showConfirm && (
+                <Confirm
+                    message='Bạn có chắc muốn xóa sản phẩm này?'
+                    onConfirm={() => handleDelete(item.sku_id)}
+                    onCancel={() => setShowConfirm(false)}
+                />
+            )}
         </div>
     )
 }

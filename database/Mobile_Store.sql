@@ -5,14 +5,14 @@ USE mobile_store;
 
 CREATE TABLE user_account
 (
-    user_account_id INT PRIMARY KEY AUTO_INCREMENT,
-    username        VARCHAR(50) UNIQUE,
-    password        VARCHAR(60), -- hash password 60 kí tự
-    email           VARCHAR(50) UNIQUE,
-    status          ENUM ('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
-    created_at      DATETIME                      DEFAULT CURRENT_TIMESTAMP
-) CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+    user_account_id       INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(60), -- hash password 60 kí tự
+    email    VARCHAR(50) UNIQUE,
+    status ENUM('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
+    is_delete BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE user_information
 (
@@ -101,9 +101,9 @@ CREATE TABLE receipt
     receipt_id          INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     user_information_id INT,
-    date                DATETIME DEFAULT (CURRENT_TIMESTAMP),
+    created_at             DATETIME DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
-    status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered'),
+    status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE

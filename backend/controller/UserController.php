@@ -17,16 +17,20 @@ class UserController
 
     public function processRequest(string $method, ?string $param, ?string $subRoute = null): void
     {
+        if (!($method === "POST" && $param === "login"))
+            AuthMiddleware::verifyToken();
+
         switch ($method) {
-            // AuthMiddleware::verifyToken();
             case 'GET':
-                if ($param === 'addresses' && is_numeric($subRoute)) {
+                if ($param === 'addresses' && is_numeric($subRoute))
                     $this->getUserAddresses((int)$subRoute);
-                } elseif (is_numeric($param)) {
+                    
+                else if (is_numeric($param))
                     $this->getUserById((int)$param);
-                } else {
+                
+                else
                     $this->getAllUsers();
-                }
+                
                 break;
 
             case 'POST':
@@ -38,9 +42,9 @@ class UserController
 
                 else if ($param === 'create')
                     $this->createUser();
-                else if($param==='addresses'){
+
+                else if($param==='addresses')
                     $this->addUserAddress();
-                }
                 
                 else {
                     http_response_code(400);
@@ -62,20 +66,18 @@ class UserController
         }
     }
 
-    // private function validateRequiredFields(array $data, array $fields): ?string
-    // {
-    //     foreach ($fields as $field) {
-    //         if (empty($data[$field]))
-    //             return "Please fill in your $field";
-    //     }
-    //     return null;
-    // }
+    private function respond(int $code, array $message): void 
+    {
+        http_response_code($code);
+        echo json_encode($message);
+        exit;
+    }
 
     private function validateRequiredFields(array $data, array $fields): ?string
     {
         foreach ($fields as $field) {
             if (empty($data[$field])) {
-                return "Please fill in your $field";
+                return "Vui lòng điền vô $field";
             }
         }
         return null;
@@ -87,17 +89,14 @@ class UserController
 
         // Validate input
         $validationError = $this->validateRequiredFields($data, ["username", "password"]);
-        if ($validationError) {
-            http_response_code(400);
-            echo json_encode(["message" => $validationError]);
-        }
+        if ($validationError)
+            $this->respond(400, ["message" => $validationError]);
 
         else
             $user = $this->userService->loginUser($data['username'], $data['password']);
 
         echo json_encode($user);
     }
-
         
     private function signupUser(): void
     {
@@ -105,10 +104,8 @@ class UserController
     
         // Validate input
         $validationError = $this->validateRequiredFields($data, ["username", "email", "password"]);
-        if ($validationError) {
-            http_response_code(400);
-            echo json_encode(["message" => $validationError]);
-        }
+        if ($validationError)
+            $this->respond(400, ["message" => $validationError]);
 
         else
             $user = $this->userService->signupUser($data['username'], $data['email'], $data['password']);
@@ -122,7 +119,7 @@ class UserController
     
         // Validate input
         $validationError = $this->validateRequiredFields($data, ["username", "email", "password", "full_name", 
-                                            "phone_number", "house_number", "street", "ward", "district", "city"]);
+        "phone_number", "house_number", "street", "ward", "district", "city"]);
 
         if ($validationError) {
             http_response_code(400);

@@ -2,13 +2,24 @@ import React, { useState, useEffect } from 'react'
 
 import EmployeeCard from '../components/Admin/EmployeeCard'
 
+import { useAdminContext } from '../hooks/useAdminContext'
 import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
 
+import Pagination from '../components/Pagination.jsx';
+
+import { useSearchParams } from 'react-router-dom';
+
 export default function AdminEmployee() {
+    const { admin } = useAdminContext()
     const { users, dispatch } = useUserContext()
     const { showNotification } = useNotificationContext()
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPage, setTotalPage] = useState(0)
+    const [currentUsers, setCurrentUsers] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams(`limit=10`)
 
     const [full_name, setFullName] = useState('')
     const [email, setEmail] = useState('')
@@ -21,15 +32,20 @@ export default function AdminEmployee() {
     const toggle = () => {
         setIsToggle(!isToggle)
     }
+
+    useEffect(() => {
+        console.log(admin.employee)
+    }, [])
      
     const [selectedEmployee, setSelectedEmployee] = useState(null)
     
     useEffect(() => {
     const fetchEmployee = async () => {
-        const response = await fetch('http://localhost/api/employee', {
-        // headers: {
-        //   'Authoriztion': `Bearer ${admin.token}`
-        // }
+        const url = 'http://localhost/api/employee'
+        const response = await fetch(`${url}?${searchParams.toString()}`, {
+            headers: {
+                'Authorization': `Bearer ${admin.token}`
+            }
         })
 
         
@@ -38,12 +54,14 @@ export default function AdminEmployee() {
         }
 
         const json = await response.json()
-        console.log(json)
-        dispatch({ type: 'SET_USER', payload: json })
+
+        dispatch({ type: 'SET_USER', payload: json.totalEmployees })
+        setCurrentPage(json.currentPage)
+        setTotalPage(json.totalPage)
     }
 
         fetchEmployee()
-    }, [dispatch])
+    }, [dispatch, searchParams])
 
     const resetForm = () => {
         setFullName('')
@@ -66,22 +84,21 @@ export default function AdminEmployee() {
     }
 
     const handleSave = async (e) => {
-      e.preventDefault()
+        e.preventDefault()
 
-      if (!selectedEmployee) 
+    if (!selectedEmployee) 
         return
 
-      const updatedData = {}
+    const updatedData = {}
 
-      const fields = [
-          'full_name', 'email', 'phone_number', 'role'
+    const fields = [
+        'full_name', 'email', 'phone_number', 'role'
       ]
 
       // Loop through the fields and add changed values to updatedData
       fields.forEach(field => {
-        if (selectedEmployee[field] !== eval(field)) {
-          updatedData[field] = eval(field)
-        }
+        if (selectedEmployee[field] !== eval(field))
+            updatedData[field] = eval(field)
       })
 
       // If no data has changed, don't proceed with the API call
@@ -95,7 +112,7 @@ export default function AdminEmployee() {
               method: 'PATCH',
               headers: {
                   'Content-Type': 'application/json',
-                  // 'Authorization': `Bearer ${admin.token}`
+                  'Authorization': `Bearer ${admin.token}`
               },
               body: JSON.stringify(updatedData)
           })
@@ -121,38 +138,82 @@ export default function AdminEmployee() {
       e.preventDefault()
 
       try {
-          const response = await fetch('http://localhost/api/employee/create', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  // 'Authorization': `Bearer ${admin.token}`
-              },
-              body: JSON.stringify({ full_name, email, password, phone_number, role })
-          })
+            const response = await fetch('http://localhost/api/employee/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${admin.token}`
+                },
+                body: JSON.stringify({ full_name, email, password, phone_number, role })
+            })
 
-          if (!response.ok)
-              throw new Error(`HTTP error! Status: ${response.status}`)
+            if (!response.ok)
+                throw new Error(`HTTP error! Status: ${response.status}`)
 
-          const json = await response.json()
+            const json = await response.json()
 
-          setIsToggle(false)
-          showNotification(json.message)
+            setIsToggle(false)
+            showNotification(json.message)
 
-          dispatch({type: 'ADD_USER', payload: json.employee})
+            dispatch({type: 'ADD_USER', payload: json.employee})
 
-          resetForm()
-      }
-      catch (error) {
-        console.error(error)
-      }
-  }
+            resetForm()
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+    
+    const [filter, setFilter] = useState('')
+    
+    const handleRefresh = () => {
+        setSearchParams({})
+    }
+
+    const handleFilter = (role, full_name) => {
+        handleRefresh()
+
+        if (full_name) {
+        searchParams.set('full_name', full_name)
+        setSearchParams(searchParams)
+        }
+
+        if (role) {
+            searchParams.set('role', role)
+            setSearchParams(searchParams)
+        }
+    }
 
     return (
         <>
             {!isToggle ? (
                 <div className='employee-container'>
-                    <div>
-                        <button onClick={toggle}>Thêm nhân viên</button>
+                    <div className = 'employee-controller'>
+                        <select onChange={(e) => handleFilter(e.target.value, '')}>
+                            <option value=''>Tất cả</option>
+                            <option value='Điều hành'>Điều hành</option>
+                            <option value='Admin'>Admin</option>
+                            <option value='Quản lí kho'>Quản lí kho</option>
+                            <option value='Bán hàng'>Bán hàng</option>
+                        </select>
+
+                        <div className='employee-search'>
+                            <input
+                            type='text'
+                            placeholder='Search for...'
+                            value={filter}
+                            onChange={(e) => {
+                                handleFilter('', e.target.value);
+                                setFilter(e.target.value);
+                            }}
+                            />
+                            <i className='fa-solid fa-magnifying-glass'></i>
+                        </div>
+
+                        <div className='employee-icon'>
+                            <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Refresh</button>
+                            <button onClick={toggle}><i className="fa-solid fa-plus"></i>Thêm nhân viên</button>
+                        </div>
                     </div>
         
                     <div className='employee-header'>
@@ -166,6 +227,12 @@ export default function AdminEmployee() {
                     {users?.map((u) => (
                         <EmployeeCard key={u.employee_id} employee={u} handleEdit={handleEdit} />
                     ))}
+                    {totalPage > 1 && (
+                        <Pagination
+                            totalPage={totalPage}
+                            currentPage={currentPage}
+                        />
+                    )}
                 </div>
             ) : (
                 <div className='add-employee-container'>

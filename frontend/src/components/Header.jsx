@@ -76,14 +76,6 @@ export default function Header() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-
-    const handleClick = () => {
-        if (!user)
-            showNotification('Please login to view cart')
-        else
-            navigate('/cart')
-    }
-
     const [toggle, setToggle] = useState('home')
 
     const handleSearchChange = (e) => {
@@ -186,7 +178,11 @@ export default function Header() {
                     <i className="fa-solid fa-user"></i>
                     {!user ? <Link to='/login'>Đăng nhập</Link> : <Link onClick={logout}>Đăng xuất</Link>}
                     <i className="fa-solid fa-basket-shopping"></i>
-                    <Link onClick={handleClick}>Giỏ hàng</Link>
+                    {user ? (
+                    <Link to="/cart">Giỏ hàng</Link>
+                    ) : (
+                    <Link onClick={() => showNotification('Vui lòng đăng nhập để xem giỏ hàng')}>Giỏ hàng</Link>
+                    )}
                 </div>
             </div>
 

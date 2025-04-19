@@ -10,7 +10,7 @@ export const useAdminLogout = () => {
         localStorage.removeItem('employee')
         
         // show notification logout
-        showNotification(`See you again`)
+        showNotification(`Hẹn gặp lại`)
 
         // dispatch logout action'
         dispatch({ type: 'LOGOUT' })

@@ -4,6 +4,8 @@ import {PRODUCT_API_URL, PRODUCT_IMAGE_PATH} from "../utils/Constant.jsx";
 import '../styles/ProductDetails.css'
 import {useLocation} from "react-router-dom";
 
+import { useAddToCart } from "../hooks/useAddToCart.jsx";
+
 const ProductDetail = () => {
     const [productDetail, setProductDetail] = useState(
         {product: {}, sku: []}
@@ -17,6 +19,10 @@ const ProductDetail = () => {
 
     const location = useLocation();
     const id = location.pathname.split("/").pop();
+
+    const { addToCart } = useAddToCart()
+
+
 
     useEffect(() => {
         window.scrollTo({ top: 0 });
@@ -41,6 +47,10 @@ const ProductDetail = () => {
         fetchProductDetail()
         return () => controller.abort();
     }, [id]);
+
+    // useEffect(() => {
+    //     console.log(productDetail)
+    // })
 
     useEffect(() => {
         if (productDetail) {
@@ -92,10 +102,6 @@ const ProductDetail = () => {
         }
     }, [sku]);
 
-    const handleAddToCart = () => {
-        console.log(`Đã thêm vào giỏ hàng`, sku);
-    };
-
     return (
         <Container className="mt-4 p-4 rounded-5 product-detail-container">
             <Row className={"w-100 mb-5"}>
@@ -123,7 +129,7 @@ const ProductDetail = () => {
 
                     {uniqueColors.length > 0 && (
                         <div className="mb-4">
-                            <h3 className="h5 mb-0">Colors</h3>
+                            <h3 className="h5 mb-0">Màu sắc</h3>
                             <div className="d-flex flex-wrap" style={{ marginTop: "30px" }}>
                                 {uniqueColors.map((color, index) => (
                                     <Button
@@ -141,7 +147,7 @@ const ProductDetail = () => {
 
                     {uniqueStorages.length > 0 && (
                         <div className="mb-4">
-                            <h3 className="h5 mb-0">Storages</h3>
+                            <h3 className="h5 mb-0">Dung lượng</h3>
                             <div className="d-flex flex-wrap" style={{ marginTop: "30px" }}>
                                 {uniqueStorages
                                     .sort((a, b) => a.internal_id - b.internal_id)
@@ -167,10 +173,10 @@ const ProductDetail = () => {
                         size="lg"
                         className="w-100 py-1 mt-2 rounded-4"
                         style={{height: "40px"}}
-                        onClick={handleAddToCart}
+                        onClick={() => addToCart(sku)}
                         disabled={!sku}
                     >
-                        ADD TO CART
+                        Thêm vào giỏ hàng
                     </Button>
                 </Col>
             </Row>
@@ -181,7 +187,7 @@ const ProductDetail = () => {
                 <Col md={6}
                      className={'text-center mt-2'}
                 >
-                    <h4>PRODUCT DESCRIPTION</h4>
+                    <h4>Mô tả sản phẩm</h4>
                     <p className={'fs-5'}>{productDetail.product.description}</p>
                 </Col>
 
@@ -189,29 +195,29 @@ const ProductDetail = () => {
                      className={'p-0'}
                 >
                     <Card className="text-center w-100 m-0" style={{ maxHeight: "250px" }}>
-                        <Card.Header className="fw-bold">SPECIFICATION</Card.Header>
+                        <Card.Header className="fw-bold">Mô tả chi tiết</Card.Header>
 
                         <div style={{ width: "100%", overflowY: "auto" }}>
                             <Table striped bordered hover responsive className="mb-0">
                                 <tbody>
                                 <tr>
-                                    <td style={{width: "35%"}}>Screen</td>
+                                    <td style={{width: "35%"}}>Màn hình</td>
                                     <td style={{width: "65%"}}>{productDetail.product.screen}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{width: "35%"}}>Rear Camera</td>
-                                    <td>{productDetail.product.back_camera}</td>
+                                    <td style={{width: "35%"}}>Camera Trước</td>
+                                    <td>{productDetail.product.front_camera}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{width: "35%"}}>Front Camera</td>
-                                    <td>{productDetail.product.front_camera}</td>
+                                    <td style={{width: "35%"}}>Camera Sau</td>
+                                    <td>{productDetail.product.back_camera}</td>
                                 </tr>
                                 <tr>
                                     <td style={{width: "35%"}}>Chip</td>
                                     <td>{productDetail.product.cpu}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{width: "35%"}}>Battery Capacity</td>
+                                    <td style={{width: "35%"}}>Dung lượng pin</td>
                                     <td>{productDetail.product.battery}</td>
                                 </tr>
                                 <tr>
@@ -219,12 +225,12 @@ const ProductDetail = () => {
                                     <td>{sku?.ram}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{width: "35%"}}>Storage</td>
+                                    <td style={{width: "35%"}}>Bộ nhớ</td>
                                     <td>{sku?.storage}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{width: "35%"}}>Warranty</td>
-                                    <td>{productDetail.product.warranty_period} months</td>
+                                    <td style={{width: "35%"}}>Bảo hành</td>
+                                    <td>{productDetail.product.warranty_period} tháng</td>
                                 </tr>
                                 </tbody>
                             </Table>

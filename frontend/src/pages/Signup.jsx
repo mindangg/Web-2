@@ -82,7 +82,7 @@ export default function Signup() {
 
         if (password !== confPassword) {
             console.log('Password does not match')
-            return setError('Password does not match')
+            return setError('Mật khẩu không khớp')
         }
 
         await signup(username, email, password)
@@ -138,6 +138,8 @@ export default function Signup() {
                     <label><i>Bạn đã có tài khoản?</i></label>
                     <Link to='/login'><i>Đăng nhập</i></Link>
                 </div>
+
+                {error && <div className='error'>{error}</div>}
             </form>
         </div>
   )

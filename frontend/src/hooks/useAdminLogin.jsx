@@ -32,7 +32,7 @@ export const useAdminLogin = () => {
             localStorage.setItem('employee', JSON.stringify(json))
 
             // show notification login
-            showNotification(`Hello ${json.employee.full_name}`)
+            showNotification(`Xin chào ${json.employee.full_name}`)
             
             // update the admin context
             dispatch({type: 'LOGIN', payload: json})

@@ -2,13 +2,24 @@ import React, { useEffect, useState } from 'react'
 
 import UserCard from '../components/Admin/UserCard'
 
+import { useAdminContext } from '../hooks/useAdminContext'
 import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
 
+import Pagination from '../components/Pagination.jsx';
+
+import { useSearchParams } from 'react-router-dom';
+
 export default function AdminUser() {
+  const { admin } = useAdminContext()
   const { users, dispatch } = useUserContext()
   const { showNotification } = useNotificationContext()
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPage, setTotalPage] = useState(0)
+  const [currentUsers, setCurrentUsers] = useState([])
+  const [searchParams, setSearchParams] = useSearchParams(`limit=10`)
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -32,10 +43,11 @@ export default function AdminUser() {
  
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch('http://localhost/api/user', {
-        // headers: {
-        //   'Authoriztion': `Bearer ${admin.token}`
-        // }
+      const url = 'http://localhost/api/user'
+      const response = await fetch(`${url}?${searchParams.toString()}`, {
+        headers: {
+          'Authorization': `Bearer ${admin.token}`
+        }
       })
 
         
@@ -44,11 +56,14 @@ export default function AdminUser() {
       }
 
       const json = await response.json()
-      dispatch({ type: 'SET_USER', payload: json })
+
+      dispatch({ type: 'SET_USER', payload: json.totalUsers })
+      setCurrentPage(json.currentPage)
+      setTotalPage(json.totalPage)
     }
 
     fetchUser()
-  }, [dispatch])
+  }, [dispatch, searchParams])
 
   const resetForm = () => {
     setUsername('')
@@ -112,7 +127,7 @@ export default function AdminUser() {
               method: 'PATCH',
               headers: {
                   'Content-Type': 'application/json',
-                  // 'Authorization': `Bearer ${admin.token}`
+                  'Authorization': `Bearer ${admin.token}`
               },
               body: JSON.stringify(updatedData)
           })
@@ -141,7 +156,7 @@ export default function AdminUser() {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
-                  // 'Authorization': `Bearer ${admin.token}`
+                  'Authorization': `Bearer ${admin.token}`
               },
               body: JSON.stringify({ username, email, password, full_name, phone_number, 
                                     house_number, street, ward, district, city })
@@ -151,6 +166,7 @@ export default function AdminUser() {
               throw new Error(`HTTP error! Status: ${response.status}`)
 
           const json = await response.json()
+          console.log(json)
 
           setIsToggle(false)
           showNotification(json.message)
@@ -164,16 +180,54 @@ export default function AdminUser() {
       }
   }
 
-//   useEffect(() => {
-//     console.log('Updated users list:', users)  // This should show the updated list with the new user
-// }, [users])  // Trigger re-render when users state changes
+  const [filter, setFilter] = useState('')
+
+  const handleRefresh = () => {
+    setSearchParams({})
+  }
+  
+  const handleFilter = (status, full_name) => {
+    handleRefresh()
+
+    if (full_name) {
+      searchParams.set('full_name', full_name)
+      setSearchParams(searchParams)
+    }
+
+    if (status) {
+        searchParams.set('status', status)
+        setSearchParams(searchParams)
+    }
+  }
   
   return (
     <>
       {!isToggle ? (
         <div className='user-container'>
-          <div>
-            <button onClick={toggle}>Thêm tài khoản</button>
+          <div className = 'user-controller'>
+              <select onChange={(e) => handleFilter(e.target.value, '')}>
+                  <option value=''>Tất cả</option>
+                  <option value='Hoạt động'>Hoạt động</option>
+                  <option value='Bị khóa'>Bị khóa</option>
+              </select>
+
+              <div className='user-search'>
+                <input
+                  type='text'
+                  placeholder='Search for...'
+                  value={filter}
+                  onChange={(e) => {
+                    handleFilter('', e.target.value);
+                    setFilter(e.target.value);
+                  }}
+                />
+                <i className='fa-solid fa-magnifying-glass'></i>
+              </div>
+
+              <div className='user-icon'>
+                  <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Refresh</button>
+                  <button onClick={toggle}><i className='fa-solid fa-plus'></i>Thêm tài khoản</button>
+              </div>
           </div>
   
           <div className='user-header'>
@@ -189,6 +243,12 @@ export default function AdminUser() {
           {users?.map((u) => (
             <UserCard key={u.user_account_id} user={u} handleEdit={handleEdit} />
           ))}
+          {totalPage > 1 && (
+              <Pagination
+                  totalPage={totalPage}
+                  currentPage={currentPage}
+              />
+          )}
         </div>
       ) : (
         <div className='add-user-container'>

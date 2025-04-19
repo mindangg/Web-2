@@ -49,14 +49,16 @@ export default function Login() {
                     <button type='submit' disabled={isLoading}>Đăng nhập</button>
                 </div>
 
-                <div>
+                {/* <div>
                     <Link to='#'><i>Bạn quên mật khẩu?</i></Link>
-                </div>
+                </div> */}
 
                 <div>
                     <label><i>Bạn chưa có tài khoản?</i></label>
                     <Link to='/signup'><i>Đăng ký</i></Link>
                 </div>
+
+                {error && <div className='error'>{error}</div>}
             </form>
         </div>
   )

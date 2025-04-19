@@ -3,9 +3,8 @@ namespace service;
 use repository\userRepository;
 
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
-const JWT_SECRET = 'web2jsonwebtoken';
+const JWT_SECRET = 'web_2_phone_store';
 
 class UserService
 {
@@ -26,7 +25,7 @@ class UserService
     {
         $user= $this->userRepository->loginUser($username, $password);
 
-        if (!isset($user)) {
+        if (isset($user["message"])) {
             $this->respond(400, ["message" => $user["message"]]);
         }
 
@@ -39,13 +38,8 @@ class UserService
 
         http_response_code(200);
         echo json_encode([
-            "message" => "User login successfully",
+            "message" => "Đăng nhập thành công",
             "token" => $jwt,
-            // "user" => [
-            //     "id" => $user['user']["id"],
-            //     "username" => $user['user']["username"],
-            //     "email" => $user['user']["email"]
-            // ]
             "user" => $user
         ]);
         exit;
@@ -60,29 +54,29 @@ class UserService
     {
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->respond(400, ["message" => "Invalid email format"]);
+            $this->respond(400, ["message" => "Định dạng email không hợp lệ"]);
         }
 
         // Check if username or email exists
         if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
-            $this->respond(400, ["message" => "Username already exists"]);
+            $this->respond(400, ["message" => "Username đã tồn tại"]);
         }
 
         if (isset($data['email']) && $this->userRepository->userExists($data['email'])) {
-            $this->respond(400, ["message" => "Email already exists"]);
+            $this->respond(400, ["message" => "Email đã tồn tại"]);
         }
 
         // Check password strength
         if (!$this->isStrongPassword($password)) {
-            $this->respond(400, ["message" => "Password must be at least 6 characters long, 
-                                include an uppercase letter, a lowercase letter, a number, and a special character"]);
+            $this->respond(400, ["message" => "Mật khẩu phải dài ít nhất 6 ký tự,
+                                    bao gồm một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt"]);
         }
 
         $userId = $this->userRepository->signupUser($username, $email, $password);
 
         if (!$userId) {
             http_response_code(500);
-            echo json_encode(["message" => "Error signing up"]);
+            echo json_encode(["message" => "Lỗi khi đăng ký"]);
         }
 
         $payload = [
@@ -94,7 +88,7 @@ class UserService
 
         http_response_code(200);
         echo json_encode([
-            "message" => "User signed up successfully",
+            "message" => "Đăng ký thành công",
             "token" => $jwt,
             "user" => [
                 "user_account_id" => $userId,
@@ -109,12 +103,12 @@ class UserService
     {
         // Validate email format
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->respond(400, ["message" => "Invalid email format"]);
+            $this->respond(400, ["message" => "Định dạng email không hợp lệ"]);
         }
 
         // Validate phone number
         if (!preg_match('/^\d{10}$/', $data['phone_number'])) {
-            $this->respond(400, ["message" => "Invalid phone number format"]);
+            $this->respond(400, ["message" => "Định dạng số điện thoại không hợp lệ"]);
         }
 
         // Validate address fields
@@ -129,39 +123,39 @@ class UserService
 
         // foreach ($fields as $field) {
         //     if (empty($data[$field]) || !preg_match($patterns[$field], $data[$field])) {
-        // $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
+        //         $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
         //     }
         // }
 
         // Check if username or email or phone_number exists
         if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
-            $this->respond(400, ["message" => "Username already exists"]);
+            $this->respond(400, ["message" => "Username đã tồn tại"]);
         }
 
         if (isset($data['email']) && $this->userRepository->userExists($data['email'])) {
-            $this->respond(400, ["message" => "Email already exists"]);
+            $this->respond(400, ["message" => "Email đã tồn tại"]);
         }
 
         if (isset($data['phone_number']) && $this->userRepository->userExists($data['phone_number'])) {
-            $this->respond(400, ["message" => "Phone_number already exists"]);
+            $this->respond(400, ["message" => "Số điện thoại đã tồn tại"]);
         }
 
         // Check password strength
         if (!$this->isStrongPassword($data['password'])) {
-            $this->respond(400, ["message" => "Password must be at least 6 characters long, 
-                                include an uppercase letter, a lowercase letter, a number, and a special character"]);
+            $this->respond(400, ["message" => "Mật khẩu phải dài ít nhất 6 ký tự,
+                                    bao gồm một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt"]);
         }
 
         $createdUser = $this->userRepository->createUser($data);
 
         if (!$createdUser) {
             http_response_code(500);
-            echo json_encode(["message" => "Error creating user"]);
+            echo json_encode(["message" => "Lỗi khi tạo người dùng"]);
         }
 
         http_response_code(200);
         echo json_encode([
-            "message" => "Created user successfully",
+            "message" => "Tạo người dùng thành công",
             "user" => $createdUser
         ]);
         exit;
@@ -169,10 +163,15 @@ class UserService
 
     public function getAllUsers(): array
     {
-        $users = $this->userRepository->findAll();
+        $full_name = $_GET['full_name'] ?? "";
+        $status = $_GET['status'] ?? "";
+        $limit = intval($_GET['limit'] ?? 10);
+        $page = intval($_GET['page'] ?? 1);
+    
+        $users = $this->userRepository->findAll($full_name, $status, $limit, $page);
 
         if(!$users)
-            throw new \PDOException('No users found', 404);
+            throw new \PDOException('Không tìm thấy người dùng', 404);
         
         else
             return $users;
@@ -182,7 +181,7 @@ class UserService
     {
         $user = $this->userRepository->findById($id);
         if(!$user)
-            throw new \PDOException('User not found', 404);
+            throw new \PDOException('Không tìm thấy người dùng', 404);
         
         else
             return $user;
@@ -191,25 +190,24 @@ class UserService
     public function deleteUserById(int $id)
     {
         $user = $this->userRepository->deleteById($id);
-        // var_dump($id);
-        // die();
+
         if(!$user)
-            throw new \PDOException('User not found', 404);
+            throw new \PDOException('Không tìm thấy người dùng', 404);
         
         else
-            return json_encode(["message" => "Delete user successfully"]);
+            return json_encode(["message" => "Xóa người dùng thành công"]);
     }
 
     public function updateUserById(int $id, array $data): void
     {
         // Validate email format
         if (isset($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->respond(400, ["message" => "Invalid email format"]);
+            $this->respond(400, ["message" => "Định dạng email không hợp lệ"]);
         }
 
         // Validate phone number
         if (isset($data['phone_number']) && !preg_match('/^\d{10}$/', $data['phone_number'])) {
-            $this->respond(400, ["message" => "Invalid phone number format"]);
+            $this->respond(400, ["message" => "Định dạng số điện thoại không hợp lệ"]);
         }
 
         // Validate address fields
@@ -224,33 +222,33 @@ class UserService
 
         // foreach ($fields as $field) {
         //     if (isset($data[$field]) && (empty($data[$field]) || !preg_match($patterns[$field], $data[$field]))) {
-        // $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
+        //         $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
         //     }
         // }
 
         // Check if username or email or phone_number exists
         if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
-            $this->respond(400, ["message" => "Username already exists"]);
+            $this->respond(400, ["message" => "Username đã tồn tại"]);
         }
 
         if (isset($data['email']) && $this->userRepository->userExists($data['email'])) {
-            $this->respond(400, ["message" => "Email already exists"]);
+            $this->respond(400, ["message" => "Email đã tồn tại"]);
         }
 
         if (isset($data['phone_number']) && $this->userRepository->userExists($data['phone_number'])) {
-            $this->respond(400, ["message" => "Phone_number already exists"]);
+            $this->respond(400, ["message" => "Số điện thoại đã tồn tại"]);
         }
         
         $updatedUser = $this->userRepository->updateById($id, $data);
 
         if (!$updatedUser) {
             http_response_code(500);
-            echo json_encode(["message" => "Error updating user"]);
+            echo json_encode(["message" => "Lỗi khi cập nhật người dùng"]);
         }
 
         http_response_code(200);
         echo json_encode([
-            "message" => "Updated user successfully",
+            "message" => "Cập nhật người dùng thành công",
             "user" => $updatedUser
         ]);
         exit;

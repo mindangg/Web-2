@@ -1,10 +1,9 @@
 // import ip12 from 'C:/xampp/htdocs/Projects/Web-2/frontend/src/assets/iphone-12-pro-blue-hero.png';
 import { useState, useEffect } from "react";
-import { useCartContext } from "../../contexts/useCartContext";
+// import { useCartContext } from "../../contexts/useCartContext";
 import "../../styles/Cart/PaymentInfoProduct.css"
 import { Link } from "react-router-dom";
 function PaymentInfoProduct(){
-    const { cart } = useCartContext() 
     const totalAmount = cart.reduce((sum, item) => sum + (item.base_price * item.quantity), 0)
        
         return(

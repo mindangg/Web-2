@@ -120,6 +120,70 @@
     flex-direction: column;
 }
 
+.user-controller{
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.user-controller select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+    height: 40px;
+    width: 12%;
+    cursor: pointer;
+    margin-right: 25px;
+}
+
+.user-search{
+    position: relative;
+    width: 60%;
+    margin-right: 25px;
+}
+
+.user-search i{
+    position: absolute;
+    left: 10px;   
+    top: 50%;
+    transform: translateY(-50%); 
+}
+
+.user-search input{
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+    height: 36px;
+    margin-right: 25px;
+    width: 100%;
+    padding: 0 10px 0 40px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.user-icon{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.user-icon button{
+    color: black;
+    background-color: #4ecd87;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+}
+
+.user-icon button:hover{
+    cursor: pointer;
+    background-color: #4ecd87c1;
+}
+
 .user-header{
     font-weight: bold;
 }
@@ -153,33 +217,6 @@
 
 .user-action i:nth-of-type(1){
     margin-right: 10px;
-}
-
-.user-icon{
-    display: flex;
-}
-
-.user-icon button{
-    background-color: var(--green);
-    height: 40px;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 0 10px;
-    width: auto;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-}
-
-.user-icon button:hover{
-    cursor: pointer;
-    background-color: var(--green-l);
-}
-
-.user-icon i{
-    margin-right: 5px;
-    color: black!important;
 }
 
 .add-user{
@@ -334,6 +371,70 @@
     flex-direction: column;
 }
 
+.employee-controller{
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.employee-controller select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+    height: 40px;
+    width: 12%;
+    cursor: pointer;
+    margin-right: 25px;
+}
+
+.employee-search{
+    position: relative;
+    width: 60%;
+    margin-right: 25px;
+}
+
+.employee-search i{
+    position: absolute;
+    left: 10px;   
+    top: 50%;
+    transform: translateY(-50%); 
+}
+
+.employee-search input{
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+    height: 36px;
+    margin-right: 25px;
+    width: 100%;
+    padding: 0 10px 0 40px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.employee-icon{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.employee-icon button{
+    color: black;
+    background-color: #4ecd87;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+}
+
+.employee-icon button:hover{
+    cursor: pointer;
+    background-color: #4ecd87c1;
+}
+
 .employee-header{
     font-weight: bold;
 }
@@ -349,8 +450,14 @@
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
 } 
 
-.employee-role-admin{
+.employee-role-manager{
     background-color: #f84c2c;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.employee-role-admin{
+    background-color: #4ca0ff;
     padding: 5px;
     border-radius: 5px;
 }
@@ -373,33 +480,6 @@
 
 .employee-action i:nth-of-type(1){
     margin-right: 10px;
-}
-
-.employee-icon{
-    display: flex;
-}
-
-.employee-icon button{
-    background-color: var(--green);
-    height: 40px;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 0 10px;
-    width: auto;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-}
-
-.employee-icon button:hover{
-    cursor: pointer;
-    background-color: var(--green-l);
-}
-
-.employee-icon i{
-    margin-right: 5px;
-    color: black!important;
 }
 
 .add-employee{
@@ -1072,17 +1152,7 @@
         width: 100%;
     }
 } */
-/* .hamburger-btn {
 
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: white;
-    z-index: 1000;
-} */
 
 /* .overlay {
     position: fixed;
@@ -1094,5 +1164,4 @@
     z-index: 998;
 } */
 
-/* Responsive admin navbar */
 

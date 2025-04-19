@@ -21,10 +21,11 @@ export const useLogin = () => {
             })
         
             const json = await response.json()
+            console.log(json)
         
             if (!response.ok) {
                 setIsLoading(false)
-                setError(json.error)
+                setError(json.message)
                 throw new Error('Failed to login user')
             }
         
@@ -32,7 +33,7 @@ export const useLogin = () => {
             localStorage.setItem('user', JSON.stringify(json))
 
             // show notification login
-            showNotification(`Hello ${username}`)
+            showNotification(`Xin chào ${username}`)
             
             // update the auth context
             dispatch({type: 'LOGIN', payload: json})
