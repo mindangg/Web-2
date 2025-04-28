@@ -12,7 +12,7 @@ class SkuRepository
         $this->pdo = $database->getConnection();
     }
 
-    public function findAll($id): array
+    public function findAll(int $id): array
     {
         $sql = "SELECT *
                 FROM sku
@@ -23,5 +23,37 @@ class SkuRepository
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function isExistedInReceipt(int $id): bool
+    {
+        $sql = "SELECT *
+                FROM sku s
+                    JOIN receipt_detail rd
+                WHERE product_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function isExistedInImport(int $id): bool
+    {
+        $sql = "SELECT *
+                FROM sku s
+                    JOIN import_detail rd
+                WHERE product_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function deleteAllByProductId(int $id): bool
+    {
+        $sql = "DELETE FROM sku WHERE product_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
     }
 }

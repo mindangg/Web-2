@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 
 import logo from '../assets/SGU STORE.png'
 import '../styles/Admin.css'
@@ -14,14 +14,20 @@ import { useAdminContext } from '../hooks/useAdminContext'
 import { useAdminLogout } from '../hooks/useAdminLogout'
 
 import Confirm from '../components/Confirm'
+import {useSearchParams} from "react-router-dom";
 
 export default function Admin() {
     const { admin } = useAdminContext()
     const { logout } = useAdminLogout()
 
     const [toggle, setToggle] = useState('user')
+    const [searchParams, setSearchParams] = useSearchParams('')
 
     const [showSideNav, setShowSideNav] = useState(true)
+
+    useEffect(() => {
+        setSearchParams({})
+    }, [toggle]);
 
     return admin ? (
     <div>

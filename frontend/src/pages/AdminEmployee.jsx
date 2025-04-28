@@ -7,7 +7,7 @@ import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
 
-import Pagination from '../components/Pagination.jsx';
+import Pagination from '../components/CustomPagination.jsx';
 
 import { useSearchParams } from 'react-router-dom';
 

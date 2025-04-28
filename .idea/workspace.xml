@@ -4,31 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/repository/Role_FunctionRepository.php" afterDir="false" />
+    <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
+      <change afterPath="$PROJECT_DIR$/backend/controller/ProviderController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/ProviderRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/service/ProviderService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/CustomPagination.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/styles/Admin/AdminProduct.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/utils/types/ProductTypes.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/Database.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/Database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/ProductRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/ClassLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/ClassLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/InstalledVersions.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/InstalledVersions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_files.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_namespaces.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_namespaces.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_real.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_real.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/installed.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/installed.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/platform_check.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/platform_check.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/firebase/php-jwt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/firebase/php-jwt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminLogin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/service/ProductService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/ProductService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Pagination.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Product/Filter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/Filter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminEmployee.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminEmployee.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminUser.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Filter.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Filter.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +50,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JSX File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -105,6 +112,7 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/CODE/Projects/Springboot-React-demo&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -219,8 +227,19 @@
       <workItem from="1744653471913" duration="543000" />
       <workItem from="1744654292144" duration="259000" />
       <workItem from="1745593209011" duration="965000" />
-      <workItem from="1745653480549" duration="2841000" />
+      <workItem from="1745653480549" duration="4143000" />
+      <workItem from="1745739564058" duration="20647000" />
+      <workItem from="1745819438670" duration="1660000" />
     </task>
+    <task id="LOCAL-00001" summary="merge main">
+      <option name="closed" value="true" />
+      <created>1745658576052</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745658576052</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,6 +258,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="checkout UI, order&#10;&#10;Mindang" />
+    <MESSAGE value="Generating commit message..." />
+    <MESSAGE value="merge main" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge main" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

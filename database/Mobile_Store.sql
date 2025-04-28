@@ -30,6 +30,7 @@ CREATE TABLE user_information
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 CREATE TABLE brand
 (
     brand_id   INT PRIMARY KEY AUTO_INCREMENT,
@@ -49,10 +50,20 @@ CREATE TABLE color
     color    VARCHAR(30)
 );
 
+CREATE TABLE provider
+(
+    provider_id INT PRIMARY KEY AUTO_INCREMENT,
+    provider_name        VARCHAR(30),
+    phone       VARCHAR(20),
+    address     VARCHAR(255),
+    email       VARCHAR(50)
+);
+
 CREATE TABLE product
 (
     product_id      INT PRIMARY KEY AUTO_INCREMENT,
     brand           INT,
+    provider        INT,
     series          VARCHAR(50),
     name            VARCHAR(50),
     image           VARCHAR(255),
@@ -62,11 +73,14 @@ CREATE TABLE product
     front_camera    VARCHAR(100),
     back_camera     VARCHAR(100),
     description     TEXT,
-    base_price      INT,
+    base_price      INT DEFAULT 0,
     release_date    DATE,
     warranty_period TINYINT,
-    status          BOOLEAN,
+    status          BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (brand) REFERENCES brand (brand_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (provider) REFERENCES provider (provider_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -101,7 +115,7 @@ CREATE TABLE receipt
     receipt_id          INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     user_information_id INT,
-    created_at             DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at          DATETIME                                                 DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
     status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
@@ -153,7 +167,7 @@ CREATE TABLE role_function
 
 CREATE TABLE employee
 (
-    employee_id  INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT PRIMARY KEY AUTO_INCREMENT,
     full_name    VARCHAR(30),
     email        VARCHAR(50) UNIQUE,
     password     VARCHAR(60), -- hash password 60 kí tự
@@ -165,14 +179,6 @@ CREATE TABLE employee
         ON UPDATE CASCADE
 ) CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
-
-CREATE TABLE provider
-(
-    provider_id INT PRIMARY KEY AUTO_INCREMENT,
-    name        VARCHAR(30),
-    phone       VARCHAR(20),
-    address     VARCHAR(255)
-);
 
 CREATE TABLE import
 (
@@ -242,3 +248,42 @@ CREATE TABLE warranty_detail
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+CREATE TRIGGER trg_after_insert_sku
+    AFTER INSERT ON sku
+    FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET base_price = (
+        SELECT MIN(invoice_price)
+        FROM sku
+        WHERE product_id = NEW.product_id
+    )
+    WHERE product_id = NEW.product_id;
+END;
+
+CREATE TRIGGER trg_after_update_sku
+    AFTER UPDATE ON sku
+    FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET base_price = (
+        SELECT MIN(invoice_price)
+        FROM sku
+        WHERE product_id = NEW.product_id
+    )
+    WHERE product_id = NEW.product_id;
+END;
+
+CREATE TRIGGER trg_after_delete_sku
+    AFTER DELETE ON sku
+    FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET base_price = (
+        SELECT MIN(invoice_price)
+        FROM sku
+        WHERE product_id = OLD.product_id
+    )
+    WHERE product_id = OLD.product_id;
+END;

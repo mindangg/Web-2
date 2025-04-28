@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import '../styles/Home.css'
 
-import Pagination from '../components/Pagination'
+import Pagination from '../components/CustomPagination.jsx'
 import Slider from '../components/Slider'
 
 import banner from '../assets/banner.png'

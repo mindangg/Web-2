@@ -85,17 +85,18 @@ export default function Header() {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         if (searchQuery.trim()) {
+            searchParams.set('searchBy', 'name');
             searchParams.set('search', searchQuery.trim());
             if (brand) {
                 searchParams.set('brand', brand);
             }
             if (priceFrom) {
-                searchParams.set('minPrice', priceFrom);
+                searchParams.set('min_price', priceFrom);
             }
             if (priceTo) {
-                searchParams.set('maxPrice', priceTo);
+                searchParams.set('max_price', priceTo);
             }
-            if (priceTo < priceFrom) {
+            if (parseInt(priceTo) < parseInt(priceFrom)) {
                 showNotification('Giá tối đa không được nhỏ hơn giá tối thiểu');
                 return;
             }
@@ -140,7 +141,7 @@ export default function Header() {
                             }}
                         >
                             <Form.Group className="mb-3">
-                                <Form.Label>Hãng sản xuất</Form.Label>
+                                <Form.Label>Brand</Form.Label>
                                 <Form.Select value={brand} onChange={(e) => setBrand(e.target.value)}>
                                     <option value="">---</option>
                                     {brands.map((brand, index) => (
@@ -151,22 +152,32 @@ export default function Header() {
                                 </Form.Select>
                             </Form.Group>
 
-                            <Form.Label>Khoảng giá (VNĐ)</Form.Label>
+                            <Form.Label>Pirce range</Form.Label>
                             <Row>
                                 <Col>
                                     <Form.Control
                                         type="number"
-                                        placeholder="Từ"
-                                        value={priceFrom}
-                                        onChange={(e) => setPriceFrom(e.target.value)}
+                                        placeholder="From"
+                                        value={priceFrom ? priceFrom.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
+                                        onChange={(e) => {
+                                            const rawValue = e.target.value.replace(/\./g, '');
+                                            if (!isNaN(Number(rawValue))) {
+                                                setPriceFrom(rawValue);
+                                            }
+                                        }}
                                     />
                                 </Col>
                                 <Col>
                                     <Form.Control
                                         type="number"
-                                        placeholder="Đến"
-                                        value={priceTo}
-                                        onChange={(e) => setPriceTo(e.target.value)}
+                                        placeholder="To"
+                                        value={priceTo ? priceTo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
+                                        onChange={(e) => {
+                                            const rawValue = e.target.value.replace(/\./g, '');
+                                            if (!isNaN(Number(rawValue))) {
+                                                setPriceTo(rawValue);
+                                            }
+                                        }}
                                     />
                                 </Col>
                             </Row>

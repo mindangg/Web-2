@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use controller\BrandController;
 use controller\ProductController;
+use controller\ProviderController;
 use controller\UserController;
 use controller\EmployeeController;
 use exception\ExceptionHandler;
@@ -57,11 +58,16 @@ switch ($request[2]){
             $request[4] ?? null);
         
         break;
-        
     case 'employee':
         $employeeController = new EmployeeController();
         $employeeController->processRequest(
             $_SERVER['REQUEST_METHOD'], 
+            $request[3] ?? null);
+        break;
+    case 'provider':
+        $providerController = new ProviderController();
+        $providerController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
             $request[3] ?? null);
         break;
 

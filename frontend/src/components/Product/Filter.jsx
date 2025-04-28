@@ -24,7 +24,10 @@ export const Filter = () => {
                                  setQueryParams(queryParams, {replace: true})
                              }}
                         >
-                            <img className={'icon-link'} src={ascSortLogo}/>
+                            <img style={{height: '15px', width: '15px'}}
+                                 className={'icon-link'}
+                                 src={ascSortLogo}
+                            />
                             <span>Increase</span>
                         </div>
                         <div className={'filter-item'}
@@ -35,7 +38,9 @@ export const Filter = () => {
                                  setQueryParams(queryParams, {replace: true})
                              }}
                         >
-                            <img className={'icon-link'} src={descSortLogo}/>
+                            <img style={{height: '15px', width: '15px'}}
+                                 className={'icon-link'}
+                                 src={descSortLogo}/>
                             <span>Decrease</span>
                         </div>
                     </div>
