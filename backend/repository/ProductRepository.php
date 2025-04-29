@@ -98,6 +98,8 @@ class ProductRepository
     {
         $sql = "SELECT * 
         FROM product
+            JOIN brand ON product.brand = brand.brand_id
+            JOIN provider ON product.provider = provider.provider_id
         WHERE product_id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
