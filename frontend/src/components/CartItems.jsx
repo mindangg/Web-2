@@ -1,16 +1,62 @@
 import React, { useState, useEffect } from 'react'
 
 import { useAddToCart } from '../hooks/useAddToCart'
+import { useNotificationContext } from '../hooks/useNotificationContext'
 
 import Confirm from '../components/Confirm'
 
 export default function CartItems({ item }) {
     const { handleDelete, handleQuantity } = useAddToCart()
+    const { showNotification } = useNotificationContext()
     const [showConfirm, setShowConfirm] = useState(false)
 
-    // useEffect(() => {
-    //     console.log(item)
-    // })
+    const [pendingQuantity, setPendingQuantity] = useState(null)
+    const [inputValue, setInputValue] = useState(item.quantity)
+
+    const handleInputChange = (value) => {
+        // Numbers
+        if (!/^\d*$/.test(value)) 
+            return
+
+        const newQuantity = parseInt(value, 10)
+
+        if (isNaN(newQuantity)) {
+            setInputValue('')
+            return
+        }
+
+        if (newQuantity === 0) {
+            setInputValue(0)
+            setPendingQuantity(0)
+            setShowConfirm(true)
+        } 
+
+        else if (newQuantity > item.stock) {
+            showNotification('Sản phẩm hết hàng')
+            setInputValue(item.stock)
+        }
+
+        else {
+            setInputValue(newQuantity)
+            handleQuantity(item, 'set', newQuantity)
+        }
+    }
+    
+    const confirmDelete = () => {
+        handleDelete(item.sku_id)
+        setShowConfirm(false)
+        setPendingQuantity(null)
+    }
+
+    const cancelDelete = () => {
+        setShowConfirm(false)
+        setPendingQuantity(null)
+        setInputValue(item.quantity)
+    }
+
+    useEffect(() => {
+        setInputValue(item.quantity)
+    }, [item.quantity])
 
     return (
         <div className='cart-item'>
@@ -24,7 +70,6 @@ export default function CartItems({ item }) {
                 />
                 <div className='cart-details'>
                     <p>{item.sku_name}</p>
-                    {/* <p>{item.base_price.toLocaleString()} đ</p> */}
                 </div>
             </div>
 
@@ -39,10 +84,9 @@ export default function CartItems({ item }) {
                     -
                 </button>
                 <input 
-                    value={item.quantity}
+                    value={inputValue}
                     type='number'
-                    min='1'
-                    readOnly
+                    onChange={(e) => handleInputChange(e.target.value)}
                 />
                 <button 
                     id='increase'
@@ -63,8 +107,8 @@ export default function CartItems({ item }) {
             {showConfirm && (
                 <Confirm
                     message='Bạn có chắc muốn xóa sản phẩm này?'
-                    onConfirm={() => handleDelete(item.sku_id)}
-                    onCancel={() => setShowConfirm(false)}
+                    onConfirm={confirmDelete}
+                    onCancel={cancelDelete}
                 />
             )}
         </div>

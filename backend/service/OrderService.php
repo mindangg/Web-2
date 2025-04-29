@@ -1,6 +1,6 @@
 <?php
 namespace service;
-use repository\orderRepository;
+use repository\OrderRepository;
 
 class OrderService
 {

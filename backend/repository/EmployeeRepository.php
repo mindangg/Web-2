@@ -95,20 +95,20 @@ class EmployeeRepository
         $conditions = [];
         $params = [];
 
-        if ($adminRole !== 'Manager') {
-            $conditions[] = "r.role_name != :excludeManager";
-            $params[':excludeManager'] = 'Manager';
-        }           
+        // if ($adminRole !== 'Manager') {
+        //     $conditions[] = "r.role_name != :excludeManager";
+        //     $params[':excludeManager'] = 'Manager';
+        // }           
         
         if ($full_name) {
             $conditions[] = "LOWER(e.full_name) LIKE LOWER(:full_name)";
             $params[':full_name'] = '%'.$full_name.'%';            
         }
 
-        if ($role) {
-            $conditions[] = "r.role_name = :role";
-            $params[':role'] = $role;
-        }
+        // if ($role) {
+        //     $conditions[] = "r.role_name = :role";
+        //     $params[':role'] = $role;
+        // }
 
         $whereClause = "";
         if (!empty($conditions))
@@ -124,12 +124,16 @@ class EmployeeRepository
             e.role, 
             DATE_FORMAT(e.created_at, '%d/%m/%Y') as created_at, 
             r.role_id, 
-            r.role_name
+            r.role_name, 
+            f.functional_id, 
+            f.function_name, 
+            rf.action
         FROM employee AS e
-        INNER JOIN role AS r 
-            ON e.role = r.role_id
+        LEFT JOIN role AS r ON e.role = r.role_id
+        LEFT JOIN role_function rf ON r.role_id = rf.role_id
+        LEFT JOIN functional f ON rf.function_id = f.functional_id
         $whereClause
-        ORDER BY FIELD(e.role, 1, 2, 3, 4), e.created_at DESC
+        ORDER BY e.employee_id ASC
         LIMIT :limit OFFSET :offset";
 
         $stmt = $this->pdo->prepare($sql);
@@ -140,7 +144,47 @@ class EmployeeRepository
             $stmt->bindValue($key, $value);
     
         $stmt->execute();
-        $employees =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+        $employees = [];
+
+        foreach ($rows as $row) {
+            $empId = $row['employee_id'];
+            $funcId = $row['functional_id'];
+    
+            if (!isset($employees[$empId])) {
+                $employees[$empId] = [
+                    'employee_id' => $empId,
+                    'full_name' => $row['full_name'],
+                    'email' => $row['email'],
+                    'phone_number' => $row['phone_number'],
+                    'created_at' => $row['created_at'],
+                    'role' => [
+                        'role_id' => $row['role_id'],
+                        'role_name' => $row['role_name'],
+                        'functions' => []
+                    ]
+                ];
+            }
+    
+            if ($funcId === null) 
+                continue;
+    
+            if (!isset($employees[$empId]['role']['functions'][$funcId])) {
+                $employees[$empId]['role']['functions'][$funcId] = [
+                    'functional_id' => $funcId,
+                    'function_name' => $row['function_name'],
+                    'actions' => []
+                ];
+            }
+    
+            $employees[$empId]['role']['functions'][$funcId]['actions'][] = $row['action'];
+        }
+    
+        // Normalize functions to be an array
+        foreach ($employees as &$emp) {
+            $emp['role']['functions'] = array_values($emp['role']['functions']);
+        }
 
         // Total query (without LIMIT/OFFSET)
         $totalQuery = "SELECT COUNT(*) as total
@@ -159,7 +203,7 @@ class EmployeeRepository
         $totalPages = ceil($total / $limit);
 
         return [
-            'totalEmployees' => $employees,
+            'totalEmployees' => array_values($employees),
             'totalPage' => $totalPages,
             'currentPage' => $page,
         ];
