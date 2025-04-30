@@ -15,8 +15,8 @@ export default function Confirm({ message, onConfirm, onCancel }) {
             <div className='confirm'>
                 <h4>{message}</h4>
                 <div className='confirm-btns'>
-                    <button onClick={handleConfirm}>OK</button>
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={handleCancel}>Hủy</button>
+                    <button onClick={handleConfirm}>Ok</button>
                 </div>
             </div>
         </div>

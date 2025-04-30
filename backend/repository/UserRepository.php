@@ -183,7 +183,7 @@ class UserRepository
         LEFT JOIN user_information AS ui 
             ON ua.user_account_id = ui.account_id
         $whereClause
-        ORDER BY ua.created_at DESC
+        ORDER BY ua.user_account_id ASC
         LIMIT :limit OFFSET :offset";
 
         $stmt = $this->pdo->prepare($sql);

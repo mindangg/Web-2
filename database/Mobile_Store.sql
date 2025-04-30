@@ -141,21 +141,20 @@ CREATE TABLE receipt_detail
 CREATE TABLE role
 (
     role_id   INT PRIMARY KEY AUTO_INCREMENT,
-    role_name ENUM ('Điều hành', 'Admin', 'Quản lí kho', 'Bán hàng')
-) CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+    role_name VARCHAR(30)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE functional
 (
     functional_id INT PRIMARY KEY AUTO_INCREMENT,
     function_name VARCHAR(30)
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE role_function
 (
     role_id     INT,
     function_id INT,
-    action      ENUM ('Create', 'Read', 'Update', 'Delete'),
+    action      ENUM ('Xem', 'Thêm', 'Xóa', 'Sửa'),
     PRIMARY KEY (role_id, function_id, action),
     FOREIGN KEY (role_id) REFERENCES role (role_id)
         ON DELETE CASCADE
@@ -163,7 +162,7 @@ CREATE TABLE role_function
     FOREIGN KEY (function_id) REFERENCES functional (functional_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE employee
 (
@@ -177,8 +176,7 @@ CREATE TABLE employee
     FOREIGN KEY (role) REFERENCES role (role_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE import
 (
