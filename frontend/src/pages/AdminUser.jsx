@@ -7,9 +7,9 @@ import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
 
-import Pagination from '../components/CustomPagination.jsx';
+import CustomPagination from '../components/CustomPagination.jsx'
 
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom'
 
 export default function AdminUser() {
   const { admin } = useAdminContext()
@@ -180,23 +180,28 @@ export default function AdminUser() {
   }
 
   const [filter, setFilter] = useState('')
+  const [filterStatus, setFilterStatus] = useState('')
 
   const handleRefresh = () => {
+    setFilter('')
+    setFilterStatus('')
     setSearchParams({})
   }
   
   const handleFilter = (status, full_name) => {
-    handleRefresh()
+    const newParams = new URLSearchParams(searchParams)
 
-    if (full_name) {
-      searchParams.set('full_name', full_name)
-      setSearchParams(searchParams)
-    }
+    if (full_name !== '')
+      newParams.set('full_name', full_name)
+    else
+      newParams.delete('full_name')
 
-    if (status) {
-        searchParams.set('status', status)
-        setSearchParams(searchParams)
-    }
+    if (status !== '')
+      newParams.set('status', status)
+    else
+      newParams.delete('status')
+
+    setSearchParams(newParams)
   }
 
   const hasPermission = (admin, functionName, action) => {
@@ -213,7 +218,10 @@ export default function AdminUser() {
       {!isToggle ? (
         <div className='user-container'>
           <div className = 'user-controller'>
-              <select onChange={(e) => handleFilter(e.target.value, '')}>
+              <select value={filterStatus} onChange={(e) => {
+                      setFilterStatus(e.target.value)
+                      handleFilter(e.target.value, filter)
+                  }}>
                   <option value=''>Tất cả</option>
                   <option value='Hoạt động'>Hoạt động</option>
                   <option value='Bị khóa'>Bị khóa</option>
@@ -225,8 +233,8 @@ export default function AdminUser() {
                   placeholder='Search for...'
                   value={filter}
                   onChange={(e) => {
-                    handleFilter('', e.target.value);
-                    setFilter(e.target.value);
+                    handleFilter(filterStatus, e.target.value)
+                    setFilter(e.target.value)
                   }}
                 />
                 <i className='fa-solid fa-magnifying-glass'></i>
@@ -254,9 +262,11 @@ export default function AdminUser() {
             <UserCard key={u.user_account_id} user={u} handleEdit={handleEdit} hasPermission={hasPermission}/>
           ))}
           {totalPage > 1 && (
-              <Pagination
+              <CustomPagination
                   totalPage={totalPage}
                   currentPage={currentPage}
+                  searchParams={searchParams}
+                  setSearchParams={setSearchParams}
               />
           )}
         </div>

@@ -7,10 +7,10 @@ import { useUserContext } from '../hooks/useUserContext'
 
 import { useNotificationContext } from '../hooks/useNotificationContext'
 
-import Pagination from '../components/CustomPagination.jsx';
-import Confirm from '../components/Confirm.jsx';
+import CustomPagination from '../components/CustomPagination.jsx'
+import Confirm from '../components/Confirm.jsx'
 
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom'
 
 export default function AdminEmployee() {
     const { admin } = useAdminContext()
@@ -70,7 +70,7 @@ export default function AdminEmployee() {
             throw new Error('Failed to fetch employee')
 
         const json = await response.json()
-        console.log(json)
+        // console.log(json)
 
         dispatch({ type: 'SET_USER', payload: json.totalEmployees })
         setCurrentPage(json.currentPage)
@@ -196,23 +196,28 @@ export default function AdminEmployee() {
     }
     
     const [filter, setFilter] = useState('')
+    const [filterRole, setFilterRole] = useState('')
     
     const handleRefresh = () => {
+        setFilter('')
+        setFilterRole('')
         setSearchParams({})
     }
 
     const handleFilter = (role, full_name) => {
-        handleRefresh()
+        const newParams = new URLSearchParams(searchParams)
 
-        if (full_name) {
-        searchParams.set('full_name', full_name)
-        setSearchParams(searchParams)
-        }
+        if (full_name !== '')
+            newParams.set('full_name', full_name)
+        else
+            newParams.delete('full_name')
 
-        if (role) {
-            searchParams.set('role', role)
-            setSearchParams(searchParams)
-        }
+        if (role !== '')
+            newParams.set('role', role)
+        else
+            newParams.delete('role')
+
+        setSearchParams(newParams)
     }
 
     const functionss = [
@@ -349,15 +354,22 @@ export default function AdminEmployee() {
         }
     }
 
+    useEffect(() => {
+        console.log(filterRole)
+    })
+
     return (
         <>
             {!isToggle && (
                 <div className='employee-container'>
                     <div className = 'employee-controller'>
-                        <select onChange={(e) => handleFilter(e.target.value, '')}>
+                        <select value={filterRole} onChange={(e) => {
+                                setFilterRole(e.target.value)
+                                handleFilter(e.target.value, filter)
+                            }}>
                             <option value=''>Tất cả</option>
                             {allRoles?.map(r => (
-                                <option value={r.role_id}>{r.role_name}</option>
+                                <option key={r.role_id} value={r.role_name}>{r.role_name}</option>
                             ))}
                         </select>
 
@@ -367,8 +379,8 @@ export default function AdminEmployee() {
                             placeholder='Search for...'
                             value={filter}
                             onChange={(e) => {
-                                handleFilter('', e.target.value);
-                                setFilter(e.target.value);
+                                handleFilter(filterRole, e.target.value)
+                                setFilter(e.target.value)
                             }}
                             />
                             <i className='fa-solid fa-magnifying-glass'></i>
@@ -398,9 +410,11 @@ export default function AdminEmployee() {
                         <EmployeeCard key={u.employee_id} employee={u} handleEdit={handleEdit} hasPermission={hasPermission}/>
                     ))}
                     {totalPage > 1 && (
-                        <Pagination
+                        <CustomPagination
                             totalPage={totalPage}
                             currentPage={currentPage}
+                            searchParams={searchParams}
+                            setSearchParams={setSearchParams}
                         />
                     )}
                 </div>

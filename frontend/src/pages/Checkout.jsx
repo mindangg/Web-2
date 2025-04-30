@@ -147,8 +147,6 @@ export default function Checkout() {
                 </>
                 )}
 
-  
-
                 <h2>Thanh toán</h2>
 
                 <select onChange={(e) => handlePayment(e.target.value)}>

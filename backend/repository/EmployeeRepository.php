@@ -101,7 +101,7 @@ class EmployeeRepository
         }
 
         if ($role) {
-            $conditions[] = "r.role_id = :role";
+            $conditions[] = "r.role_name = :role";
             $params[':role'] = $role;
         }
 
