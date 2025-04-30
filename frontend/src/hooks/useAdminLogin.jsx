@@ -31,8 +31,9 @@ export const useAdminLogin = () => {
             // save employee to local storage
             localStorage.setItem('employee', JSON.stringify(json))
 
+            console.log(json.employee?.full_name)
             // show notification login
-            showNotification(`Xin chào ${json.employee.full_name}`)
+            showNotification(`Xin chào ${json.employee[0].full_name}`)
             
             // update the admin context
             dispatch({type: 'LOGIN', payload: json})

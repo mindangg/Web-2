@@ -64,7 +64,7 @@ const ModalDetailProduct = ({ show, handleClose, product }) => {
                                     <p><strong>ID:</strong> {product.product_id}</p>
                                     <p><strong>Hãng:</strong> {product.brand_name}</p>
                                     <p><strong>Series:</strong> {product.series}</p>
-                                    <p><strong>Giá cơ bản:</strong> ${product.base_price?.toLocaleString('vi-VN')}</p>
+                                    <p><strong>Giá cơ bản:</strong> {product.base_price?.toLocaleString('vi-VN')}đ</p>
                                     <p><strong>Ngày ra mắt:</strong> {new Date(product.release_date).toLocaleDateString('vi-VN')}</p>
                                     <p>
                                         <strong>Trạng thái:</strong>{' '}
@@ -179,8 +179,8 @@ const ModalDetailProduct = ({ show, handleClose, product }) => {
                                             </td>
                                             <td>{sku.ram}</td>
                                             <td>{sku.storage}</td>
-                                            <td>${sku.import_price.toLocaleString('vi-VN')}</td>
-                                            <td>${sku.invoice_price.toLocaleString('vi-VN')}</td>
+                                            <td>{sku.import_price.toLocaleString('vi-VN')}đ</td>
+                                            <td>{sku.invoice_price.toLocaleString('vi-VN')}đ</td>
                                             <td>{sku.sold}</td>
                                             <td>
                                                 <Badge bg={sku.stock > 0 ? "success" : "danger"}>

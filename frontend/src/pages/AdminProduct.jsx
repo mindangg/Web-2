@@ -12,6 +12,7 @@ import ModalAddProduct from "../components/Admin/ModalBox/ModalAddProduct.jsx";
 import ModalUpdateProduct from "../components/Admin/ModalBox/ModalUpdateProduct.jsx";
 import ModalConfirmDelete from "../components/Admin/ModalBox/ModalConfirmDelete.jsx";
 import ModalDetailProduct from "../components/Admin/ModalBox/ModalDetailProduct.jsx";
+import {useAdminContext} from "../hooks/useAdminContext.jsx";
 
 
 const initialState = {
@@ -61,6 +62,7 @@ const reducer = (state, action)  => {
 };
 
 export default function AdminProduct() {
+    const {admin} = useAdminContext()
     const [state, dispatch] = useReducer(reducer, initialState);
     const [searchParams, setSearchParams] = useSearchParams();
     const { showNotification } = useNotificationContext();
@@ -157,6 +159,16 @@ export default function AdminProduct() {
 
     const refreshList = () => {
         dispatch({ type: 'SET_TRIGGER_REFRESH', payload: !state.triggerRefresh });
+    }
+
+    const hasAccess = (functionName, action) => {
+        const functions = admin?.employee?.[0]?.role?.functions || []
+        const matchedFunc = functions.find(f => f.function_name === functionName)
+        return matchedFunc?.actions?.includes(action)
+    }
+
+    const hasPermission = (action) => {
+        return hasAccess("Sản phẩm", action)
     }
 
     return (
@@ -334,14 +346,16 @@ export default function AdminProduct() {
                             <i className='fa-solid fa-rotate-right'></i>
                         </Button>
                     </Form.Group>
-                    <Form.Group controlId="sortButtons" className="d-flex gap-2">
-                        <Button
-                            variant="success"
-                            onClick={() => dispatch({ type: 'SET_SHOW_ADD_MODAL', payload: true })}
-                        >
-                            + Thêm sản phẩm
-                        </Button>
-                    </Form.Group>
+                    {hasPermission("Thêm") && (
+                        <Form.Group controlId="sortButtons" className="d-flex gap-2">
+                            <Button
+                                variant="success"
+                                onClick={() => dispatch({ type: 'SET_SHOW_ADD_MODAL', payload: true })}
+                            >
+                                + Thêm sản phẩm
+                            </Button>
+                        </Form.Group>
+                    )}
                 </Form>
             </Row>
             <Row>
@@ -384,34 +398,36 @@ export default function AdminProduct() {
                                 </Badge>
                             </td>
                             <td>
-                                <Button
+                                {hasPermission("Xem") && (<Button
                                     variant="info"
                                     onClick={() => handleShowDetailModal(product)}
                                 >
                                     <i className='fa-solid fa-eye'></i>
-                                </Button>
+                                </Button>)}
                             </td>
                             <td>
-                                <Button
-                                    variant="warning"
-                                    onClick={() => {
-                                        dispatch({ type: 'SET_SELECTED_PRODUCT', payload: product });
-                                        dispatch({ type: 'SET_SHOW_UPDATE_MODAL', payload: true });
-                                    }}
-                                >
-                                    <i className='fa-solid fa-pen-to-square'></i>
-                                </Button>
+                                {hasPermission("Sửa") && (
+                                    <Button
+                                        variant="warning"
+                                        onClick={() => {
+                                            dispatch({ type: 'SET_SELECTED_PRODUCT', payload: product });
+                                            dispatch({ type: 'SET_SHOW_UPDATE_MODAL', payload: true });
+                                        }}
+                                    >
+                                        <i className='fa-solid fa-pen-to-square'></i>
+                                    </Button>
+                                )}
                             </td>
                             <td>
-                                <Button
+                                {hasPermission("Xóa") && (<Button
                                     variant="danger"
                                     onClick={() => {
-                                        dispatch({ type: 'SET_SELECTED_PRODUCT', payload: product });
-                                        dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: true });
+                                        dispatch({type: 'SET_SELECTED_PRODUCT', payload: product});
+                                        dispatch({type: 'SET_SHOW_CONFIRM_DELETE', payload: true});
                                     }}
                                 >
                                     <i className='fa-solid fa-trash-can'></i>
-                                </Button>
+                                </Button>)}
                             </td>
                         </tr>
                     ))}
