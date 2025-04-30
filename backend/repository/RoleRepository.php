@@ -187,7 +187,7 @@ class RoleRepository
             foreach ($function['actions'] as $action) {
                 $stmt->execute([
                     ':role_id' => $roleId,
-                    ':function_id' => $function['function_id'],
+                    ':function_id' => $function['functional_id'],
                     ':action' => $action
                 ]);
             }
@@ -212,67 +212,43 @@ class RoleRepository
 
     public function updateById(int $id, array $data)
     {
-        // Check if the order exists
-        $checkSql = "SELECT COUNT(*) FROM user_account WHERE user_account_id = :id";
-        $checkStmt = $this->pdo->prepare($checkSql);
-        $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $checkStmt->execute();
-
-        if (!$checkStmt->fetchColumn()) 
-            return false;
-
         $this->pdo->beginTransaction();
 
-        // Prepare dynamic parts
-        $accountFields = ['username', 'email', 'status'];
-        $infoFields = ['full_name', 'phone_number', 'house_number', 'street', 'ward', 'district', 'city'];
+        $sql = "UPDATE role 
+                SET role_name = :role_name 
+                WHERE role_id = :role_id";
 
-        $accountSet = [];
-        $accountParams = [':id' => $id];
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':role_id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':role_name', $data['role_name'], PDO::PARAM_STR);
+        $stmt->execute();
 
-        foreach ($accountFields as $field) {
-            if (isset($data[$field])) {
-                $accountSet[] = "$field = :$field";
-                $accountParams[":$field"] = $data[$field];
+        // Delete exist rf
+        $sql = "DELETE 
+                FROM role_function 
+                WHERE role_id = :role_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':role_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Insert new rf
+        $sql = "INSERT INTO role_function (role_id, function_id, action)
+                VALUES (:role_id, :function_id, :action)";
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($data['functions'] as $function) {
+            foreach ($function['actions'] as $action) {
+                $stmt->execute([
+                    ':role_id' => $id,
+                    ':function_id' => $function['functional_id'],
+                    ':action' => $action
+                ]);
             }
         }
 
-        $infoSet = [];
-        $infoParams = [':id' => $id];
+        $this->pdo->commit();
 
-        foreach ($infoFields as $field) {
-            if (isset($data[$field])) {
-                $infoSet[] = "$field = :$field";
-                $infoParams[":$field"] = $data[$field];
-            }
-        }
-
-        $success = true;
-
-        // Update user_account
-        if (!empty($accountSet)) {
-            $updateSql = "UPDATE user_account SET " . implode(', ', $accountSet) . " WHERE user_account_id = :id";
-            $stmt = $this->pdo->prepare($updateSql);
-            $success = $stmt->execute($accountParams);
-        }
-
-        // Update user_information
-        if ($success && !empty($infoSet)) {
-            $updateInfoSql = "UPDATE user_information SET " . implode(', ', $infoSet) . " WHERE account_id = :id";
-            $stmt = $this->pdo->prepare($updateInfoSql);
-            $success = $stmt->execute($infoParams);
-        }
-
-        if ($success) {
-            $this->pdo->commit();
-            // return true;
-
-            return $this->findById($id);
-        } 
-        else {
-            $this->pdo->rollBack();
-            return false;
-        }
+        return $this->findById($id);
     }
 }
 

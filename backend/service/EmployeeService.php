@@ -32,7 +32,7 @@ class EmployeeService
         }
 
         $payload = [
-            "id" => $employee['employee_id'],
+            "id" => $employee[0]['employee_id'],
             "exp" => time() + (3 * 24 * 60 * 60) // 3 days
         ];
 
@@ -166,7 +166,7 @@ class EmployeeService
 
         http_response_code(200);
         echo json_encode([
-            "message" => "Cập nhật nhân viên thành côngy",
+            "message" => "Cập nhật nhân viên thành công",
             "user" => $updatedEmployee
         ]);
         exit;

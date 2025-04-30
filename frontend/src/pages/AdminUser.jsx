@@ -49,7 +49,6 @@ export default function AdminUser() {
           'Authorization': `Bearer ${admin.token}`
         }
       })
-
         
       if (!response.ok) {
           throw new Error('Failed to fetch user')
@@ -199,6 +198,15 @@ export default function AdminUser() {
         setSearchParams(searchParams)
     }
   }
+
+  const hasPermission = (admin, functionName, action) => {
+    if (admin && admin.employee[0].role.functions) {
+        return admin.employee[0].role.functions.some(permission => 
+            permission.function_name === functionName &&
+            permission.actions.includes(action)
+        )
+    }
+  }  
   
   return (
     <>
@@ -226,7 +234,9 @@ export default function AdminUser() {
 
               <div className='user-icon'>
                   <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Refresh</button>
-                  <button onClick={toggle}><i className='fa-solid fa-plus'></i>Thêm tài khoản</button>
+                  {hasPermission(admin, 'Người dùng', 'Thêm') && (
+                    <button onClick={toggle}><i className='fa-solid fa-plus'></i>Thêm tài khoản</button>
+                  )}
               </div>
           </div>
   
@@ -241,7 +251,7 @@ export default function AdminUser() {
           </div>
   
           {users?.map((u) => (
-            <UserCard key={u.user_account_id} user={u} handleEdit={handleEdit} />
+            <UserCard key={u.user_account_id} user={u} handleEdit={handleEdit} hasPermission={hasPermission}/>
           ))}
           {totalPage > 1 && (
               <Pagination

@@ -30,7 +30,7 @@ export default function AdminEmployee() {
     const [role, setRole] = useState('')
 
     const [role_name, setRoleName] = useState('')
-    const [permissions, setPermissions] = useState([])
+    const [functions, setFunctions] = useState([])
 
     const [isToggle, setIsToggle] = useState(false)
     const [isToggleRole, setIsToggleRole] = useState(false)
@@ -53,10 +53,10 @@ export default function AdminEmployee() {
 
     const toggleRole = () => {
         setRoleName('')
-        setPermissions([])
+        setFunctions([])
         setSelectedRole(null)
         setIsToggleRole(!isToggleRole)
-    } 
+    }
 
     const fetchEmployee = async () => {
         const url = 'http://localhost/api/employee'
@@ -70,6 +70,7 @@ export default function AdminEmployee() {
             throw new Error('Failed to fetch employee')
 
         const json = await response.json()
+        console.log(json)
 
         dispatch({ type: 'SET_USER', payload: json.totalEmployees })
         setCurrentPage(json.currentPage)
@@ -101,7 +102,7 @@ export default function AdminEmployee() {
         fetchEmployee()
         fetchRole()
     }, [dispatch, searchParams])
-    
+
     const handleEdit = (employee) => {
         setSelectedEmployee(employee)
         setFullName(employee.full_name)
@@ -114,55 +115,56 @@ export default function AdminEmployee() {
     const handleEditRole = (role) => {
         setSelectedRole(role)
         setRoleName(role.role_name)
-        setPermissions(employee.permission)
+        setFunctions(role.functions)
         setIsToggleRole(true)
     }
 
     const handleSave = async (e) => {
         e.preventDefault()
 
-    if (!selectedEmployee) 
-        return
+        if (!selectedEmployee) 
+            return
 
-    const updatedData = {}
+        const updatedData = {}
 
-    const fields = [
-        'full_name', 'email', 'phone_number', 'role'
-      ]
+        const fields = [
+            'full_name', 'email', 'phone_number', 'role'
+        ]
 
-      fields.forEach(field => {
-        if (selectedEmployee[field] !== eval(field))
-            updatedData[field] = eval(field)
-      })
+        fields.forEach(field => {
+            if (selectedEmployee[field] !== eval(field))
+                updatedData[field] = eval(field)
+        })
 
-      if (Object.keys(updatedData).length === 0)
-        return
+        if (Object.keys(updatedData).length === 0)
+            return
 
-      try {
-          const response = await fetch(`http://localhost/api/employee/${selectedEmployee.employee_id}`, {
-              method: 'PATCH',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${admin.token}`
-              },
-              body: JSON.stringify(updatedData)
-          })
+        try {
+            const response = await fetch(`http://localhost/api/employee/${selectedEmployee.employee_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${admin.token}`
+                },
+                body: JSON.stringify(updatedData)
+            })
 
-          if (!response.ok)
-              throw new Error('Failed to update employee')
+            if (!response.ok)
+                throw new Error('Failed to update employee')
 
-          const json = await response.json()
+            const json = await response.json()
 
-          showNotification(json.message)
+            showNotification(json.message)
 
-          dispatch({ type: 'UPDATE_EMPLOYEE', payload: json.employee })
-
-          toggle()
-      } 
-      catch (error) {
-          console.error('Error updating employee:', error)
-      }
-  }
+            //   dispatch({ type: 'UPDATE_EMPLOYEE', payload: json.employee })
+                
+            fetchEmployee()
+            toggle()
+        } 
+        catch (error) {
+            console.error('Error updating employee:', error)
+        }
+    }
 
     const handleUpload = async (e) => {
         e.preventDefault()
@@ -184,8 +186,8 @@ export default function AdminEmployee() {
 
             showNotification(json.message)
 
-            dispatch({type: 'ADD_USER', payload: json.employee})
-
+            // dispatch({type: 'ADD_USER', payload: json.employee})
+            fetchEmployee()
             toggle()
         }
         catch (error) {
@@ -213,7 +215,7 @@ export default function AdminEmployee() {
         }
     }
 
-    const functions = [
+    const functionss = [
         { id: 1, name: 'Người dùng' },
         { id: 2, name: 'Nhân viên' },
         { id: 3, name: 'Sản phẩm' },
@@ -225,51 +227,50 @@ export default function AdminEmployee() {
     const actions = ['Xem', 'Thêm', 'Sửa', 'Xóa']   
 
     const handleCheckboxChange = (funcId, funcName, action) => {
-        setPermissions(prev => {
-            const existing = prev.find(p => p.function_id === funcId)
+        setFunctions(prev => {
+            const existing = prev.find(p => p.functional_id === funcId)
     
             if (existing) {
                 const hasAction = existing.actions.includes(action)
                 let updatedActions
     
-                if (hasAction) {
+                if (hasAction)
                     updatedActions = existing.actions.filter(a => a !== action)
-                } else {
+                
+                else {
                     updatedActions = [...existing.actions, action]
     
                     if (['Thêm', 'Sửa', 'Xóa'].includes(action) && !updatedActions.includes('Xem'))
                         updatedActions.push('Xem')
                 }
     
-                if (updatedActions.length === 0) {
-                    return prev.filter(p => p.function_id !== funcId)
-                } else {
+                if (updatedActions.length === 0)
+                    return prev.filter(p => p.functional_id !== funcId)
+                
+                else {
                     return prev.map(p =>
-                        p.function_id === funcId ? { ...p, actions: updatedActions } : p
+                        p.functional_id === funcId ? { ...p, actions: updatedActions } : p
                     )
                 }
-            } else {
+            } 
+            else {
                 let newActions = [action]
                 if (['Thêm', 'Sửa', 'Xóa'].includes(action))
                     newActions.push('Xem')
     
                 return [...prev, {
-                    function_id: funcId,
-                    function: funcName,
+                    functional_id: funcId,
+                    function_name: funcName,
                     actions: newActions
                 }]
             }
         })
     }
 
-    useEffect(() => {
-        console.log(allRoles[0]?.role_name)
-    })
-
     const hasPermission = (admin, functionName, action) => {
-        if (admin && admin.employee.role.permissions) {
-            return admin.employee.role.permissions.some(permission => 
-                permission.function === functionName &&
+        if (admin && admin.employee[0].role.functions) {
+            return admin.employee[0].role.functions.some(permission => 
+                permission.function_name === functionName &&
                 permission.actions.includes(action)
             )
         }
@@ -280,10 +281,6 @@ export default function AdminEmployee() {
 
         if (!selectedRole)
             return
-
-        console.log(selectedRole.role_id)
-        console.log(role_name)
-        console.log(permissions)
     
         try {
             const response = await fetch(`http://localhost/api/role/${selectedRole.role_id}`, {
@@ -292,14 +289,13 @@ export default function AdminEmployee() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${admin.token}`
                 },
-                body: JSON.stringify({ role_name, permissions })
+                body: JSON.stringify({ role_name, functions })
             })
 
             if (!response.ok)
                 throw new Error('Failed to update role')
     
             fetchRole()
-
             toggleRole()
         } 
         catch (error) {
@@ -317,7 +313,7 @@ export default function AdminEmployee() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${admin.token}`
                 },
-                body: JSON.stringify({ role_name, functions: permissions })
+                body: JSON.stringify({ role_name, functions })
             })
 
             if (!response.ok)
@@ -380,8 +376,12 @@ export default function AdminEmployee() {
 
                         <div className='employee-icon'>
                             <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Refresh</button>
-                            <button onClick={toggle}><i className="fa-solid fa-plus"></i>Thêm nhân viên</button>
-                            <button onClick={toggleRole}><i className="fa-solid fa-plus"></i>Thêm vai trò</button>
+                            {hasPermission(admin, 'Nhân viên', 'Thêm') && (
+                                <button onClick={toggle}><i className="fa-solid fa-plus"></i>Thêm nhân viên</button>
+                            )}
+                            {hasPermission(admin, 'Nhân viên', 'Thêm') && (
+                                <button onClick={toggleRole}><i className="fa-solid fa-plus"></i>Thêm vai trò</button>
+                            )}
                             <button onClick={() => setIsToggleManage(!isToggleManage)}><i className="fa-solid fa-plus"></i>Quản lí vai trò</button>
                         </div>
                     </div>
@@ -395,7 +395,7 @@ export default function AdminEmployee() {
                         <span>Chỉnh sửa</span>
                     </div>
                     {users?.map((u) => (
-                        <EmployeeCard key={u.employee_id} employee={u} handleEdit={handleEdit} />
+                        <EmployeeCard key={u.employee_id} employee={u} handleEdit={handleEdit} hasPermission={hasPermission}/>
                     ))}
                     {totalPage > 1 && (
                         <Pagination
@@ -488,9 +488,9 @@ export default function AdminEmployee() {
                                 {actions.map(action => <span key={action}>{action}</span>)}
                             </div>
 
-                            {functions.map(func => {
-                                const currentPermissions = permissions.find(p => p.function_id === func.id)?.actions || []
-                                const isRelatedActionChecked = currentPermissions.some(a => ['Thêm', 'Sửa', 'Xóa'].includes(a))
+                            {functionss.map(func => {
+                                const currentFunctions = functions.find(p => p.functional_id === func.id)?.actions || []
+                                const isRelatedActionChecked = currentFunctions.some(a => ['Thêm', 'Sửa', 'Xóa'].includes(a))
 
                                 return (
                                     <div key={func.id} className='add-role-items'>
@@ -499,7 +499,7 @@ export default function AdminEmployee() {
                                             <input
                                                 key={`${func.id}-${action}`}
                                                 type='checkbox'
-                                                checked={currentPermissions.includes(action)}
+                                                checked={currentFunctions.includes(action)}
                                                 onChange={() => handleCheckboxChange(func.id, func.name, action)}
                                                 disabled={action === 'Xem' && isRelatedActionChecked}
                                             />
@@ -533,12 +533,12 @@ export default function AdminEmployee() {
                             <div key={r.role_id} className='manage-role-items'>
                                 <span>{r.role_name}</span>
                                 <span className='manage-role-action'>
-                                    {hasPermission(admin, 'Nhân viên', 'Sửa') && (
-                                        <i className='fa-solid fa-pen-to-square' onClick={() => handleEditRole(r)}></i>
-                                    )}
-                                    {hasPermission(admin, 'Nhân viên', 'Xóa') && (
-                                        <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(r.role_id)}></i>
-                                    )}
+                                {hasPermission(admin, 'Nhân viên', 'Sửa') && (
+                                    <i className='fa-solid fa-pen-to-square' onClick={() => handleEditRole(r)}></i>
+                                )}
+                                {hasPermission(admin, 'Nhân viên', 'Xóa') && (
+                                    <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(r.role_id)}></i>
+                                )}
                                 </span>
 
                                 {showConfirm === r.role_id && (
