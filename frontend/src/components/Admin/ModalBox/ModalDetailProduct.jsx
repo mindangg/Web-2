@@ -1,13 +1,44 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import { Modal, Button, Table, Row, Col, Badge } from 'react-bootstrap';
-import { PRODUCT_IMAGE_PATH } from "../../../utils/Constant.jsx";
+import {API_URL, PRODUCT_IMAGE_PATH} from "../../../utils/Constant.jsx";
 
-const ModalDetailProduct = ({ show, handleClose, product, skuList }) => {
+const ModalDetailProduct = ({ show, handleClose, product }) => {
+
+    const [skuList, setSkuList] = useState([]);
+    
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        
+        const fetchSkuList = async () => {
+            try {
+                const response = await fetch(`${API_URL}sku/${product.product_id}`, { signal });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setSkuList(data);
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.log('Fetch aborted');
+                } else {
+                    console.error('Error fetching SKU list:', error);
+                }
+            }
+        }
+
+        fetchSkuList();
+        return () => {
+            controller.abort();
+        }
+    }, [product.product_id]);
+
     return (
         <Modal
             show={show}
             onHide={handleClose}
             size="xl"
+            fullscreen={true}
             centered
             backdrop="static"
             keyboard={false}
@@ -33,7 +64,7 @@ const ModalDetailProduct = ({ show, handleClose, product, skuList }) => {
                                     <p><strong>ID:</strong> {product.product_id}</p>
                                     <p><strong>Hãng:</strong> {product.brand_name}</p>
                                     <p><strong>Series:</strong> {product.series}</p>
-                                    <p><strong>Giá cơ bản:</strong> {product.base_price?.toLocaleString('vi-VN')} đ</p>
+                                    <p><strong>Giá cơ bản:</strong> ${product.base_price?.toLocaleString('vi-VN')}</p>
                                     <p><strong>Ngày ra mắt:</strong> {new Date(product.release_date).toLocaleDateString('vi-VN')}</p>
                                     <p>
                                         <strong>Trạng thái:</strong>{' '}
@@ -41,6 +72,7 @@ const ModalDetailProduct = ({ show, handleClose, product, skuList }) => {
                                             {product.status ? "Đang kinh doanh" : "Ngừng kinh doanh"}
                                         </Badge>
                                     </p>
+                                    <p><strong>Mô tả:</strong> {product.description}</p>
                                 </div>
                             </Col>
                         </Row>
@@ -107,13 +139,13 @@ const ModalDetailProduct = ({ show, handleClose, product, skuList }) => {
 
                         <Row>
                             <Col>
-                                <h5>Danh sách biến thể (SKU)</h5>
+                                <h5>Danh sách phiên bản</h5>
                                 <Table bordered striped className="text-center" style={{verticalAlign: 'middle'}}>
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Mã SKU</th>
-                                        <th>Tên SKU</th>
+                                        <th>Mã</th>
+                                        <th>Tên</th>
                                         <th>Màu sắc</th>
                                         <th>RAM</th>
                                         <th>Bộ nhớ</th>
@@ -139,7 +171,7 @@ const ModalDetailProduct = ({ show, handleClose, product, skuList }) => {
                                                         height: '20px',
                                                         borderRadius: '50%',
                                                         margin: '0 auto',
-                                                        border: '1px solid #ccc'
+                                                        border: '1px solid black'
                                                     }}
                                                     title={sku.color}
                                                 />
@@ -147,8 +179,8 @@ const ModalDetailProduct = ({ show, handleClose, product, skuList }) => {
                                             </td>
                                             <td>{sku.ram}</td>
                                             <td>{sku.storage}</td>
-                                            <td>{sku.import_price.toLocaleString('vi-VN')} đ</td>
-                                            <td>{sku.invoice_price.toLocaleString('vi-VN')} đ</td>
+                                            <td>${sku.import_price.toLocaleString('vi-VN')}</td>
+                                            <td>${sku.invoice_price.toLocaleString('vi-VN')}</td>
                                             <td>{sku.sold}</td>
                                             <td>
                                                 <Badge bg={sku.stock > 0 ? "success" : "danger"}>
@@ -160,15 +192,6 @@ const ModalDetailProduct = ({ show, handleClose, product, skuList }) => {
                                     ))}
                                     </tbody>
                                 </Table>
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <Col>
-                                <h5>Mô tả sản phẩm</h5>
-                                <div className="product-description p-3 border rounded">
-                                    {product.description}
-                                </div>
                             </Col>
                         </Row>
                     </>

@@ -257,7 +257,7 @@ export default function ModalUpdateProduct({ show, handleClose, selectedProduct,
                                 <Form.Control
                                     type="text"
                                     name="base_price"
-                                    value={`$${formData.base_price.toLocaleString('vi-VN')}`}
+                                    value={`${formData.base_price.toLocaleString('vi-VN')}đ`}
                                     disabled
                                 />
                             </Form.Group>

@@ -271,7 +271,7 @@ export default function AdminProduct() {
                                     const max = parseInt(state.maxPrice || "0");
 
                                     if (state.minPrice && state.maxPrice && max < min) {
-                                        showNotification('Giá tối thiểu phải nhỏ hơn giá tối đa');
+                                        showNotification('Giá tối đa không thể nhỏ hơn giá tối thiểu');
                                         return;
                                     }
 
@@ -374,7 +374,7 @@ export default function AdminProduct() {
                                     onClick={() => handleShowDetailModal(product)}
                                 />
                             </td>
-                            <td>${product.base_price.toLocaleString('vi-VN')}</td>
+                            <td>{product.base_price.toLocaleString('vi-VN')}đ</td>
                             <td>{new Date(product.release_date).toLocaleDateString('vi-VN')}</td>
                             <td>{product.brand_name}</td>
                             <td>{product.provider_name}</td>
@@ -462,7 +462,6 @@ export default function AdminProduct() {
                     show={state.showDetailModal}
                     handleClose={() => dispatch({ type: 'SET_SHOW_DETAIL_MODAL', payload: false })}
                     product={state.selectedProduct}
-                    skuList={state.skuList}
                 />
             )}
         </Container>

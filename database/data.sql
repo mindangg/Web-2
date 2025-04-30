@@ -1,4 +1,5 @@
-use mobile_store;
+use
+mobile_store;
 
 INSERT INTO internal_option (storage, ram)
 SELECT s.storage,
@@ -57,8 +58,10 @@ VALUES ('Black'),
 INSERT INTO provider (provider_name, phone, address, email)
 VALUES ('FPT Trading', '02473002222', 'Tầng 2-3, Tòa nhà Zodiac, Duy Tân, Cầu Giấy, Hà Nội', 'contact@fpt.com.vn'),
        ('DGW (Digiworld)', '02873005588', 'Số 6 Tân Trào, Phường Tân Phú, Quận 7, TP. HCM', 'info@digiworld.com.vn'),
-       ('Petrosetco Distribution', '02838220220', 'Tòa nhà Petrosetco, 1-5 Lê Duẩn, Quận 1, TP. HCM', 'sales@petrosetco.com.vn'),
-       ('Viettel Distribution', '18008098', 'Tòa nhà Viettel, 1 Giang Văn Minh, Ba Đình, Hà Nội', 'support@viettel.com.vn'),
+       ('Petrosetco Distribution', '02838220220', 'Tòa nhà Petrosetco, 1-5 Lê Duẩn, Quận 1, TP. HCM',
+        'sales@petrosetco.com.vn'),
+       ('Viettel Distribution', '18008098', 'Tòa nhà Viettel, 1 Giang Văn Minh, Ba Đình, Hà Nội',
+        'support@viettel.com.vn'),
        ('Synnex FPT', '02473002266', '17 Duy Tân, Cầu Giấy, Hà Nội', 'synnex@fpt.com.vn'),
        ('CMC Distribution', '02836225222', 'Tòa nhà CMC, Tân Thuận Đông, Quận 7, TP. HCM', 'info@cmcdistribution.vn'),
        ('TNC Distribution', '02873007007', '237-239 Trần Quang Khải, Quận 1, TP. HCM', 'sales@tnc.com.vn'),
@@ -66,62 +69,83 @@ VALUES ('FPT Trading', '02473002222', 'Tầng 2-3, Tòa nhà Zodiac, Duy Tân, C
        ('Minh Tuấn Mobile', '02839393939', '121 Hoàng Hoa Thám, Tân Bình, TP. HCM', 'info@minhtuanmobile.com'),
        ('Hoàng Hà Mobile', '19002091', '121 Thái Hà, Đống Đa, Hà Nội', 'lienhe@hoanghamobile.com');
 
-INSERT INTO product (brand, provider, series, name, image, cpu, screen, battery, front_camera, back_camera, description,
-                     base_price, release_date, warranty_period, status)
-VALUES
--- iPhone
-(1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A16 Bionic', '6.7 inch', '4323 mAh', '12 MP',
- '48 MP', 'iPhone 14 Pro Max with new design', 1500, '2022-09-14', 12, 1),
-(1, 1, 'iPhone 13 Series', 'iPhone 13 Pro', 'iphone13pro.jpg', 'A15 Bionic', '6.1 inch', '3095 mAh', '12 MP',
- '12 MP', 'iPhone 13 Pro with super retina display', 1300, '2021-09-14', 12, 1),
-(1, 1, 'iPhone 15 Series', 'iPhone 15 Pro Max', 'iphone15promax.jpg', 'A17 Pro', '6.7 inch', '4422 mAh', '12 MP',
- '48 MP', 'iPhone 15 Pro Max with titanium frame', 1600, '2023-09-12', 12, 1),
+INSERT INTO product (brand, provider, series, name, image, cpu, screen, battery, front_camera,
+                     back_camera, description, base_price, release_date, warranty_period, status)
+VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A16 Bionic', '6.7 inch', '4323 mAh',
+        '12 MP',
+        '48 MP', 'iPhone 14 Pro Max with new design', 34500000, '2022-09-14', 12, 1),
+       (1, 1, 'iPhone 13 Series', 'iPhone 13 Pro', 'iphone13pro.jpg', 'A15 Bionic', '6.1 inch', '3095 mAh', '12 MP',
+        '12 MP', 'iPhone 13 Pro with super retina display', 29900000, '2021-09-14', 12, 1),
+       (1, 1, 'iPhone 15 Series', 'iPhone 15 Pro Max', 'iphone15promax.jpg', 'A17 Pro', '6.7 inch', '4422 mAh', '12 MP',
+        '48 MP', 'iPhone 15 Pro Max with titanium frame', 36800000, '2023-09-12', 12, 1),
 
--- Samsung
-(2, 2, 'Samsung Galaxy S23 Series', 'Samsung Galaxy S23 Ultra', 'samsunggalaxys23ultra.jpg', 'Snapdragon 8 Gen 2', '6.8 inch', '5000 mAh', '12 MP',
- '200 MP', 'Samsung Galaxy S23 Ultra with 100x zoom', 1400, '2023-02-17', 12, 1),
-(2, 2, 'Samsung Galaxy S22 Series', 'Samsung Galaxy S22 Plus', 'samsunggalaxys22plus.jpg', 'Snapdragon 8 Gen 1', '6.6 inch', '4500 mAh', '10 MP',
- '50 MP', 'Samsung Galaxy S22 Plus with 120Hz display', 1100, '2022-02-25', 12, 1),
-(2, 2, 'Samsung Galaxy Z Fold 5', 'Samsung Galaxy Z Fold 5', 'samsunggalaxyzfold5.jpg', 'Snapdragon 8 Gen 2', '7.6 inch', '4400 mAh', '10 MP',
- '50 MP', 'Samsung Galaxy Z Fold 5 with foldable design', 1800, '2023-08-11', 12, 1),
+       -- Samsung
+       (2, 2, 'Samsung Galaxy S23 Series', 'Samsung Galaxy S23 Ultra', 'samsunggalaxys23ultra.jpg',
+        'Snapdragon 8 Gen 2', '6.8 inch', '5000 mAh', '12 MP',
+        '200 MP', 'Samsung Galaxy S23 Ultra with 100x zoom', 32200000, '2023-02-17', 12, 1),
+       (2, 2, 'Samsung Galaxy S22 Series', 'Samsung Galaxy S22 Plus', 'samsunggalaxys22plus.jpg', 'Snapdragon 8 Gen 1',
+        '6.6 inch', '4500 mAh', '10 MP',
+        '50 MP', 'Samsung Galaxy S22 Plus with 120Hz display', 25300000, '2022-02-25', 12, 1),
+       (2, 2, 'Samsung Galaxy Z Fold 5', 'Samsung Galaxy Z Fold 5', 'samsunggalaxyzfold5.jpg', 'Snapdragon 8 Gen 2',
+        '7.6 inch', '4400 mAh', '10 MP',
+        '50 MP', 'Samsung Galaxy Z Fold 5 with foldable design', 41400000, '2023-08-11', 12, 1),
 
--- Xiaomi
-(3, 3, 'Xiaomi 12 Series', 'Xiaomi 12 Pro', 'xiaomi12pro.jpg', 'Snapdragon 8 Gen 1', '6.73 inch', '4600 mAh', '32 MP',
- '50 MP', 'Xiaomi 12 Pro with WQHD+ display', 1000, '2022-03-28', 12, 1),
-(3, 3, 'Xiaomi 11 Series', 'Xiaomi 11 Ultra', 'xiaomi11ultra.jpg', 'Snapdragon 888', '6.81 inch', '5000 mAh', '20 MP',
- '50 MP', 'Xiaomi 11 Ultra with ceramic design', 1200, '2021-03-29', 12, 1),
-(3, 3, 'Redmi Note 12 Series', 'Redmi Note 12 Pro', 'redminote12pro.jpg', 'Snapdragon 732G', '6.67 inch', '5000 mAh',
- '16 MP', '108 MP', 'Redmi Note 12 Pro with 120Hz display', 400, '2023-01-01', 12, 1),
+       -- Xiaomi
+       (3, 3, 'Xiaomi 12 Series', 'Xiaomi 12 Pro', 'xiaomi12pro.jpg', 'Snapdragon 8 Gen 1', '6.73 inch', '4600 mAh',
+        '32 MP',
+        '50 MP', 'Xiaomi 12 Pro with WQHD+ display', 23000000, '2022-03-28', 12, 1),
+       (3, 3, 'Xiaomi 11 Series', 'Xiaomi 11 Ultra', 'xiaomi11ultra.jpg', 'Snapdragon 888', '6.81 inch', '5000 mAh',
+        '20 MP',
+        '50 MP', 'Xiaomi 11 Ultra with ceramic design', 27600000, '2021-03-29', 12, 1),
+       (3, 3, 'Redmi Note 12 Series', 'Redmi Note 12 Pro', 'redminote12pro.jpg', 'Snapdragon 732G', '6.67 inch',
+        '5000 mAh',
+        '16 MP', '108 MP', 'Redmi Note 12 Pro with 120Hz display', 9200000, '2023-01-01', 12, 1),
 
--- Oppo
-(4, 4, 'Oppo Find X5 Series', 'Oppo Find X5 Pro', 'oppofindx5pro.jpg', 'Snapdragon 8 Gen 1', '6.7 inch', '5000 mAh', '32 MP',
- '50 MP', 'Find X5 Pro with Hasselblad camera', 1300, '2022-02-24', 12, 1),
-(4, 4, 'Oppo Reno 8 Series', 'Oppo Reno 8 Pro', 'opporeno8pro.jpg', 'Dimensity 8100', '6.7 inch', '4500 mAh', '32 MP',
- '50 MP', 'Reno 8 Pro with AMOLED display', 800, '2022-07-21', 12, 1),
-(4, 4, 'Oppo Reno 10 Series', 'Oppo Reno 10 Pro+', 'opporeno10pro+.jpg', 'Snapdragon 8 Gen 2', '6.7 inch', '4500 mAh', '32 MP',
- '50 MP', 'Reno 10 Pro+ with periscope zoom', 900, '2023-06-06', 12, 1),
+       -- Oppo
+       (4, 4, 'Oppo Find X5 Series', 'Oppo Find X5 Pro', 'oppofindx5pro.jpg', 'Snapdragon 8 Gen 1', '6.7 inch',
+        '5000 mAh', '32 MP',
+        '50 MP', 'Find X5 Pro with Hasselblad camera', 29900000, '2022-02-24', 12, 1),
+       (4, 4, 'Oppo Reno 8 Series', 'Oppo Reno 8 Pro', 'opporeno8pro.jpg', 'Dimensity 8100', '6.7 inch', '4500 mAh',
+        '32 MP',
+        '50 MP', 'Reno 8 Pro with AMOLED display', 18400000, '2022-07-21', 12, 1),
+       (4, 4, 'Oppo Reno 10 Series', 'Oppo Reno 10 Pro+', 'opporeno10pro+.jpg', 'Snapdragon 8 Gen 2', '6.7 inch',
+        '4500 mAh', '32 MP',
+        '50 MP', 'Reno 10 Pro+ with periscope zoom', 20700000, '2023-06-06', 12, 1),
 
--- Vivo
-(5, 5, 'Vivo X80 Series', 'Vivo X80 Pro', 'vivox80pro.jpg', 'Snapdragon 8 Gen 1', '6.78 inch', '4700 mAh', '32 MP',
- '50 MP', 'Vivo X80 Pro with Zeiss optics', 1100, '2022-04-29', 12, 1),
-(5, 5, 'Vivo V23 Series', 'Vivo V23', 'vivov23.jpg', 'Dimensity 920', '6.44 inch', '4200 mAh', '50 MP', '64 MP',
- 'Vivo V23 with color-changing design', 600, '2022-01-05', 12, 1),
-(5, 5, 'Vivo Y100 Series', 'Vivo Y100', 'vivoy100.jpg', 'Dimensity 810', '6.38 inch', '4500 mAh', '16 MP', '64 MP',
- 'Vivo Y100 with AMOLED display', 350, '2023-02-16', 12, 1);
+       -- Vivo
+       (5, 5, 'Vivo X80 Series', 'Vivo X80 Pro', 'vivox80pro.jpg', 'Snapdragon 8 Gen 1', '6.78 inch', '4700 mAh',
+        '32 MP',
+        '50 MP', 'Vivo X80 Pro with Zeiss optics', 25300000, '2022-04-29', 12, 1),
+       (5, 5, 'Vivo V23 Series', 'Vivo V23', 'vivov23.jpg', 'Dimensity 920', '6.44 inch', '4200 mAh', '50 MP', '64 MP',
+        'Vivo V23 with color-changing design', 13800000, '2022-01-05', 12, 1),
+       (5, 5, 'Vivo Y100 Series', 'Vivo Y100', 'vivoy100.jpg', 'Dimensity 810', '6.38 inch', '4500 mAh', '16 MP',
+        '64 MP',
+        'Vivo Y100 with AMOLED display', 8050000, '2023-02-16', 12, 1);
 
 
-INSERT INTO sku (product_id, internal_id, color_id, sku_code, sku_name, image, import_price, invoice_price, sold, stock)
-VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxblack.jpg', 1400, 1500, 0, 10),
-       (1, 7, 2, 'IPHONE14PROMAX-WHITE-6GB/256GB', 'iPhone 14 Pro Max 6GB/256GB White', 'iphone14promaxwhite.jpg', 1450, 1550, 0, 8),
-       (1, 13, 7, 'IPHONE14PROMAX-PURPLE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB Purple', 'iphone14promaxpurple.jpg', 1500, 1600, 0, 5),
-       (2, 1, 2, 'IPHONE13PRO-WHITE-4GB/128GB', 'iPhone 13 Pro 6GB/256GB White', 'iphone13prowhite.jpg', 1200, 1300, 10, 15),
-       (2, 13, 3, 'IPHONE13PRO-BLUE-8GB/512GB', 'iPhone 13 Pro 8GB/512GB Blue', 'iphone13problue.jpg', 1250, 1350, 5, 10),
-       (2, 25, 5, 'IPHONE13PRO-GREEN-12GB/1TB', 'iPhone 13 Pro 12GB/1TB Green', 'iphone13progreen.jpg', 1300, 1400, 2, 7),
-       (3, 13, 1, 'SAMSUNGGALAXYS23ULTRA-BLACK-8GB/512GB', 'Samsung Galaxy S23 Ultra 8GB/512GB Black', 'samsunggalaxys23ultrablack.jpg', 1300, 1400, 4, 12),
-       (3, 24, 2, 'SAMSUNGGALAXYS23ULTRA-WHITE-12GB/1TB', 'Samsung Galaxy S23 Ultra 12GB/1TB White', 'samsunggalaxys23ultrawhite.jpg', 1350, 1450, 3, 9),
-       (3, 30, 7, 'SAMSUNGGALAXYS23ULTRA-PURPLE-16GB/2TB', 'Samsung Galaxy S23 Ultra 16GB/2TB Purple', 'samsunggalaxys23ultrapurple.jpg', 1400, 1500, 1, 6),
-       (1, 1, 2, 'IPHONE14PROMAX-WHITE-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB White', 'iphone14promaxwhite.jpg', 1400, 1500, 0, 10),
-       (1, 13, 2, 'IPHONE14PROMAX-WHITE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB White', 'iphone14promaxwhite.jpg', 1500, 1600, 0, 0);
+INSERT INTO sku(product_id, internal_id, color_id, sku_code, sku_name, image, import_price, invoice_price, sold, stock)
+VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxblack.jpg',
+        32200000, 34500000, 0, 10),
+       (1, 7, 2, 'IPHONE14PROMAX-WHITE-6GB/256GB', 'iPhone 14 Pro Max 6GB/256GB White', 'iphone14promaxwhite.jpg',
+        33350000, 35650000, 0, 8),
+       (1, 13, 7, 'IPHONE14PROMAX-PURPLE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB Purple', 'iphone14promaxpurple.jpg',
+        34500000, 36800000, 0, 5),
+       (2, 1, 2, 'IPHONE13PRO-WHITE-4GB/128GB', 'iPhone 13 Pro 6GB/256GB White', 'iphone13prowhite.jpg', 27600000,
+        29900000, 10, 15),
+       (2, 13, 3, 'IPHONE13PRO-BLUE-8GB/512GB', 'iPhone 13 Pro 8GB/512GB Blue', 'iphone13problue.jpg', 28750000,
+        31050000, 5, 10),
+       (2, 25, 5, 'IPHONE13PRO-GREEN-12GB/1TB', 'iPhone 13 Pro 12GB/1TB Green', 'iphone13progreen.jpg', 29900000,
+        32200000, 2, 7),
+       (3, 13, 1, 'SAMSUNGGALAXYS23ULTRA-BLACK-8GB/512GB', 'Samsung Galaxy S23 Ultra 8GB/512GB Black',
+        'samsunggalaxys23ultrablack.jpg', 29900000, 32200000, 4, 12),
+       (3, 24, 2, 'SAMSUNGGALAXYS23ULTRA-WHITE-12GB/1TB', 'Samsung Galaxy S23 Ultra 12GB/1TB White',
+        'samsunggalaxys23ultrawhite.jpg', 31050000, 33350000, 3, 9),
+       (3, 30, 7, 'SAMSUNGGALAXYS23ULTRA-PURPLE-16GB/2TB', 'Samsung Galaxy S23 Ultra 16GB/2TB Purple',
+        'samsunggalaxys23ultrapurple.jpg', 32200000, 34500000, 1, 6),
+       (1, 1, 2, 'IPHONE14PROMAX-WHITE-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB White', 'iphone14promaxwhite.jpg',
+        32200000, 34500000, 0, 10),
+       (1, 13, 2, 'IPHONE14PROMAX-WHITE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB White', 'iphone14promaxwhite.jpg',
+        34500000, 36800000, 0, 0);
 
 INSERT INTO user_account (username, password, email)
 VALUES ('user1', 'user1', 'user1@example.com'),
@@ -139,7 +163,7 @@ VALUES ('user1', 'user1', 'user1@example.com'),
        ('user13', 'user13', 'user13@example.com'),
        ('user14', 'user14', 'user14@example.com'),
        ('user15', 'user15', 'user15@example.com');
-       
+
 -- INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city)
 -- VALUES (1, 'Alice Nguyen', '0909123456', '12', 'Nguyen Trai', 'Ward 1', 'District 1', 'Ho Chi Minh City'),
 --        (2, 'Bao Tran', '0909876543', '45', 'Le Loi', 'Ward 5', 'District 3', 'Ho Chi Minh City'),
@@ -157,23 +181,23 @@ VALUES ('user1', 'user1', 'user1@example.com'),
 --        (14, 'Oanh Le', '0933778899', '44', 'Tran Quang Khai', 'Ward 12', 'District 1', 'Ho Chi Minh City'),
 --        (15, 'Phuong Mai', '0909333222', '37', 'Pasteur', 'Ward 14', 'District 3', 'Ho Chi Minh City'); 
 
-INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city, is_default)
-VALUES 
-(1, 'Nguyễn Văn A', '0901234567', '123', 'Lê Lợi', 'Phường Bến Thành', 'Quận 1', 'TP.HCM', TRUE),
-(2, 'Nguyễn Văn A', '0901234567', '456', 'Nguyễn Huệ', 'Phường Bến Nghé', 'Quận 1', 'TP.HCM', FALSE),
-(3, 'Trần Thị B', '0912345678', '78A', 'Trần Hưng Đạo', 'Phường Cầu Kho', 'Quận 1', 'TP.HCM', TRUE),
-(4, 'Lê Văn C', '0923456789', '35', 'Phạm Văn Đồng', 'Phường Hiệp Bình Chánh', 'TP.Thủ Đức', 'TP.HCM', TRUE),
-(5, 'Phạm Thị D', '0934567890', '99', 'Cách Mạng Tháng 8', 'Phường 15', 'Quận 10', 'TP.HCM', TRUE),
-(6, 'Hoàng Văn E', '0945678901', '12', 'Quang Trung', 'Phường 11', 'Quận Gò Vấp', 'TP.HCM', TRUE),
-(7, 'Đinh Thị F', '0956789012', '88', 'Nguyễn Thái Học', 'Phường Cầu Ông Lãnh', 'Quận 1', 'TP.HCM', TRUE),
-(8, 'Võ Văn G', '0967890123', '21', 'Lý Thường Kiệt', 'Phường 7', 'Quận Tân Bình', 'TP.HCM', TRUE),
-(9, 'Ngô Thị H', '0978901234', '47', '3/2', 'Phường 14', 'Quận 10', 'TP.HCM', TRUE),
-(10, 'Bùi Văn I', '0989012345', '05', 'Nguyễn Trãi', 'Phường Nguyễn Cư Trinh', 'Quận 1', 'TP.HCM', TRUE),
-(11, 'Đỗ Thị K', '0990123456', '66', 'Hòa Bình', 'Phường Hiệp Tân', 'Quận Tân Phú', 'TP.HCM', TRUE),
-(12, 'Lê Văn C', '0923456789', '198', 'Kha Vạn Cân', 'Phường Linh Tây', 'TP.Thủ Đức', 'TP.HCM', FALSE),
-(13, 'Hoàng Văn E', '0945678901', '201', 'Lê Đức Thọ', 'Phường 6', 'Quận Gò Vấp', 'TP.HCM', FALSE),
-(14, 'Trần Thị B', '0912345678', '789', 'Đinh Tiên Hoàng', 'Phường Đa Kao', 'Quận 1', 'TP.HCM', FALSE),
-(15, 'Đinh Thị F', '0956789012', '301', 'Nguyễn Văn Cừ', 'Phường 4', 'Quận 5', 'TP.HCM', FALSE);
+INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city,
+                              is_default)
+VALUES (1, 'Nguyễn Văn A', '0901234567', '123', 'Lê Lợi', 'Phường Bến Thành', 'Quận 1', 'TP.HCM', TRUE),
+       (2, 'Nguyễn Văn A', '0901234567', '456', 'Nguyễn Huệ', 'Phường Bến Nghé', 'Quận 1', 'TP.HCM', FALSE),
+       (3, 'Trần Thị B', '0912345678', '78A', 'Trần Hưng Đạo', 'Phường Cầu Kho', 'Quận 1', 'TP.HCM', TRUE),
+       (4, 'Lê Văn C', '0923456789', '35', 'Phạm Văn Đồng', 'Phường Hiệp Bình Chánh', 'TP.Thủ Đức', 'TP.HCM', TRUE),
+       (5, 'Phạm Thị D', '0934567890', '99', 'Cách Mạng Tháng 8', 'Phường 15', 'Quận 10', 'TP.HCM', TRUE),
+       (6, 'Hoàng Văn E', '0945678901', '12', 'Quang Trung', 'Phường 11', 'Quận Gò Vấp', 'TP.HCM', TRUE),
+       (7, 'Đinh Thị F', '0956789012', '88', 'Nguyễn Thái Học', 'Phường Cầu Ông Lãnh', 'Quận 1', 'TP.HCM', TRUE),
+       (8, 'Võ Văn G', '0967890123', '21', 'Lý Thường Kiệt', 'Phường 7', 'Quận Tân Bình', 'TP.HCM', TRUE),
+       (9, 'Ngô Thị H', '0978901234', '47', '3/2', 'Phường 14', 'Quận 10', 'TP.HCM', TRUE),
+       (10, 'Bùi Văn I', '0989012345', '05', 'Nguyễn Trãi', 'Phường Nguyễn Cư Trinh', 'Quận 1', 'TP.HCM', TRUE),
+       (11, 'Đỗ Thị K', '0990123456', '66', 'Hòa Bình', 'Phường Hiệp Tân', 'Quận Tân Phú', 'TP.HCM', TRUE),
+       (12, 'Lê Văn C', '0923456789', '198', 'Kha Vạn Cân', 'Phường Linh Tây', 'TP.Thủ Đức', 'TP.HCM', FALSE),
+       (13, 'Hoàng Văn E', '0945678901', '201', 'Lê Đức Thọ', 'Phường 6', 'Quận Gò Vấp', 'TP.HCM', FALSE),
+       (14, 'Trần Thị B', '0912345678', '789', 'Đinh Tiên Hoàng', 'Phường Đa Kao', 'Quận 1', 'TP.HCM', FALSE),
+       (15, 'Đinh Thị F', '0956789012', '301', 'Nguyễn Văn Cừ', 'Phường 4', 'Quận 5', 'TP.HCM', FALSE);
 
 
 

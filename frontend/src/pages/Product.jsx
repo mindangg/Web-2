@@ -64,7 +64,7 @@ export const Product = () => {
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Text className="text-danger fs-5">
                                         {product.base_price !== undefined && product.base_price !== null
-                                            ? `$${product.base_price.toLocaleString('de-DE')}`
+                                            ? `${product.base_price.toLocaleString('de-DE')}đ`
                                             : 'N/A'}
                                     </Card.Text>
                                 </Card.Body>

@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
-      <change afterPath="$PROJECT_DIR$/frontend/src/styles/Admin/Confirm.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalConfirmDelete.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalConfirmDelete.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -206,7 +201,7 @@
       <workItem from="1745653480549" duration="4143000" />
       <workItem from="1745739564058" duration="20647000" />
       <workItem from="1745819438670" duration="28186000" />
-      <workItem from="1745941378185" duration="4253000" />
+      <workItem from="1745941378185" duration="9023000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />
