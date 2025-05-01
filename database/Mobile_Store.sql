@@ -30,6 +30,7 @@ CREATE TABLE user_information
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 CREATE TABLE brand
 (
     brand_id   INT PRIMARY KEY AUTO_INCREMENT,
@@ -49,10 +50,20 @@ CREATE TABLE color
     color    VARCHAR(30)
 );
 
+CREATE TABLE provider
+(
+    provider_id INT PRIMARY KEY AUTO_INCREMENT,
+    provider_name        VARCHAR(30),
+    phone       VARCHAR(20),
+    address     VARCHAR(255),
+    email       VARCHAR(50)
+);
+
 CREATE TABLE product
 (
     product_id      INT PRIMARY KEY AUTO_INCREMENT,
     brand           INT,
+    provider        INT,
     series          VARCHAR(50),
     name            VARCHAR(50),
     image           VARCHAR(255),
@@ -62,11 +73,14 @@ CREATE TABLE product
     front_camera    VARCHAR(100),
     back_camera     VARCHAR(100),
     description     TEXT,
-    base_price      INT,
+    base_price      INT DEFAULT 0,
     release_date    DATE,
     warranty_period TINYINT,
-    status          BOOLEAN,
+    status          BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (brand) REFERENCES brand (brand_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (provider) REFERENCES provider (provider_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -82,8 +96,8 @@ CREATE TABLE sku
     image         VARCHAR(255),
     import_price  INT,
     invoice_price INT,
-    sold          INT,
-    stock         TINYINT,
+    sold          INT DEFAULT 0,
+    stock         INT DEFAULT 0,
     update_date   DATETIME DEFAULT (CURRENT_TIMESTAMP),
     FOREIGN KEY (product_id) REFERENCES product (product_id)
         ON DELETE CASCADE
@@ -101,7 +115,7 @@ CREATE TABLE receipt
     receipt_id          INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     user_information_id INT,
-    created_at             DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at          DATETIME                                                 DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
     status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
@@ -127,21 +141,20 @@ CREATE TABLE receipt_detail
 CREATE TABLE role
 (
     role_id   INT PRIMARY KEY AUTO_INCREMENT,
-    role_name ENUM ('Điều hành', 'Admin', 'Quản lí kho', 'Bán hàng')
-) CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+    role_name VARCHAR(30)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE functional
 (
     functional_id INT PRIMARY KEY AUTO_INCREMENT,
     function_name VARCHAR(30)
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE role_function
 (
     role_id     INT,
     function_id INT,
-    action      ENUM ('Create', 'Read', 'Update', 'Delete'),
+    action      ENUM ('Xem', 'Thêm', 'Xóa', 'Sửa'),
     PRIMARY KEY (role_id, function_id, action),
     FOREIGN KEY (role_id) REFERENCES role (role_id)
         ON DELETE CASCADE
@@ -149,11 +162,11 @@ CREATE TABLE role_function
     FOREIGN KEY (function_id) REFERENCES functional (functional_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE employee
 (
-    employee_id  INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT PRIMARY KEY AUTO_INCREMENT,
     full_name    VARCHAR(30),
     email        VARCHAR(50) UNIQUE,
     password     VARCHAR(60), -- hash password 60 kí tự
@@ -163,16 +176,7 @@ CREATE TABLE employee
     FOREIGN KEY (role) REFERENCES role (role_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-CREATE TABLE provider
-(
-    provider_id INT PRIMARY KEY AUTO_INCREMENT,
-    name        VARCHAR(30),
-    phone       VARCHAR(20),
-    address     VARCHAR(255)
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE import
 (
@@ -232,25 +236,41 @@ CREATE TABLE imei
         ON UPDATE CASCADE
 );
 
-CREATE TABLE warranty_detail
-(
-    warranty_detail_id  INT PRIMARY KEY AUTO_INCREMENT,
-    employee_id         INT,
-    user_information_id INT,
-    receipt_id          INT,
-    imei                VARCHAR(20),
-    date                DATE DEFAULT (CURRENT_DATE),
-    status              ENUM ('Pending', 'Success', 'Decline'),
-    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (user_information_id) REFERENCES user_information (user_information_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (imei) REFERENCES imei (imei)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
+CREATE TRIGGER trg_after_insert_sku
+    AFTER INSERT ON sku
+    FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET base_price = (
+        SELECT MIN(invoice_price)
+        FROM sku
+        WHERE product_id = NEW.product_id
+    )
+    WHERE product_id = NEW.product_id;
+END;
+
+CREATE TRIGGER trg_after_update_sku
+    AFTER UPDATE ON sku
+    FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET base_price = (
+        SELECT MIN(invoice_price)
+        FROM sku
+        WHERE product_id = NEW.product_id
+    )
+    WHERE product_id = NEW.product_id;
+END;
+
+CREATE TRIGGER trg_after_delete_sku
+    AFTER DELETE ON sku
+    FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET base_price = (
+        SELECT MIN(invoice_price)
+        FROM sku
+        WHERE product_id = OLD.product_id
+    )
+    WHERE product_id = OLD.product_id;
+END;

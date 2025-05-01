@@ -5,7 +5,7 @@ import { useUserContext } from '../../hooks/useUserContext'
 
 import Confirm from '../Confirm'
 
-export default function UserCard({ user, handleEdit }) {
+export default function UserCard({ user, handleEdit, hasPermission }) {
     const { admin } = useAdminContext()
     const { dispatch } = useUserContext()
     const [showConfirm, setShowConfirm] = useState(false)
@@ -44,8 +44,12 @@ export default function UserCard({ user, handleEdit }) {
             <span>{user.created_at}</span>
             <span className={user.status === 'Hoạt động' ? 'user-status' : 'user-status-lock'}>{user.status}</span>
             <span className='user-action'>
-                <i className='fa-solid fa-pen-to-square' onClick={() => handleEdit(user)}></i>
-                <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(true)}></i>
+                {hasPermission(admin, 'Người dùng', 'Sửa') && (
+                    <i className='fa-solid fa-pen-to-square' onClick={() => handleEdit(user)}></i>
+                )}
+                {hasPermission(admin, 'Người dùng', 'Xóa') && (
+                    <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(true)}></i>
+                )}
             </span>
             {showConfirm && (
                 <Confirm

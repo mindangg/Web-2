@@ -84,26 +84,23 @@ export default function Header() {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        if (searchQuery.trim()) {
-            searchParams.set('search', searchQuery.trim());
-            if (brand) {
-                searchParams.set('brand', brand);
-            }
-            if (priceFrom) {
-                searchParams.set('minPrice', priceFrom);
-            }
-            if (priceTo) {
-                searchParams.set('maxPrice', priceTo);
-            }
-            if (priceTo < priceFrom) {
-                showNotification('Giá tối đa không được nhỏ hơn giá tối thiểu');
-                return;
-            }
-            navigate(`/product?${searchParams.toString()}`);
+        if (parseInt(priceTo) < parseInt(priceFrom)) {
+            showNotification('Giá tối đa không được nhỏ hơn giá tối thiểu');
+            return;
         }
-        setBrand('')
-        setPriceTo('')
-        setPriceFrom('');
+        searchParams.set('searchBy', 'name');
+        searchParams.set('search', searchQuery.trim());
+        if (brand) {
+            searchParams.set('brand', brand);
+        }
+        if (priceFrom) {
+            searchParams.set('min_price', priceFrom);
+        }
+        if (priceTo) {
+            searchParams.set('max_price', priceTo);
+        }
+        navigate('/product')
+        setSearchParams(searchParams);
         setShowFilter(false);
     };
 
@@ -140,7 +137,7 @@ export default function Header() {
                             }}
                         >
                             <Form.Group className="mb-3">
-                                <Form.Label>Hãng sản xuất</Form.Label>
+                                <Form.Label>Hãng</Form.Label>
                                 <Form.Select value={brand} onChange={(e) => setBrand(e.target.value)}>
                                     <option value="">---</option>
                                     {brands.map((brand, index) => (
@@ -151,22 +148,34 @@ export default function Header() {
                                 </Form.Select>
                             </Form.Group>
 
-                            <Form.Label>Khoảng giá (VNĐ)</Form.Label>
+                            <Form.Label>Khoảng giá</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control
-                                        type="number"
+                                    <input
+                                        className={'header-price-input'}
+                                        type="text"
                                         placeholder="Từ"
-                                        value={priceFrom}
-                                        onChange={(e) => setPriceFrom(e.target.value)}
+                                        value={priceFrom ? priceFrom.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
+                                        onChange={(e) => {
+                                            const rawValue = e.target.value.replace(/\./g, '');
+                                            if (!isNaN(Number(rawValue))) {
+                                                setPriceFrom(rawValue);
+                                            }
+                                        }}
                                     />
                                 </Col>
                                 <Col>
-                                    <Form.Control
-                                        type="number"
+                                    <input
+                                        className={'header-price-input'}
+                                        type="text"
                                         placeholder="Đến"
-                                        value={priceTo}
-                                        onChange={(e) => setPriceTo(e.target.value)}
+                                        value={priceTo ? priceTo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
+                                        onChange={(e) => {
+                                            const rawValue = e.target.value.replace(/\./g, '');
+                                            if (!isNaN(Number(rawValue))) {
+                                                setPriceTo(rawValue);
+                                            }
+                                        }}
                                     />
                                 </Col>
                             </Row>

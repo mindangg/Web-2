@@ -84,25 +84,20 @@ class EmployeeRepository
         $stmt->execute();
 
         return $this->findById($this->pdo->lastInsertId());
-    }    
-
+    }
+    
     public function findAll(?string $full_name, 
-                            ?string $role,
-                            ?int    $limit = 10,
-                            ?int    $page = 1,
-                            ?string $adminRole): array
+        ?string $role,
+        ?int $limit = 10,
+        ?int $page = 1,
+        ?string $adminRole): array
     {
         $conditions = [];
         $params = [];
 
-        if ($adminRole !== 'Manager') {
-            $conditions[] = "r.role_name != :excludeManager";
-            $params[':excludeManager'] = 'Manager';
-        }           
-        
         if ($full_name) {
             $conditions[] = "LOWER(e.full_name) LIKE LOWER(:full_name)";
-            $params[':full_name'] = '%'.$full_name.'%';            
+            $params[':full_name'] = '%' . $full_name . '%';
         }
 
         if ($role) {
@@ -110,56 +105,126 @@ class EmployeeRepository
             $params[':role'] = $role;
         }
 
-        $whereClause = "";
-        if (!empty($conditions))
-            $whereClause = " WHERE " . implode(" AND ", $conditions);
-        
+        $whereClause = !empty($conditions)
+        ? " WHERE " . implode(" AND ", $conditions)
+        : "";
+
         $offset = ($page - 1) * $limit;
 
-        $sql = "SELECT 
-            e.employee_id, 
-            e.full_name, 
-            e.email, 
-            e.phone_number, 
-            e.role, 
-            DATE_FORMAT(e.created_at, '%d/%m/%Y') as created_at, 
-            r.role_id, 
-            r.role_name
+        // Step 1: Get paginated employee IDs
+        $idQuery = "SELECT DISTINCT e.employee_id
         FROM employee AS e
-        INNER JOIN role AS r 
-            ON e.role = r.role_id
+        LEFT JOIN role AS r ON e.role = r.role_id
         $whereClause
-        ORDER BY FIELD(e.role, 1, 2, 3, 4), e.created_at DESC
+        ORDER BY e.employee_id ASC
         LIMIT :limit OFFSET :offset";
 
+        $idStmt = $this->pdo->prepare($idQuery);
+        $idStmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $idStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        foreach ($params as $key => $value) {
+            $idStmt->bindValue($key, $value);
+        }
+        $idStmt->execute();
+        $employeeIds = $idStmt->fetchAll(PDO::FETCH_COLUMN);
+
+        if (empty($employeeIds)) {
+        return [
+            'totalEmployees' => [],
+            'totalPage' => 0,
+            'currentPage' => $page,
+            ];
+        }
+
+        // Step 2: Query full data for those employees
+        $placeholders = implode(',', array_fill(0, count($employeeIds), '?'));
+
+        $sql = "SELECT 
+                    e.employee_id, 
+                    e.full_name, 
+                    e.email, 
+                    e.phone_number, 
+                    e.role AS role_ref, 
+                    DATE_FORMAT(e.created_at, '%d/%m/%Y') as created_at, 
+                    r.role_id, 
+                    r.role_name, 
+                    f.functional_id, 
+                    f.function_name, 
+                    rf.action
+                    FROM employee AS e
+                    LEFT JOIN role AS r 
+                        ON e.role = r.role_id
+                    LEFT JOIN role_function rf 
+                        ON r.role_id = rf.role_id
+                    LEFT JOIN functional f 
+                        ON rf.function_id = f.functional_id
+                    WHERE e.employee_id IN ($placeholders)
+                    ORDER BY e.employee_id ASC";
+
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        foreach ($employeeIds as $i => $id) {
+            $stmt->bindValue($i + 1, $id, PDO::PARAM_INT);
+        }
 
-        foreach ($params as $key => $value)
-            $stmt->bindValue($key, $value);
-    
         $stmt->execute();
-        $employees =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Total query (without LIMIT/OFFSET)
-        $totalQuery = "SELECT COUNT(*) as total
+        // Step 3: Format result
+        $employees = [];
+        foreach ($rows as $row) {
+            $empId = $row['employee_id'];
+            $funcId = $row['functional_id'];
+
+            if (!isset($employees[$empId])) {
+                $employees[$empId] = [
+                        'employee_id' => $empId,
+                        'full_name' => $row['full_name'],
+                        'email' => $row['email'],
+                        'phone_number' => $row['phone_number'],
+                        'created_at' => $row['created_at'],
+                        'role' => [
+                        'role_id' => $row['role_id'],
+                        'role_name' => $row['role_name'],
+                        'functions' => []
+                    ]   
+                ];
+            }
+
+        if ($funcId !== null) {
+            if (!isset($employees[$empId]['role']['functions'][$funcId])) {
+                $employees[$empId]['role']['functions'][$funcId] = [
+                'functional_id' => $funcId,
+                'function_name' => $row['function_name'],
+                'actions' => []
+            ];
+        }
+
+        $employees[$empId]['role']['functions'][$funcId]['actions'][] = $row['action'];
+        }
+        }
+
+        foreach ($employees as &$emp) {
+            $emp['role']['functions'] = array_values($emp['role']['functions']);
+        }
+
+        // Step 4: Count total employees (without LIMIT)
+        $totalQuery = "SELECT COUNT(DISTINCT e.employee_id) as total
                         FROM employee AS e
-                        INNER JOIN role AS r 
-                            ON e.role = r.role_id
+                        LEFT JOIN role AS r 
+                        ON e.role = r.role_id
                         $whereClause";
 
         $totalStmt = $this->pdo->prepare($totalQuery);
-        foreach ($params as $key => $value)
+        foreach ($params as $key => $value) {
             $totalStmt->bindValue($key, $value);
-
+        }
         $totalStmt->execute();
         $totalRow = $totalStmt->fetch(PDO::FETCH_ASSOC);
-        $total = $totalRow['total'];
+        $total = (int) $totalRow['total'];
         $totalPages = ceil($total / $limit);
 
         return [
-            'totalEmployees' => $employees,
+            'totalEmployees' => array_values($employees),
             'totalPage' => $totalPages,
             'currentPage' => $page,
         ];
@@ -171,19 +236,66 @@ class EmployeeRepository
             e.employee_id, 
             e.full_name, 
             e.email, 
-            e.role, 
+            e.phone_number, 
+            e.role AS role_ref, 
             DATE_FORMAT(e.created_at, '%d/%m/%Y') as created_at, 
             r.role_id, 
-            r.role_name
-        FROM employee AS e
-        INNER JOIN role AS r 
-            ON e.role = r.role_id
-        WHERE e.employee_id = :id";
+            r.role_name, 
+            f.functional_id, 
+            f.function_name, 
+            rf.action
+            FROM employee AS e
+            LEFT JOIN role AS r 
+                ON e.role = r.role_id
+            LEFT JOIN role_function rf 
+                ON r.role_id = rf.role_id
+            LEFT JOIN functional f 
+                ON rf.function_id = f.functional_id
+            WHERE e.employee_id = :id";
         
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $employees = [];
+        foreach ($rows as $row) {
+            $empId = $row['employee_id'];
+            $funcId = $row['functional_id'];
+
+            if (!isset($employees[$empId])) {
+                $employees[$empId] = [
+                        'employee_id' => $empId,
+                        'full_name' => $row['full_name'],
+                        'email' => $row['email'],
+                        'phone_number' => $row['phone_number'],
+                        'created_at' => $row['created_at'],
+                        'role' => [
+                        'role_id' => $row['role_id'],
+                        'role_name' => $row['role_name'],
+                        'functions' => []
+                    ]   
+                ];
+            }
+
+        if ($funcId !== null) {
+            if (!isset($employees[$empId]['role']['functions'][$funcId])) {
+                $employees[$empId]['role']['functions'][$funcId] = [
+                'functional_id' => $funcId,
+                'function_name' => $row['function_name'],
+                'actions' => []
+            ];
+        }
+
+        $employees[$empId]['role']['functions'][$funcId]['actions'][] = $row['action'];
+        }
+        }
+
+        foreach ($employees as &$emp) {
+            $emp['role']['functions'] = array_values($emp['role']['functions']);
+        }
+
+        return array_values($employees);
     }
 
     public function deleteById(int $id)

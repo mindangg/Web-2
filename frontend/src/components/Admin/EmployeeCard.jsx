@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useAdminContext } from '../../hooks/useAdminContext'
 import { useUserContext } from '../../hooks/useUserContext'
 
 import Confirm from '../Confirm'
 
-export default function EmployeeCard({ employee, handleEdit }) {
+export default function EmployeeCard({ employee, handleEdit, hasPermission }) {
     const { admin } = useAdminContext()
     const { dispatch } = useUserContext()
     const [showConfirm, setShowConfirm] = useState(false)
@@ -49,10 +49,14 @@ export default function EmployeeCard({ employee, handleEdit }) {
             <span>{employee.email}</span>
             <span>{employee.phone_number}</span>
             <span>{employee.created_at}</span>
-            <span className={`employee-role-${roleClassMap[employee.role_name] || 'default'}`}>{employee.role_name}</span>
+            <span className={`employee-role-${roleClassMap[employee?.role?.role_name] || ''}`}>{employee?.role?.role_name}</span>
             <span className='employee-action'>
+            {hasPermission(admin, 'Nhân viên', 'Sửa') && (
                 <i className='fa-solid fa-pen-to-square' onClick={() => handleEdit(employee)}></i>
+            )}
+            {hasPermission(admin, 'Nhân viên', 'Xóa') && (
                 <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(true)}></i>
+            )}
             </span>
             {showConfirm && (
                 <Confirm

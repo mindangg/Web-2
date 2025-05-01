@@ -166,7 +166,7 @@ const ProductDetail = () => {
                     )}
 
 
-                    <p className="text-danger fs-3 ">{'$' + (sku? sku.invoice_price?.toLocaleString("vi-VN") : productDetail.product.base_price?.toLocaleString("vi-VN"))}</p>
+                    <p className="text-danger fs-3 ">{(sku? sku.invoice_price?.toLocaleString("vi-VN") : productDetail.product.base_price?.toLocaleString("vi-VN")) + "đ"}</p>
 
                     <Button
                         variant="dark"

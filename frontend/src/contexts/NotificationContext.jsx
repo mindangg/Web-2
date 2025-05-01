@@ -2,7 +2,7 @@ import React , { createContext, useState } from 'react'
 
 export const NotificationContext = createContext({
   message: '',
-  showNotification: () => {}
+  showNotification: (msg) => {}
 })
 
 export const NotificationContextProvider = ({ children }) => {

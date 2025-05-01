@@ -35,7 +35,7 @@ export const useAddToCart = () => {
             cart.push({ ...product, quantity: 1 })
         
         localStorage.setItem(`cart_${userId}`, JSON.stringify(cart))
-        // updateCart(cart) // Cập nhật state giỏ hàng
+
         showNotification('Đã thêm sản phẩm vào giỏ hàng')
     }
 
@@ -58,7 +58,7 @@ export const useAddToCart = () => {
         }
     }
 
-    const handleQuantity = async (product, type) => {
+    const handleQuantity = async (product, type, quantity) => {
         const userId = user.user.user_account_id
         try{
             let cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || []
@@ -86,6 +86,9 @@ export const useAddToCart = () => {
                     handleDelete(product.product.product_id)
                     return
                 }
+            else if (type === 'set') {
+                updateItem.quantity = quantity
+            }
 
         cart[itemIndex] = updateItem
         localStorage.setItem(`cart_${userId}`, JSON.stringify(cart))

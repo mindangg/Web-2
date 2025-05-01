@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import Pagination from "../components/Pagination.jsx";
+import Pagination from "../components/CustomPagination.jsx";
 import '../styles/Product.css'
 import '../styles/Card.css'
 import {Filter} from "../components/Product/Filter.jsx";
@@ -11,7 +11,7 @@ export const Product = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const [products, setProducts] = useState([])
-    const [searchParams, setSearchParams] = useSearchParams(`limit=${PRODUCT_PER_PAGE}`);
+    const [searchParams, setSearchParams] = useSearchParams(`limit=${PRODUCT_PER_PAGE}&status=true`);
     const navigator = useNavigate();
 
     useEffect( () => {
@@ -64,7 +64,7 @@ export const Product = () => {
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Text className="text-danger fs-5">
                                         {product.base_price !== undefined && product.base_price !== null
-                                            ? `$${product.base_price.toLocaleString('de-DE')}`
+                                            ? `${product.base_price.toLocaleString('de-DE')}đ`
                                             : 'N/A'}
                                     </Card.Text>
                                 </Card.Body>
@@ -74,6 +74,8 @@ export const Product = () => {
                             <Pagination
                                 totalPage={totalPage}
                                 currentPage={currentPage}
+                                searchParams={searchParams}
+                                setSearchParams={setSearchParams}
                             />
                         )}
                     </div>

@@ -2,9 +2,15 @@
 declare(strict_types=1);
 
 use controller\BrandController;
+use controller\ColorController;
+use controller\InternalOptionController;
 use controller\ProductController;
+use controller\ProviderController;
+use controller\SkuController;
 use controller\UserController;
 use controller\EmployeeController;
+use controller\OrderController;
+use controller\RoleController;
 use controller\ReceiptController;
 use exception\ExceptionHandler;
 
@@ -18,6 +24,8 @@ require_once __DIR__ . '/config/Database.php';
 require_once __DIR__ . '/repository/ProductRepository.php';
 require_once __DIR__ . '/repository/UserRepository.php';
 require_once __DIR__ . '/repository/EmployeeRepository.php';
+require_once __DIR__ . '/repository/OrderRepository.php';
+require_once __DIR__ . '/repository/RoleRepository.php';
 require_once __DIR__ . '/repository/ReceiptRepository.php';
 
 set_error_handler([ExceptionHandler::class, 'handleError']);
@@ -45,6 +53,11 @@ switch ($request[2]){
         $productController->processRequest($_SERVER['REQUEST_METHOD'], isset($request[3]) ? (int)$request[3] : null);
         break;
 
+    case 'sku':
+        $skuController = new SkuController();
+        $skuController->processRequest($_SERVER['REQUEST_METHOD'], isset($request[3]) ? (int)$request[3] : null);
+        break;
+
     case 'brand':
         $brandController = new BrandController();
         $brandController->processRequest($_SERVER['REQUEST_METHOD']);
@@ -57,13 +70,40 @@ switch ($request[2]){
             $request[3] ?? null,
             //address
             $request[4] ?? null);
-        
         break;
-        
+
     case 'employee':
         $employeeController = new EmployeeController();
         $employeeController->processRequest(
             $_SERVER['REQUEST_METHOD'], 
+            $request[3] ?? null);
+        break;
+
+    case 'role':
+        $roleController = new RoleController();
+        $roleController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
+            $request[3] ?? null);
+        break;
+
+    case 'provider':
+        $providerController = new ProviderController();
+        $providerController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
+            $request[3] ?? null);
+        break;
+
+    case 'color':
+        $colorController = new ColorController();
+        $colorController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
+            $request[3] ?? null);
+        break;
+
+    case 'internal_option':
+        $internalOptionController = new InternalOptionController();
+        $internalOptionController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
             $request[3] ?? null);
         break;
     case 'receipt':
