@@ -130,6 +130,7 @@ CREATE TABLE receipt_detail
     sku_id     INT,
     quantity   INT,
     price      INT,
+    payment_method ENUM('direct_payment', 'transfer_payment') DEFAULT 'direct_payment',
     FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
@@ -210,7 +211,7 @@ CREATE TABLE import_detail
 
 CREATE TABLE imei
 (
-    imei              VARCHAR(20) PRIMARY KEY AUTO_INCREMENT,
+    imei              INT PRIMARY KEY AUTO_INCREMENT,
     receipt_detail_id INT,
     date              DATE DEFAULT CURRENT_DATE,
     expired_date      DATE,

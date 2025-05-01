@@ -1,6 +1,7 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useEffect, useReducer } from 'react'
+import { useAuthContext } from '../hooks/useAuthContext'
 
-export const CartContext = createContext()
+export const CartContext = createContext();
 
 export const cartReducer = (state, action) => {
     switch(action.type) {
@@ -63,9 +64,17 @@ export const cartReducer = (state, action) => {
 }
 
 export const CartContextProvider = ({ children }) => {
+    const {user} = useAuthContext();
     const [state, dispatch] = useReducer(cartReducer, {
         cart: []
     })
+    useEffect(() => {
+        if(user){
+            const userId = user.user.user_account_id;
+            const storedCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+            dispatch({type: 'DISPLAY_ITEM', payload: storedCart});
+        }
+    },[user]);
 
     return (
         <CartContext.Provider value={{...state, dispatch}}>
