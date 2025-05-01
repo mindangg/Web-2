@@ -5,6 +5,7 @@ use controller\BrandController;
 use controller\ProductController;
 use controller\UserController;
 use controller\EmployeeController;
+use controller\ReceiptController;
 use exception\ExceptionHandler;
 
 spl_autoload_register(function ($class) {
@@ -17,6 +18,7 @@ require_once __DIR__ . '/config/Database.php';
 require_once __DIR__ . '/repository/ProductRepository.php';
 require_once __DIR__ . '/repository/UserRepository.php';
 require_once __DIR__ . '/repository/EmployeeRepository.php';
+require_once __DIR__ . '/repository/ReceiptRepository.php';
 
 set_error_handler([ExceptionHandler::class, 'handleError']);
 set_exception_handler([ExceptionHandler::class, 'handleException']);
@@ -63,6 +65,10 @@ switch ($request[2]){
         $employeeController->processRequest(
             $_SERVER['REQUEST_METHOD'], 
             $request[3] ?? null);
+        break;
+    case 'receipt':
+        $receiptController = new ReceiptController();
+        $receiptController->processRequest($_SERVER['REQUEST_METHOD']);
         break;
 
     default:

@@ -204,18 +204,30 @@ CREATE TABLE import_detail
         ON UPDATE CASCADE
 );
 
+-- CREATE TABLE imei
+-- (
+--     imei              VARCHAR(20) PRIMARY KEY,
+--     sku_id            INT,
+--     receipt_detail_id INT,
+--     import_detail_id  INT,
+--     expired_date      DATE,
+--     FOREIGN KEY (sku_id) REFERENCES sku (sku_id),
+--     FOREIGN KEY (receipt_detail_id) REFERENCES receipt_detail (detail_id)
+--         ON DELETE CASCADE
+--         ON UPDATE CASCADE,
+--     FOREIGN KEY (import_detail_id) REFERENCES import_detail (import_detail_id)
+--         ON DELETE CASCADE
+--         ON UPDATE CASCADE
+-- );
+
 CREATE TABLE imei
 (
-    imei              VARCHAR(20) PRIMARY KEY,
-    sku_id            INT,
+    imei              INT PRIMARY KEY AUTO_INCREMENT,
     receipt_detail_id INT,
-    import_detail_id  INT,
+    date              DATE DEFAULT CURRENT_DATE,
     expired_date      DATE,
-    FOREIGN KEY (sku_id) REFERENCES sku (sku_id),
+    status            BOOLEAN,
     FOREIGN KEY (receipt_detail_id) REFERENCES receipt_detail (detail_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (import_detail_id) REFERENCES import_detail (import_detail_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
