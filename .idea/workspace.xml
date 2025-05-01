@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main" />
+    <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
+      <change afterPath="$PROJECT_DIR$/backend/controller/ColorController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controller/InternalOptionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/ColorRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/InternalOptionRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/service/ColorService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/service/InternalOptionService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddSku.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controller/SkuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/SkuController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/repository/SkuRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/SkuRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/service/SkuService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/SkuService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -202,6 +219,8 @@
       <workItem from="1745739564058" duration="20647000" />
       <workItem from="1745819438670" duration="28186000" />
       <workItem from="1745941378185" duration="9023000" />
+      <workItem from="1746030921476" duration="3943000" />
+      <workItem from="1746086316305" duration="5244000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />

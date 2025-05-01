@@ -385,7 +385,6 @@ export default function AdminProduct() {
                                     src={`${PRODUCT_IMAGE_PATH}${product.image}`}
                                     alt={product.name}
                                     style={{ width: '70px', height: '70px', cursor: 'pointer' }}
-                                    onClick={() => handleShowDetailModal(product)}
                                 />
                             </td>
                             <td>{product.base_price.toLocaleString('vi-VN')}đ</td>
@@ -478,6 +477,7 @@ export default function AdminProduct() {
                     show={state.showDetailModal}
                     handleClose={() => dispatch({ type: 'SET_SHOW_DETAIL_MODAL', payload: false })}
                     product={state.selectedProduct}
+                    hasPermission={hasPermission}
                 />
             )}
         </Container>

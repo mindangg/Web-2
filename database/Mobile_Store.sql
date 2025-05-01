@@ -96,8 +96,8 @@ CREATE TABLE sku
     image         VARCHAR(255),
     import_price  INT,
     invoice_price INT,
-    sold          INT,
-    stock         TINYINT,
+    sold          INT DEFAULT 0,
+    stock         INT DEFAULT 0,
     update_date   DATETIME DEFAULT (CURRENT_TIMESTAMP),
     FOREIGN KEY (product_id) REFERENCES product (product_id)
         ON DELETE CASCADE
@@ -210,39 +210,12 @@ CREATE TABLE import_detail
 
 CREATE TABLE imei
 (
-    imei              VARCHAR(20) PRIMARY KEY,
-    sku_id            INT,
+    imei              VARCHAR(20) PRIMARY KEY AUTO_INCREMENT,
     receipt_detail_id INT,
-    import_detail_id  INT,
+    date              DATE DEFAULT CURRENT_DATE,
     expired_date      DATE,
-    FOREIGN KEY (sku_id) REFERENCES sku (sku_id),
+    status            BOOLEAN,
     FOREIGN KEY (receipt_detail_id) REFERENCES receipt_detail (detail_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (import_detail_id) REFERENCES import_detail (import_detail_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
-
-CREATE TABLE warranty_detail
-(
-    warranty_detail_id  INT PRIMARY KEY AUTO_INCREMENT,
-    employee_id         INT,
-    user_information_id INT,
-    receipt_id          INT,
-    imei                VARCHAR(20),
-    date                DATE DEFAULT (CURRENT_DATE),
-    status              ENUM ('Pending', 'Success', 'Decline'),
-    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (user_information_id) REFERENCES user_information (user_information_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (imei) REFERENCES imei (imei)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );

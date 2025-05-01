@@ -65,7 +65,6 @@ class ProductService
             $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
             if (!in_array($fileExtension, $allowedExtensions)) {
                 echo json_encode([
-                    'status' => 'error',
                     'message' => 'Chỉ cho phép file ảnh png, jpg, jpeg, gif',
                 ]);
                 exit;
@@ -83,26 +82,21 @@ class ProductService
 
             if ($signal < 0) {
                 $response = [
-                    'status' => 'error',
                     'message' => 'Lỗi khi thêm sản phẩm vào database',
                 ];
             }
 
             if (copy($fileTmpPath, $destination)) {
                 $response = [
-                    'status' => 'success',
-                    'message' => 'Thêm sản phẩm thành công',
-                    'product_id' => $signal,
+                    'message' => 'Thêm sản phẩm thành công, id: ' . $signal,
                 ];
             } else {
                 $response = [
-                    'status' => 'error',
                     'message' => 'Lỗi khi upload file ảnh',
                 ];
             }
         } else {
             $response = [
-                'status' => 'error',
                 'message' => 'Không có file ảnh nào được upload',
             ];
         }

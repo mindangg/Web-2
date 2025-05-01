@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 use controller\BrandController;
+use controller\ColorController;
+use controller\InternalOptionController;
 use controller\ProductController;
 use controller\ProviderController;
 use controller\SkuController;
@@ -85,6 +87,20 @@ switch ($request[2]){
     case 'provider':
         $providerController = new ProviderController();
         $providerController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
+            $request[3] ?? null);
+        break;
+
+    case 'color':
+        $colorController = new ColorController();
+        $colorController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
+            $request[3] ?? null);
+        break;
+
+    case 'internal_option':
+        $internalOptionController = new InternalOptionController();
+        $internalOptionController->processRequest(
             $_SERVER['REQUEST_METHOD'],
             $request[3] ?? null);
         break;

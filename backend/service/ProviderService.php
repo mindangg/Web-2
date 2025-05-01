@@ -36,4 +36,19 @@ class ProviderService
             'provider' => $provider
         ];
     }
+
+    public function createProvider(object $data): array
+    {
+        $response = [];
+        if($this->providerRepository->isExisted($data->provider_name)) {
+            return $response = [
+                'message' => 'Nhà cung cấp đã tồn tại',
+            ];
+        }
+
+        $this->providerRepository->create($data);
+        return $response = [
+            'message' => 'Nhà cung cấp đã được tạo thành công',
+        ];
+    }
 }
