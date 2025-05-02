@@ -57,6 +57,12 @@ class ProductService
         $response = [];
         $uploadDir = realpath(__DIR__ . '/../../frontend/public/product') . '/';
 
+        if ($this->productRepository->isExistedWithName($data->name)) {
+            return $response = [
+                'message' => 'Tên sản phẩm đã tồn tại',
+            ];
+        }
+
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $fileTmpPath = $_FILES['image']['tmp_name'];
             $originalName = $_FILES['image']['name'];
@@ -118,7 +124,6 @@ class ProductService
             $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
             if (!in_array($fileExtension, $allowedExtensions)) {
                 echo json_encode([
-                    'status' => 'error',
                     'message' => 'Chỉ cho phép file ảnh png, jpg, jpeg, gif',
                 ]);
                 exit;
@@ -138,7 +143,6 @@ class ProductService
 
             if ($signal < 0) {
                 $response = [
-                    'status' => 'error',
                     'message' => 'Lỗi khi cập nhật sản phẩm vào database',
                 ];
             }
@@ -149,19 +153,15 @@ class ProductService
 
             if (copy($fileTmpPath, $destination2)) {
                 $response = [
-                    'status' => 'success',
-                    'message' => 'Cập nhật sản phẩm thành công',
-                    'product_id' => $signal,
+                    'message' => 'Cập nhật sản phẩm thành công' . $signal,
                 ];
             } else {
                 $response = [
-                    'status' => 'error',
                     'message' => 'Lỗi khi upload file ảnh',
                 ];
             }
         } else {
             $response = [
-                'status' => 'error',
                 'message' => 'Không có file ảnh nào được upload',
             ];
         }
@@ -170,7 +170,7 @@ class ProductService
 
     public function deleteProduct(int $id): int
     {
-        if($this->skuRepository->isExistedInReceipt($id) || $this->skuRepository->isExistedInImport($id)) {
+        if($this->skuRepository->productIsExistedInReceipt($id) || $this->skuRepository->productIsExistedInImport($id)) {
             return -2;
         }
         $product = $this->productRepository->findById($id);

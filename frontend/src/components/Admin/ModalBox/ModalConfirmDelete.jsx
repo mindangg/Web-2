@@ -1,36 +1,11 @@
 import { Modal, Button } from "react-bootstrap";
-import {PRODUCT_API_URL} from "../../../utils/Constant.jsx";
-import {useNotificationContext} from "../../../hooks/useNotificationContext.jsx";
 import '../../../styles/Admin/Confirm.css'
 
 
-const ModalConfirmDelete = ({show, handleClose, refreshList, productId, title, body}) => {
-    const { showNotification } = useNotificationContext();
-
-    const handleDeleteProduct = async () => {
-        try {
-            const response = await fetch(`${PRODUCT_API_URL}/${productId}`, {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-            });
-
-            if (!response.ok) {
-                throw new Error('Xóa sản phẩm thất bại');
-            }
-
-            const data = await response.json();
-
-            showNotification(data.message, "success");
-            handleClose();
-            refreshList();
-        } catch (error) {
-            console.error(error);
-            showNotification("Xóa sản phẩm thất bại", "danger");
-        }
-    };
+const ModalConfirmDelete = ({show, handleClose, handleDelete, title, body}) => {
 
     return (
-        <Modal show={show} onHide={handleClose} centered>
+        <Modal show={show} onHide={handleClose} centered onS>
             <div style={style}>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>
@@ -42,7 +17,7 @@ const ModalConfirmDelete = ({show, handleClose, refreshList, productId, title, b
                     <Button variant="secondary" onClick={handleClose}>
                         Hủy
                     </Button>
-                    <Button variant="danger" onClick={handleDeleteProduct}>
+                    <Button variant="danger" onClick={handleDelete}>
                         Xóa
                     </Button>
                 </Modal.Footer>

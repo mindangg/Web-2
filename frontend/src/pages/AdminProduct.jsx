@@ -33,7 +33,6 @@ const initialState = {
     showAddModal: false,
     showUpdateModal: false,
     showDetailModal: false,
-    skuList: [],
     showConfirmDelete: false,
     triggerRefresh: false,
 };
@@ -54,7 +53,6 @@ const reducer = (state, action)  => {
         case 'SET_SELECTED_PRODUCT': return { ...state, selectedProduct: action.payload };
         case 'SET_OPTION_LIST': return { ...state, optionList: action.payload };
         case 'SET_SHOW_DETAIL_MODAL': return { ...state, showDetailModal: action.payload ?? !state.showDetailModal };
-        case 'SET_SKU_LIST': return { ...state, skuList: action.payload };
         case 'SET_SHOW_CONFIRM_DELETE': return { ...state, showConfirmDelete: action.payload };
         case 'SET_TRIGGER_REFRESH': return { ...state, triggerRefresh: action.payload };
         default: return state;
@@ -170,6 +168,28 @@ export default function AdminProduct() {
     const hasPermission = (action) => {
         return hasAccess("Sản phẩm", action)
     }
+
+    const handleDeleteProduct = async () => {
+        try {
+            const response = await fetch(`${PRODUCT_API_URL}/${state.selectedProduct.product_id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (!response.ok) {
+                throw new Error('Xóa sản phẩm thất bại');
+            }
+
+            const data = await response.json();
+
+            showNotification(data.message);
+            dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false });
+            refreshList();
+        } catch (error) {
+            console.error(error);
+            showNotification("Xóa sản phẩm thất bại", "danger");
+        }
+    };
 
     return (
         <Container fluid className={"w-100 vh-100 rounded-3"}
@@ -465,8 +485,7 @@ export default function AdminProduct() {
                 <ModalConfirmDelete
                     show={state.showConfirmDelete}
                     handleClose={() => dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false })}
-                    refreshList={refreshList}
-                    productId={state.selectedProduct.product_id}
+                    handleDelete={handleDeleteProduct}
                     title="Xác nhận xóa sản phẩm"
                     body={`Bạn có chắc chắn muốn xóa sản phẩm "${state.selectedProduct.name}" không?`}
                 />

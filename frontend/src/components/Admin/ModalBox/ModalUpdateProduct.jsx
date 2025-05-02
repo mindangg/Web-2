@@ -118,7 +118,9 @@ export default function ModalUpdateProduct({ show, handleClose, selectedProduct,
                 throw new Error(errorData.message || 'Failed to update product');
             }
 
-            showNotification('Cập nhật sản phẩm thành công');
+            const data = await response.json();
+
+            showNotification(data.message);
             handleClose();
             refreshList();
         } catch (error) {
@@ -153,7 +155,7 @@ export default function ModalUpdateProduct({ show, handleClose, selectedProduct,
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    required
+                                    disabled
                                 />
                             </Form.Group>
 

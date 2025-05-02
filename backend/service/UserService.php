@@ -68,8 +68,7 @@ class UserService
 
         // Check password strength
         if (!$this->isStrongPassword($password)) {
-            $this->respond(400, ["message" => "Mật khẩu phải dài ít nhất 6 ký tự,
-                                    bao gồm một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt"]);
+            $this->respond(400, ["message" => "Mật khẩu phải dài ít nhất 6 ký tự, bao gồm một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt"]);
         }
 
         $userId = $this->userRepository->signupUser($username, $email, $password);

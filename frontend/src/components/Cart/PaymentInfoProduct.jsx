@@ -23,7 +23,7 @@ function PaymentInfoProduct(){
                         {cart.map((item) =>(
                             <tr key={item.product_id}>
                                 <td><img src={`./product/${item.image}`} alt={item.name}/></td>
-                                <td>{item.name}</td>
+                                <td>{item.sku_name}</td>
                                 <td>{item.quantity}</td>
                                 <td>{item.invoice_price.toLocaleString()} $</td>
                             </tr>

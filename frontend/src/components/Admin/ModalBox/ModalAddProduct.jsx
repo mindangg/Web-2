@@ -138,7 +138,7 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
 
             const data = await response.json();
 
-            showNotification(`${data.message}, id sản phẩm: ${data.product_id}`, `${data.status}`);
+            showNotification(data.message);
             handleClose();
             refreshList();
         } catch (error) {

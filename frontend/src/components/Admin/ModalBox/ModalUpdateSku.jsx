@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button, Form, Row, Col, Image } from 'react-bootstrap';
-import { API_URL } from "../../../utils/Constant.jsx";
-import {useNotificationContext} from "../../../hooks/useNotificationContext.jsx";
+import {API_URL, PRODUCT_IMAGE_PATH} from "../../../utils/Constant.jsx";
+import { useNotificationContext } from "../../../hooks/useNotificationContext.jsx";
 
-const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
+const ModalUpdateSku = ({ show, handleClose, skuData, onSkuUpdated }) => {
     const [formData, setFormData] = useState({
-        product_id: productId,
+        sku_id: '',
+        product_id: '',
         internal_id: '',
         color_id: '',
+        sku_code: '',
+        sku_name: '',
         image: null,
         import_price: '',
         invoice_price: '',
+        stock: '',
     });
 
     const [imagePreview, setImagePreview] = useState(null);
@@ -19,13 +23,55 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
     const [validated, setValidated] = useState(false);
     const { showNotification } = useNotificationContext();
 
-    // State cho modal thêm màu sắc
+    // State for color modal
     const [showAddColor, setShowAddColor] = useState(false);
     const [colorFormData, setColorFormData] = useState({
         color: ''
     });
 
-    // Fetch internal options (RAM/Storage combinations)
+    // Initialize form data when skuData changes
+    useEffect(() => {
+        if (skuData && show) {
+            setFormData({
+                sku_id: skuData.sku_id || '',
+                product_id: skuData.product_id || '',
+                internal_id: skuData.internal_id || '',
+                color_id: skuData.color_id || '',
+                sku_code: skuData.sku_code || '',
+                sku_name: skuData.sku_name || '',
+                import_price: skuData.import_price || '',
+                invoice_price: skuData.invoice_price || '',
+                stock: skuData.stock || 0,
+                image: null,
+            });
+
+            // Set image preview from existing image URL
+            if (skuData.image) {
+                const imageUrl = `${PRODUCT_IMAGE_PATH}${skuData.image}`;
+                setImagePreview(imageUrl);
+
+                fetch(imageUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const file = new File([blob], skuData.image, { type: blob.type });
+                        setFormData(prev => ({ ...prev, image: file }));
+                    })
+                    .catch(error => {
+                        console.error("Không thể tạo file từ hình ảnh:", error);
+                    });
+            } else {
+                setImagePreview('');
+            }
+
+        }
+    }, [skuData, show]);
+
+    // Fetch internal options and color options
     useEffect(() => {
         const fetchInternalOptions = async () => {
             try {
@@ -38,7 +84,6 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
             }
         };
 
-        // Fetch color options
         const fetchColorOptions = async () => {
             try {
                 const response = await fetch(`${API_URL}color`);
@@ -56,7 +101,7 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
         }
     }, [show]);
 
-    // Hàm hỗ trợ refresh dữ liệu khi thêm mới thành công
+    // Helper function to refresh data after adding a new color
     const refreshData = async () => {
         try {
             const colorResponse = await fetch(`${API_URL}color`);
@@ -108,25 +153,12 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
         }
     };
 
-    const resetForm = () => {
-        setFormData({
-            product_id: productId,
-            internal_id: '',
-            color_id: '',
-            image: null,
-            import_price: '',
-            invoice_price: '',
-        });
-        setImagePreview(null);
-        setValidated(false);
-    };
-
     const handleCloseModal = () => {
-        resetForm();
+        setValidated(false);
         handleClose();
     };
 
-    // Xử lý submit thêm màu sắc
+    // Handle color submission
     const handleSubmitColor = async (e) => {
         e.preventDefault();
         try {
@@ -166,13 +198,12 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
         try {
             const submitData = new FormData();
 
+            // Append all form data fields
             Object.keys(formData).forEach(key => {
-                if (formData[key] !== null) {
-                    submitData.append(key, formData[key]);
-                }
+                submitData.append(key, formData[key]);
             });
 
-            const response = await fetch(`${API_URL}sku`, {
+            const response = await fetch(`${API_URL}sku/${formData.sku_id}`, {
                 method: 'POST',
                 body: submitData
             });
@@ -186,12 +217,13 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
             showNotification(result.message);
 
             handleCloseModal();
-            if (onSkuAdded) {
-                onSkuAdded();
+            if (onSkuUpdated) {
+                onSkuUpdated();
             }
 
         } catch (error) {
-            console.error('Error adding SKU:', error);
+            console.error('Error updating SKU:', error);
+            showNotification('Có lỗi xảy ra khi cập nhật SKU');
         }
     };
 
@@ -207,23 +239,47 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
             >
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Thêm phiên bản mới</Modal.Title>
+                        <Modal.Title>Cập nhật thông tin SKU</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Row className="mb-3">
+                            <Col md={6}>
+                                <Form.Group controlId="skuCode">
+                                    <Form.Label>Mã SKU</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="sku_code"
+                                        value={formData.sku_code}
+                                        onChange={handleChange}
+                                        disabled
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                                <Form.Group controlId="skuName">
+                                    <Form.Label>Tên SKU</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="sku_name"
+                                        value={formData.sku_name}
+                                        onChange={handleChange}
+                                        disabled
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
+                        <Row className="mb-3">
                             <Col>
                                 <Form.Group controlId="skuImage">
-                                    <Form.Label>Hình ảnh <span className="text-danger">*</span></Form.Label>
+                                    <Form.Label>Hình ảnh {!imagePreview && <span className="text-danger">*</span>}</Form.Label>
                                     <Form.Control
                                         type="file"
                                         name="image"
                                         onChange={handleImageChange}
                                         accept="image/*"
-                                        required={!formData.image}
+                                        required={!imagePreview}
                                     />
-                                    <Form.Control.Feedback type="invalid">
-                                        Vui lòng chọn hình ảnh
-                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -245,19 +301,19 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
                             <Col md={6}>
                                 <Form.Group controlId="internalOption">
                                     <Form.Label>Cấu hình (RAM/Storage) <span className="text-danger">*</span></Form.Label>
-                                        <Form.Select
-                                            name="internal_id"
-                                            value={formData.internal_id}
-                                            onChange={handleChange}
-                                            required
-                                        >
-                                            <option value="">--Chọn cấu hình--</option>
-                                            {internalOptions.map(option => (
-                                                <option key={option.internal_option_id} value={option.internal_option_id}>
-                                                    {option.ram}/{option.storage}
-                                                </option>
-                                            ))}
-                                        </Form.Select>
+                                    <Form.Select
+                                        name="internal_id"
+                                        value={formData.internal_id}
+                                        onChange={handleChange}
+                                        required
+                                    >
+                                        <option value="">--Chọn cấu hình--</option>
+                                        {internalOptions.map(option => (
+                                            <option key={option.internal_option_id} value={option.internal_option_id}>
+                                                {option.ram}/{option.storage}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
                                     <Form.Control.Feedback type="invalid">
                                         Vui lòng chọn cấu hình
                                     </Form.Control.Feedback>
@@ -296,7 +352,7 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
                         </Row>
 
                         <Row className="mb-3">
-                            <Col md={6}>
+                            <Col md={4}>
                                 <Form.Group controlId="importPrice">
                                     <Form.Label>Giá nhập (VNĐ) <span className="text-danger">*</span></Form.Label>
                                     <Form.Control
@@ -312,7 +368,7 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
-                            <Col md={6}>
+                            <Col md={4}>
                                 <Form.Group controlId="invoicePrice">
                                     <Form.Label>Giá bán (VNĐ) <span className="text-danger">*</span></Form.Label>
                                     <Form.Control
@@ -328,15 +384,30 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
+                            <Col md={4}>
+                                <Form.Group controlId="stock">
+                                    <Form.Label>Số lượng tồn <span className="text-danger">*</span></Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="stock"
+                                        value={formData.stock}
+                                        onChange={handleChange}
+                                        min="0"
+                                        required
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Vui lòng nhập số lượng tồn hợp lệ
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </Col>
                         </Row>
-
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseModal}>
                             Hủy
                         </Button>
                         <Button variant="primary" type="submit">
-                            Lưu
+                            Cập nhật
                         </Button>
                     </Modal.Footer>
                 </Form>
@@ -382,4 +453,4 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
     );
 };
 
-export default ModalAddSku;
+export default ModalUpdateSku;

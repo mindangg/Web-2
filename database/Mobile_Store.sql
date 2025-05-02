@@ -5,21 +5,22 @@ USE mobile_store;
 
 CREATE TABLE user_account
 (
-    user_account_id       INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE,
-    password VARCHAR(60), -- hash password 60 kí tự
-    email    VARCHAR(50) UNIQUE,
-    status ENUM('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
-    is_delete BOOLEAN DEFAULT FALSE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    user_account_id INT PRIMARY KEY AUTO_INCREMENT,
+    username        VARCHAR(50) UNIQUE,
+    password        VARCHAR(60), -- hash password 60 kí tự
+    email           VARCHAR(50) UNIQUE,
+    status          ENUM ('Hoạt động', 'Bị khóa') DEFAULT 'Hoạt động',
+    is_delete       BOOLEAN                       DEFAULT FALSE,
+    created_at      DATETIME                      DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE user_information
 (
     user_information_id INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     full_name           VARCHAR(30),
-    phone_number        VARCHAR(10), -- Bỏ UNIQUE để hỗ trợ nhiều địa chỉ
+    phone_number        VARCHAR(10),           -- Bỏ UNIQUE để hỗ trợ nhiều địa chỉ
     house_number        VARCHAR(10),
     street              VARCHAR(50),
     ward                VARCHAR(50),
@@ -29,7 +30,8 @@ CREATE TABLE user_information
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE brand
 (
@@ -52,11 +54,11 @@ CREATE TABLE color
 
 CREATE TABLE provider
 (
-    provider_id INT PRIMARY KEY AUTO_INCREMENT,
-    provider_name        VARCHAR(30),
-    phone       VARCHAR(20),
-    address     VARCHAR(255),
-    email       VARCHAR(50)
+    provider_id   INT PRIMARY KEY AUTO_INCREMENT,
+    provider_name VARCHAR(30),
+    phone         VARCHAR(20),
+    address       VARCHAR(255),
+    email         VARCHAR(50)
 );
 
 CREATE TABLE product
@@ -73,7 +75,7 @@ CREATE TABLE product
     front_camera    VARCHAR(100),
     back_camera     VARCHAR(100),
     description     TEXT,
-    base_price      INT DEFAULT 0,
+    base_price      INT     DEFAULT 0,
     release_date    DATE,
     warranty_period TINYINT,
     status          BOOLEAN DEFAULT TRUE,
@@ -96,8 +98,8 @@ CREATE TABLE sku
     image         VARCHAR(255),
     import_price  INT,
     invoice_price INT,
-    sold          INT DEFAULT 0,
-    stock         INT DEFAULT 0,
+    sold          INT      DEFAULT 0,
+    stock         INT      DEFAULT 0,
     update_date   DATETIME DEFAULT (CURRENT_TIMESTAMP),
     FOREIGN KEY (product_id) REFERENCES product (product_id)
         ON DELETE CASCADE
@@ -118,6 +120,7 @@ CREATE TABLE receipt
     created_at          DATETIME                                                 DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
     status              ENUM ('pending', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
+    payment_method      ENUM ('direct_payment', 'transfer_payment')              DEFAULT 'direct_payment',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -130,7 +133,6 @@ CREATE TABLE receipt_detail
     sku_id     INT,
     quantity   INT,
     price      INT,
-    payment_method ENUM('direct_payment', 'transfer_payment') DEFAULT 'direct_payment',
     FOREIGN KEY (receipt_id) REFERENCES receipt (receipt_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
@@ -143,13 +145,15 @@ CREATE TABLE role
 (
     role_id   INT PRIMARY KEY AUTO_INCREMENT,
     role_name VARCHAR(30)
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE functional
 (
     functional_id INT PRIMARY KEY AUTO_INCREMENT,
     function_name VARCHAR(30)
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE role_function
 (
@@ -163,11 +167,12 @@ CREATE TABLE role_function
     FOREIGN KEY (function_id) REFERENCES functional (functional_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE employee
 (
-    employee_id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id  INT PRIMARY KEY AUTO_INCREMENT,
     full_name    VARCHAR(30),
     email        VARCHAR(50) UNIQUE,
     password     VARCHAR(60), -- hash password 60 kí tự
@@ -177,7 +182,8 @@ CREATE TABLE employee
     FOREIGN KEY (role) REFERENCES role (role_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE import
 (
@@ -213,7 +219,7 @@ CREATE TABLE imei
 (
     imei              INT PRIMARY KEY AUTO_INCREMENT,
     receipt_detail_id INT,
-    date              DATE DEFAULT CURRENT_DATE,
+    date              DATETIME DEFAULT CURRENT_TIMESTAMP,
     expired_date      DATE,
     status            BOOLEAN,
     FOREIGN KEY (receipt_detail_id) REFERENCES receipt_detail (detail_id)
@@ -222,40 +228,39 @@ CREATE TABLE imei
 );
 
 CREATE TRIGGER trg_after_insert_sku
-    AFTER INSERT ON sku
+    AFTER INSERT
+    ON sku
     FOR EACH ROW
 BEGIN
     UPDATE product
-    SET base_price = (
-        SELECT MIN(invoice_price)
-        FROM sku
-        WHERE product_id = NEW.product_id
-    )
+    SET base_price = (SELECT MIN(invoice_price)
+                      FROM sku
+                      WHERE product_id = NEW.product_id)
     WHERE product_id = NEW.product_id;
 END;
 
 CREATE TRIGGER trg_after_update_sku
-    AFTER UPDATE ON sku
+    AFTER UPDATE
+    ON sku
     FOR EACH ROW
 BEGIN
     UPDATE product
-    SET base_price = (
-        SELECT MIN(invoice_price)
-        FROM sku
-        WHERE product_id = NEW.product_id
-    )
+    SET base_price = (SELECT MIN(invoice_price)
+                      FROM sku
+                      WHERE product_id = NEW.product_id)
     WHERE product_id = NEW.product_id;
 END;
 
 CREATE TRIGGER trg_after_delete_sku
-    AFTER DELETE ON sku
+    AFTER DELETE
+    ON sku
     FOR EACH ROW
 BEGIN
     UPDATE product
-    SET base_price = (
-        SELECT MIN(invoice_price)
-        FROM sku
-        WHERE product_id = OLD.product_id
-    )
+    SET base_price = IFNULL(
+            (SELECT MIN(invoice_price)
+             FROM sku
+             WHERE product_id = OLD.product_id),
+            0)
     WHERE product_id = OLD.product_id;
 END;
