@@ -141,13 +141,13 @@ VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB 
         32200000, 34500000, 0, 10),
        (1, 13, 2, 'IPHONE14PROMAX-WHITE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB White', 'iphone14promaxwhite.jpg',
         34500000, 36800000, 0, 0),
-       (21, 28, 1, 'XIAOMI15ULTRA-BLACK-16GB/512GB', 'Xiaomi 15 Ultra 16GB/512GB Black',
+       (16, 28, 1, 'XIAOMI15ULTRA-BLACK-16GB/512GB', 'Xiaomi 15 Ultra 16GB/512GB Black',
         'xiaomi15ultrablack16gb512gb.jpg', 22000000, 32990000, 0, 15),
-       (21, 29, 1, 'XIAOMI15ULTRA-BLACK-16GB/1TB', 'Xiaomi 15 Ultra 16GB/1TB Black', 'xiaomi15ultrablack16gb1tb.jpg',
+       (16, 29, 1, 'XIAOMI15ULTRA-BLACK-16GB/1TB', 'Xiaomi 15 Ultra 16GB/1TB Black', 'xiaomi15ultrablack16gb1tb.jpg',
         23000000, 33990000, 0, 20),
-       (21, 28, 9, 'XIAOMI15ULTRA-SILVER-16GB/512GB', 'Xiaomi 15 Ultra 16GB/512GB Silver',
+       (16, 28, 9, 'XIAOMI15ULTRA-SILVER-16GB/512GB', 'Xiaomi 15 Ultra 16GB/512GB Silver',
         'xiaomi15ultrasilver16gb512gb.jpg', 22000000, 32990000, 0, 50),
-       (21, 29, 9, 'XIAOMI15ULTRA-SILVER-16GB/1TB', 'Xiaomi 15 Ultra 16GB/1TB Silver', 'xiaomi15ultrasilver16gb1tb.jpg',
+       (16, 29, 9, 'XIAOMI15ULTRA-SILVER-16GB/1TB', 'Xiaomi 15 Ultra 16GB/1TB Silver', 'xiaomi15ultrasilver16gb1tb.jpg',
         23000000, 33990000, 0, 50);
 
 INSERT INTO user_account (username, password, email)
