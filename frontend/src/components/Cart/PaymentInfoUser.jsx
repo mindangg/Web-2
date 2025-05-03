@@ -29,6 +29,15 @@ function PaymentInfoUser({ userData = {} }) {
     }
   }, [user]);
 
+  useEffect(() => {
+    // Cập nhật dataset để Payment.jsx có thể truy cập
+    const infoUserDiv = document.querySelector(".info-user");
+    if (infoUserDiv) {
+        infoUserDiv.dataset.selectedAddressId = selectedAddress || "";
+        infoUserDiv.dataset.paymentMethod = selectedPayment;
+    }
+}, [selectedAddress, selectedPayment]);
+
   const fetchAddresses = async () => {
     try {
       const response = await fetch(
@@ -175,7 +184,7 @@ function PaymentInfoUser({ userData = {} }) {
               </div>
             ))
           ) : (
-            <p><span color="red">Bạn chưa có địa chỉ nào. Vui lòng thêm địa chỉ mới.</span></p>
+            <p><span style={{ color: "red" }}>Bạn chưa có địa chỉ nào. Vui lòng thêm địa chỉ mới.</span></p>
           )}
           
           <button onClick={handleAddAddress} className="add-address-btn">

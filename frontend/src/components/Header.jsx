@@ -84,27 +84,23 @@ export default function Header() {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        if (searchQuery.trim()) {
-            searchParams.set('searchBy', 'name');
-            searchParams.set('search', searchQuery.trim());
-            if (brand) {
-                searchParams.set('brand', brand);
-            }
-            if (priceFrom) {
-                searchParams.set('min_price', priceFrom);
-            }
-            if (priceTo) {
-                searchParams.set('max_price', priceTo);
-            }
-            if (parseInt(priceTo) < parseInt(priceFrom)) {
-                showNotification('Giá tối đa không được nhỏ hơn giá tối thiểu');
-                return;
-            }
-            navigate(`/product?${searchParams.toString()}`);
+        if (parseInt(priceTo) < parseInt(priceFrom)) {
+            showNotification('Giá tối đa không được nhỏ hơn giá tối thiểu');
+            return;
         }
-        setBrand('')
-        setPriceTo('')
-        setPriceFrom('');
+        searchParams.set('searchBy', 'name');
+        searchParams.set('search', searchQuery.trim());
+        if (brand) {
+            searchParams.set('brand', brand);
+        }
+        if (priceFrom) {
+            searchParams.set('min_price', priceFrom);
+        }
+        if (priceTo) {
+            searchParams.set('max_price', priceTo);
+        }
+        navigate('/product')
+        setSearchParams(searchParams);
         setShowFilter(false);
     };
 
@@ -141,7 +137,7 @@ export default function Header() {
                             }}
                         >
                             <Form.Group className="mb-3">
-                                <Form.Label>Brand</Form.Label>
+                                <Form.Label>Hãng</Form.Label>
                                 <Form.Select value={brand} onChange={(e) => setBrand(e.target.value)}>
                                     <option value="">---</option>
                                     {brands.map((brand, index) => (
@@ -152,12 +148,13 @@ export default function Header() {
                                 </Form.Select>
                             </Form.Group>
 
-                            <Form.Label>Pirce range</Form.Label>
+                            <Form.Label>Khoảng giá</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control
-                                        type="number"
-                                        placeholder="From"
+                                    <input
+                                        className={'header-price-input'}
+                                        type="text"
+                                        placeholder="Từ"
                                         value={priceFrom ? priceFrom.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
                                         onChange={(e) => {
                                             const rawValue = e.target.value.replace(/\./g, '');
@@ -168,9 +165,10 @@ export default function Header() {
                                     />
                                 </Col>
                                 <Col>
-                                    <Form.Control
-                                        type="number"
-                                        placeholder="To"
+                                    <input
+                                        className={'header-price-input'}
+                                        type="text"
+                                        placeholder="Đến"
                                         value={priceTo ? priceTo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
                                         onChange={(e) => {
                                             const rawValue = e.target.value.replace(/\./g, '');

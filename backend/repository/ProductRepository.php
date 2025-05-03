@@ -15,6 +15,15 @@ class ProductRepository
         $this->pdo = $database->getConnection();
     }
 
+    public function isExistedWithName(string $name): bool
+    {
+        $sql = "SELECT COUNT(*) FROM product WHERE name = :name";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':name', $name);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
     public function findAll(?string $brand,
                             ?string $sort,
                             ?string $sort_dir,
@@ -98,6 +107,8 @@ class ProductRepository
     {
         $sql = "SELECT * 
         FROM product
+            JOIN brand ON product.brand = brand.brand_id
+            JOIN provider ON product.provider = provider.provider_id
         WHERE product_id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -124,7 +135,7 @@ class ProductRepository
         $stmt->bindValue(':warranty_period', intval($data->warranty_period));
         $stmt->bindValue(':cpu', $data->cpu);
         if ($stmt->execute()) {
-            return $this->pdo->lastInsertId();
+            return (int)$this->pdo->lastInsertId();
         } else {
             return -1;
         }

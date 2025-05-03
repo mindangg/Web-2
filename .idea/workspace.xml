@@ -5,35 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
-      <change afterPath="$PROJECT_DIR$/backend/controller/ProviderController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/repository/ProviderRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/service/ProviderService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/CustomPagination.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/styles/Admin/AdminProduct.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/utils/types/ProductTypes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e/storage_v2/_src_/schema/mobile_store.BGt3hA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controller/ColorController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controller/InternalOptionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/ColorRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/repository/InternalOptionRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/service/ColorService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/service/InternalOptionService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddSku.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controller/SkuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/SkuController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/ProductRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/service/ProductService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/ProductService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/repository/SkuRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/SkuRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/service/SkuService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/SkuService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Pagination.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Product/Filter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Product/Filter.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminEmployee.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminEmployee.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminUser.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Filter.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Filter.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/Constant.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +81,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;JavaScript Debug.ProductService.php.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ChatTagsLlmMigration&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.CodyAccountHistoryMigration&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.CodyAccountsIdsRefresh&quot;: &quot;true&quot;,
@@ -229,7 +217,10 @@
       <workItem from="1745593209011" duration="965000" />
       <workItem from="1745653480549" duration="4143000" />
       <workItem from="1745739564058" duration="20647000" />
-      <workItem from="1745819438670" duration="1660000" />
+      <workItem from="1745819438670" duration="28186000" />
+      <workItem from="1745941378185" duration="9023000" />
+      <workItem from="1746030921476" duration="3943000" />
+      <workItem from="1746086316305" duration="5244000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />

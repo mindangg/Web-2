@@ -1,16 +1,18 @@
-import {useEffect, useReducer} from 'react'
+import React, {useEffect, useReducer} from 'react'
 
 import '../styles/Admin.css'
 import '../styles/Admin/AdminProduct.css'
 
 import {useSearchParams} from "react-router-dom";
 import {useNotificationContext} from "../hooks/useNotificationContext.jsx";
-import {Button, Container, Form, Row, Table} from "react-bootstrap";
+import {Badge, Button, Container, Form, Row, Table} from "react-bootstrap";
 import {ADMIN_PRODUCT_PER_PAGE, API_URL, PRODUCT_API_URL, PRODUCT_IMAGE_PATH} from "../utils/Constant.jsx";
 import CustomPagination from "../components/CustomPagination.jsx";
 import ModalAddProduct from "../components/Admin/ModalBox/ModalAddProduct.jsx";
 import ModalUpdateProduct from "../components/Admin/ModalBox/ModalUpdateProduct.jsx";
 import ModalConfirmDelete from "../components/Admin/ModalBox/ModalConfirmDelete.jsx";
+import ModalDetailProduct from "../components/Admin/ModalBox/ModalDetailProduct.jsx";
+import {useAdminContext} from "../hooks/useAdminContext.jsx";
 
 
 const initialState = {
@@ -31,8 +33,8 @@ const initialState = {
     showAddModal: false,
     showUpdateModal: false,
     showDetailModal: false,
-    skuList: [],
     showConfirmDelete: false,
+    triggerRefresh: false,
 };
 
 const reducer = (state, action)  => {
@@ -51,13 +53,14 @@ const reducer = (state, action)  => {
         case 'SET_SELECTED_PRODUCT': return { ...state, selectedProduct: action.payload };
         case 'SET_OPTION_LIST': return { ...state, optionList: action.payload };
         case 'SET_SHOW_DETAIL_MODAL': return { ...state, showDetailModal: action.payload ?? !state.showDetailModal };
-        case 'SET_SKU_LIST': return { ...state, skuList: action.payload };
         case 'SET_SHOW_CONFIRM_DELETE': return { ...state, showConfirmDelete: action.payload };
+        case 'SET_TRIGGER_REFRESH': return { ...state, triggerRefresh: action.payload };
         default: return state;
     }
 };
 
 export default function AdminProduct() {
+    const {admin} = useAdminContext()
     const [state, dispatch] = useReducer(reducer, initialState);
     const [searchParams, setSearchParams] = useSearchParams();
     const { showNotification } = useNotificationContext();
@@ -127,7 +130,66 @@ export default function AdminProduct() {
         return () => {
             controller.abort();
         };
-    }, [searchParams]);
+    }, [searchParams, setSearchParams, state.triggerRefresh]);
+
+    // Hàm để lấy chi tiết SKU của một sản phẩm
+    const fetchProductSKUs = async (productId) => {
+        try {
+            const response = await fetch(`${PRODUCT_API_URL}/${productId}/skus`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch SKUs');
+            }
+            const data = await response.json();
+            dispatch({ type: 'SET_SKU_LIST', payload: data.skus });
+        } catch (error) {
+            console.error('Error fetching SKUs:', error);
+            showNotification('Không thể tải thông tin biến thể sản phẩm', 'error');
+            dispatch({ type: 'SET_SKU_LIST', payload: [] });
+        }
+    };
+
+    // Hàm mở modal chi tiết và lấy dữ liệu SKU
+    const handleShowDetailModal = (product) => {
+        dispatch({ type: 'SET_SELECTED_PRODUCT', payload: product });
+        fetchProductSKUs(product.product_id);
+        dispatch({ type: 'SET_SHOW_DETAIL_MODAL', payload: true });
+    };
+
+    const refreshList = () => {
+        dispatch({ type: 'SET_TRIGGER_REFRESH', payload: !state.triggerRefresh });
+    }
+
+    const hasAccess = (functionName, action) => {
+        const functions = admin?.employee?.[0]?.role?.functions || []
+        const matchedFunc = functions.find(f => f.function_name === functionName)
+        return matchedFunc?.actions?.includes(action)
+    }
+
+    const hasPermission = (action) => {
+        return hasAccess("Sản phẩm", action)
+    }
+
+    const handleDeleteProduct = async () => {
+        try {
+            const response = await fetch(`${PRODUCT_API_URL}/${state.selectedProduct.product_id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (!response.ok) {
+                throw new Error('Xóa sản phẩm thất bại');
+            }
+
+            const data = await response.json();
+
+            showNotification(data.message);
+            dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false });
+            refreshList();
+        } catch (error) {
+            console.error(error);
+            showNotification("Xóa sản phẩm thất bại", "danger");
+        }
+    };
 
     return (
         <Container fluid className={"w-100 vh-100 rounded-3"}
@@ -241,7 +303,7 @@ export default function AdminProduct() {
                                     const max = parseInt(state.maxPrice || "0");
 
                                     if (state.minPrice && state.maxPrice && max < min) {
-                                        showNotification('Giá tối thiểu phải nhỏ hơn giá tối đa');
+                                        showNotification('Giá tối đa không thể nhỏ hơn giá tối thiểu');
                                         return;
                                     }
 
@@ -295,15 +357,25 @@ export default function AdminProduct() {
                         >
                             Giá giảm
                         </Button>
-                    </Form.Group>
-                    <Form.Group controlId="sortButtons" className="d-flex gap-2">
                         <Button
-                            variant="success"
-                            onClick={() => dispatch({ type: 'SET_SHOW_ADD_MODAL', payload: true })}
+                            className={"btn-warning"}
+                            onClick={() => {
+                                setSearchParams({})
+                            }}
                         >
-                            + Thêm sản phẩm
+                            <i className='fa-solid fa-rotate-right'></i>
                         </Button>
                     </Form.Group>
+                    {hasPermission("Thêm") && (
+                        <Form.Group controlId="sortButtons" className="d-flex gap-2">
+                            <Button
+                                variant="success"
+                                onClick={() => dispatch({ type: 'SET_SHOW_ADD_MODAL', payload: true })}
+                            >
+                                + Thêm sản phẩm
+                            </Button>
+                        </Form.Group>
+                    )}
                 </Form>
             </Row>
             <Row>
@@ -311,36 +383,49 @@ export default function AdminProduct() {
                        style={{verticalAlign: 'middle'}}
                 >
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Hình ảnh</th>
-                            <th>Giá cơ bản</th>
-                            <th>Ngày ra mắt</th>
-                            <th>Hãng</th>
-                            <th>Nhà cung cấp</th>
-                            <th>Trạng thái</th>
-                            <th colSpan={2}></th>
-                        </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th>Giá cơ bản</th>
+                        <th>Ngày ra mắt</th>
+                        <th>Hãng</th>
+                        <th>Nhà cung cấp</th>
+                        <th>Trạng thái</th>
+                        <th colSpan={3}>Thao tác</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {state.productList && state.productList.map((product) => (
-                        <tr key={product.product_id}>
-                                <td>{product.product_id}</td>
-                                <td>{product.name}</td>
-                                <td>
-                                    <img
-                                        src={`${PRODUCT_IMAGE_PATH}${product.image}`}
-                                        alt={product.name}
-                                        style={{ width: '70px', height: '70px' }}
-                                    />
-                                </td>
-                                <td>${product.base_price.toLocaleString('vi-VN')}</td>
-                                <td>{new Date(product.release_date).toLocaleDateString('vi-VN')}</td>
-                                <td>{product.brand_name}</td>
-                                <td>{product.provider_name}</td>
-                                <td>{product.status ? "Đang kinh doanh" : "Ngừng kinh doanh"}</td>
-                                <td>
+                    {state.productList && state.productList.map((product) => (
+                        <tr key={product.product_id} className="product-row">
+                            <td>{product.product_id}</td>
+                            <td>{product.name}</td>
+                            <td>
+                                <img
+                                    src={`${PRODUCT_IMAGE_PATH}${product.image}`}
+                                    alt={product.name}
+                                    style={{ width: '70px', height: '70px', cursor: 'pointer' }}
+                                />
+                            </td>
+                            <td>{product.base_price.toLocaleString('vi-VN')}đ</td>
+                            <td>{new Date(product.release_date).toLocaleDateString('vi-VN')}</td>
+                            <td>{product.brand_name}</td>
+                            <td>{product.provider_name}</td>
+                            <td>
+                                <Badge bg={product.status ? "success" : "danger"}>
+                                    {product.status ? "Đang kinh doanh" : "Ngừng kinh doanh"}
+                                </Badge>
+                            </td>
+                            <td>
+                                {hasPermission("Xem") && (<Button
+                                    variant="info"
+                                    onClick={() => handleShowDetailModal(product)}
+                                >
+                                    <i className='fa-solid fa-eye'></i>
+                                </Button>)}
+                            </td>
+                            <td>
+                                {hasPermission("Sửa") && (
                                     <Button
                                         variant="warning"
                                         onClick={() => {
@@ -348,22 +433,23 @@ export default function AdminProduct() {
                                             dispatch({ type: 'SET_SHOW_UPDATE_MODAL', payload: true });
                                         }}
                                     >
-                                        Sửa
+                                        <i className='fa-solid fa-pen-to-square'></i>
                                     </Button>
-                                </td>
-                                <td>
-                                    <Button
-                                        variant="danger"
-                                        onClick={() => {
-                                            dispatch({ type: 'SET_SELECTED_PRODUCT', payload: product });
-                                            dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: true });
-                                        }}
-                                    >
-                                        Xóa
-                                    </Button>
-                                </td>
-                            </tr>
-                        ))}
+                                )}
+                            </td>
+                            <td>
+                                {hasPermission("Xóa") && (<Button
+                                    variant="danger"
+                                    onClick={() => {
+                                        dispatch({type: 'SET_SELECTED_PRODUCT', payload: product});
+                                        dispatch({type: 'SET_SHOW_CONFIRM_DELETE', payload: true});
+                                    }}
+                                >
+                                    <i className='fa-solid fa-trash-can'></i>
+                                </Button>)}
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </Table>
                 {state.totalPage > 1 && (
@@ -380,7 +466,7 @@ export default function AdminProduct() {
                 <ModalAddProduct
                     show={state.showAddModal}
                     handleClose={() => dispatch({ type: 'SET_SHOW_ADD_MODAL', payload: false })}
-                    refreshList={() => setSearchParams({})}
+                    refreshList={refreshList}
                     optionList={state.optionList}
                 />
             )}
@@ -390,7 +476,7 @@ export default function AdminProduct() {
                     show={state.showUpdateModal}
                     handleClose={() => dispatch({ type: 'SET_SHOW_UPDATE_MODAL', payload: false })}
                     selectedProduct={state.selectedProduct}
-                    refreshList={() => setSearchParams({})}
+                    refreshList={refreshList}
                     optionList={state.optionList}
                 />
             )}
@@ -399,10 +485,18 @@ export default function AdminProduct() {
                 <ModalConfirmDelete
                     show={state.showConfirmDelete}
                     handleClose={() => dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false })}
-                    refreshList={() => setSearchParams({})}
-                    productId={state.selectedProduct.product_id}
+                    handleDelete={handleDeleteProduct}
                     title="Xác nhận xóa sản phẩm"
                     body={`Bạn có chắc chắn muốn xóa sản phẩm "${state.selectedProduct.name}" không?`}
+                />
+            )}
+
+            {state.showDetailModal && state.selectedProduct && (
+                <ModalDetailProduct
+                    show={state.showDetailModal}
+                    handleClose={() => dispatch({ type: 'SET_SHOW_DETAIL_MODAL', payload: false })}
+                    product={state.selectedProduct}
+                    hasPermission={hasPermission}
                 />
             )}
         </Container>

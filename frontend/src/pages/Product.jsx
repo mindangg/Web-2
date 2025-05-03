@@ -58,13 +58,13 @@ export const Product = () => {
                                 onClick={() => navigator(`/product/${product.product_id}`)}
                             >
                                 <Card.Img className={"w-100 h-75"}
-                                          style={{ minWidth: '150px', minHeight: '200px', maxHeight: '220px', maxWidth: '200px' }}
+                                          style={{ minWidth: '150px', minHeight: '200px', maxHeight: '200px', maxWidth: '200px' }}
                                           variant="top" src={`${PRODUCT_IMAGE_PATH}${product.image}`} />
                                 <Card.Body>
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Text className="text-danger fs-5">
                                         {product.base_price !== undefined && product.base_price !== null
-                                            ? `$${product.base_price.toLocaleString('de-DE')}`
+                                            ? `${product.base_price.toLocaleString('de-DE')}đ`
                                             : 'N/A'}
                                     </Card.Text>
                                 </Card.Body>

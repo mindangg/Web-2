@@ -23,6 +23,9 @@ class ProviderController
                     $this->getAllProviders();
                 }
                 break;
+            case 'POST':
+                $this->createProvider();
+                break;
             default:
                 http_response_code(405);
                 header("Allow: GET POST PUT DELETE");
@@ -38,6 +41,13 @@ class ProviderController
     private function getProviderById(int $id): void
     {
         $response = $this->providerService->getProviderById($id);
+        echo json_encode($response);
+    }
+
+    public function createProvider(): void
+    {
+        $data = json_decode(file_get_contents('php://input'));
+        $response = $this->providerService->createProvider($data);
         echo json_encode($response);
     }
 }

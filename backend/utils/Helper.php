@@ -14,4 +14,13 @@ class Helper
 
         return $originalName . '.' . $fileExtention;
     }
+
+    public static function GenerateSkuCode(string $productName, string $color, string $internalOption): string
+    {
+        $productName = str_replace(' ', '', $productName);
+
+        $color = str_replace(' ', '', $color);
+
+        return strtoupper($productName . '-' . $color . '-' . $internalOption);
+    }
 }

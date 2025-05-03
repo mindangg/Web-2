@@ -1,10 +1,11 @@
 // import ip12 from 'C:/xampp/htdocs/Projects/Web-2/frontend/src/assets/iphone-12-pro-blue-hero.png';
 import { useState, useEffect } from "react";
-// import { useCartContext } from "../../contexts/useCartContext";
+ import { useCartContext } from "../../hooks/useCartContext"
 import "../../styles/Cart/PaymentInfoProduct.css"
 import { Link } from "react-router-dom";
 function PaymentInfoProduct(){
-    const totalAmount = cart.reduce((sum, item) => sum + (item.base_price * item.quantity), 0)
+    const {cart} = useCartContext();
+    const totalAmount = cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)
        
         return(
             <div className='info-product'>
@@ -22,9 +23,9 @@ function PaymentInfoProduct(){
                         {cart.map((item) =>(
                             <tr key={item.product_id}>
                                 <td><img src={`./product/${item.image}`} alt={item.name}/></td>
-                                <td>{item.name}</td>
+                                <td>{item.sku_name}</td>
                                 <td>{item.quantity}</td>
-                                <td>{item.base_price.toLocaleString()} $</td>
+                                <td>{item.invoice_price.toLocaleString()} $</td>
                             </tr>
                         ))}
                     </tbody>
