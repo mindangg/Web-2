@@ -1,24 +1,27 @@
-import React from 'react'
+import '../../styles/Card.css'
+import {Card} from "react-bootstrap";
+import {PRODUCT_IMAGE_PATH} from "../../utils/Constant.jsx";
 
-import testCover from '../../assets/iphone-12-pro-blue-hero.png'
-
-import '../../styles/Admin.css'
-
-export default function ProductCard() {
+const ProductCard = ({ product, onClick }) => {
     return (
-        <div className='product-info'>
-            <span>
-                <img src={testCover}></img>
-            </span>
-            <span>My Dress Up Darling - Volume 01</span>
-            <span>My Dress Up Darling - Volume 01</span>
-            <span>Rom Com</span>
-            <span>20.000.000đ</span>
-            <span>150</span>
-            <span className='product-action'>
-                <i className='fa-solid fa-pen-to-square'></i>
-                <i className='fa-solid fa-trash-can'></i>
-            </span>
-        </div>
-    )
-}
+        <Card
+            key={product.product_id}
+            className="custom-card"
+            onClick={() => onClick(product.product_id)}
+        >
+            <Card.Img className={"w-100 h-75"}
+                      style={{ minWidth: '150px', minHeight: '200px', maxHeight: '200px', maxWidth: '200px' }}
+                      variant="top" src={`${PRODUCT_IMAGE_PATH}${product.image}`} />
+            <Card.Body>
+                <Card.Title>{product.name}</Card.Title>
+                <Card.Text className="text-danger fw-bold fs-5">
+                    {product.base_price !== undefined && product.base_price !== null
+                        ? `${product.base_price.toLocaleString('de-DE')}đ`
+                        : 'N/A'}
+                </Card.Text>
+            </Card.Body>
+        </Card>
+    );
+};
+
+export default ProductCard;

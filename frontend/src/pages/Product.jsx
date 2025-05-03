@@ -6,6 +6,7 @@ import '../styles/Card.css'
 import {Filter} from "../components/Product/Filter.jsx";
 import Card from 'react-bootstrap/Card';
 import {PRODUCT_API_URL, PRODUCT_IMAGE_PATH, PRODUCT_PER_PAGE} from "../utils/Constant.jsx";
+import ProductCard from "../components/Admin/ProductCard.jsx";
 
 export const Product = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -44,31 +45,18 @@ export const Product = () => {
     return (
         <>
             {products.length === 0 ? (
-                <div className={'container'}>
+                <div className={'container product'}>
                     <h1 className="text-center mt-4 mb-4">No products found</h1>
                 </div>
             ) : (
                 <>
-                    <div className={'container'}>
+                    <div className={'container product'}>
                         <Filter />
-                        {products.map((product, index) => (
-                            <Card
-                                key={index}
-                                className="custom-card"
-                                onClick={() => navigator(`/product/${product.product_id}`)}
-                            >
-                                <Card.Img className={"w-100 h-75"}
-                                          style={{ minWidth: '150px', minHeight: '200px', maxHeight: '200px', maxWidth: '200px' }}
-                                          variant="top" src={`${PRODUCT_IMAGE_PATH}${product.image}`} />
-                                <Card.Body>
-                                    <Card.Title>{product.name}</Card.Title>
-                                    <Card.Text className="text-danger fs-5">
-                                        {product.base_price !== undefined && product.base_price !== null
-                                            ? `${product.base_price.toLocaleString('de-DE')}đ`
-                                            : 'N/A'}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
+                        {products.map((product) => (
+                            <ProductCard product={product}
+                                         key={product.product_id}
+                                         onClick={() => navigator(`/product/${product.product_id}`)}
+                            />
                         ))}
                         {totalPage > 1 && (
                             <Pagination
