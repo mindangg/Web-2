@@ -43,12 +43,13 @@ class SkuRepository
     {
         $sql = "SELECT *
                 FROM sku s
-                    JOIN import_detail rd ON s.sku_id = rd.sku_id
+                    JOIN receipt_detail rd ON s.sku_id = rd.sku_id
                 WHERE product_id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        return $stmt->fetchColumn() > 0;
+        $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->rowCount() > 0;
     }
 
     public function productIsExistedInImport(int $id): bool
@@ -60,19 +61,21 @@ class SkuRepository
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        return $stmt->fetchColumn() > 0;
+        $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->rowCount() > 0;
     }
 
     public function skuIsExistedInReceipt(int $id): bool
     {
         $sql = "SELECT *
                 FROM sku s
-                    JOIN import_detail rd ON s.sku_id = rd.sku_id
+                    JOIN receipt_detail rd ON s.sku_id = rd.sku_id
                 WHERE s.sku_id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        return $stmt->fetchColumn() > 0;
+        $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->rowCount() > 0;
     }
 
     public function skuIsExistedInImport(int $id): bool
@@ -84,7 +87,8 @@ class SkuRepository
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        return $stmt->fetchColumn() > 0;
+        $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->rowCount() > 0;
     }
 
     public function deleteAllByProductId(int $id): bool

@@ -196,4 +196,16 @@ class ProductRepository
             return -3;
         }
     }
+
+    public function lockById(int $id): void
+    {
+        $sql = "UPDATE product SET status = 0 WHERE product_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        if ($stmt->execute()) {
+            return;
+        } else {
+            throw new \Exception('Failed to lock product');
+        }
+    }
 }
