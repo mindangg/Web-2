@@ -1,0 +1,66 @@
+.video-container {
+    margin: 0;
+    padding: 0;
+}
+.video-container video {
+    object-fit: cover;
+    filter: brightness(90%); /* Làm tối video để text nổi bật */
+}
+.overlay-text {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+    border-radius: 10px;
+    animation: fadeIn 1.5s ease-in-out;
+    opacity: 0;
+    transform: translate(-50%, -30%);
+    transition: all 0.5s ease;
+}
+.overlay-text h1 {
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+.overlay-text p {
+    font-size: 1.25rem;
+    transform: translateY(20px);
+    transition: all 0.5s ease 0.1s;
+}
+.overlay-text a {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s ease 0.2s;
+}
+.video-container:hover .overlay-text {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+.video-container:hover .overlay-text h1,
+.video-container:hover .overlay-text p,
+.video-container:hover .overlay-text a {
+    transform: translateY(0);
+    opacity: 1;
+}
+.btn-outline-light {
+    transition: all 0.3s ease;
+    border-width: 2px;
+}
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: #000;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@media (max-width: 768px) {
+    .video-container {
+        height: 50vh;
+    }
+    .overlay-text h1 {
+        font-size: 2rem;
+    }
+    .overlay-text p {
+        font-size: 1rem;
+    }
+}

@@ -1,5 +1,5 @@
 use
-mobile_store;
+    mobile_store;
 
 INSERT INTO internal_option (storage, ram)
 SELECT s.storage,
@@ -78,8 +78,6 @@ VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A1
         '12 MP', 'iPhone 13 Pro with super retina display', 29900000, '2021-09-14', 12, 1),
        (1, 1, 'iPhone 15 Series', 'iPhone 15 Pro Max', 'iphone15promax.jpg', 'A17 Pro', '6.7 inch', '4422 mAh', '12 MP',
         '48 MP', 'iPhone 15 Pro Max with titanium frame', 36800000, '2023-09-12', 12, 1),
-
-       -- Samsung
        (2, 2, 'Samsung Galaxy S23 Series', 'Samsung Galaxy S23 Ultra', 'samsunggalaxys23ultra.jpg',
         'Snapdragon 8 Gen 2', '6.8 inch', '5000 mAh', '12 MP',
         '200 MP', 'Samsung Galaxy S23 Ultra with 100x zoom', 32200000, '2023-02-17', 12, 1),
@@ -89,8 +87,6 @@ VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A1
        (2, 2, 'Samsung Galaxy Z Fold 5', 'Samsung Galaxy Z Fold 5', 'samsunggalaxyzfold5.jpg', 'Snapdragon 8 Gen 2',
         '7.6 inch', '4400 mAh', '10 MP',
         '50 MP', 'Samsung Galaxy Z Fold 5 with foldable design', 41400000, '2023-08-11', 12, 1),
-
-       -- Xiaomi
        (3, 3, 'Xiaomi 12 Series', 'Xiaomi 12 Pro', 'xiaomi12pro.jpg', 'Snapdragon 8 Gen 1', '6.73 inch', '4600 mAh',
         '32 MP',
         '50 MP', 'Xiaomi 12 Pro with WQHD+ display', 23000000, '2022-03-28', 12, 1),
@@ -100,8 +96,6 @@ VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A1
        (3, 3, 'Redmi Note 12 Series', 'Redmi Note 12 Pro', 'redminote12pro.jpg', 'Snapdragon 732G', '6.67 inch',
         '5000 mAh',
         '16 MP', '108 MP', 'Redmi Note 12 Pro with 120Hz display', 9200000, '2023-01-01', 12, 1),
-
-       -- Oppo
        (4, 4, 'Oppo Find X5 Series', 'Oppo Find X5 Pro', 'oppofindx5pro.jpg', 'Snapdragon 8 Gen 1', '6.7 inch',
         '5000 mAh', '32 MP',
         '50 MP', 'Find X5 Pro with Hasselblad camera', 29900000, '2022-02-24', 12, 1),
@@ -111,8 +105,6 @@ VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A1
        (4, 4, 'Oppo Reno 10 Series', 'Oppo Reno 10 Pro+', 'opporeno10pro+.jpg', 'Snapdragon 8 Gen 2', '6.7 inch',
         '4500 mAh', '32 MP',
         '50 MP', 'Reno 10 Pro+ with periscope zoom', 20700000, '2023-06-06', 12, 1),
-
-       -- Vivo
        (5, 5, 'Vivo X80 Series', 'Vivo X80 Pro', 'vivox80pro.jpg', 'Snapdragon 8 Gen 1', '6.78 inch', '4700 mAh',
         '32 MP',
         '50 MP', 'Vivo X80 Pro with Zeiss optics', 25300000, '2022-04-29', 12, 1),
@@ -120,8 +112,11 @@ VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A1
         'Vivo V23 with color-changing design', 13800000, '2022-01-05', 12, 1),
        (5, 5, 'Vivo Y100 Series', 'Vivo Y100', 'vivoy100.jpg', 'Dimensity 810', '6.38 inch', '4500 mAh', '16 MP',
         '64 MP',
-        'Vivo Y100 with AMOLED display', 8050000, '2023-02-16', 12, 1);
-
+        'Vivo Y100 with AMOLED display', 8050000, '2023-02-16', 12, 1),
+       (3, 1, 'Xiaomi 15 Series', 'Xiaomi 15 Ultra', 'xiaomi15ultra.jpg', 'Snapdragon 8 Elite', 'AMOLED', '5410 mAh',
+        '32 MP', '50 MP',
+        'Xiaomi 15 Ultra trang bị chip Snapdragon® 8 Elite mạnh mẽ và RAM lên đến 16GB, người dùng sẽ có trải nghiệm mượt mà và dung lượng lưu trữ 512GB. Thiết bị này được nâng cấp nhờ trang bị ống kính tele có độ phân giải cao đến 200 megapixel. Viên pin lớn 5410 mAh, sẽ giúp nâng cao thời gian dùng điện thoại của người dùng. Đồng thời, Mi 15 Ultra trang bị tấm nền AMOLED, sẽ đem lại chất lượng hiển thị nổi bật và chi tiết về màu sắc.',
+        32990000, '2025-03-10', 12, 1);
 
 INSERT INTO sku(product_id, internal_id, color_id, sku_code, sku_name, image, import_price, invoice_price, sold, stock)
 VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxblack.jpg',
@@ -145,7 +140,15 @@ VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB 
        (1, 1, 2, 'IPHONE14PROMAX-WHITE-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB White', 'iphone14promaxwhite.jpg',
         32200000, 34500000, 0, 10),
        (1, 13, 2, 'IPHONE14PROMAX-WHITE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB White', 'iphone14promaxwhite.jpg',
-        34500000, 36800000, 0, 0);
+        34500000, 36800000, 0, 0),
+       (16, 28, 1, 'XIAOMI15ULTRA-BLACK-16GB/512GB', 'Xiaomi 15 Ultra 16GB/512GB Black',
+        'xiaomi15ultrablack16gb512gb.jpg', 22000000, 32990000, 0, 15),
+       (16, 29, 1, 'XIAOMI15ULTRA-BLACK-16GB/1TB', 'Xiaomi 15 Ultra 16GB/1TB Black', 'xiaomi15ultrablack16gb1tb.jpg',
+        23000000, 33990000, 0, 20),
+       (16, 28, 9, 'XIAOMI15ULTRA-SILVER-16GB/512GB', 'Xiaomi 15 Ultra 16GB/512GB Silver',
+        'xiaomi15ultrasilver16gb512gb.jpg', 22000000, 32990000, 0, 50),
+       (16, 29, 9, 'XIAOMI15ULTRA-SILVER-16GB/1TB', 'Xiaomi 15 Ultra 16GB/1TB Silver', 'xiaomi15ultrasilver16gb1tb.jpg',
+        23000000, 33990000, 0, 50);
 
 INSERT INTO user_account (username, password, email)
 VALUES ('user1', 'user1', 'user1@example.com'),

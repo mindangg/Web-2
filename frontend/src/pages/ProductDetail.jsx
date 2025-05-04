@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { Container, Row, Col, Image, Button, Form, Card, Table } from "react-bootstrap";
+import {Row, Col, Image, Button,  Card, Table } from "react-bootstrap";
 import {PRODUCT_API_URL, PRODUCT_IMAGE_PATH} from "../utils/Constant.jsx";
 import '../styles/ProductDetails.css'
 import {useLocation} from "react-router-dom";
@@ -16,6 +16,7 @@ const ProductDetail = () => {
     const [selectedColor, setSelectedColor] = useState(null);
     const [selectedStorage, setSelectedStorage] = useState(null);
     const [productImage, setProductImage] = useState('');
+    const [quantity, setQuantity] = useState(0);
 
     const location = useLocation();
     const id = location.pathname.split("/").pop();
@@ -48,10 +49,6 @@ const ProductDetail = () => {
         return () => controller.abort();
     }, [id]);
 
-    // useEffect(() => {
-    //     console.log(productDetail)
-    // })
-
     useEffect(() => {
         if (productDetail) {
             const colors = Array.from(
@@ -64,12 +61,18 @@ const ProductDetail = () => {
             );
             setProductImage(`${PRODUCT_IMAGE_PATH}${productDetail.product.image}`);
             setUniqueColors(colors);
+            const countQuantity = productDetail.sku.reduce((acc, sku) => {
+                if (sku.stock > 0) {
+                    return acc + sku.stock;
+                }
+                return acc;
+            }, 0);
+            setQuantity(countQuantity);
         }
     }, [productDetail]);
 
     useEffect(() => {
         if (selectedColor) {
-            console.log(selectedColor);
             const storages = Array.from(
                 new Map(
                     productDetail.sku
@@ -93,6 +96,7 @@ const ProductDetail = () => {
                 (sku) => sku.internal_id === selectedStorage.internal_id && sku.color_id === selectedColor.color_id
             );
             setSku(selectedSku || null);
+            setQuantity(selectedSku.stock);
         }
     }, [selectedStorage]);
 
@@ -103,7 +107,7 @@ const ProductDetail = () => {
     }, [sku]);
 
     return (
-        <Container className="mt-4 p-4 rounded-5 product-detail-container">
+        <div className="mt-4 p-4 rounded-5 product-detail-container container product">
             <Row className={"w-100 mb-5"}>
                 <Col md={6}
                      className={"text-center align-content-center"}
@@ -126,6 +130,12 @@ const ProductDetail = () => {
                     >
                         {sku ? sku.sku_name : productDetail.product.name}
                     </h2>
+
+                    <h6 className={"mb-4 mt-3"}
+                        style={{color: "gray"}}
+                    >
+                        Số lượng: {quantity}
+                    </h6>
 
                     {uniqueColors.length > 0 && (
                         <div className="mb-4">
@@ -166,7 +176,7 @@ const ProductDetail = () => {
                     )}
 
 
-                    <p className="text-danger fs-3 ">{(sku? sku.invoice_price?.toLocaleString("vi-VN") : productDetail.product.base_price?.toLocaleString("vi-VN")) + "đ"}</p>
+                    <p className="text-danger fs-3">{(sku? sku.invoice_price?.toLocaleString("vi-VN") : productDetail.product.base_price?.toLocaleString("vi-VN")) + "đ"}</p>
 
                     <Button
                         variant="dark"
@@ -238,7 +248,7 @@ const ProductDetail = () => {
                     </Card>
                 </Col>
             </Row>
-        </Container>
+        </div>
     );
 };
 

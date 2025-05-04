@@ -5,22 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
-      <change afterPath="$PROJECT_DIR$/backend/controller/ColorController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/controller/InternalOptionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/repository/ColorRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/repository/InternalOptionRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/service/ColorService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/service/InternalOptionService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddSku.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/video/video.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/IntroduceVideo.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/styles/IntroduceVideo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controller/SkuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/SkuController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/repository/SkuRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/SkuRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/service/SkuService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/SkuService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ProductDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Product.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Product.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +126,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\assets\video" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\pages" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\components\product" />
       <recent name="C:\xampp\htdocs\Projects\Web-2" />
@@ -221,6 +218,10 @@
       <workItem from="1745941378185" duration="9023000" />
       <workItem from="1746030921476" duration="3943000" />
       <workItem from="1746086316305" duration="5244000" />
+      <workItem from="1746170547667" duration="16327000" />
+      <workItem from="1746195197887" duration="40000" />
+      <workItem from="1746261460885" duration="2218000" />
+      <workItem from="1746279613561" duration="6878000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />
