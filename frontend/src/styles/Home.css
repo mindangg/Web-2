@@ -1,29 +1,18 @@
-.slick-slide > div {
-    padding: 10px;
-}
-.card {
-    transition: transform 0.2s ease;
-}
-.card:hover {
-    transform: scale(1.03);
-}
-
-.product-slider {
-    padding: 0 15px;
-}
-
-.slider-item {
-    padding: 0 10px;
-}
-
-.App {
-    font-family: sans-serif;
-}
-
 .slick-track {
     display: flex;
 }
-.slick-slider {
+
+.slick-slide img {
+    display: block;
+}
+
+/* Product Slider Styles */
+.product-slider {
+    margin-top: 10px;
+    padding: 20px;
+}
+
+.product-slider .slick-slider {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,73 +20,98 @@
     margin: 0 auto;
 }
 
-.slick-slide {
-    padding-right: 10px;
+.product-slider .slick-slide {
+    padding: 20px 0;
 }
 
-.slick-slide:last-child {
-    padding-right: 0;
+.product-slider .slick-slide > div {
+    padding: 10px;
 }
-.slick-slide img {
-    display: block;
-}
-.slick-list {
+
+.product-slider .slick-list {
     margin: 0 15px;
 }
 
-.slick-prev {
-    width: 50px;
-    left: 0;
-    top: 20%;
-    position: absolute;
-    height: 50px;
-    background: gray !important;
+.product-slider .slick-prev,
+.product-slider .slick-next {
+    width: 30px;
+    height: 30px;
     z-index: 1;
     border-radius: 50%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
-.slick-next {
-    width: 50px;
-    right: 0;
-    top: 20%;
-    position: absolute;
-    height: 50px;
-    background: gray !important;
-    z-index: 1;
-    border-radius: 50%;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-}
-
-.slick-prev:focus,
-.slick-prev:hover,
-.slick-next:hover,
-.slick-next:focus {
+.product-slider .slick-prev:focus,
+.product-slider .slick-prev:hover,
+.product-slider .slick-next:hover,
+.product-slider .slick-next:focus {
     color: transparent;
     outline: none;
     background: gray !important;
 }
 
-.slick-prev:before,
-.slick-next:before {
+.product-slider .slick-prev:before,
+.product-slider .slick-next:before {
     color: #333;
     font-size: 20px;
 }
 
-.slick-dots {
-    bottom: -30px;
-}
-
-.slick-dots li button:before {
+.product-slider .slick-dots li button:before {
     font-size: 10px;
 }
 
-
-.product-actions {
-    display: flex;
-    justify-content: space-between;
+/* Picture Slider Styles */
+.picture-slider {
+    width: 100vw;
+    margin: 20px calc(-50vw + 50%) 50px;
+    position: relative;
 }
 
+.picture-slider .slick-slider {
+    width: 100%;
+}
+
+.picture-slider .slick-slide {
+    padding: 0;
+}
+
+.picture-slider .slick-slide > div {
+    padding: 0;
+}
+
+.picture-slider img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.picture-slider .slick-prev,
+.picture-slider .slick-next {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.7) !important;
+    z-index: 1;
+    border-radius: 50%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.picture-slider .slick-prev {
+    left: 20px;
+    position: absolute;
+}
+
+.picture-slider .slick-next {
+    right: 20px;
+    position: absolute;
+}
+
+.picture-slider .slick-prev:before,
+.picture-slider .slick-next:before {
+    color: #333;
+    font-size: 20px;
+}
+
+/* Product card styles */
 .product-card {
     border: 1px solid #eaeaea;
     border-radius: 8px;
@@ -146,4 +160,14 @@
     font-weight: 600;
     color: #e63946;
     margin-bottom: 8px;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.App {
+    font-family: sans-serif;
+    overflow-x: hidden; /* Prevents horizontal scrolling from full-width slider */
 }

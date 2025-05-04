@@ -97,7 +97,7 @@ export default function CartItems({ item }) {
             </div>
 
             <div className='cart-total'>
-                <p>{item.invoice_price * item.quantity} $</p>
+                <p>{(item.invoice_price * item.quantity).toLocaleString('vi-VN')}đ</p>
             </div>
 
             <div className='cart-delete' onClick={() => setShowConfirm(true)}>

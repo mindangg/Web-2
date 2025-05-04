@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import {BrowserRouter, Navigate, Route, Routes, useLocation} from 'react-router-dom'
 
 // pages
 import Home from './pages/Home'
@@ -17,41 +17,40 @@ import {Product} from "./pages/Product.jsx";
 import CardDetails from "./pages/ProductDetail.jsx";
 
 import Notification from './components/Notification.jsx'
-import { useAuthContext } from './hooks/useAuthContext.jsx'
+import {useAuthContext} from './hooks/useAuthContext.jsx'
 
 const Layout = () => {
-  const hideLayout = useLocation().pathname === '/admin'
+    const hideLayout = useLocation().pathname === '/admin'
 
-  const { user } = useAuthContext()
+    const {user} = useAuthContext()
 
-  return (
-    <div className='App'>
-      {!hideLayout && <Header/>}
-      <div className='pages'>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path={`/product`} element={<Product/>}/>
-           <Route path='/product/:id' element={<CardDetails/>}/>
-          <Route path='/admin' element={<Admin/>}/>
-          <Route path='/login' element={!user ? <Login/> : <Navigate to='/'/>}/>
-          <Route path='/signup' element={!user ? <Signup/> : <Navigate to='/'/>}/>
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/payment' element={<Payment/>}/>
-          <Route path='/checkout' element={<Checkout/>}/>
-        </Routes>
-      </div>
-      <Notification/>
-      {/* <CardDetails/> */}
-            
-      {!hideLayout && <Footer/>}
-    </div>
-  )
+    return (
+        <div className='App'>
+            {!hideLayout && <Header/>}
+            <div className='pages'>
+                <Routes>
+                    <Route path='/' element={<Home/>}/>
+                    <Route path={`/product`} element={<Product/>}/>
+                    <Route path='/product/:id' element={<CardDetails/>}/>
+                    <Route path='/admin' element={<Admin/>}/>
+                    <Route path='/login' element={!user ? <Login/> : <Navigate to='/'/>}/>
+                    <Route path='/signup' element={!user ? <Signup/> : <Navigate to='/'/>}/>
+                    <Route path='/cart' element={<Cart/>}/>
+                    <Route path='/payment' element={<Payment/>}/>
+                    <Route path='/checkout' element={<Checkout/>}/>
+                </Routes>
+            </div>
+            <Notification/>
+
+            {!hideLayout && <Footer/>}
+        </div>
+    )
 }
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Layout/>
-    </BrowserRouter>
-  )
+    return (
+        <BrowserRouter>
+            <Layout/>
+        </BrowserRouter>
+    )
 }

@@ -16,7 +16,7 @@ export default function CheckoutItems({ cart }) {
             />
             <span>{cart.sku_name}</span>
             <span>{cart.quantity}</span>
-            <span>{cart.invoice_price} $</span>
+            <span>{cart.invoice_price.toLocaleString('vi-VN')}đ</span>
     </div>
     )
 }
