@@ -25,7 +25,7 @@ function PaymentInfoProduct(){
                                 <td><img src={`./product/${item.image}`} alt={item.name}/></td>
                                 <td>{item.sku_name}</td>
                                 <td>{item.quantity}</td>
-                                <td>{item.invoice_price.toLocaleString()} $</td>
+                                <td>{item.invoice_price.toLocaleString('vi-VN')}đ</td>
                             </tr>
                         ))}
                     </tbody>
@@ -33,7 +33,7 @@ function PaymentInfoProduct(){
                         <tr>
                         <td colSpan="3"><b>Tổng cộng</b></td>
                         <td className="total-amount">
-                        {totalAmount.toLocaleString()} $
+                        {totalAmount.toLocaleString('vi-VN')}đ
                         </td>
                         </tr>
                     </tfoot>

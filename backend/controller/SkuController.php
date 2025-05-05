@@ -102,7 +102,6 @@ class SkuController
     {
         $signal = $this->skuService->deleteSku($id);
         if($signal === -2){
-            http_response_code(404);
             echo json_encode(['message' => 'Không thể xóa phiên bản vì đã tồn tại trong hóa đơn bất kì']);
             return;
         }

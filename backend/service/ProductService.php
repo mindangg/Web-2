@@ -153,7 +153,7 @@ class ProductService
 
             if (copy($fileTmpPath, $destination2)) {
                 $response = [
-                    'message' => 'Cập nhật sản phẩm thành công' . $signal,
+                    'message' => 'Cập nhật sản phẩm thành công',
                 ];
             } else {
                 $response = [
@@ -171,6 +171,7 @@ class ProductService
     public function deleteProduct(int $id): int
     {
         if($this->skuRepository->productIsExistedInReceipt($id) || $this->skuRepository->productIsExistedInImport($id)) {
+            $this->productRepository->lockById($id);
             return -2;
         }
         $product = $this->productRepository->findById($id);

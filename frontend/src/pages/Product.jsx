@@ -4,8 +4,7 @@ import Pagination from "../components/CustomPagination.jsx";
 import '../styles/Product.css'
 import '../styles/Card.css'
 import {Filter} from "../components/Product/Filter.jsx";
-import Card from 'react-bootstrap/Card';
-import {PRODUCT_API_URL, PRODUCT_IMAGE_PATH, PRODUCT_PER_PAGE} from "../utils/Constant.jsx";
+import {PRODUCT_API_URL, PRODUCT_PER_PAGE} from "../utils/Constant.jsx";
 import ProductCard from "../components/Admin/ProductCard.jsx";
 
 export const Product = () => {

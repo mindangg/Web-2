@@ -206,7 +206,7 @@ export default function Checkout() {
                         ))
                     )}
                 </div>
-                <div style={{fontWeight: 'bold', fontSize: '20px'}}>Tổng tiền: {cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)} $</div>
+                <div style={{fontWeight: 'bold', fontSize: '20px'}}>Tổng tiền: {(cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)).toLocaleString('vi-VN')}đ</div>
                 <div>
                     <button onClick={() => setShowReceipt(!showReceipt)}>
                         Xem hóa đơn chi tiết

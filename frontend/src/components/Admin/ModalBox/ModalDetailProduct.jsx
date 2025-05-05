@@ -118,20 +118,20 @@ const ModalDetailProduct = ({ show, handleClose, product, hasPermission }) => {
                 headers: { 'Content-Type': 'application/json' },
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                // Revert optimistic update on failure
                 await handleSkuUpdated();
                 throw new Error('Xóa phiên bản thất bại');
             }
 
-            const data = await response.json();
-
             showNotification(data.message);
             await handleSkuUpdated();
-            dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false });
         } catch (error) {
             console.error(error);
-            showNotification('Xóa phiên bản thất bại', 'danger');
+            showNotification(error.message);
+        } finally {
+            dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false });
         }
     };
 

@@ -8,7 +8,7 @@
 }
 .overlay-text {
     background: rgba(0, 0, 0, 0.4);
-    padding: 2rem;
+    padding: 2rem 5rem;
     border-radius: 10px;
     animation: fadeIn 1.5s ease-in-out;
     opacity: 0;

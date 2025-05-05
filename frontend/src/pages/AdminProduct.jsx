@@ -176,18 +176,19 @@ export default function AdminProduct() {
                 headers: { "Content-Type": "application/json" },
             });
 
-            if (!response.ok) {
-                throw new Error('Xóa sản phẩm thất bại');
-            }
-
             const data = await response.json();
 
+            if (!response.ok) {
+                throw new Error("Xóa sản phẩm thất bại");
+            }
+
             showNotification(data.message);
-            dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false });
             refreshList();
         } catch (error) {
             console.error(error);
-            showNotification("Xóa sản phẩm thất bại", "danger");
+            showNotification(error.message);
+        } finally {
+            dispatch({ type: 'SET_SHOW_CONFIRM_DELETE', payload: false });
         }
     };
 
