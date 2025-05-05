@@ -1,16 +1,47 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '../styles/Admin.css'
 
 import OrderCard from '../components/Admin/OrderCard'
 
+import CustomPagination from '../components/CustomPagination.jsx'
+
+import { useAdminContext } from '../hooks/useAdminContext.jsx'
+
 export default function AdminOrder() {
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+    const { admin } = useAdminContext() 
+
+    const [order, setOrder] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPage, setTotalPage] = useState(0)
+
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+
+    const fetchOrder = async () => {
+        const response = await fetch('http://localhost/receipt', {
+            headers: {
+                'Authorization': `Bearer ${admin.token}`
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch order')
+        }
+  
+        const json = await response.json()
+        setOrder(json.totalOrders)
+        setCurrentPage(json.currentPage)
+        setTotalPage(json.totalPage)
+    }
+
+    useEffect(() => {
+        fetchOrder()
+    })
 
     return (
         <div className='order-container'>
-            {/* <div className = 'order-controller'>
+            <div className = 'order-controller'>
                 <select>
                     <option value='All'>All</option>
                     <option value='Delivered'>Delivered</option>
@@ -40,7 +71,7 @@ export default function AdminOrder() {
                 <div className='order-icon'>
                     <button><i className='fa-solid fa-rotate-right'></i>Refresh</button>
                 </div>
-            </div> */}
+            </div>
             <div className='order-header'>
                 <span>Đơn hàng</span>
                 <span>Khách hàng</span>
@@ -49,9 +80,12 @@ export default function AdminOrder() {
                 <span>Tình trạng</span>
                 <span>Chi tiết</span>
             </div>
+            {/* <OrderCard/>
             <OrderCard/>
-            <OrderCard/>
-            <OrderCard/>
+            <OrderCard/> */}
+            {order?.map(o => (
+                <OrderCard order={o} />
+            ))}
         </div>
     )
 }
