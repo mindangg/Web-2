@@ -473,7 +473,7 @@
 
 .employee-search{
     position: relative;
-    width: 37%;
+    width: 36%;
     margin-right: 25px;
 }
 
@@ -944,7 +944,7 @@ canvas {
 .user-statistic-info{
     display: grid;
     /* grid-template-columns: 2fr 3.5fr 2.5fr 4fr 2.5fr 2fr; */
-    grid-template-columns: 3fr 3fr 2.5fr 5fr 2.5fr 2fr 2fr;
+    grid-template-columns: 2.5fr 3fr 2.5fr 5.5fr 3fr 3.5fr 1.5fr;
     padding: 25px 0;
     text-align: center;
     align-items: center;
@@ -974,11 +974,119 @@ canvas {
 
 .user-statistic-icon{
     display: flex;
+    column-gap: 11px;
 }
 
 .user-statistic-icon i{
     margin-right: 5px;
     color: black!important;
+}
+
+.user-order-header{
+    font-weight: bold;
+}
+
+.user-order-header,
+.user-order-info{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2.2fr 2fr 2fr 1.5fr;
+    padding: 25px 0;
+    text-align: center;
+    align-items: center;
+    color: black;
+    border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
+}
+
+.user-order-container{
+    position: fixed; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+}
+
+.user-order{
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    padding: 20px;
+    color: black;
+    background-color: var(--light-gray);
+    width: 90%;
+    max-width: 1500px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+}
+
+#user-order-close{
+    position: absolute;
+    font-size: 18px;
+    top: 5.5%;
+    right: 1%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#user-order-close:hover{
+    transform: translateY(-3.6px);
+}
+
+.user-details-container{
+    position: fixed; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 2;
+}
+
+.user-details{
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    padding: 20px;
+    color: black;
+    background-color: var(--light-gray);
+    width: 90%;
+    max-width: 700px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+}
+
+.user-details h2{
+    text-align: center;
+}
+
+#user-details-close{
+    position: absolute;
+    font-size: 18px;
+    top: 2%;
+    right: 1.2%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#user-details-close:hover{
+    transform: translateY(-3.6px);
+}
+
+.user-details img{
+    height: 93px;
+    width: 90px;
+}
+
+.user-details-item{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    color: black;
+    border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
 }
 
 /* Responsive admin */

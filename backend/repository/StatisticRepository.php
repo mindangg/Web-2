@@ -1,7 +1,6 @@
 <?php
 
 namespace repository;
-use service\statisticService;
 
 use config\Database;
 use PDO;
@@ -29,7 +28,7 @@ class StatisticRepository
                 JOIN 
                     sku s ON s.sku_id = rd.sku_id
                 WHERE 
-                    r.status IN ('delivered', 'on deliver')";
+                    r.status = 'delivered'";
     
         $params = [];
     
@@ -50,63 +49,48 @@ class StatisticRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // public function findTop5User(?string $startDate, ?string $endDate, string $sortOrder): array {
-    //     $sortOrder = strtoupper($sortOrder) === 'ASC' ? 'ASC' : 'DESC';
-    
-    //     $sql = "
-    //         SELECT 
-    //             ua.user_account_id,
-    //             ua.username,
-    //             ui.full_name,
-    //             ui.phone,
-    //             ui.address,
-    //             SUM(r.total_price) AS total_spent
-    //         FROM receipt r
-    //         JOIN user_account ua ON r.account_id = ua.user_account_id
-    //         JOIN user_information ui ON r.user_information_id = ui.user_information_id
-    //         WHERE (:startDate IS NULL OR r.created_at >= :startDate)
-    //           AND (:endDate IS NULL OR r.created_at <= :endDate)
-    //         GROUP BY ua.user_account_id, ua.username, ui.full_name, ui.phone, ui.address
-    //         ORDER BY total_spent $sortOrder
-    //         LIMIT 5
-    //     ";
-    
-    //     $stmt = $this->pdo->prepare($sql);
-    //     $stmt->execute([
-    //         'startDate' => $startDate,
-    //         'endDate' => $endDate
-    //     ]);
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
-    public function getTopBuyers(?string $startDate = null, ?string $endDate = null, string $sortOrder = 'DESC'): array {
-        $query = "
-            SELECT ua.user_account_id, ua.username, ua.email, 
-                   SUM(r.total_price) AS total_spent
+    public function getTopBuyers(?string $startDate = null, ?string $endDate = null, string $sortOrder): array {
+        $sql = "
+            SELECT 
+                ua.user_account_id, 
+                ua.username, 
+                ua.email, 
+                ua.status,
+                ua.is_delete,
+                DATE_FORMAT(ua.created_at, '%d/%m/%Y') as created_at, 
+                ui.full_name, 
+                ui.phone_number, 
+                ui.house_number, 
+                ui.street, 
+                ui.ward, 
+                ui.district, 
+                ui.city,
+                SUM(r.total_price) AS total_spent
             FROM receipt r
             JOIN user_account ua ON r.account_id = ua.user_account_id
-            WHERE 1=1
+            LEFT JOIN user_information ui ON ua.user_account_id = ui.account_id
+            WHERE r.status = 'delivered'
         ";
     
         $params = [];
     
         if ($startDate) {
-            $query .= " AND r.created_at >= :startDate";
-            $params['startDate'] = $startDate . ' 00:00:00';
+            $sql .= " AND r.created_at >= :startDate";
+            $params['startDate'] = $startDate;
         }
     
         if ($endDate) {
-            $query .= " AND r.created_at <= :endDate";
-            $params['endDate'] = $endDate . ' 23:59:59';
+            $sql .= " AND r.created_at <= :endDate";
+            $params['endDate'] = $endDate;
         }
     
-        $query .= "
+        $sql .= "
             GROUP BY ua.user_account_id
             ORDER BY total_spent $sortOrder
             LIMIT 5
         ";
     
-        $stmt = $this->pdo->prepare($query);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         $topBuyers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
@@ -116,31 +100,44 @@ class StatisticRepository
         }
     
         return $topBuyers;
-    }
+    }    
     
     private function getReceiptsByUser(int $userId, ?string $startDate, ?string $endDate): array {
-        $query = "
-            SELECT r.*, rd.detail_id, rd.sku_id, rd.quantity, rd.price
+        $sql = "
+            SELECT r.*,
+            rd.detail_id, 
+            rd.sku_id, 
+            rd.quantity, 
+            rd.price,
+            s.sku_name,
+            s.image AS sku_image,
+            c.color,
+            io.ram AS ram,
+            io.storage AS storage
             FROM receipt r
             JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
+            JOIN sku s ON rd.sku_id = s.sku_id
+            JOIN product p ON s.product_id = p.product_id
+            JOIN color c ON s.color_id = c.color_id
+            JOIN internal_option io ON s.internal_id = io.internal_option_id
             WHERE r.account_id = :userId
         ";
     
         $params = ['userId' => $userId];
     
         if ($startDate) {
-            $query .= " AND r.created_at >= :startDate";
-            $params['startDate'] = $startDate . ' 00:00:00';
+            $sql .= " AND r.created_at >= :startDate";
+            $params['startDate'] = $startDate;
         }
     
         if ($endDate) {
-            $query .= " AND r.created_at <= :endDate";
-            $params['endDate'] = $endDate . ' 23:59:59';
+            $sql .= " AND r.created_at <= :endDate";
+            $params['endDate'] = $endDate;
         }
     
-        $query .= " ORDER BY r.created_at DESC";
+        $sql .= " ORDER BY r.created_at DESC";
     
-        $stmt = $this->pdo->prepare($query);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
     
         $receipts = [];
@@ -149,7 +146,7 @@ class StatisticRepository
             if (!isset($receipts[$receiptId])) {
                 $receipts[$receiptId] = [
                     'receipt_id' => $receiptId,
-                    'created_at' => $row['created_at'],
+                    'created_at' => $row['created_at'],'created_at' => date('d-m-Y', strtotime($row['created_at'])),
                     'total_price' => $row['total_price'],
                     'status' => $row['status'],
                     'payment_method' => $row['payment_method'],
@@ -161,41 +158,17 @@ class StatisticRepository
                 'detail_id' => $row['detail_id'],
                 'sku_id' => $row['sku_id'],
                 'quantity' => $row['quantity'],
-                'price' => $row['price']
+                'price' => $row['price'],
+                'sku_name' => $row['sku_name'],
+                'sku_image' => $row['sku_image'],
+                'color' => $row['color'],
+                'ram' => $row['ram'],
+                'storage' => $row['storage'],
             ];
         }
     
-        return array_values($receipts); // remove associative index
-    }
-
-    public function getReceiptsWithDetailsByUser(int $userId): array {
-        $sql = "
-            SELECT 
-                r.receipt_id,
-                r.total_price,
-                r.status,
-                r.payment_method,
-                r.created_at,
-                rd.detail_id,
-                rd.sku_id,
-                rd.quantity,
-                rd.price,
-                s.sku_code,
-                s.sku_name,
-                p.name AS product_name
-            FROM receipt r
-            JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
-            JOIN sku s ON rd.sku_id = s.sku_id
-            JOIN product p ON s.product_id = p.product_id
-            WHERE r.account_id = :user_id
-            ORDER BY r.created_at DESC
-        ";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(['user_id' => $userId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
-    
+        return array_values($receipts);
+    }  
 }
 
 ?>

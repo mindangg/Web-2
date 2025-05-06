@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import {PRODUCT_IMAGE_PATH} from "../utils/Constant";
 import { useSearchParams } from 'react-router-dom'
 
 import { useAdminContext } from '../hooks/useAdminContext'
@@ -10,12 +10,12 @@ export default function AdminUserStatistic() {
     const { showNotification } = useNotificationContext()
 
     const [user, setUser] = useState([])
+    const [order, setOrder] = useState([])
+    const [details, setDetails] = useState([])
+    const [isToggleOrder, setIsToggleOrder] = useState(false)
+    const [isToggleDetails, setIsToggleDetails] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
-    
-    const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('en-GB')
-    }
 
     const fetchTop5Users = async () => {
         try {
@@ -31,13 +31,24 @@ export default function AdminUserStatistic() {
                 return console.error('Error fetching top 5 users:', response.status)
             
             const json = await response.json()
-            console.log(json)
+            // console.log(json[0].receipts[0].details)
 
             setUser(json)
         }
         catch (error) {
             console.error('Error fetching top 5 users:', error)
         }
+    }
+
+    const isToggle = (o) => {
+        setOrder(o)
+        setIsToggleOrder(!isToggleOrder)
+    }
+
+    const isToggleOrderDetails = (d) => {
+        // console.log(d)
+        setDetails(d)
+        setIsToggleDetails(!isToggleDetails)
     }
 
     useEffect(() => {
@@ -47,6 +58,7 @@ export default function AdminUserStatistic() {
     const handleRefresh = () => {
         setStartDate('')
         setEndDate('')
+        setSortOrder('')
         setSearchParams({})
     }
 
@@ -56,8 +68,9 @@ export default function AdminUserStatistic() {
 
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
+    const [sortOrder, setSortOrder] = useState('')
     
-    const handleFilter = (startDate, endDate) => {
+    const handleFilter = (startDate, endDate, sortOrder) => {
         if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
             showNotification('Ngày kết thúc không được nhỏ hơn ngày bắt đầu')
             return
@@ -78,6 +91,15 @@ export default function AdminUserStatistic() {
             newParams.delete('endDate')
         }
 
+        if (sortOrder !== '') {
+            if (sortOrder !== '')
+                newParams.set('sortOrder', sortOrder)
+        }
+
+        else {
+            newParams.delete('sortOrder')
+        }
+
         setSearchParams(newParams)
     }
  
@@ -90,7 +112,7 @@ export default function AdminUserStatistic() {
                 type='date' 
                 value={startDate || ''}
                 onChange={(e) => {
-                    handleFilter(e.target.value, '');
+                    handleFilter(e.target.value, endDate, sortOrder);
                     setStartDate(e.target.value)}}/>
 
             <label>Đến ngày</label>
@@ -100,10 +122,20 @@ export default function AdminUserStatistic() {
                 value={endDate || ''}
                 min={startDate || undefined} 
                 onChange={(e) => {
-                    handleFilter('', e.target.value);
+                    handleFilter(startDate, e.target.value, sortOrder);
                     setEndDate(e.target.value)}}/>
 
                 <div className='user-statistic-icon'>
+                    <button onClick={() => {
+                        handleFilter(startDate, endDate, 'ASC');
+                        setSortOrder('ASC')
+                    }}>Tăng</button>
+
+                    <button onClick={() => {
+                        handleFilter(startDate, endDate, 'DESC');
+                        setSortOrder('DESC')
+                    }}>Giảm</button>
+
                     <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Refresh</button>
                 </div>
             </div>
@@ -114,27 +146,85 @@ export default function AdminUserStatistic() {
                 <span>Email</span>
                 <span>Số điện thoại</span>
                 <span>Địa chỉ</span>
-                <span>Ngày đăng kí</span>
                 <span>Tình trạng</span>
+                <span>Tổng tiền mua</span>
                 <span>Đơn hàng</span>
             </div>
 
-            {user && user.map((u) => (
+            {user && user.map(u => (
                 <div className='user-statistic-info'>
                     <span>{u.full_name}</span>
                     <span>{u.email}</span>
                     <span>{u.phone_number}</span>
                     <span>
-                        {user.house_number} Đường {user.street} Phường {user.ward} Quận {user.district} Thành phố {user.city}
+                        {u.house_number} Đường {u.street} Phường {u.ward} Quận {u.district} Thành phố {u.city}
                     </span>
-                    <span>{user.created_at}</span>
-                    <span className={user.status === 'Hoạt động' ? 'user-status' : 'user-status-lock'}>{user.status}</span>
-                    <span className='order-action'>
-                        <i className="fa-solid fa-eye"></i>
-                        Chi tiết
+                    <span className={u.status === 'Hoạt động' ? 'user-status' : 'user-status-lock'}>{u.status}</span>
+                    <span>{new Intl.NumberFormat('vi-VN').format(u.total_spent)} VND</span>
+                    <span className='order-action' onClick={() => isToggle(u.receipts)}>
+                        <i className='fa-solid fa-eye'></i>
+                        Xem
                     </span>
                 </div>
             ))}
+
+            {isToggleOrder && (
+                <div className='user-order-container'>
+                    <div className='user-order'>
+                        <i className='fa-solid fa-xmark' id='user-order-close' onClick={() => setIsToggleOrder(!isToggleOrder)}></i>
+                        <div className='user-order-header'>
+                            <span>Đơn hàng</span>
+                            <span>Ngày đặt</span>
+                            <span>Tổng tiền</span>
+                            <span>Phương thức thanh toán</span>
+                            <span>Tình trạng</span>
+                            <span>Chi tiết</span>
+                        </div>
+
+                        {order && order.map(o => (
+                            <>
+                            <div className='user-order-info'>
+                                <span>DH{o.receipt_id}</span>
+                                <span>{o.created_at}</span>
+                                <span>{new Intl.NumberFormat('vi-VN').format(o.total_price)} VND</span>
+                                <span>{o.payment_method}</span>
+                                <span className='order-status-pending'>{o.status}</span>
+                                <span className='order-action' onClick={() => {isToggleOrderDetails(o.details); console.log(o.details)}}>
+                                    <i className="fa-solid fa-eye"></i>
+                                    Chi tiết
+                                </span>
+                            </div>
+                            {isToggleDetails && (
+                                <div className='user-details-container'>
+                                    <div className='user-details'>
+                                        <i className='fa-solid fa-xmark' id='user-details-close' onClick={() => setIsToggleDetails(!isToggleDetails)}></i>
+                                        <h2>Chi tiết hóa đơn</h2>
+                                        <h4 style={{marginBottom: '10px'}}>Đơn số: DH{o.receipt_id}</h4>
+                                        <div style={{marginBottom: '10px'}}>Ngày tạo: {o.created_at}</div>
+                                        <div style={{fontWeight: 'bold'}}>Sản phẩm: </div>
+                                        {details && details.map(d => (
+                                            <div className='user-details-item'>
+                                                <div>
+                                                    <img src={`${PRODUCT_IMAGE_PATH}${d.sku_image}`} alt="Product Image" />
+                                                </div>
+                                                <div>
+                                                    <div>{d.sku_name} {d.ram}/{d.storage}</div>
+                                                    <div>Màu: {d.color}</div>
+                                                </div>
+                                                <div>
+                                                    <div>Giá: {new Intl.NumberFormat('vi-VN').format(d.price)} VND</div>
+                                                    <div>Số lượng: {d.quantity}</div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            </>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

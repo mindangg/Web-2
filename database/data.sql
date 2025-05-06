@@ -186,7 +186,7 @@ VALUES ('user1', 'user1', 'user1@example.com'),
 
 INSERT INTO user_information (account_id, full_name, phone_number, house_number, street, ward, district, city,
                               is_default)
-VALUES (1, 'Nguyễn Văn A', '0901234567', '123', 'Lê Lợi', 'Phường Bến Thành', 'Quận 1', 'TP.HCM', TRUE),
+VALUES (1, 'Trần Văn A', '0901234561', '123', 'Lê Lợi', 'Phường Bến Thành', 'Quận 1', 'TP.HCM', TRUE),
        (2, 'Nguyễn Văn A', '0901234567', '456', 'Nguyễn Huệ', 'Phường Bến Nghé', 'Quận 1', 'TP.HCM', FALSE),
        (3, 'Trần Thị B', '0912345678', '78A', 'Trần Hưng Đạo', 'Phường Cầu Kho', 'Quận 1', 'TP.HCM', TRUE),
        (4, 'Lê Văn C', '0923456789', '35', 'Phạm Văn Đồng', 'Phường Hiệp Bình Chánh', 'TP.Thủ Đức', 'TP.HCM', TRUE),

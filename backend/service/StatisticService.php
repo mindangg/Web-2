@@ -21,11 +21,7 @@ class StatisticService
     {
         $users = $this->statisticRepository->getTopBuyers($startDate, $endDate, $sortOrder);
 
-        if(!$users)
-            throw new \PDOException('Không tìm thấy người dùng', 404);
-        
-        else
-            return $users;
+        return $users;
     }
     
     
@@ -33,10 +29,10 @@ class StatisticService
     {
         $statistic = $this->statisticRepository->orderStatistics($data);
         
-        if(!$statistic)
-            throw new \PDOException('Không tìm thấy vai trò', 404);
+        // if(!$statistic)
+        //     throw new \PDOException('Không tìm thấy vai trò', 404);
         
-        else
+        // else
             return $statistic;
     }
 }
