@@ -108,7 +108,7 @@ export default function AdminEmployee() {
         setFullName(employee.full_name)
         setEmail(employee.email)
         setPhoneNumber(employee.phone_number)
-        setRole(employee.role)
+        setRole(employee.role.role_id)
         setIsToggle(true)
     }
     
