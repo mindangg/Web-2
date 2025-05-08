@@ -408,11 +408,6 @@
     border-radius: 5px;
 }
 
-.order-action{
-    cursor: pointer;
-}
-
-
 .product-container{
     width: 100%;
     display: flex;
@@ -439,7 +434,7 @@
     height: 100px;
 }
 
-.product-action i{
+.product-action{
     cursor: pointer;
 }
 
@@ -801,25 +796,9 @@
     background-color: #4ecd87c1;
 }
 
-.order-statistic-controller button i{
-    color: black;
-}
-
-.order-statistic-controller i:nth-of-type(1){
-    color: white;
-}
-
 .order-statistic-controller label{
     color: black;
     margin: 0 10px;
-}
-
-.order-statistic-action i{
-    cursor: pointer;
-}
-
-.order-statistic-action i:nth-of-type(1){
-    margin-right: 10px;
 }
 
 .order-statistic-icon{
@@ -920,18 +899,6 @@ canvas {
     color: black;
 }
 
-.user-statistic-search{
-    position: relative;
-}
-
-.user-statistic-search i{
-    position: absolute;
-    left: 10px;   
-    top: 50%;
-    transform: translateY(-50%); 
-    color: white;
-}
-
 .user-statistic-controller label{
     color: black;
     margin: 0 10px;
@@ -964,7 +931,7 @@ canvas {
     border-radius: 5px;
 }
 
-.user-statistic-action i{
+.user-statistic-action{
     cursor: pointer;
 }
 
@@ -1015,7 +982,7 @@ canvas {
     padding: 20px;
     color: black;
     background-color: var(--light-gray);
-    width: 90%;
+    width: 96%;
     max-width: 1500px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
@@ -1032,6 +999,14 @@ canvas {
 
 #user-order-close:hover{
     transform: translateY(-3.6px);
+}
+
+.user-order-action{
+    cursor: pointer;
+}
+
+.user-order-action i:nth-of-type(1){
+    margin-right: 10px;
 }
 
 .user-details-container{
@@ -1052,7 +1027,7 @@ canvas {
     padding: 20px;
     color: black;
     background-color: var(--light-gray);
-    width: 90%;
+    width: 99%;
     max-width: 700px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
@@ -1095,6 +1070,13 @@ canvas {
         left: 0;
         width: 100%;
         padding: 20px 30px;
+    }
+
+    .user-statistic-header,
+    .user-statistic-info {
+        grid-template-columns: 2.5fr 3fr 2.5fr 5.5fr 3fr 3.5fr 1.5fr;
+        font-size: 14px;
+        padding: 15px 0;
     }
 
     .user-header,
@@ -1141,6 +1123,17 @@ canvas {
     }
 }
 
+@media (max-width: 1200px) {
+    .order-statistic-items {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .order-statistic-item {
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .content {
         padding: 20px 15px;
@@ -1148,6 +1141,92 @@ canvas {
         width: 100%;
     }
 
+    .user-controller {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .user-controller select,
+    .user-search,
+    .user-icon {
+        width: 100%;
+    }
+
+    .user-search {
+        margin-right: 0;
+    }
+
+    .user-icon {
+        justify-content: space-between;
+    }
+
+    .employee-controller {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .employee-controller select,
+    .employee-search,
+    .employee-icon {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .employee-icon {
+        justify-content: space-between;
+    }
+
+    .user-statistic-controller {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .user-statistic-controller input,
+    .user-statistic-controller input[type='date'],
+    .user-statistic-controller button {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .user-statistic-controller label {
+        margin: 0 0 5px 0;
+    }
+
+    .user-order-header,
+    .user-order-info{
+        grid-template-columns: 0.8fr 1.8fr 2fr 1.8fr 1.8fr 1.2fr;
+        font-size: 12px;
+    }
+
+    .user-order-action i:nth-child(1){
+        margin-right: 2px;
+    }
+
+    .user-details{
+        font-size: 14px;
+    }
+
+    .order-statistic-controller {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .order-statistic-controller input,
+    .order-statistic-controller input[type='date'],
+    .order-statistic-controller button {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .order-statistic-controller label {
+        margin: 0 0 5px 0;
+    }
+
+    .order-statistic-icon {
+        justify-content: flex-start;
+    }
+    
+    .user-statistic-header,
     .user-header,
     .employee-header,
     .order-header,
@@ -1155,6 +1234,8 @@ canvas {
         display: none;
     }
 
+    .user-statistic-info,
+    .user-info,
     .user-info,
     .employee-info,
     .order-info,
@@ -1169,6 +1250,7 @@ canvas {
         background-color: #fff;
     }
 
+    .user-statistic-info > div,
     .user-info > div,
     .employee-info > div, 
     .order-info > div,
@@ -1180,6 +1262,7 @@ canvas {
         font-size: 14px;
     }
 
+    .user-statistic-info > div span:first-child,
     .user-info > div span:first-child,
     .employee-info > div span:first-child,
     .order-info > div span:first-child,
@@ -1210,6 +1293,7 @@ canvas {
         flex: 1;
     }
 
+    .user-statistic-action,
     .user-action,
     .employee-action,
     .order-action,
@@ -1223,6 +1307,7 @@ canvas {
 }
 
 @media (max-width: 480px) {
+    .user-statistic-info,
     .user-info,
     .employee-info,
     .order-info,
@@ -1230,6 +1315,7 @@ canvas {
         padding: 10px;
     }
 
+    .user-statistic-info > div,
     .user-info > div,
     .employee-info > div,
     .order-info > div,
@@ -1245,6 +1331,7 @@ canvas {
         gap: 5px;
     }
 
+    .user-statistic-action,
     .user-action,
     .employee-action,
     .order-action,
