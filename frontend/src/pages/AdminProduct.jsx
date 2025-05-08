@@ -8,10 +8,10 @@ import {useNotificationContext} from "../hooks/useNotificationContext.jsx";
 import {Badge, Button, Container, Form, Row, Table} from "react-bootstrap";
 import {ADMIN_PRODUCT_PER_PAGE, API_URL, PRODUCT_API_URL, PRODUCT_IMAGE_PATH} from "../utils/Constant.jsx";
 import CustomPagination from "../components/CustomPagination.jsx";
-import ModalAddProduct from "../components/Admin/ModalBox/ModalAddProduct.jsx";
-import ModalUpdateProduct from "../components/Admin/ModalBox/ModalUpdateProduct.jsx";
-import ModalConfirmDelete from "../components/Admin/ModalBox/ModalConfirmDelete.jsx";
-import ModalDetailProduct from "../components/Admin/ModalBox/ModalDetailProduct.jsx";
+import ModalAddProduct from "../components/Admin/modal/ModalAddProduct.jsx";
+import ModalUpdateProduct from "../components/Admin/modal/ModalUpdateProduct.jsx";
+import ModalConfirmDelete from "../components/Admin/modal/ModalConfirmDelete.jsx";
+import ModalDetailProduct from "../components/Admin/modal/ModalDetailProduct.jsx";
 import {useAdminContext} from "../hooks/useAdminContext.jsx";
 
 

@@ -1,5 +1,6 @@
 <?php
 namespace service;
+use DateTime;
 use repository\StatisticRepository;
 
 class StatisticService
@@ -34,6 +35,31 @@ class StatisticService
         
         // else
             return $statistic;
+    }
+
+    public function getRevenueStatistic($startDate, $endDate): array
+    {
+        if($startDate == null){
+            $startDate = $this->statisticRepository->getMinReceiptDate();
+            $startDate = $startDate['created_at'];
+        }
+        if($endDate == null){
+            $endDate = date('Y-m-d');
+        }
+
+        $statistic = $this->statisticRepository->getRevenueByDate($startDate, $endDate);
+        $tolalRevenue = 0;
+        $totalProfit = 0;
+        foreach ($statistic as $item) {
+            $tolalRevenue += $item['total_revenue'];
+            $totalProfit += $item['profit'];
+        }
+        $response = [
+            'total_revenue' => $tolalRevenue,
+            'total_profit' => $totalProfit,
+            'data' => $statistic,
+        ];
+        return $response;
     }
 }
 ?>

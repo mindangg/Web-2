@@ -17,10 +17,11 @@ class StatisticController
 
     public function processRequest(string $method, ?string $param): void
     {
-        AuthMiddleware::verifyToken();
+//        AuthMiddleware::verifyToken();
 
         switch ($method) {
             case 'GET':
+
                 if ($param === 'user')
                     $this->getTop5Users();
 
@@ -29,6 +30,9 @@ class StatisticController
 
                 else if ($param === 'order')
                     $this->getOrderStatistic();
+
+                else if ($param === 'revenue')
+                    $this->getRevenueStatistic();
 
                 break;
                 

@@ -94,7 +94,7 @@ class ProductService
 
             if (copy($fileTmpPath, $destination)) {
                 $response = [
-                    'message' => 'Thêm sản phẩm thành công, id: ' . $signal,
+                    'message' => 'Thêm sản phẩm thành công',
                 ];
             } else {
                 $response = [

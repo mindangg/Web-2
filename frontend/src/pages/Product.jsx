@@ -3,7 +3,7 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import Pagination from "../components/CustomPagination.jsx";
 import '../styles/Product.css'
 import '../styles/Card.css'
-import {Filter} from "../components/Product/Filter.jsx";
+import {Filter} from "../components/product/Filter.jsx";
 import {PRODUCT_API_URL, PRODUCT_PER_PAGE} from "../utils/Constant.jsx";
 import ProductCard from "../components/Admin/ProductCard.jsx";
 

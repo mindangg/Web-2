@@ -1,8 +1,8 @@
 import React from "react";
 import "../styles/Cart/Payment.css"
-import PaymentInfoUser from "../components/Cart/PaymentInfoUser";
+import PaymentInfoUser from "../components/cart/PaymentInfoUser";
 import { Link,useNavigate } from "react-router-dom";
-import PaymentInfoProduct from "../components/Cart/PaymentInfoProduct";
+import PaymentInfoProduct from "../components/cart/PaymentInfoProduct";
 import { useCartContext } from "../hooks/useCartContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNotificationContext } from '../hooks/useNotificationContext'

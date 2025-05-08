@@ -34,6 +34,7 @@
 
 .product-slider .slick-prev,
 .product-slider .slick-next {
+    margin: 0 15px;
     width: 30px;
     height: 30px;
     z-index: 1;
@@ -169,5 +170,4 @@
 
 .App {
     font-family: sans-serif;
-    overflow-x: hidden; /* Prevents horizontal scrolling from full-width slider */
 }

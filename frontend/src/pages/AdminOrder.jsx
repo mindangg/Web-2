@@ -19,7 +19,8 @@ export default function AdminOrder() {
     const [endDate, setEndDate] = useState('')
 
     const fetchOrder = async () => {
-        const response = await fetch('http://localhost/receipt', {
+        const response = await fetch('http://localhost/api/receipt', {
+            method: 'GET',
             headers: {
                 'Authorization': `Bearer ${admin.token}`
             }

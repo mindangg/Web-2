@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import logo from '../assets/logo.png'
@@ -29,9 +29,6 @@ export default function Header() {
     const [priceFrom, setPriceFrom] = useState('');
     const [priceTo, setPriceTo] = useState('');
 
-    // const searchRef = useRef(null);
-    // const filterRef = useRef(null);
-
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
@@ -56,21 +53,6 @@ export default function Header() {
             controller.abort();
         };
     }, []);
-
-    // useEffect(() => {
-    //     const handleClickOutside = (e) => {
-    //         if (
-    //             filterRef.current &&
-    //             !filterRef.current.contains(e.target) &&
-    //             searchRef.current &&
-    //             !searchRef.current.contains(e.target)
-    //         ) {
-    //             setShowFilter(false);
-    //         }
-    //     };
-    //     document.addEventListener('mousedown', handleClickOutside);
-    //     return () => document.removeEventListener('mousedown', handleClickOutside);
-    // }, []);
 
     const [toggle, setToggle] = useState('home')
 

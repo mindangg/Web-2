@@ -2,7 +2,9 @@
 
 namespace repository;
 
+use Cassandra\Date;
 use config\Database;
+use DateTime;
 use PDO;
 
 class StatisticRepository
@@ -168,7 +170,57 @@ class StatisticRepository
         }
     
         return array_values($receipts);
-    }  
+    }
+
+    public function getMinReceiptDate()
+    {
+        $sql = "
+        SELECT MIN(DATE(created_at)) AS created_at
+        FROM receipt
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $minReceiptDate = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $minReceiptDate;
+    }
+
+    public function getRevenueByDate($startDate, $endDate): array {
+        $sql = "
+        SELECT
+            DATE(r.created_at) AS date,
+            SUM(rd.quantity * rd.price) AS total_revenue,
+            SUM(rd.quantity * s.import_price) AS total_cost,
+            SUM(rd.quantity * rd.price) - SUM(rd.quantity * s.import_price) AS profit
+        FROM
+            receipt r
+        JOIN
+            receipt_detail rd ON r.receipt_id = rd.receipt_id
+        JOIN
+            sku s ON rd.sku_id = s.sku_id
+        WHERE
+            r.status IN ('delivered') AND
+            DATE(r.created_at) BETWEEN :startDate AND :endDate
+        GROUP BY
+            DATE(r.created_at)
+        ORDER BY
+            DATE(r.created_at);
+    ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':startDate' => $startDate,
+            ':endDate' => $endDate
+        ]);
+
+        $revenue = [];
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $revenue[$row['date']] = [
+                'total_revenue' => $row['total_revenue'],
+                'total_cost' => $row['total_cost'],
+                'profit' => $row['profit']
+            ];
+        }
+        return $revenue;
+    }
 }
 
 ?>
