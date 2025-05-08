@@ -161,9 +161,15 @@ header img{
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 670px) {
     .nav a {
-        font-size: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 643px) {
+    .nav a {
+        font-size: 11px;
     }
 }
 

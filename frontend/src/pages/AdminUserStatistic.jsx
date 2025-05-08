@@ -161,7 +161,7 @@ export default function AdminUserStatistic() {
                     </span>
                     <span className={u.status === 'Hoạt động' ? 'user-status' : 'user-status-lock'}>{u.status}</span>
                     <span>{new Intl.NumberFormat('vi-VN').format(u.total_spent)} VND</span>
-                    <span className='order-action' onClick={() => isToggle(u.receipts)}>
+                    <span className='user-statistic-action' onClick={() => isToggle(u.receipts)}>
                         <i className='fa-solid fa-eye'></i>
                         Xem
                     </span>
@@ -188,8 +188,8 @@ export default function AdminUserStatistic() {
                                 <span>{o.created_at}</span>
                                 <span>{new Intl.NumberFormat('vi-VN').format(o.total_price)} VND</span>
                                 <span>{o.payment_method}</span>
-                                <span className='order-status-pending'>{o.status}</span>
-                                <span className='order-action' onClick={() => {isToggleOrderDetails(o.details); console.log(o.details)}}>
+                                <span className='user-order-status-pending'>{o.status}</span>
+                                <span className='user-order-action' onClick={() => {isToggleOrderDetails(o.details); console.log(o.details)}}>
                                     <i className="fa-solid fa-eye"></i>
                                     Chi tiết
                                 </span>

@@ -19,7 +19,7 @@ class StatisticRepository
 
     public function orderStatistics(array $data): array {
         $sql = "SELECT 
-                    r.created_at AS date,
+                    DATE(r.created_at) AS date,
                     SUM(rd.quantity) AS total_products_sold,
                     SUM(rd.quantity * rd.price) AS total_revenue,
                     SUM(rd.quantity * (rd.price - s.import_price)) AS total_profit

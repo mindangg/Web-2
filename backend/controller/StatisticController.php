@@ -31,9 +31,6 @@ class StatisticController
                 else if ($param === 'order')
                     $this->getOrderStatistic();
 
-                else if ($param === 'revenue')
-                    $this->getRevenueStatistic();
-
                 break;
                 
             default:
