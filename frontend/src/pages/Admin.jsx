@@ -98,8 +98,8 @@ export default function Admin() {
                 {toggle === 'user' && hasAccess("Người dùng") && <AdminUser />}
                 {toggle === 'order' && hasAccess("Đơn hàng") && <AdminOrder />}
                 {toggle === 'employee' && hasAccess("Nhân viên") && <AdminEmployee />}
-                {/* {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminOrderStatistic />} */}
-                {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminUserStatistic />}
+                {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminOrderStatistic />}
+                {/* {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminUserStatistic />} */}
                 {toggle === 'supplier' && hasAccess("Kho hàng") && (
                     <div style={{ padding: '2rem' }}>Chức năng kho hàng chưa được triển khai.</div>
                 )}
