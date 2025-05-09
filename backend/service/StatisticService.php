@@ -36,5 +36,20 @@ class StatisticService
         // else
         return $statistic;
     }
+
+    public function getProductStatistic($fromDate, $toDate, $sort, $sortOrder, $limit, $page): array
+    {
+        if($fromDate === null){
+            $fromDate = $this->statisticRepository->getMinReceiptDate();
+            $fromDate = date('Y-m-d', strtotime($fromDate));
+        }
+        if($toDate === null){
+            $toDate = date('Y-m-d');
+        }
+
+        $response = $this->statisticRepository->productStatistic($fromDate, $toDate, $sort, $sortOrder, $limit, $page);
+
+        return $response;
+    }
 }
 ?>

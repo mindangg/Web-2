@@ -31,6 +31,12 @@ class StatisticController
                 else if ($param === 'order')
                     $this->getOrderStatistic();
 
+                else if ($param === 'product')
+                    $this->getProductStatistic();
+
+                else
+                    http_response_code(404);
+
                 break;
                 
             default:
@@ -61,6 +67,19 @@ class StatisticController
         // var_dump($data);die();
 
         $statistic = $this->statisticService->getOrderStatistic($data);
+        echo json_encode($statistic);
+    }
+
+    private function getProductStatistic(): void
+    {
+        $fromDate = $_GET['from'] ?? null;
+        $toDate = $_GET['to'] ?? null;
+        $sort = $_GET['sort'] ?? "product_id";
+        $sortOrder = $_GET['dir'] ?? "ASC";
+        $limit = intval($_GET['limit'] ?? 7);
+        $page = intval($_GET['page'] ?? 1);
+
+        $statistic = $this->statisticService->getProductStatistic($fromDate, $toDate, $sort, $sortOrder, $limit, $page);
         echo json_encode($statistic);
     }
 }

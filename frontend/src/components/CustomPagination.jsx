@@ -8,7 +8,7 @@ const CustomPagination = ({currentPage, totalPage, searchParams, setSearchParams
     };
 
     return (
-        <Pagination className="w-100 d-flex justify-content-center">
+        <Pagination className="w-100 mt-2 d-flex justify-content-center">
             <Pagination.First
                 onClick={() => handleChangePage(1)}
                 disabled={currentPage === 1}

@@ -773,7 +773,7 @@
     flex-grow: 1;
 }
 
-.order-statistic-controller input[type='date']{
+.order-statistic-controller input[type='date'], select{
     width: 15%;
     padding: 0 10px;
     color: var(--gray);
@@ -1060,6 +1060,21 @@ canvas {
     justify-content: space-around;
     align-items: center;
     padding: 10px 0;
+    color: black;
+    border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
+}
+
+.product-statistic-header{
+    font-weight: bold;
+}
+
+.product-statistic-header,
+.product-statistic-info{
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 5fr 2fr 2fr 2fr 1.5fr 1.5fr 2.5fr 2.5fr;
+    padding: 25px 0;
+    text-align: center;
+    align-items: center;
     color: black;
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
 }

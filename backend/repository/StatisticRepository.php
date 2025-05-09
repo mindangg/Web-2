@@ -87,7 +87,8 @@ class StatisticRepository
         }
     
         $sql .= "
-            GROUP BY ua.user_account_id
+            GROUP BY ua.user_account_id,  ui.full_name, ui.phone_number, 
+                ui.house_number, ui.street, ui.ward, ui.district, ui.city
             ORDER BY total_spent $sortOrder
             LIMIT 5
         ";
@@ -174,52 +175,69 @@ class StatisticRepository
 
     public function getMinReceiptDate()
     {
-        $sql = "
-        SELECT MIN(DATE(created_at)) AS created_at
-        FROM receipt
-        ";
+        $sql = "SELECT MIN(created_at) AS min_date FROM receipt";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $minReceiptDate = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $minReceiptDate;
+        return $stmt->fetchColumn();
     }
 
-    public function getRevenueByDate($startDate, $endDate): array {
-        $sql = "
-        SELECT
-            DATE(r.created_at) AS date,
-            SUM(rd.quantity * rd.price) AS total_revenue,
-            SUM(rd.quantity * s.import_price) AS total_cost,
-            SUM(rd.quantity * rd.price) - SUM(rd.quantity * s.import_price) AS profit
-        FROM
-            receipt r
-        JOIN
-            receipt_detail rd ON r.receipt_id = rd.receipt_id
-        JOIN
-            sku s ON rd.sku_id = s.sku_id
-        WHERE
-            r.status IN ('delivered') AND
-            DATE(r.created_at) BETWEEN :startDate AND :endDate
-        GROUP BY
-            DATE(r.created_at)
-        ORDER BY
-            DATE(r.created_at);
-    ";
+    public function productStatistic($fromDate, $toDate, $sort, $sortOder, $limit, $page):array
+    {
+        $offset = ($page - 1) * $limit;
+
+        $baseSQL = "
+        SELECT s.product_id                                          AS product_id,
+               s.sku_id                                              AS sku_id,
+               s.sku_name                                            AS sku_name,
+               s.image                                               AS image,
+               s.import_price                                        AS import_price,
+               IFNULL(sales.price, s.invoice_price)                  AS invoice_price,
+               s.stock                                               AS stock,
+               IFNULL(sales.total_quantity_sold, 0)                  AS total_quantity_sold,
+               IFNULL(s.import_price * sales.total_quantity_sold, 0) AS total_cost,
+               IFNULL(sales.price * sales.total_quantity_sold, 0)    AS total_revenue
+        FROM (
+            SELECT rd.sku_id,
+                     rd.price,
+                     SUM(rd.quantity) AS total_quantity_sold
+            FROM 
+                receipt r
+                JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
+            WHERE 
+                r.status = 'delivered'
+                AND DATE(r.created_at) BETWEEN :fromDate AND :toDate
+            GROUP BY 
+                rd.sku_id, 
+                rd.price
+            ) AS sales
+                RIGHT JOIN sku s ON s.sku_id = sales.sku_id";
+
+        $sql = $baseSQL . " ORDER BY $sort $sortOder LIMIT $limit OFFSET $offset;";
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            ':startDate' => $startDate,
-            ':endDate' => $endDate
+            'fromDate' => $fromDate,
+            'toDate' => $toDate
         ]);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-        $revenue = [];
-        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            $revenue[$row['date']] = [
-                'total_revenue' => $row['total_revenue'],
-                'total_cost' => $row['total_cost'],
-                'profit' => $row['profit']
-            ];
-        }
-        return $revenue;
+        $totalSql = $baseSQL;
+        $totalStmt = $this->pdo->prepare($totalSql);
+        $totalStmt->execute([
+            'fromDate' => $fromDate,
+            'toDate' => $toDate
+        ]);
+        $total = $totalStmt->fetchAll(PDO::FETCH_ASSOC);
+        $total = count($total);
+
+        $response = [
+            'data' => $data,
+            'total' => $total,
+            'totalPage' => ceil($total / $limit),
+            'currentPage' => $page,
+        ];
+        return $response;
     }
 }
 
