@@ -9,6 +9,7 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Admin from './pages/Admin'
 import Payment from './pages/Payment.jsx'
+import OrderHistory from './pages/OrderHistory.jsx'
 
 //components
 import Header from './components/Header'
@@ -38,6 +39,7 @@ const Layout = () => {
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/payment' element={<Payment/>}/>
           <Route path='/checkout' element={<Checkout/>}/>
+          <Route path='/orderhistory' element={<OrderHistory/>}/>
         </Routes>
       </div>
       <Notification/>

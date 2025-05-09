@@ -5,18 +5,21 @@ use Exception;
 use repository\ReceiptRepository;
 use repository\SkuRepository;
 use repository\ProductRepository;
+use repository\UserInformationRepository;
 use PDO;
 
 class ReceiptService {
     private $receiptRepository;
     private $skuRepository;
     private $productRepository;
+    private $userInformationRepository;
     private $pdo;
 
     public function __construct() {
         $this->receiptRepository = new ReceiptRepository();
         $this->skuRepository = new SkuRepository();
         $this->productRepository = new ProductRepository();
+        $this->userInformationRepository = new UserInformationRepository();
         $this->pdo = (new \config\Database())->getConnection();
     }
 
@@ -84,5 +87,46 @@ class ReceiptService {
             $this->pdo->rollBack();
             throw $e;
         }
+    }
+
+    public function getReceiptsByAccountId(int $accountId): array {
+        return $this->receiptRepository->getReceiptsByAccountId($accountId);
+    }
+
+    public function getReceiptDetails(int $receiptId): array {
+        return $this->receiptRepository->getReceiptDetails($receiptId);
+    }
+
+    public function getFilteredReceipts(array $filters): array {
+        return $this->receiptRepository->getFilteredReceipts($filters);
+    }
+
+    public function getReceiptById(int $receiptId): ?array {
+        return $this->receiptRepository->getReceiptById($receiptId);
+    }
+
+    public function getUserInformation(int $userInformationId): ?array {
+        return $this->userInformationRepository->findById($userInformationId);
+    }
+
+    public function updateReceiptStatus(int $receiptId, string $newStatus): void {
+        $receipt = $this->receiptRepository->getReceiptById($receiptId);
+        if (!$receipt) {
+            throw new Exception('Receipt not found');
+        }
+
+        $statusOrder = ['pending', 'confirmed', 'on deliver', 'delivered', 'cancelled'];
+        $currentIndex = array_search($receipt['status'], $statusOrder);
+        $newIndex = array_search($newStatus, $statusOrder);
+
+        if ($newIndex < $currentIndex && $newStatus !== 'cancelled') {
+            throw new Exception('Cannot update status backwards');
+        }
+
+        if ($newStatus === 'cancelled' && !in_array($receipt['status'], ['pending', 'confirmed'])) {
+            throw new Exception('Can only cancel pending or confirmed receipts');
+        }
+
+        $this->receiptRepository->updateReceiptStatus($receiptId, $newStatus);
     }
 }
