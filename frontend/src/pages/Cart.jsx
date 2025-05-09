@@ -42,7 +42,7 @@ export default function Cart() {
 
                 {cart && cart.length > 0 && (
                     <div className='cart-summary'>
-                        <h3>Tổng tiền: {cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)} $</h3>
+                        <h3>Tổng tiền: {(cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)).toLocaleString('vi')}đ</h3>
                         <Link to='/payment'>
                             <button id='checkout-btn'>Thanh Toán</button>
                         </Link>

@@ -135,8 +135,7 @@ class ProductController
     {
         $signal = $this->productService->deleteProduct($id);
         if($signal === -2){
-            http_response_code(404);
-            echo json_encode(['message' => 'Không thể xóa sản phẩm với vì đã tồn tại trong hóa đơn bất kì']);
+            echo json_encode(['message' => 'Không thể xóa sản phẩm vì đã tồn tại trong hóa đơn bất kì']);
             return;
         }
         if ($signal < 0) {

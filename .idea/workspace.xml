@@ -5,22 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
-      <change afterPath="$PROJECT_DIR$/backend/controller/ColorController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/controller/InternalOptionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/repository/ColorRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/repository/InternalOptionRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/service/ColorService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/service/InternalOptionService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddSku.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controller/SkuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/SkuController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/repository/SkuRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/SkuRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/service/SkuService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/SkuService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalAddProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/ModalBox/ModalDetailProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controller/StatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/StatisticController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/repository/StatisticRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/StatisticRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/service/StatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/StatisticService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useLogout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useLogout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Admin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminUserStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminUserStatistic.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Header.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,48 +70,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;JavaScript Debug.ProductService.php.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ChatTagsLlmMigration&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.CodyAccountHistoryMigration&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.CodyAccountsIdsRefresh&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.CodyAssignOrphanedChatsToActiveAccount&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.CodyConvertUrlToCodebaseName&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.CodyHistoryLlmMigration&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.CodyMigrateChatHistory-v2&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.CodyProjectSettingsMigration&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.DeprecatedChatLlmMigration&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ToggleCodyToolWindowAfterMigration&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;qbao&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/CODE/Projects/Springboot-React-demo&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.updates&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.7\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "JavaScript Debug.ProductService.php.executor": "Debug",
+    "ReactCreateComponentLastSelected": "arrowFunctionComponent",
+    "RunOnceActivity.ChatTagsLlmMigration": "true",
+    "RunOnceActivity.CodyAccountHistoryMigration": "true",
+    "RunOnceActivity.CodyAccountsIdsRefresh": "true",
+    "RunOnceActivity.CodyAssignOrphanedChatsToActiveAccount": "true",
+    "RunOnceActivity.CodyConvertUrlToCodebaseName": "true",
+    "RunOnceActivity.CodyHistoryLlmMigration": "true",
+    "RunOnceActivity.CodyMigrateChatHistory-v2": "true",
+    "RunOnceActivity.CodyProjectSettingsMigration": "true",
+    "RunOnceActivity.DeprecatedChatLlmMigration": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.ToggleCodyToolWindowAfterMigration": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "git-widget-placeholder": "Merging qbao",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/xampp/htdocs/Projects/Web-2/frontend/src/assets/slider",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.updates",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.7\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -129,11 +124,15 @@
     </option>
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\assets\slider" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\public\product" />
+      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\assets\video" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\pages" />
       <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\src\components\product" />
       <recent name="C:\xampp\htdocs\Projects\Web-2" />
-      <recent name="C:\xampp\htdocs\Projects\Web-2\frontend\public" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -221,6 +220,18 @@
       <workItem from="1745941378185" duration="9023000" />
       <workItem from="1746030921476" duration="3943000" />
       <workItem from="1746086316305" duration="5244000" />
+      <workItem from="1746170547667" duration="16327000" />
+      <workItem from="1746195197887" duration="40000" />
+      <workItem from="1746261460885" duration="2218000" />
+      <workItem from="1746279613561" duration="6878000" />
+      <workItem from="1746364539282" duration="11403000" />
+      <workItem from="1746436484844" duration="1000" />
+      <workItem from="1746518455571" duration="109000" />
+      <workItem from="1746523096655" duration="659000" />
+      <workItem from="1746541879626" duration="27000" />
+      <workItem from="1746578201822" duration="5076000" />
+      <workItem from="1746630543454" duration="5212000" />
+      <workItem from="1746663135773" duration="11477000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />

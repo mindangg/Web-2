@@ -17,7 +17,7 @@ class UserController
 
     public function processRequest(string $method, ?string $param, ?string $subRoute = null): void
     {
-        if (!($method === "POST" && $param === "login"))
+        if (!($method === "POST" && ($param === "login" || $param === "signup")))
             AuthMiddleware::verifyToken();
 
         switch ($method) {

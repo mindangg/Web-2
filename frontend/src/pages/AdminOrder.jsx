@@ -3,6 +3,10 @@ import '../styles/Admin.css';
 import OrderCard from '../components/Admin/OrderCard';
 import { useAdminContext } from '../hooks/useAdminContext';
 
+import CustomPagination from '../components/CustomPagination.jsx'
+
+import { useAdminContext } from '../hooks/useAdminContext.jsx'
+
 export default function AdminOrder() {
   const {admin} = useAdminContext();
   const [receipts, setReceipts] = useState([]);

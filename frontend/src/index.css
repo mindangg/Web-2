@@ -317,12 +317,6 @@ body{
     gap: 80px 25px;
 }
 
-.home{
-    /* padding: 10px 10% 0; */
-    width: 75%;
-    margin: auto;
-}
-
 .slider{
     position: relative;
     top: 10px;

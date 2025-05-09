@@ -1,14 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 import {
     Form,
-    Button,
-    Overlay,
-    Popover,
-    InputGroup,
     Row,
     Col
 } from 'react-bootstrap';
@@ -32,9 +28,6 @@ export default function Header() {
     const [brand, setBrand] = useState('');
     const [priceFrom, setPriceFrom] = useState('');
     const [priceTo, setPriceTo] = useState('');
-
-    const searchRef = useRef(null);
-    const filterRef = useRef(null);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -61,21 +54,6 @@ export default function Header() {
         };
     }, []);
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (
-                filterRef.current &&
-                !filterRef.current.contains(e.target) &&
-                searchRef.current &&
-                !searchRef.current.contains(e.target)
-            ) {
-                setShowFilter(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
-
     const [toggle, setToggle] = useState('home')
 
     const handleSearchChange = (e) => {
@@ -99,8 +77,7 @@ export default function Header() {
         if (priceTo) {
             searchParams.set('max_price', priceTo);
         }
-        navigate('/product')
-        setSearchParams(searchParams);
+        navigate(`/product?${searchParams.toString()}`);
         setShowFilter(false);
     };
 
@@ -127,7 +104,7 @@ export default function Header() {
 
                     {showFilter && (
                         <div
-                            ref={filterRef}
+                            // ref={filterRef}
                             className="bg-light border rounded p-3 shadow-sm"
                             style={{
                                 position: 'absolute',
@@ -198,9 +175,9 @@ export default function Header() {
             <div className='nav-container'>
                 <nav className='nav'>
                     <Link to='/' onClick={() => setToggle('home')}
-                          className={toggle === 'home' ? 'active' : ''}>HOME</Link>
+                          className={toggle === 'home' ? 'active' : ''}>TRANG CHỦ</Link>
                     <Link to={'/product'} onClick={() => setToggle('product')}
-                          className={toggle === 'product' ? 'active' : ''}>PRODUCT</Link>
+                          className={toggle === 'product' ? 'active' : ''}>SẢN PHẨM</Link>
                     <Link to={'/product?brand=apple'} onClick={() => setToggle('apple')}
                           className={toggle === 'apple' ? 'active' : ''}>IPHONE</Link>
                     <Link to={'/product?brand=samsung'} onClick={() => setToggle('samsung')}

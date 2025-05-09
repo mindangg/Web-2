@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import {BrowserRouter, Navigate, Route, Routes, useLocation} from 'react-router-dom'
 
 // pages
 import Home from './pages/Home'
@@ -18,12 +18,12 @@ import {Product} from "./pages/Product.jsx";
 import CardDetails from "./pages/ProductDetail.jsx";
 
 import Notification from './components/Notification.jsx'
-import { useAuthContext } from './hooks/useAuthContext.jsx'
+import {useAuthContext} from './hooks/useAuthContext.jsx'
 
 const Layout = () => {
-  const hideLayout = useLocation().pathname === '/admin'
+    const hideLayout = useLocation().pathname === '/admin'
 
-  const { user } = useAuthContext()
+    const {user} = useAuthContext()
 
   return (
     <div className='App'>
@@ -51,9 +51,9 @@ const Layout = () => {
 }
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Layout/>
-    </BrowserRouter>
-  )
+    return (
+        <BrowserRouter>
+            <Layout/>
+        </BrowserRouter>
+    )
 }
