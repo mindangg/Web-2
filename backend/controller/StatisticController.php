@@ -34,6 +34,9 @@ class StatisticController
                 else if ($param === 'product')
                     $this->getProductStatistic();
 
+                else if ($param === 'product-overview')
+                    $this->getProductStatisticOverView();
+
                 else
                     http_response_code(404);
 
@@ -80,6 +83,12 @@ class StatisticController
         $page = intval($_GET['page'] ?? 1);
 
         $statistic = $this->statisticService->getProductStatistic($fromDate, $toDate, $sort, $sortOrder, $limit, $page);
+        echo json_encode($statistic);
+    }
+
+    private function getProductStatisticOverView(): void
+    {
+        $statistic = $this->statisticService->getProductStatisticOverView();
         echo json_encode($statistic);
     }
 }

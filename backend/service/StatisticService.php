@@ -51,5 +51,15 @@ class StatisticService
 
         return $response;
     }
+
+    public function getProductStatisticOverView(): array
+    {
+        $fromDate = $this->statisticRepository->getMinReceiptDate();
+        $fromDate = date('Y-m-d', strtotime($fromDate));
+        $toDate = date('Y-m-d');
+        $response = $this->statisticRepository->productStatisticOverView($fromDate, $toDate);
+
+        return $response;
+    }
 }
 ?>

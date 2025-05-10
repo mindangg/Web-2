@@ -1,5 +1,5 @@
 import {Badge, Col, Form, FormSelect, Row, Tab, Tabs} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ADMIN_PRODUCT_PER_PAGE, API_URL, PRODUCT_IMAGE_PATH} from "../utils/Constant.jsx";
 import CustomPagination from "../components/CustomPagination.jsx";
 import {useSearchParams} from "react-router-dom";
@@ -51,6 +51,32 @@ export const AdminProductStatistic = () => {
     }, [searchParams, setSearchParams]);
 
     useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const fetchData = async () => {
+            try {
+                const url = `${API_URL}statistic/product-overview`
+                const response = await fetch(url, {signal});
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setTongQuan(data);
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.log('Fetch aborted');
+                } else {
+                    console.error('Error fetching data:', error);
+                }
+            }
+        }
+        fetchData()
+        return () => {
+            controller.abort();
+        }
+    }, [])
+
+    useEffect(() => {
         if ((startDate !== '' || endDate !== '') && (new Date(endDate) < new Date(startDate))) {
             showNotification('Ngày kết thúc không được nhỏ hơn ngày bắt đầu')
             return
@@ -86,7 +112,7 @@ export const AdminProductStatistic = () => {
                 justify
             >
                 <Tab eventKey="tongQuan" title="Tổng quan">
-                    {sanPhamThongKe && (<TopSellingPieChart data={sanPhamThongKe}/>)}
+                    {tongQuan && (<TopSellingPieChart data={tongQuan}/>)}
                 </Tab>
                 <Tab eventKey={'chiTiet'} title={'Chi tiết'}>
                     <Row className={"text-center"}>

@@ -239,6 +239,46 @@ class StatisticRepository
         ];
         return $response;
     }
+
+    public function productStatisticOverView($fromDate, $toDate):array
+    {
+        $sql = "
+            SELECT s.product_id                                          AS product_id,
+                   s.sku_id                                              AS sku_id,
+                   s.sku_name                                            AS sku_name,
+                   s.image                                               AS image,
+                   s.import_price                                        AS import_price,
+                   IFNULL(sales.price, s.invoice_price)                  AS invoice_price,
+                   s.stock                                               AS stock,
+                   IFNULL(sales.total_quantity_sold, 0)                  AS total_quantity_sold,
+                   IFNULL(s.import_price * sales.total_quantity_sold, 0) AS total_cost,
+                   IFNULL(sales.price * sales.total_quantity_sold, 0)    AS total_revenue
+            FROM (
+                SELECT rd.sku_id,
+                         rd.price,
+                         SUM(rd.quantity) AS total_quantity_sold
+                FROM 
+                    receipt r
+                    JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
+                WHERE 
+                    r.status = 'delivered'
+                    AND DATE(r.created_at) BETWEEN :fromDate AND :toDate
+                GROUP BY 
+                    rd.sku_id, 
+                    rd.price
+                ) AS sales
+                    RIGHT JOIN sku s ON s.sku_id = sales.sku_id
+            WHERE total_quantity_sold > 0
+            ORDER BY total_quantity_sold DESC, total_revenue DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'fromDate' => $fromDate,
+            'toDate' => $toDate
+        ]);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
 }
 
 ?>
