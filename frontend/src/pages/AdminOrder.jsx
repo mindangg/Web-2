@@ -1,92 +1,214 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import '../styles/Admin.css';
+import OrderCard from '../components/Admin/OrderCard';
+import { useAdminContext } from '../hooks/useAdminContext';
 
-import '../styles/Admin.css'
 
-import OrderCard from '../components/Admin/OrderCard'
 
-import CustomPagination from '../components/CustomPagination.jsx'
 
-import { useAdminContext } from '../hooks/useAdminContext.jsx'
 
 export default function AdminOrder() {
-    const { admin } = useAdminContext() 
+  const {admin} = useAdminContext();
+  const [receipts, setReceipts] = useState([]);
+  const [filteredReceipts, setFilteredReceipts] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [district, setDistrict] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedReceipt, setSelectedReceipt] = useState(null);
 
-    const [order, setOrder] = useState([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [totalPage, setTotalPage] = useState(0)
-
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-
-    const fetchOrder = async () => {
+  useEffect(() => {
+    const fetchReceipts = async () => {
+      try {
         const response = await fetch('http://localhost/api/receipt', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${admin.token}`
-            }
-        })
-
+          headers: {
+            'Content-Type': 'application/json',
+            // Giả định có token admin trong localStorage
+            'Authorization': `Bearer ${admin.token}`,
+          },
+        });
+        const data = await response.json();
         if (!response.ok) {
-            throw new Error('Failed to fetch order')
+          throw new Error(data.error || 'Không thể tải danh sách đơn hàng');
         }
-  
-        const json = await response.json()
-        setOrder(json.totalOrders)
-        setCurrentPage(json.currentPage)
-        setTotalPage(json.totalPage)
+        setReceipts(data.receipts || []);
+        setFilteredReceipts(data.receipts || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReceipts();
+  }, []);
+
+  useEffect(() => {
+    let filtered = receipts;
+
+    // Lọc theo trạng thái
+    if (statusFilter !== 'All') {
+      filtered = filtered.filter((receipt) => receipt.status === statusFilter.toLowerCase());
     }
 
-    useEffect(() => {
-        fetchOrder()
-    })
+    // Lọc theo khoảng thời gian
+    if (startDate) {
+      filtered = filtered.filter(
+        (receipt) => new Date(receipt.created_at) >= new Date(startDate)
+      );
+    }
+    if (endDate) {
+      filtered = filtered.filter(
+        (receipt) => new Date(receipt.created_at) <= new Date(endDate)
+      );
+    }
 
-    return (
-        <div className='order-container'>
-            <div className = 'order-controller'>
-                <select>
-                    <option value='All'>All</option>
-                    <option value='Delivered'>Delivered</option>
-                    <option value='Pending'>Pending</option>
-                    <option value='Canceled'>Canceled</option>
-                </select>
+    // Lọc theo quận/huyện
+    if (district) {
+      filtered = filtered.filter(
+        (receipt) => receipt.user_information?.district.toLowerCase().includes(district.toLowerCase())
+      );
+    }
 
-                <div className='order-search'>
-                    <input type='text' placeholder='Search for...'></input> 
-                    <i className='fa-solid fa-magnifying-glass'></i>
-                </div>
-                
-                <label>From</label>
+    setFilteredReceipts(filtered);
+  }, [statusFilter, startDate, endDate, district, receipts]);
 
-                <input 
-                    type='date' 
-                    value={startDate || ''}
-                />
+  const handleRefresh = () => {
+    setStartDate('');
+    setEndDate('');
+    setStatusFilter('All');
+    setDistrict('');
+    setFilteredReceipts(receipts);
+  };
 
-                <label>To</label>
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    }).format(price);
+  };
 
-                <input 
-                    type='date' 
-                    value={endDate || ''} 
-                />
+  if (loading) return <div className="order-container">Đang tải...</div>;
+  if (error) return <div className="order-container">Lỗi: {error}</div>;
 
-                <div className='order-icon'>
-                    <button><i className='fa-solid fa-rotate-right'></i>Refresh</button>
-                </div>
-            </div>
-            <div className='order-header'>
-                <span>Đơn hàng</span>
-                <span>Khách hàng</span>
-                <span>Ngày đặt</span>
-                <span>Tổng tiền</span>
-                <span>Tình trạng</span>
-                <span>Chi tiết</span>
-            </div>
-            {/* <OrderCard/>
-            <OrderCard/>
-            <OrderCard/> */}
-            {order?.map(o => (
-                <OrderCard order={o} />
-            ))}
+  return (
+    <div className="order-container">
+      <div className="order-controller">
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <option value="All">Tất cả</option>
+          <option value="Pending">Chờ xử lý</option>
+          <option value="Confirmed">Đã xác nhận</option>
+          <option value="On deliver">Đang giao</option>
+          <option value="Delivered">Đã giao</option>
+          <option value="Cancelled">Đã hủy</option>
+        </select>
+
+        <div className="order-search">
+          <input
+            type="text"
+            placeholder="Tìm theo quận/huyện..."
+            value={district}
+            onChange={(e) => setDistrict(e.target.value)}
+          />
+          <i className="fa-solid fa-magnifying-glass"></i>
         </div>
-    )
+
+        <label>Từ</label>
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+
+        <label>Đến</label>
+        <input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+
+        <div className="order-icon">
+          <button onClick={handleRefresh}>
+            <i className="fa-solid fa-rotate-right"></i> Làm mới
+          </button>
+        </div>
+      </div>
+
+      <div className="order-header">
+        <span>Đơn hàng</span>
+        <span>Khách hàng</span>
+        <span>Ngày đặt</span>
+        <span>Tổng tiền</span>
+        <span>Tình trạng</span>
+        <span>Chi tiết</span>
+      </div>
+
+      {filteredReceipts.length === 0 ? (
+        <div>Không có đơn hàng phù hợp.</div>
+      ) : (
+        filteredReceipts.map((receipt) => (
+          <OrderCard
+            key={receipt.receipt_id}
+            receipt={receipt}
+            onViewDetails={() => setSelectedReceipt(receipt)}
+          />
+        ))
+      )}
+
+      {selectedReceipt && (
+        <div className="modal open">
+          <div className="modal-content">
+            <h2>Chi tiết đơn hàng #{selectedReceipt.receipt_id}</h2>
+            {/* Thêm thông tin người dùng */}
+            <div className="user-info">
+              <h3>Thông tin người nhận</h3>
+              <p><strong>Họ tên:</strong> {selectedReceipt.user_information?.full_name || 'Không xác định'}</p>
+              <p><strong>Số điện thoại:</strong> {selectedReceipt.user_information?.phone_number || 'Không xác định'}</p>
+              <p><strong>Địa chỉ giao hàng:</strong> 
+                {selectedReceipt.user_information 
+                  ? `${selectedReceipt.user_information.house_number}, ${selectedReceipt.user_information.street}, ${selectedReceipt.user_information.ward}, ${selectedReceipt.user_information.district}, ${selectedReceipt.user_information.city}`
+                  : 'Không xác định'}
+              </p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hình ảnh</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Giá</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(selectedReceipt.details) && selectedReceipt.details.length > 0 ? (
+                  selectedReceipt.details.map((detail) => (
+                    <tr key={detail.detail_id}>
+                      <td>
+                        <img src={`./product/${detail.image}`} alt={detail.sku_name} style={{ maxWidth: '50px' }} />
+                      </td>
+                      <td>{detail.sku_name}</td>
+                      <td>{detail.quantity}</td>
+                      <td>{formatPrice(detail.price)}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4">Không có chi tiết đơn hàng</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+            <button
+              className="button close-button"
+              onClick={() => setSelectedReceipt(null)}
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

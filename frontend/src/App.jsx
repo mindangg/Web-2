@@ -9,6 +9,7 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Admin from './pages/Admin'
 import Payment from './pages/Payment.jsx'
+import OrderHistory from './pages/OrderHistory.jsx'
 
 //components
 import Header from './components/Header'
@@ -24,27 +25,29 @@ const Layout = () => {
 
     const {user} = useAuthContext()
 
-    return (
-        <div className='App'>
-            {!hideLayout && <Header/>}
-            <div className='pages'>
-                <Routes>
-                    <Route path='/' element={<Home/>}/>
-                    <Route path={`/product`} element={<Product/>}/>
-                    <Route path='/product/:id' element={<CardDetails/>}/>
-                    <Route path='/admin' element={<Admin/>}/>
-                    <Route path='/login' element={!user ? <Login/> : <Navigate to='/'/>}/>
-                    <Route path='/signup' element={!user ? <Signup/> : <Navigate to='/'/>}/>
-                    <Route path='/cart' element={<Cart/>}/>
-                    <Route path='/payment' element={<Payment/>}/>
-                    <Route path='/checkout' element={<Checkout/>}/>
-                </Routes>
-            </div>
-            <Notification/>
-
-            {!hideLayout && <Footer/>}
-        </div>
-    )
+  return (
+    <div className='App'>
+      {!hideLayout && <Header/>}
+      <div className='pages'>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path={`/product`} element={<Product/>}/>
+           <Route path='/product/:id' element={<CardDetails/>}/>
+          <Route path='/admin' element={<Admin/>}/>
+          <Route path='/login' element={!user ? <Login/> : <Navigate to='/'/>}/>
+          <Route path='/signup' element={!user ? <Signup/> : <Navigate to='/'/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/payment' element={<Payment/>}/>
+          <Route path='/checkout' element={<Checkout/>}/>
+          <Route path='/orderhistory' element={<OrderHistory/>}/>
+        </Routes>
+      </div>
+      <Notification/>
+      {/* <CardDetails/> */}
+            
+      {!hideLayout && <Footer/>}
+    </div>
+  )
 }
 
 export default function App() {
