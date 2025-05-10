@@ -59,7 +59,7 @@ class StatisticRepository
                 ua.email, 
                 ua.status,
                 ua.is_delete,
-                DATE_FORMAT(ua.created_at, '%d/%m/%Y') as created_at, 
+                DATE(ua.created_at) as created_at, 
                 ui.full_name, 
                 ui.phone_number, 
                 ui.house_number, 
@@ -148,7 +148,7 @@ class StatisticRepository
             if (!isset($receipts[$receiptId])) {
                 $receipts[$receiptId] = [
                     'receipt_id' => $receiptId,
-                    'created_at' => $row['created_at'],'created_at' => date('d-m-Y', strtotime($row['created_at'])),
+                    'created_at' => date('d-m-Y', strtotime($row['created_at'])),
                     'total_price' => $row['total_price'],
                     'status' => $row['status'],
                     'payment_method' => $row['payment_method'],
