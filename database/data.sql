@@ -119,9 +119,9 @@ VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A1
         32990000, '2025-03-10', 12, 1);
 
 INSERT INTO sku(product_id, internal_id, color_id, sku_code, sku_name, image, import_price, invoice_price, sold, stock)
-VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxblack.jpg',
+VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxwhite4gb128gb.jpg',
         32200000, 34500000, 0, 10),
-       (1, 7, 2, 'IPHONE14PROMAX-WHITE-6GB/256GB', 'iPhone 14 Pro Max 6GB/256GB White', 'iphone14promaxwhite.jpg',
+       (1, 7, 2, 'IPHONE14PROMAX-WHITE-6GB/256GB', 'iPhone 14 Pro Max 6GB/256GB White', 'iphone14promaxwhite6gb256gb.jpg',
         33350000, 35650000, 0, 8),
        (1, 13, 7, 'IPHONE14PROMAX-PURPLE-8GB/512GB', 'iPhone 14 Pro Max 8GB/512GB Purple', 'iphone14promaxpurple.jpg',
         34500000, 36800000, 0, 5),
