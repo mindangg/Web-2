@@ -3,9 +3,9 @@ import '../styles/Admin.css';
 import OrderCard from '../components/Admin/OrderCard';
 import { useAdminContext } from '../hooks/useAdminContext';
 
-import CustomPagination from '../components/CustomPagination.jsx'
 
-import { useAdminContext } from '../hooks/useAdminContext.jsx'
+
+
 
 export default function AdminOrder() {
   const {admin} = useAdminContext();
@@ -161,6 +161,17 @@ export default function AdminOrder() {
         <div className="modal open">
           <div className="modal-content">
             <h2>Chi tiết đơn hàng #{selectedReceipt.receipt_id}</h2>
+            {/* Thêm thông tin người dùng */}
+            <div className="user-info">
+              <h3>Thông tin người nhận</h3>
+              <p><strong>Họ tên:</strong> {selectedReceipt.user_information?.full_name || 'Không xác định'}</p>
+              <p><strong>Số điện thoại:</strong> {selectedReceipt.user_information?.phone_number || 'Không xác định'}</p>
+              <p><strong>Địa chỉ giao hàng:</strong> 
+                {selectedReceipt.user_information 
+                  ? `${selectedReceipt.user_information.house_number}, ${selectedReceipt.user_information.street}, ${selectedReceipt.user_information.ward}, ${selectedReceipt.user_information.district}, ${selectedReceipt.user_information.city}`
+                  : 'Không xác định'}
+              </p>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -175,7 +186,7 @@ export default function AdminOrder() {
                   selectedReceipt.details.map((detail) => (
                     <tr key={detail.detail_id}>
                       <td>
-                        <img src={detail.image} alt={detail.sku_name} style={{ maxWidth: '50px' }} />
+                        <img src={`./product/${detail.image}`} alt={detail.sku_name} style={{ maxWidth: '50px' }} />
                       </td>
                       <td>{detail.sku_name}</td>
                       <td>{detail.quantity}</td>

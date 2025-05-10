@@ -182,4 +182,12 @@ class SkuRepository
             return -3;
         }
     }
+    public function updateSold(int $skuId, int $sold): void {
+        $sql = "UPDATE sku SET sold = :sold WHERE sku_id = :sku_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'sold' => $sold,
+            'sku_id' => $skuId
+        ]);
+    }
 }

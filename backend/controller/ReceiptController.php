@@ -97,13 +97,13 @@ class ReceiptController {
 
     private function updateReceiptStatus(int $receiptId): void {
         $data = json_decode(file_get_contents("php://input"), true);
-
-        if (!isset($data['status']) || !in_array($data['status'], ['pending', 'confirmed', 'on deliver', 'delivered', 'cancelled'])) {
+    
+        if (!isset($data['status']) || !in_array($data['status'], ['pending', 'confirmed', 'on_deliver', 'delivered', 'cancelled'])) {
             http_response_code(400);
             echo json_encode(['error' => 'Invalid status']);
             return;
         }
-
+    
         try {
             $this->receiptService->updateReceiptStatus($receiptId, $data['status']);
             http_response_code(200);

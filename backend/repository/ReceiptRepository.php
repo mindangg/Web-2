@@ -22,6 +22,11 @@ class ReceiptRepository{
             'status' => $data['status']
         ]);
     }
+    public function deleteImeiByReceiptDetailId(int $receiptDetailId): void {
+        $sql = "DELETE FROM imei WHERE receipt_detail_id = :receipt_detail_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['receipt_detail_id' => $receiptDetailId]);
+    }
     
     public function createReceipt(array $data):int {
         $sql = "INSERT INTO receipt (account_id, user_information_id,total_price,payment_method, status)

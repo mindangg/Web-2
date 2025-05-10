@@ -22,7 +22,7 @@ export default function OrderCard({ receipt, onViewDetails }) {
     }).format(price);
   };
 
-  const statusOptions = ['pending', 'confirmed', 'on deliver', 'delivered', 'cancelled'];
+  const statusOptions = ['pending', 'confirmed', 'on_deliver', 'delivered', 'cancelled'];
   const statusDisplay = {
     pending: 'Chờ xử lý',
     confirmed: 'Đã xác nhận',
@@ -72,8 +72,8 @@ export default function OrderCard({ receipt, onViewDetails }) {
       <span>{receipt.user_information?.full_name || 'Không xác định'}</span>
       <span>{formatDate(receipt.created_at)}</span>
       <span>{formatPrice(receipt.total_price)}</span>
-      <span className={`order-status-${status}`}>
         <select
+          className={`order-status-${status}`}
           value={status}
           onChange={(e) => handleStatusChange(e.target.value)}
         >
@@ -83,7 +83,6 @@ export default function OrderCard({ receipt, onViewDetails }) {
             </option>
           ))}
         </select>
-      </span>
       <span className="order-action" onClick={onViewDetails}>
         <i className="fa-solid fa-eye"></i> Chi tiết
       </span>

@@ -39,7 +39,7 @@ export default function Cart() {
             
             <div className='cart-controller'>
                 <Link to='/'><button><i className='fa-solid fa-reply'></i>Tiếp tục mua hàng</button></Link>
-
+                <Link to='/orderhistory'><button>Xem lịch sử đơn hàng</button></Link> 
                 {cart && cart.length > 0 && (
                     <div className='cart-summary'>
                         <h3>Tổng tiền: {(cart.reduce((sum, item) => sum + (item.invoice_price * item.quantity), 0)).toLocaleString('vi')}đ</h3>
@@ -55,6 +55,7 @@ export default function Cart() {
             <h2>Giỏ hàng trống</h2>
             <img src={empty} alt='Empty Cart'></img>
             <Link to='/'><button><i className='fa-solid fa-reply'></i>Quay lại trang chủ</button></Link>
+            <Link to='/orderhistory'><button>Xem lịch sử đơn hàng</button></Link> 
         </div>
     )
 }

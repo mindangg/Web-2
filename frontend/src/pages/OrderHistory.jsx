@@ -92,6 +92,19 @@ const OrderHistory = () => {
     }).format(price);
   };
 
+  const statusDisplay = {
+    pending: 'Chờ xử lý',
+    confirmed: 'Đã xác nhận',
+    on_deliver: 'Đang giao',
+    delivered: 'Đã giao',
+    cancelled: 'Đã hủy',
+  };
+
+  const paymentMethodDisplay = {
+    direct_payment: 'Thanh toán trực tiếp',
+    transfer_payment: 'Chuyển khoản ngân hàng',
+  };
+
   if (loading) return <div className="container">Đang tải...</div>;
   if (error) return <div className="container">Lỗi: {error}</div>;
   if (receipts.length === 0 && !error)
@@ -117,11 +130,13 @@ const OrderHistory = () => {
               <td>{receipt.receipt_id}</td>
               <td>{formatDate(receipt.created_at)}</td>
               <td>{formatPrice(receipt.total_price)}</td>
-              <td>{receipt.status}</td>
-              <td>{receipt.payment_method}</td>
+              <td className={`order-status-${receipt.status}`}>
+                {statusDisplay[receipt.status] || receipt.status}
+              </td>
+              <td>{paymentMethodDisplay[receipt.payment_method] || receipt.payment_method}</td>
               <td>
                 <button
-                  className="button"
+                  className="button view-button"
                   onClick={() => setSelectedReceipt(receipt)}
                 >
                   Xem chi tiết
@@ -130,7 +145,6 @@ const OrderHistory = () => {
                   <button
                     className="button cancel-button"
                     onClick={() => handleCancelOrder(receipt.receipt_id, receipt.status)}
-                    style={{ backgroundColor: '#dc3545', marginLeft: '5px' }}
                   >
                     Hủy đơn
                   </button>
@@ -144,6 +158,24 @@ const OrderHistory = () => {
         <div className="modal open">
           <div className="modal-content">
             <h2>Chi tiết đơn hàng #{selectedReceipt.receipt_id}</h2>
+            <div className="user-info">
+              <h3>Thông tin người nhận</h3>
+              <p><strong>Họ tên:</strong> {selectedReceipt.user_information?.full_name || 'Không xác định'}</p>
+              <p><strong>Số điện thoại:</strong> {selectedReceipt.user_information?.phone_number || 'Không xác định'}</p>
+              <p><strong>Địa chỉ giao hàng:</strong> 
+                {selectedReceipt.user_information 
+                  ? [
+                      selectedReceipt.user_information.house_number,
+                      selectedReceipt.user_information.street,
+                      selectedReceipt.user_information.ward,
+                      selectedReceipt.user_information.district,
+                      selectedReceipt.user_information.city
+                    ]
+                    .filter(part => part)
+                    .join(', ') || 'Không xác định'
+                  : 'Không xác định'}
+              </p>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -158,7 +190,7 @@ const OrderHistory = () => {
                   selectedReceipt.details.map((detail) => (
                     <tr key={detail.detail_id}>
                       <td>
-                        <img src={detail.image} alt={detail.sku_name} />
+                        <img src={`./product/${detail.image}`} alt={detail.sku_name} />
                       </td>
                       <td>{detail.sku_name}</td>
                       <td>{detail.quantity}</td>
