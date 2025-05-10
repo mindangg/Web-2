@@ -787,7 +787,7 @@
     flex-grow: 1;
 }
 
-.order-statistic-controller input[type='date'], select{
+.order-statistic-controller input[type='date']{
     width: 15%;
     padding: 0 10px;
     color: var(--gray);
