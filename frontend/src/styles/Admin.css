@@ -194,6 +194,7 @@
 
 .user-header,
 .user-info{
+    width: 100%;
     display: grid;
     grid-template-columns: 3fr 3fr 2.5fr 5fr 2.5fr 2fr 2fr;
     padding: 25px 0;

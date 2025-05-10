@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/AdminImport.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/Database.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/Database.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controller/StatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/StatisticController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/repository/StatisticRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/StatisticRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/service/StatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/StatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/chart/TopSellingPieChart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/chart/TopSellingPieChart.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/vendor/firebase/php-jwt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/firebase/php-jwt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminOrder.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminOrder.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProductStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProductStatistic.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/OrderHistory.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/OrderHistory.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/styles/Admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/OrderHistory.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/OrderHistory.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +50,9 @@
     &quot;accountId&quot;: &quot;b6495330-7424-499e-a759-034b11fe5c1b&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/frontend/node_modules/react-bootstrap/esm/Modal.d.ts" root0="SKIP_INSPECTION" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Program Files\php-8.4.4-nts-Win32-vs17-x64\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/backend/vendor/composer" />
@@ -238,7 +245,8 @@
       <workItem from="1746797025482" duration="17038000" />
       <workItem from="1746815458935" duration="73000" />
       <workItem from="1746860223514" duration="1097000" />
-      <workItem from="1746861803819" duration="3564000" />
+      <workItem from="1746861803819" duration="4194000" />
+      <workItem from="1746894553165" duration="4431000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />
