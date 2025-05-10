@@ -76,7 +76,7 @@ const ProductDetail = () => {
             const storages = Array.from(
                 new Map(
                     productDetail.sku
-                        .filter((sku) => sku.color_id === selectedColor.color_id && sku.stock > 0)
+                        .filter((sku) => sku.color_id === selectedColor.color_id)
                         .map((sku) => [
                             sku.internal_id,
                             {internal_id: sku.internal_id, storage: `${sku.ram}/${sku.storage}`}
@@ -184,7 +184,7 @@ const ProductDetail = () => {
                         className="w-100 py-1 mt-2 rounded-4"
                         style={{height: "40px"}}
                         onClick={() => addToCart(sku)}
-                        disabled={!sku}
+                        disabled={!sku || sku.stock === 0}
                     >
                         Thêm vào giỏ hàng
                     </Button>

@@ -87,7 +87,7 @@ class SkuService
 
             if (copy($fileTmpPath, $destination)) {
                 $response = [
-                    'message' => 'Thêm sản phẩm thành công, id: ' . $signal,
+                    'message' => 'Thêm sản phẩm thành công',
                 ];
             } else {
                 $response = [
@@ -164,7 +164,7 @@ class SkuService
 
             if (copy($fileTmpPath, $destination2)) {
                 $response = [
-                    'message' => 'Cập nhật phiên bản thành công' . $signal,
+                    'message' => 'Cập nhật phiên bản thành công',
                 ];
             } else {
                 $response = [
