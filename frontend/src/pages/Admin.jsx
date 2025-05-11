@@ -16,6 +16,7 @@ import { useAdminLogout } from '../hooks/useAdminLogout'
 
 import { useSearchParams } from "react-router-dom"
 import AdminStatistic from "./AdminStatistic.jsx";
+import AdminImport from "./AdminImport.jsx";
 
 export default function Admin() {
     const { admin } = useAdminContext()
@@ -101,9 +102,7 @@ export default function Admin() {
                 {toggle === 'employee' && hasAccess("Nhân viên") && <AdminEmployee />}
                 {/* {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminOrderStatistic />} */}
                 {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminStatistic />}
-                {toggle === 'supplier' && hasAccess("Kho hàng") && (
-                    <div style={{ padding: '2rem' }}>Chức năng kho hàng chưa được triển khai.</div>
-                )}
+                {toggle === 'supplier' && hasAccess("Kho hàng") && <AdminImport />}
             </div>
         </div>
     ) : (
