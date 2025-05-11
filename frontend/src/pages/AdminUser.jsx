@@ -283,6 +283,7 @@ export default function AdminUser() {
               placeholder='User name'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required={true}
             /><br/>
 
             <label>Email</label><br/>
@@ -291,6 +292,7 @@ export default function AdminUser() {
               placeholder='Email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required={true}
             /><br/>
 
           {selectedUser 
@@ -313,6 +315,7 @@ export default function AdminUser() {
                   placeholder='Mật khẩu'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required={true}
                 /><br/>
               </>
             )}
@@ -323,6 +326,7 @@ export default function AdminUser() {
               placeholder='Họ tên'
               value={full_name}
               onChange={(e) => setFullName(e.target.value)}
+              required={true}
             /><br/>
 
             <label>Số điện thoại</label>   <br/>        
@@ -331,6 +335,7 @@ export default function AdminUser() {
               placeholder='Số điện thoại'
               value={phone_number}
               onChange={(e) => setPhoneNumber(e.target.value)}
+              required={true}
             /><br/>
 
             <button type='submit'>{selectedUser ? 'Lưu lại' : 'Thêm mới'}</button>
@@ -343,6 +348,7 @@ export default function AdminUser() {
               placeholder='Số nhà'
               value={house_number}
               onChange={(e) => setHouseNumber(e.target.value)}
+              required={true}
             /><br/>
 
             <label>Đường</label><br/>
@@ -351,6 +357,7 @@ export default function AdminUser() {
               placeholder='Đường'
               value={street}
               onChange={(e) => setStreet(e.target.value)}
+              required={true}
             /><br/>
 
             <label>Phường</label><br/>
@@ -359,6 +366,7 @@ export default function AdminUser() {
               placeholder='Phường'
               value={ward}
               onChange={(e) => setWard(e.target.value)}
+              required={true}
             /><br/>
 
             <label>Quận</label><br/>
@@ -367,6 +375,7 @@ export default function AdminUser() {
               placeholder='Quận'
               value={district}
               onChange={(e) => setDistrict(e.target.value)}
+              required={true}
             /><br/>
 
             <label>Thành phố</label><br/>
@@ -375,6 +384,7 @@ export default function AdminUser() {
               placeholder='Thành phố'
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              required={true}
             /><br/>   
             </div>
           </form>

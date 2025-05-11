@@ -434,6 +434,7 @@ export default function AdminEmployee() {
                     placeholder='Họ tên'
                     value={full_name}
                     onChange={(e) => setFullName(e.target.value)}
+                    required={true}
                 /><br/>
       
                 <label>Email</label><br/>
@@ -442,6 +443,7 @@ export default function AdminEmployee() {
                     placeholder='Email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required={true}
                 /><br/>
 
                 {!selectedEmployee && (
@@ -452,6 +454,7 @@ export default function AdminEmployee() {
                         placeholder='Mật khẩu'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required={true}
                     /><br/>
                 </>
                 )}
@@ -462,10 +465,11 @@ export default function AdminEmployee() {
                     placeholder='Số điện thoại'
                     value={phone_number}
                     onChange={(e) => setPhoneNumber(e.target.value)}
+                    required={true}
                 /><br/>
 
                 <label>Vai trò</label><br/>
-                <select value={role} onChange={(e) => setRole(Number(e.target.value))}>
+                <select value={role} onChange={(e) => setRole(Number(e.target.value))} required={true}>
                     <option value=''>Vai trò</option>
                     {allRoles?.map(r => (
                         <option value={r.role_id}>{r.role_name}</option>
@@ -495,7 +499,7 @@ export default function AdminEmployee() {
                                 <label>Tên</label>
                                 <input style={{ width: '30%'}}
                                         value={role_name}
-                                        onChange={(e) => setRoleName(e.target.value)}></input>
+                                        onChange={(e) => setRoleName(e.target.value)} required={true}></input>
                             </div>
                             <div className='add-role-header'>
                                 <span>Chức năng</span>
