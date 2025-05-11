@@ -910,7 +910,6 @@ canvas {
 .user-statistic-header,
 .user-statistic-info{
     display: grid;
-    /* grid-template-columns: 2fr 3.5fr 2.5fr 4fr 2.5fr 2fr; */
     grid-template-columns: 2.5fr 3fr 2.5fr 5.5fr 3fr 3.5fr 1.5fr;
     padding: 25px 0;
     text-align: center;
@@ -977,7 +976,7 @@ canvas {
 
 .user-order{
     position: absolute;
-    top: 70%;
+    top: 50%;
     left: 50%; 
     transform: translate(-50%, -50%); 
     padding: 20px;
@@ -987,7 +986,7 @@ canvas {
     max-width: 1500px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-    border: unset;
+    bottom: unset;
 }
 
 #user-order-close{
@@ -1079,6 +1078,96 @@ canvas {
     align-items: center;
     color: black;
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
+}
+
+.import-statistic-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.import-statistic-controller{
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.import-statistic-controller input{
+    background-color: var(--black);
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+    height: 36px;
+    color: white;
+    margin-right: 25px;
+    width: 420px;
+    padding: 0 10px 0 40px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.import-statistic-controller input[type='date']{
+    width: 15%;
+    padding: 0 10px;
+    color: var(--gray);
+}
+
+.import-statistic-controller button{
+    color: black;
+    background-color: #4ecd87;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+}
+
+.import-statistic-controller button:hover{
+    cursor: pointer;
+    background-color: #4ecd87c1;
+}
+
+.import-statistic-controller button i{
+    color: black;
+}
+
+.import-statistic-controller label{
+    color: black;
+    margin: 0 10px;
+}
+
+.import-statistic-header{
+    font-weight: bold;
+}
+
+.import-statistic-header,
+.import-statistic-info{
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 5fr 2fr 2fr 2fr 1.5fr 2.5fr;
+    padding: 25px 0;
+    text-align: center;
+    align-items: center;
+    color: black;
+    border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
+} 
+
+.import-statistic-action{
+    cursor: pointer;
+}
+
+.import-statistic-action i:nth-of-type(1){
+    margin-right: 10px;
+}
+
+.import-statistic-icon{
+    display: flex;
+    column-gap: 11px;
+}
+
+.import-statistic-icon i{
+    margin-right: 5px;
+    color: black!important;
 }
 
 /* Responsive admin */

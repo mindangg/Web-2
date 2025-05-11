@@ -2,9 +2,7 @@
 
 namespace repository;
 
-use Cassandra\Date;
 use config\Database;
-use DateTime;
 use PDO;
 
 class StatisticRepository
@@ -51,7 +49,7 @@ class StatisticRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTopBuyers(?string $startDate = null, ?string $endDate = null, string $sortOrder): array {
+    public function getTopBuyers($startDate, $endDate, $sortOrder): array {
         $sql = "
             SELECT 
                 ua.user_account_id, 
@@ -105,7 +103,7 @@ class StatisticRepository
         return $topBuyers;
     }    
     
-    private function getReceiptsByUser(int $userId, ?string $startDate, ?string $endDate): array {
+    private function getReceiptsByUser(int $userId, $startDate, $endDate): array {
         $sql = "
             SELECT r.*,
             rd.detail_id, 
@@ -172,6 +170,11 @@ class StatisticRepository
     
         return array_values($receipts);
     }
+
+    public function getImportStatistic(string $startDate, string $endDate, string $sortOrder): array {
+    
+        return [];
+    }   
 
     public function getMinReceiptDate()
     {

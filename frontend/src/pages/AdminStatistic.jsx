@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import AdminOrderStatistic from "./AdminOrderStatistic.jsx";
 import AdminUserStatistic from "./AdminUserStatistic.jsx";
 import {AdminProductStatistic} from "./AdminProductStatistic.jsx";
+import AdminImportStatistic from "./AdminImportStatistic.jsx";
 
 const AdminStatistic = () => {
 
@@ -39,6 +40,12 @@ const AdminStatistic = () => {
                 return (
                     <Col>
                         <AdminProductStatistic/>
+                    </Col>
+                )
+            case 'import':
+                return (
+                    <Col>
+                        <AdminImportStatistic/>
                     </Col>
                 )
         }
