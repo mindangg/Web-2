@@ -2,9 +2,7 @@
 
 namespace repository;
 
-use Cassandra\Date;
 use config\Database;
-use DateTime;
 use PDO;
 
 class StatisticRepository
@@ -51,7 +49,7 @@ class StatisticRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTopBuyers(?string $startDate = null, ?string $endDate = null, string $sortOrder): array {
+    public function getTopBuyers($startDate, $endDate, $sortOrder): array {
         $sql = "
             SELECT 
                 ua.user_account_id, 
@@ -59,7 +57,7 @@ class StatisticRepository
                 ua.email, 
                 ua.status,
                 ua.is_delete,
-                DATE_FORMAT(ua.created_at, '%d/%m/%Y') as created_at, 
+                DATE(ua.created_at) as created_at, 
                 ui.full_name, 
                 ui.phone_number, 
                 ui.house_number, 
@@ -105,7 +103,7 @@ class StatisticRepository
         return $topBuyers;
     }    
     
-    private function getReceiptsByUser(int $userId, ?string $startDate, ?string $endDate): array {
+    private function getReceiptsByUser(int $userId, $startDate, $endDate): array {
         $sql = "
             SELECT r.*,
             rd.detail_id, 
@@ -149,7 +147,7 @@ class StatisticRepository
             if (!isset($receipts[$receiptId])) {
                 $receipts[$receiptId] = [
                     'receipt_id' => $receiptId,
-                    'created_at' => $row['created_at'],'created_at' => date('d-m-Y', strtotime($row['created_at'])),
+                    'created_at' => date('d-m-Y', strtotime($row['created_at'])),
                     'total_price' => $row['total_price'],
                     'status' => $row['status'],
                     'payment_method' => $row['payment_method'],
@@ -172,6 +170,11 @@ class StatisticRepository
     
         return array_values($receipts);
     }
+
+    public function getImportStatistic(string $startDate, string $endDate, string $sortOrder): array {
+    
+        return [];
+    }   
 
     public function getMinReceiptDate()
     {

@@ -18,22 +18,24 @@ class StatisticService
         exit;
     }
     
-    public function getTop5Users(?string $startDate, ?string $endDate, string $sortOrder): array
+    public function getTop5Users($startDate, $endDate, $sortOrder): array
     {
         $users = $this->statisticRepository->getTopBuyers($startDate, $endDate, $sortOrder);
 
         return $users;
     }
     
+    public function getImportStatistic($startDate, $endDate, $sortOrder): array
+    {
+        $statistic = $this->statisticRepository->getTopBuyers($startDate, $endDate, $sortOrder);
+
+        return $statistic;
+    }
     
     public function getOrderStatistic(array $data): array
     {
         $statistic = $this->statisticRepository->orderStatistics($data);
-        
-        // if(!$statistic)
-        //     throw new \PDOException('Không tìm thấy vai trò', 404);
-        
-        // else
+
         return $statistic;
     }
 
