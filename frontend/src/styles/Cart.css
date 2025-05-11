@@ -63,6 +63,16 @@
     background-color: var(--light-gray);
 }
 
+.cart-controller .history-button,
+.cart-empty .history-button {
+    background-color: #17a2b8; 
+    color: #fff;
+}
+.cart-controller .history-button:hover,
+.cart-empty .history-button:hover {
+    background-color: #138496;
+}
+
 /* responsive */
 
 @media (max-width: 768px) {

@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer} from 'react'
+import {useEffect, useReducer} from 'react'
 
 import '../styles/Admin.css'
 import '../styles/Admin/AdminProduct.css'

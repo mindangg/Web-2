@@ -17,7 +17,7 @@ class StatisticController
 
     public function processRequest(string $method, ?string $param): void
     {
-//        AuthMiddleware::verifyToken();
+        AuthMiddleware::verifyToken();
 
         switch ($method) {
             case 'GET':

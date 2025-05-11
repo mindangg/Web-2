@@ -314,7 +314,6 @@ body{
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 80px 25px;
 }
 
 .slider{
