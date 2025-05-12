@@ -214,7 +214,8 @@ VALUES ('Người dùng'),
        ('Sản phẩm'),
        ('Kho hàng'),
        ('Đơn hàng'),
-       ('Thống kê');
+       ('Thống kê'),
+       ('Bảo hành');
 
 INSERT INTO role_function (role_id, function_id, action)
 VALUES (1, 1, 'Xem'),
@@ -241,6 +242,10 @@ VALUES (1, 1, 'Xem'),
        (1, 6, 'Thêm'),
        (1, 6, 'Sửa'),
        (1, 6, 'Xóa'),
+       (1,7,'Xem'),
+       (1,7,'Thêm'),
+       (1,7,'Sửa'),
+       (1,7,'Xóa'),
 
        (2, 1, 'Xem'),
        (2, 1, 'Thêm'),
@@ -250,6 +255,10 @@ VALUES (1, 1, 'Xem'),
        (2, 2, 'Thêm'),
        (2, 2, 'Sửa'),
        (2, 2, 'Xóa'),
+       (2,7,'Xem'),
+       (2,7,'Thêm'),
+       (2,7,'Sửa'),
+       (2,7,'Xóa'),
 
        (3, 3, 'Xem'),
        (3, 3, 'Thêm'),

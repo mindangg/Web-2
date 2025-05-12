@@ -120,7 +120,7 @@ CREATE TABLE receipt
     created_at          DATETIME                                                 DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
     status              ENUM ('pending','confirmed', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
-    payment_method ENUM('direct_payment', 'transfer_payment') DEFAULT 'direct_payment'
+    payment_method ENUM('direct_payment', 'transfer_payment') DEFAULT 'direct_payment',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -221,40 +221,42 @@ CREATE TABLE imei
     receipt_detail_id INT,
     date              DATETIME DEFAULT CURRENT_TIMESTAMP,
     expired_date      DATE,
-    status            BOOLEAN,
+    status            ENUM('Hoạt động', 'Đang bảo hành', 'Hết hạn') NOT NULL DEFAULT 'Hoạt động',
     FOREIGN KEY (receipt_detail_id) REFERENCES receipt_detail (detail_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
+DELIMITER $$
+
 CREATE TRIGGER trg_after_insert_sku
-    AFTER INSERT
-    ON sku
-    FOR EACH ROW
+AFTER INSERT
+ON sku
+FOR EACH ROW
 BEGIN
     UPDATE product
     SET base_price = (SELECT MIN(invoice_price)
                       FROM sku
                       WHERE product_id = NEW.product_id)
     WHERE product_id = NEW.product_id;
-END;
+END$$
 
 CREATE TRIGGER trg_after_update_sku
-    AFTER UPDATE
-    ON sku
-    FOR EACH ROW
+AFTER UPDATE
+ON sku
+FOR EACH ROW
 BEGIN
     UPDATE product
     SET base_price = (SELECT MIN(invoice_price)
                       FROM sku
                       WHERE product_id = NEW.product_id)
     WHERE product_id = NEW.product_id;
-END;
+END$$
 
 CREATE TRIGGER trg_after_delete_sku
-    AFTER DELETE
-    ON sku
-    FOR EACH ROW
+AFTER DELETE
+ON sku
+FOR EACH ROW
 BEGIN
     UPDATE product
     SET base_price = IFNULL(
@@ -263,4 +265,6 @@ BEGIN
              WHERE product_id = OLD.product_id),
             0)
     WHERE product_id = OLD.product_id;
-END;
+END$$
+
+DELIMITER ;
