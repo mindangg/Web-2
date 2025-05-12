@@ -19,6 +19,7 @@ import CardDetails from "./pages/ProductDetail.jsx";
 
 import Notification from './components/Notification.jsx'
 import {useAuthContext} from './hooks/useAuthContext.jsx'
+import AdminWarranty from './pages/AdminWarranty.jsx'
 
 const Layout = () => {
     const hideLayout = useLocation().pathname === '/admin'
@@ -40,6 +41,7 @@ const Layout = () => {
           <Route path='/payment' element={<Payment/>}/>
           <Route path='/checkout' element={<Checkout/>}/>
           <Route path='/orderhistory' element={<OrderHistory/>}/>
+          <Route path='/warranty' element={<AdminWarranty/>}/>
         </Routes>
       </div>
       <Notification/>

@@ -8,6 +8,7 @@ import AdminProduct from '../pages/AdminProduct'
 import AdminOrder from '../pages/AdminOrder'
 import AdminUser from '../pages/AdminUser'
 import AdminEmployee from '../pages/AdminEmployee'
+import AdminWarranty from './AdminWarranty.jsx'
 import AdminOrderStatistic from '../pages/AdminOrderStatistic'
 import AdminUserStatistic from '../pages/AdminUserStatistic'
 
@@ -75,6 +76,11 @@ export default function Admin() {
                             <i className='fa-solid fa-basket-shopping'></i> Đơn hàng
                         </li>
                     )}
+                    {hasAccess("Bảo hành") && (
+                        <li className={toggle === 'warranty' ? 'active' : ''} onClick={() => setToggle('warranty')}>
+                            <i className='fa-solid fa-shield-halved'></i> Bảo hành
+                        </li>
+                    )}
                     {hasAccess("Thống kê") && (
                         <li className={toggle === 'order-statistic' ? 'active' : ''} onClick={() => setToggle('order-statistic')}>
                             <i className='fa-solid fa-chart-simple'></i> Thống kê
@@ -102,7 +108,10 @@ export default function Admin() {
                 {toggle === 'employee' && hasAccess("Nhân viên") && <AdminEmployee />}
                 {/* {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminOrderStatistic />} */}
                 {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminStatistic />}
-                {toggle === 'supplier' && hasAccess("Kho hàng") && <AdminImport />}
+                {toggle === 'warranty' && hasAccess("Bảo hành") && <AdminWarranty />}
+                {toggle === 'supplier' && hasAccess("Kho hàng") && (
+                    <div style={{ padding: '2rem' }}>Chức năng kho hàng chưa được triển khai.</div>
+                )}
             </div>
         </div>
     ) : (
