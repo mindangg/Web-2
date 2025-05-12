@@ -14,7 +14,7 @@ import '../styles/Header.css'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../hooks/useLogout'
 import { useNotificationContext } from '../hooks/useNotificationContext'
-import {API_URL} from "../utils/Constant.jsx";
+import {API_URL} from '../utils/Constant.jsx';
 
 export default function Header() {
     const { user } = useAuthContext()
@@ -87,25 +87,25 @@ export default function Header() {
                 <Link to={'/'}>
                     <img src={logo} alt='logo'></img>
                 </Link>
-                <div className="position-relative search">
+                <div className='position-relative search'>
                     <button onClick={() => setShowFilter(!showFilter)}>
-                        <i className="fa-solid fa-filter"></i>
+                        <i className='fa-solid fa-filter'></i>
                     </button>
                     <input
                         className={'search-field'}
-                        placeholder="Nhập thứ cần tìm..."
+                        placeholder='Nhập thứ cần tìm...'
                         value={searchQuery}
                         onChange={(e) => handleSearchChange(e)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit(e)}
                     />
-                    <button type="submit" onClick={handleSearchSubmit}>
-                        <i className="fas fa-search"></i>
+                    <button type='submit' onClick={handleSearchSubmit}>
+                        <i className='fas fa-search'></i>
                     </button>
 
                     {showFilter && (
                         <div
                             // ref={filterRef}
-                            className="bg-light border rounded p-3 shadow-sm"
+                            className='bg-light border rounded p-3 shadow-sm'
                             style={{
                                 position: 'absolute',
                                 top: '80%',
@@ -113,10 +113,10 @@ export default function Header() {
                                 zIndex: 1000
                             }}
                         >
-                            <Form.Group className="mb-3">
+                            <Form.Group className='mb-3'>
                                 <Form.Label>Hãng</Form.Label>
                                 <Form.Select value={brand} onChange={(e) => setBrand(e.target.value)}>
-                                    <option value="">---</option>
+                                    <option value=''>---</option>
                                     {brands.map((brand, index) => (
                                         <option key={index} value={brand.id}>
                                             {brand.brand_name}
@@ -130,9 +130,9 @@ export default function Header() {
                                 <Col>
                                     <input
                                         className={'header-price-input'}
-                                        type="text"
-                                        placeholder="Từ"
-                                        value={priceFrom ? priceFrom.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
+                                        type='text'
+                                        placeholder='Từ'
+                                        value={priceFrom ? priceFrom.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : ''}
                                         onChange={(e) => {
                                             const rawValue = e.target.value.replace(/\./g, '');
                                             if (!isNaN(Number(rawValue))) {
@@ -144,9 +144,9 @@ export default function Header() {
                                 <Col>
                                     <input
                                         className={'header-price-input'}
-                                        type="text"
-                                        placeholder="Đến"
-                                        value={priceTo ? priceTo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ""}
+                                        type='text'
+                                        placeholder='Đến'
+                                        value={priceTo ? priceTo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : ''}
                                         onChange={(e) => {
                                             const rawValue = e.target.value.replace(/\./g, '');
                                             if (!isNaN(Number(rawValue))) {
@@ -161,13 +161,32 @@ export default function Header() {
                 </div>
 
                 <div className='action'>
-                    <i className="fa-solid fa-user"></i>
-                    {!user ? <Link to='/login'>Đăng nhập</Link> : <Link onClick={logout}>Đăng xuất</Link>}
-                    <i className="fa-solid fa-basket-shopping"></i>
+                    <i className='fa-solid fa-user'></i>
+                    {!user 
+                    ? <Link to='/login'>Đăng nhập</Link> 
+                    : (
+                        <div className='user-dropdown'>
+                            <Link className='dropdown-toggle'>
+                            {user.user && user.user.username}
+                            </Link>
+                            
+                            <div className='dropdown-menu'>
+                                <Link onClick={logout} id='logout-btn'>Đăng xuất</Link>
+                            </div>
+                        </div>
+                    )}
+
                     {user ? (
-                    <Link to="/cart">Giỏ hàng</Link>
+                    <>
+                        <i onClick={() => navigate('/cart')} className='fa-solid fa-basket-shopping'></i>
+                        <Link to='/cart'>Giỏ hàng</Link>
+                    </>
+
                     ) : (
-                    <Link onClick={() => showNotification('Vui lòng đăng nhập để xem giỏ hàng')}>Giỏ hàng</Link>
+                    <>
+                        <i onClick={() => showNotification('Vui lòng đăng nhập để xem giỏ hàng')} className='fa-solid fa-basket-shopping'></i>
+                        <Link onClick={() => showNotification('Vui lòng đăng nhập để xem giỏ hàng')}>Giỏ hàng</Link>
+                    </>
                     )}
                 </div>
             </div>
