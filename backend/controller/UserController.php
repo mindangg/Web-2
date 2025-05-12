@@ -77,6 +77,8 @@ class UserController
     {
         foreach ($fields as $field) {
             if (empty($data[$field])) {
+                if ($field == "password")
+                    return "Vui lòng điền vô mật khẩu";
                 return "Vui lòng điền vô $field";
             }
         }
@@ -87,6 +89,7 @@ class UserController
     {
         $data = json_decode(file_get_contents("php://input"), true);
 
+        print_r($data);
         // Validate input
         $validationError = $this->validateRequiredFields($data, ["username", "password"]);
         if ($validationError)

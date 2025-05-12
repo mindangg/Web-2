@@ -68,7 +68,7 @@ class UserService
 
         // Check password strength
         if (!$this->isStrongPassword($password)) {
-            $this->respond(400, ["message" => "Mật khẩu phải dài ít nhất 6 ký tự, bao gồm một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt"]);
+            $this->respond(400, ["message" => "Mật khẩu dài ít nhất 6 ký tự, gồm một chữ viết hoa, một số và một ký tự"]);
         }
 
         $userId = $this->userRepository->signupUser($username, $email, $password);
@@ -110,22 +110,6 @@ class UserService
             $this->respond(400, ["message" => "Định dạng số điện thoại không hợp lệ"]);
         }
 
-        // Validate address fields
-        // $fields = ['house_number', 'street', 'ward', 'district', 'city'];
-        // $patterns = [
-        //     'house_number' => '/^[\w\s\-\/]+$/',
-        //     'street'       => '/^[a-zA-Z\s\-\.]+$/u',
-        //     'ward'         => '/^[a-zA-Z\s\-\.]+$/u',
-        //     'district'     => '/^[a-zA-Z\s\-\.]+$/u',
-        //     'city'         => '/^[a-zA-Z\s\-\.]+$/u'
-        // ];
-
-        // foreach ($fields as $field) {
-        //     if (empty($data[$field]) || !preg_match($patterns[$field], $data[$field])) {
-        //         $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
-        //     }
-        // }
-
         // Check if username or email or phone_number exists
         if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
             $this->respond(400, ["message" => "Username đã tồn tại"]);
@@ -141,8 +125,7 @@ class UserService
 
         // Check password strength
         if (!$this->isStrongPassword($data['password'])) {
-            $this->respond(400, ["message" => "Mật khẩu phải dài ít nhất 6 ký tự,
-                                    bao gồm một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt"]);
+            $this->respond(400, ["message" => "Mật khẩu dài ít nhất 6 ký tự, gồm một chữ viết hoa, một số và một ký tự"]);
         }
 
         $createdUser = $this->userRepository->createUser($data);
@@ -208,22 +191,6 @@ class UserService
         if (isset($data['phone_number']) && !preg_match('/^\d{10}$/', $data['phone_number'])) {
             $this->respond(400, ["message" => "Định dạng số điện thoại không hợp lệ"]);
         }
-
-        // Validate address fields
-        // $fields = ['house_number', 'street', 'ward', 'district', 'city'];
-        // $patterns = [
-        //     'house_number' => '/^[\w\s\-\/]+$/',
-        //     'street'       => '/^[a-zA-Z\s\-\.]+$/u',
-        //     'ward'         => '/^[a-zA-Z\s\-\.]+$/u',
-        //     'district'     => '/^[a-zA-Z\s\-\.]+$/u',
-        //     'city'         => '/^[a-zA-Z\s\-\.]+$/u'
-        // ];
-
-        // foreach ($fields as $field) {
-        //     if (isset($data[$field]) && (empty($data[$field]) || !preg_match($patterns[$field], $data[$field]))) {
-        //         $this->respond(400, ["message" => ucfirst(str_replace('_', ' ', $field)) . " is invalid"]);
-        //     }
-        // }
 
         // Check if username or email or phone_number exists
         if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {

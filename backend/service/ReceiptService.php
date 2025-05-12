@@ -72,7 +72,7 @@ class ReceiptService {
                         'receipt_detail_id' => $detailId,
                         'date' => date('Y-m-d'),
                         'expired_date' => date('Y-m-d', strtotime("+$warrantyPeriod months")),
-                        'status' => true
+                        'status' => 'Hoạt động' // Sử dụng giá trị ENUM thay vì boolean
                     ];
                     $this->receiptRepository->createImei($imeiData);
                 }
