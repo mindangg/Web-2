@@ -259,7 +259,7 @@ header img{
         width: 15%;
     }
 
-    #header-cart{
+    .header-cart{
         display: none;
     }
 

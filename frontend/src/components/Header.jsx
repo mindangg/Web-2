@@ -184,13 +184,13 @@ export default function Header() {
                     {user ? (
                     <>
                         <i onClick={() => navigate('/cart')} className='fa-solid fa-basket-shopping'></i>
-                        <Link id='header-cart' to='/cart'>Giỏ hàng</Link>
+                        <Link className='header-cart' to='/cart'>Giỏ hàng</Link>
                     </>
 
                     ) : (
                     <>
                         <i onClick={() => showNotification('Vui lòng đăng nhập để xem giỏ hàng')} className='fa-solid fa-basket-shopping'></i>
-                        <Link onClick={() => showNotification('Vui lòng đăng nhập để xem giỏ hàng')}>Giỏ hàng</Link>
+                        <Link className='header-cart' onClick={() => showNotification('Vui lòng đăng nhập để xem giỏ hàng')}>Giỏ hàng</Link>
                     </>
                     )}
                 </div>

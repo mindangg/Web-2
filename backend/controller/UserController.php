@@ -77,6 +77,8 @@ class UserController
     {
         foreach ($fields as $field) {
             if (empty($data[$field])) {
+                if ($field == "password")
+                    return "Vui lòng điền vô mật khẩu";
                 return "Vui lòng điền vô $field";
             }
         }
