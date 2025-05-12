@@ -66,11 +66,13 @@ header img{
     text-decoration: none;
     font-size: 18px;
     margin-right: 25px;
+    cursor: pointer;
 }
 
 .action i{
     font-size: 20px;
     margin-right: 7px;
+    cursor: pointer;
 }
 
 .user-dropdown {
@@ -93,7 +95,7 @@ header img{
     background-color: var(--gray);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     padding: 5px;
-    z-index: 10;
+    z-index: 100;
 }
 
 .user-dropdown:hover .dropdown-menu {
@@ -218,9 +220,17 @@ header img{
     }
 }
 
-@media (max-width: 775px) {
+@media (max-width: 777px) {
     .action {
         margin-right: 0px;
+    }
+
+    .action a {
+        margin-right: 8px;
+    }
+
+    .action i{
+        margin-right: 3px;
     }
 
     header img{
@@ -231,9 +241,40 @@ header img{
     }
 }
 
-@media (max-width: 750px) {
-    .action a {
+@media (max-width: 752px) { 
+    .search .search-field{
+        width: 70%;
+        height: 42px;
+        padding: 10px 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 0 5px;
+        background-color: #f8f4f4;
+    }
+
+    .search button{
+        margin: 0;
+        display: flex;
+        height: 42px;
+        width: 15%;
+    }
+
+    #header-cart{
         display: none;
+    }
+
+    .action a {
+        margin-right: 5px;
+    }
+
+    .action i{
+        margin-right: 1px;
+    }
+    .search{
+        display: flex;
+        align-items: center;
+        width: 52%;
+        max-width: 500px;
     }
 }
 

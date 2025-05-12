@@ -161,11 +161,16 @@ export default function Header() {
                 </div>
 
                 <div className='action'>
-                    <i className='fa-solid fa-user'></i>
                     {!user 
-                    ? <Link to='/login'>Đăng nhập</Link> 
+                    ? (
+                        <>
+                            <i className='fa-solid fa-user'></i>
+                            <Link to='/login'>Đăng nhập</Link> 
+                        </>
+                    )
                     : (
                         <div className='user-dropdown'>
+                            <i className='fa-solid fa-user'></i>
                             <Link className='dropdown-toggle'>
                             {user.user && user.user.username}
                             </Link>
@@ -179,7 +184,7 @@ export default function Header() {
                     {user ? (
                     <>
                         <i onClick={() => navigate('/cart')} className='fa-solid fa-basket-shopping'></i>
-                        <Link to='/cart'>Giỏ hàng</Link>
+                        <Link id='header-cart' to='/cart'>Giỏ hàng</Link>
                     </>
 
                     ) : (

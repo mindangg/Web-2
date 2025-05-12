@@ -271,9 +271,6 @@
 }
 
 
-
-
-
 .order-container{
     width: 100%;
     display: flex;
@@ -293,7 +290,7 @@
     height: 40px;
     width: 12%;
     cursor: pointer;
-    margin-right: 25px;
+    margin-right: 20px;
 }
 
 .order-controller input{
@@ -303,20 +300,21 @@
     height: 36px;
     color: black;
     margin-right: 25px;
-    width: 420px;
+    width: 100%;
     padding: 0 10px 0 40px;
     font-size: 16px;
     flex-grow: 1;
 }
 
 .order-controller input[type='date']{
-    width: 15%;
+    width: 12%;
     padding: 0 10px;
     color: var(--gray);
 }
 
 .order-search{
     position: relative;
+    width: 40%;
 }
 
 .order-search i{
@@ -340,7 +338,7 @@
     font-weight: bold;
 }
 
-.user-icon{
+.order-icon{
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -1260,6 +1258,38 @@ canvas {
         padding: 20px 15px;
         left: 0;
         width: 100%;
+    }
+
+        .order-controller {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .order-controller select,
+    .order-controller input[type='date'] {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .order-controller input {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .order-search {
+        width: 100%;
+    }
+
+    .order-icon {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .order-icon button {
+        width: 100%;
+        justify-content: center;
     }
 
     .user-controller {
