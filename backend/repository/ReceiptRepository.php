@@ -11,7 +11,7 @@ class ReceiptRepository{
         $this->pdo = (new Database())->getConnection();
     }
 
-    public function createImei(array $data): void{
+    public function createImei(array $data): void {
         $sql = "INSERT INTO imei (receipt_detail_id, date, expired_date, status) 
                 VALUES (:receipt_detail_id, :date, :expired_date, :status)";
         $stmt = $this->pdo->prepare($sql);
@@ -19,7 +19,7 @@ class ReceiptRepository{
             'receipt_detail_id' => $data['receipt_detail_id'],
             'date' => $data['date'],
             'expired_date' => $data['expired_date'],
-            'status' => $data['status']
+            'status' => $data['status'] ?? 'Hoạt động' // Sử dụng giá trị ENUM mặc định
         ]);
     }
     public function deleteImeiByReceiptDetailId(int $receiptDetailId): void {
