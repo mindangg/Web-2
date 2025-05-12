@@ -297,6 +297,95 @@ VALUES ('Trần Minh Đăng', 'employee1', 'employee1@gmail.com', '0900000001', 
        ('Vương Bảo Khánh', 'employee16', 'employee16@gmail.com', '0900000016', NULL);
 
 
+-- Insert 20 receipts
+INSERT INTO receipt (account_id, user_information_id, created_at, total_price, status, payment_method)
+VALUES
+(1, 1, '2024-06-15 10:30:00', 34500000, 'delivered', 'direct_payment'),
+(2, 2, '2024-07-01 14:20:00', 64400000, 'confirmed', 'transfer_payment'),
+(3, 3, '2024-08-10 09:15:00', 36800000, 'on_deliver', 'direct_payment'),
+(4, 4, '2024-09-05 16:45:00', 29900000, 'pending', 'transfer_payment'),
+(5, 5, '2024-10-20 11:00:00', 66700000, 'delivered', 'direct_payment'),
+(6, 6, '2024-11-12 13:30:00', 32200000, 'cancelled', 'transfer_payment'),
+(7, 7, '2024-12-01 15:10:00', 35650000, 'confirmed', 'direct_payment'),
+(8, 8, '2025-01-15 08:50:00', 62100000, 'delivered', 'transfer_payment'),
+(9, 9, '2025-02-03 12:25:00', 32990000, 'on_deliver', 'direct_payment'),
+(10, 10, '2025-02-20 17:00:00', 69000000, 'pending', 'transfer_payment'),
+(11, 11, '2025-03-01 09:40:00', 31050000, 'delivered', 'direct_payment'),
+(12, 12, '2025-03-15 14:15:00', 36800000, 'confirmed', 'transfer_payment'),
+(13, 13, '2025-04-02 11:20:00', 65980000, 'on_deliver', 'direct_payment'),
+(14, 14, '2025-04-10 16:30:00', 32200000, 'cancelled', 'transfer_payment'),
+(15, 15, '2025-04-25 10:00:00', 34500000, 'delivered', 'direct_payment'),
+(1, 1, '2025-05-01 12:45:00', 33350000, 'pending', 'direct_payment'),
+(2, 2, '2025-05-05 15:20:00', 36800000, 'confirmed', 'transfer_payment'),
+(3, 3, '2025-05-08 09:30:00', 64400000, 'delivered', 'direct_payment'),
+(4, 4, '2025-05-10 11:50:00', 32990000, 'on_deliver', 'transfer_payment'),
+(5, 5, '2025-05-12 14:00:00', 69000000, 'pending', 'direct_payment');
+
+-- Insert receipt details (25 details, all receipt_id from 1 to 20)
+INSERT INTO receipt_detail (receipt_id, sku_id, quantity, price)
+VALUES
+(1, 1, 1, 34500000), -- iPhone 14 Pro Max 4GB/128GB Black
+(2, 7, 2, 32200000), -- Samsung Galaxy S23 Ultra 8GB/512GB Black
+(3, 3, 1, 36800000), -- iPhone 14 Pro Max 8GB/512GB Purple
+(4, 4, 1, 29900000), -- iPhone 13 Pro 6GB/256GB White
+(5, 10, 1, 34500000), -- iPhone 14 Pro Max 4GB/128GB White
+(5, 11, 1, 32200000), -- iPhone 14 Pro Max 8GB/512GB White
+(6, 7, 1, 32200000), -- Samsung Galaxy S23 Ultra 8GB/512GB Black
+(7, 2, 1, 35650000), -- iPhone 14 Pro Max 6GB/256GB White
+(8, 4, 1, 29900000), -- iPhone 13 Pro 6GB/256GB White
+(8, 7, 1, 32200000), -- Samsung Galaxy S23 Ultra 8GB/512GB Black
+(9, 12, 1, 32990000), -- Xiaomi 15 Ultra 16GB/512GB Black
+(10, 1, 2, 34500000), -- iPhone 14 Pro Max 4GB/128GB Black
+(11, 5, 1, 31050000), -- iPhone 13 Pro 8GB/512GB Blue
+(12, 11, 1, 36800000), -- iPhone 14 Pro Max 8GB/512GB White
+(13, 12, 2, 32990000), -- Xiaomi 15 Ultra 16GB/512GB Black
+(14, 7, 1, 32200000), -- Samsung Galaxy S23 Ultra 8GB/512GB Black
+(15, 1, 1, 34500000), -- iPhone 14 Pro Max 4GB/128GB Black
+(16, 8, 1, 33350000), -- Samsung Galaxy S23 Ultra 12GB/1TB White
+(17, 3, 1, 36800000), -- iPhone 14 Pro Max 8GB/512GB Purple
+(18, 7, 2, 32200000), -- Samsung Galaxy S23 Ultra 8GB/512GB Black
+(19, 14, 1, 32990000), -- Xiaomi 15 Ultra 16GB/512GB Silver
+(20, 1, 1, 34500000), -- iPhone 14 Pro Max 4GB/128GB Black
+(20, 10, 1, 34500000), -- iPhone 14 Pro Max 4GB/128GB White
+(18, 12, 1, 32990000), -- Xiaomi 15 Ultra 16GB/512GB Black
+(19, 15, 1, 33990000); -- Xiaomi 15 Ultra 16GB/1TB Silver
+
+-- Insert IMEI records (30 IMEIs, one per unit sold)
+INSERT INTO imei (receipt_detail_id, date, expired_date, status)
+VALUES
+(1, '2024-06-15 10:30:00', '2025-06-15', 'Hoạt động'),
+(2, '2024-07-01 14:20:00', '2025-07-01', 'Hoạt động'),
+(2, '2024-07-01 14:20:00', '2025-07-01', 'Hoạt động'),
+(3, '2024-08-10 09:15:00', '2025-08-10', 'Hoạt động'),
+(4, '2024-09-05 16:45:00', '2025-09-05', 'Hoạt động'),
+(5, '2024-10-20 11:00:00', '2025-10-20', 'Hoạt động'),
+(6, '2024-10-20 11:00:00', '2025-10-20', 'Hoạt động'),
+(7, '2024-11-12 13:30:00', '2025-11-12', 'Hoạt động'),
+(8, '2024-12-01 15:10:00', '2025-12-01', 'Hoạt động'),
+(9, '2025-01-15 08:50:00', '2026-01-15', 'Hoạt động'),
+(10, '2025-01-15 08:50:00', '2026-01-15', 'Hoạt động'),
+(11, '2025-02-03 12:25:00', '2026-02-03', 'Hoạt động'),
+(12, '2025-02-20 17:00:00', '2026-02-20', 'Hoạt động'),
+(12, '2025-02-20 17:00:00', '2026-02-20', 'Hoạt động'),
+(13, '2025-03-01 09:40:00', '2026-03-01', 'Hoạt động'),
+(14, '2025-03-15 14:15:00', '2026-03-15', 'Hoạt động'),
+(15, '2025-04-02 11:20:00', '2026-04-02', 'Hoạt động'),
+(15, '2025-04-02 11:20:00', '2026-04-02', 'Hoạt động'),
+(16, '2025-04-10 16:30:00', '2026-04-10', 'Hoạt động'),
+(17, '2025-04-25 10:00:00', '2026-04-25', 'Hoạt động'),
+(18, '2025-05-01 12:45:00', '2026-05-01', 'Hoạt động'),
+(19, '2025-05-05 15:20:00', '2026-05-05', 'Hoạt động'),
+(20, '2025-05-08 09:30:00', '2026-05-08', 'Hoạt động'),
+(20, '2025-05-08 09:30:00', '2026-05-08', 'Hoạt động'),
+(21, '2025-05-10 11:50:00', '2026-05-10', 'Hoạt động'),
+(22, '2025-05-12 14:00:00', '2026-05-12', 'Hoạt động'),
+(23, '2025-05-12 14:00:00', '2026-05-12', 'Hoạt động'),
+(24, '2025-05-08 09:30:00', '2026-05-08', 'Hoạt động'),
+(25, '2025-05-10 11:50:00', '2026-05-10', 'Hoạt động'),
+(25, '2025-05-10 11:50:00', '2026-05-10', 'Hoạt động');
+
+
+
 
 
 

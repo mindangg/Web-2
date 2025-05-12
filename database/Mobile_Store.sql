@@ -120,7 +120,7 @@ CREATE TABLE receipt
     user_information_id INT,
     created_at          DATETIME                                                             DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
-    status              ENUM ('pending','confirmed', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
+    status              ENUM ('pending','confirmed', 'cancelled', 'on_deliver', 'delivered') DEFAULT 'pending',
     payment_method ENUM('direct_payment', 'transfer_payment') DEFAULT 'direct_payment',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE

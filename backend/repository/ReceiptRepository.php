@@ -76,43 +76,70 @@ class ReceiptRepository{
     }
 
     public function getFilteredReceipts(array $filters): array {
-        $sql = "SELECT r.receipt_id, r.created_at, r.total_price, r.status, r.payment_method, r.user_information_id
-                FROM receipt r
-                JOIN user_information ui ON r.user_information_id = ui.user_information_id
-                WHERE 1=1";
-        $params = [];
+    $limit = isset($filters['limit']) ? (int)$filters['limit'] : 10;
+    $page = isset($filters['page']) ? (int)$filters['page'] : 1;
+    $offset = ($page - 1) * $limit;
 
-        if ($filters['account_id'] && is_numeric($filters['account_id'])) {
-            $sql .= " AND r.account_id = :account_id";
-            $params['account_id'] = (int)$filters['account_id'];
-        }
+    $sql = "SELECT r.receipt_id, r.created_at, r.total_price, r.status, r.payment_method, r.user_information_id
+            FROM receipt r
+            JOIN user_information ui ON r.user_information_id = ui.user_information_id
+            WHERE 1=1";
+    $params = [];
 
-        if ($filters['start_date']) {
-            $sql .= " AND r.created_at >= :start_date";
-            $params['start_date'] = $filters['start_date'];
-        }
-
-        if ($filters['end_date']) {
-            $sql .= " AND r.created_at <= :end_date";
-            $params['end_date'] = $filters['end_date'];
-        }
-
-        if ($filters['district']) {
-            $sql .= " AND ui.district LIKE :district";
-            $params['district'] = '%' . $filters['district'] . '%';
-        }
-
-        if ($filters['status']) {
-            $sql .= " AND r.status = :status";
-            $params['status'] = $filters['status'];
-        }
-
-        $sql .= " ORDER BY r.created_at DESC";
-
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($filters['account_id'] && is_numeric($filters['account_id'])) {
+        $sql .= " AND r.account_id = :account_id";
+        $params['account_id'] = (int)$filters['account_id'];
     }
+
+    if ($filters['start_date']) {
+        $sql .= " AND r.created_at >= :start_date";
+        $params['start_date'] = $filters['start_date'];
+    }
+
+    if ($filters['end_date']) {
+        $sql .= " AND r.created_at <= :end_date";
+        $params['end_date'] = $filters['end_date'];
+    }
+
+    if ($filters['district']) {
+        $sql .= " AND ui.district LIKE :district";
+        $params['district'] = '%' . $filters['district'] . '%';
+    }
+
+    if ($filters['city']) {
+        $sql .= " AND ui.city LIKE :city";
+        $params['city'] = '%' . $filters['city'] . '%';
+    }
+
+    if ($filters['status']) {
+        $sql .= " AND r.status = :status";
+        $params['status'] = $filters['status'];
+    }
+
+    // Đếm tổng số bản ghi
+    $countSql = "SELECT COUNT(*) as total FROM receipt r JOIN user_information ui ON r.user_information_id = ui.user_information_id WHERE 1=1";
+    $countParams = $params;
+    foreach ($params as $key => $value) {
+        $countSql .= " AND " . str_replace(':', '', $key) . " = :$key";
+    }
+    $countStmt = $this->pdo->prepare($countSql);
+    $countStmt->execute($countParams);
+    $totalRecords = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
+    $totalPage = ceil($totalRecords / $limit);
+
+    // Thêm LIMIT và OFFSET trực tiếp vào câu SQL
+    $sql .= " ORDER BY r.created_at DESC LIMIT $limit OFFSET $offset";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($params);
+    $receipts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return [
+        'receipts' => $receipts,
+        'currentPage' => $page,
+        'totalPage' => $totalPage
+    ];
+}
 
     public function getReceiptById(int $receiptId): ?array {
         $sql = "SELECT receipt_id, created_at, total_price, status, payment_method, user_information_id
