@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 use controller\BrandController;
 use controller\ColorController;
+use controller\EmployeeController;
+use controller\ImportController;
 use controller\InternalOptionController;
 use controller\ProductController;
 use controller\ProviderController;
-use controller\SkuController;
-use controller\UserController;
-use controller\EmployeeController;
-use controller\OrderController;
-use controller\RoleController;
 use controller\ReceiptController;
+use controller\RoleController;
+use controller\SkuController;
 use controller\StatisticController;
+use controller\UserController;
 use controller\WarrantyController;
 use exception\ExceptionHandler;
 
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 $request = parse_url(trim($_SERVER["REQUEST_URI"]), PHP_URL_PATH);
 $request = explode("/", $request);
 
-switch ($request[2]){
+switch ($request[2]) {
     case 'product':
         $productController = new ProductController();
         $productController->processRequest($_SERVER['REQUEST_METHOD'], isset($request[3]) ? (int)$request[3] : null);
@@ -66,11 +66,11 @@ switch ($request[2]){
         $brandController = new BrandController();
         $brandController->processRequest($_SERVER['REQUEST_METHOD']);
         break;
-        
+
     case 'user':
         $userController = new UserController();
         $userController->processRequest(
-            $_SERVER['REQUEST_METHOD'], 
+            $_SERVER['REQUEST_METHOD'],
             $request[3] ?? null,
             //address
             $request[4] ?? null);
@@ -79,7 +79,7 @@ switch ($request[2]){
     case 'employee':
         $employeeController = new EmployeeController();
         $employeeController->processRequest(
-            $_SERVER['REQUEST_METHOD'], 
+            $_SERVER['REQUEST_METHOD'],
             $request[3] ?? null);
         break;
 
@@ -122,14 +122,33 @@ switch ($request[2]){
     case 'statistic':
         $statisticController = new StatisticController();
         $statisticController->processRequest(
-            $_SERVER['REQUEST_METHOD'], 
+            $_SERVER['REQUEST_METHOD'],
             $request[3] ?? null);
         break;
+
     case 'warranty':
         $warrantyController = new WarrantyController();
         $warrantyController->processRequest(
             $_SERVER['REQUEST_METHOD'],
             isset($request[3]) ? (int)$request[3] : null
+        );
+        break;
+
+    case 'import':;
+        $importController = new ImportController();
+        if(count($request) === 4){
+            $param = [
+                'subroute' => null,
+                'id' => isset($request[3]) ? (int)$request[3] : null
+            ];
+        } else {
+            $param = [
+                'subroute' => $request[3] ?? null,
+                'id' => isset($request[4]) ? (int)$request[4] : null
+            ];
+        }
+        $importController->processRequest(
+            $_SERVER['REQUEST_METHOD'], $param
         );
         break;
 

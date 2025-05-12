@@ -68,14 +68,6 @@ class ProductService
             $originalName = $_FILES['image']['name'];
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
-            $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
-            if (!in_array($fileExtension, $allowedExtensions)) {
-                echo json_encode([
-                    'message' => 'Chỉ cho phép file ảnh png, jpg, jpeg, gif',
-                ]);
-                exit;
-            }
-
             $newFileName = Helper::GenerateImageFileName($data->name, $fileExtension);
             $destination = $uploadDir . $newFileName;
 
@@ -120,14 +112,6 @@ class ProductService
             $fileTmpPath = $_FILES['image']['tmp_name'];
             $originalName = $_FILES['image']['name'];
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
-
-            $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
-            if (!in_array($fileExtension, $allowedExtensions)) {
-                echo json_encode([
-                    'message' => 'Chỉ cho phép file ảnh png, jpg, jpeg, gif',
-                ]);
-                exit;
-            }
 
             $oldFileName = $product['image'];
             $newFileName = Helper::GenerateImageFileName($data->name, $fileExtension);

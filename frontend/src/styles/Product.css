@@ -9,4 +9,5 @@
     padding: 30px 20px 0 20px;
     background: linear-gradient(to right, var(--yellow), #ffd454, #ffc454, #ffa454);
     gap: 0;
+    justify-content: start;
 }

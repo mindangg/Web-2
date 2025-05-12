@@ -109,9 +109,7 @@ export default function Admin() {
                 {/* {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminOrderStatistic />} */}
                 {toggle === 'order-statistic' && hasAccess("Thống kê") && <AdminStatistic />}
                 {toggle === 'warranty' && hasAccess("Bảo hành") && <AdminWarranty />}
-                {toggle === 'supplier' && hasAccess("Kho hàng") && (
-                    <div style={{ padding: '2rem' }}>Chức năng kho hàng chưa được triển khai.</div>
-                )}
+                {toggle === 'supplier' && hasAccess("Kho hàng") && <AdminImport />}
             </div>
         </div>
     ) : (

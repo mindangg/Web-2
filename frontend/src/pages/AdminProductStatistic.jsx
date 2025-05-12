@@ -29,7 +29,7 @@ export const AdminProductStatistic = () => {
 
         const fetchData = async () => {
             try {
-                const url = `${API_URL}statistic/product?${searchParams.toString()}`
+                const url = `${API_URL}statistic/product?limit=7&${searchParams.toString()}`
                 const response = await fetch(url, {
                     signal: signal,
                     headers: {

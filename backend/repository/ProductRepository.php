@@ -17,11 +17,12 @@ class ProductRepository
 
     public function isExistedWithName(string $name): bool
     {
-        $sql = "SELECT COUNT(*) FROM product WHERE name = :name";
+        $sql = "SELECT COUNT(*) FROM product WHERE name LIKE :name";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':name', "%$name%");
         $stmt->execute();
-        return $stmt->rowCount() > 0;
+        $count = $stmt->fetchColumn();
+        return $count > 0;
     }
 
     public function findAll(?string $brand,

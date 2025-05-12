@@ -915,7 +915,7 @@
     <schema id="290" parent="1" name="mobile_store">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-05-11.17:47:54</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-05-12.17:16:38</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="291" parent="1" name="mysql">
@@ -1189,8 +1189,10 @@
       <StoredType>date|0s</StoredType>
     </column>
     <column id="349" parent="305" name="status">
+      <DefaultExpression>&apos;Hoạt động&apos;</DefaultExpression>
+      <NotNull>1</NotNull>
       <Position>5</Position>
-      <StoredType>tinyint(1)|0s</StoredType>
+      <StoredType>enum(&apos;Hoạt động&apos;, &apos;Đang bảo hành&apos;, &apos;Hết hạn&apos;)|0e</StoredType>
     </column>
     <foreign-key id="350" parent="305" name="imei_ibfk_1">
       <ColNames>receipt_detail_id</ColNames>
@@ -1762,135 +1764,141 @@ action</ColNames>
       <Events>I</Events>
       <SourceTextLength>203</SourceTextLength>
     </trigger>
-    <trigger id="467" parent="315" name="trg_after_update_sku">
+    <trigger id="467" parent="315" name="trg_update_sku_date">
+      <Definer>root@localhost</Definer>
+      <Events>U</Events>
+      <SourceTextLength>54</SourceTextLength>
+      <Turn>before-row</Turn>
+    </trigger>
+    <trigger id="468" parent="315" name="trg_after_update_sku">
       <Definer>root@localhost</Definer>
       <Events>U</Events>
       <SourceTextLength>203</SourceTextLength>
     </trigger>
-    <trigger id="468" parent="315" name="trg_after_delete_sku">
+    <trigger id="469" parent="315" name="trg_after_delete_sku">
       <Definer>root@localhost</Definer>
       <Events>D</Events>
       <SourceTextLength>221</SourceTextLength>
     </trigger>
-    <column id="469" parent="316" name="user_account_id">
+    <column id="470" parent="316" name="user_account_id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="470" parent="316" name="username">
+    <column id="471" parent="316" name="username">
       <Position>2</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="471" parent="316" name="password">
+    <column id="472" parent="316" name="password">
       <Position>3</Position>
       <StoredType>varchar(60)|0s</StoredType>
     </column>
-    <column id="472" parent="316" name="email">
+    <column id="473" parent="316" name="email">
       <Position>4</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="473" parent="316" name="status">
+    <column id="474" parent="316" name="status">
       <DefaultExpression>&apos;Hoạt động&apos;</DefaultExpression>
       <Position>5</Position>
       <StoredType>enum(&apos;Hoạt động&apos;, &apos;Bị khóa&apos;)|0e</StoredType>
     </column>
-    <column id="474" parent="316" name="is_delete">
+    <column id="475" parent="316" name="is_delete">
       <DefaultExpression>0</DefaultExpression>
       <Position>6</Position>
       <StoredType>tinyint(1)|0s</StoredType>
     </column>
-    <column id="475" parent="316" name="created_at">
+    <column id="476" parent="316" name="created_at">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>7</Position>
       <StoredType>datetime|0s</StoredType>
     </column>
-    <index id="476" parent="316" name="PRIMARY">
+    <index id="477" parent="316" name="PRIMARY">
       <ColNames>user_account_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="477" parent="316" name="username">
+    <index id="478" parent="316" name="username">
       <ColNames>username</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="478" parent="316" name="email">
+    <index id="479" parent="316" name="email">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="479" parent="316" name="PRIMARY">
+    <key id="480" parent="316" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="480" parent="316" name="username">
+    <key id="481" parent="316" name="username">
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>
-    <key id="481" parent="316" name="email">
+    <key id="482" parent="316" name="email">
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
-    <column id="482" parent="317" name="user_information_id">
+    <column id="483" parent="317" name="user_information_id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="483" parent="317" name="account_id">
+    <column id="484" parent="317" name="account_id">
       <Position>2</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="484" parent="317" name="full_name">
+    <column id="485" parent="317" name="full_name">
       <Position>3</Position>
       <StoredType>varchar(30)|0s</StoredType>
     </column>
-    <column id="485" parent="317" name="phone_number">
+    <column id="486" parent="317" name="phone_number">
       <Position>4</Position>
       <StoredType>varchar(10)|0s</StoredType>
     </column>
-    <column id="486" parent="317" name="house_number">
+    <column id="487" parent="317" name="house_number">
       <Position>5</Position>
       <StoredType>varchar(10)|0s</StoredType>
     </column>
-    <column id="487" parent="317" name="street">
+    <column id="488" parent="317" name="street">
       <Position>6</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="488" parent="317" name="ward">
+    <column id="489" parent="317" name="ward">
       <Position>7</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="489" parent="317" name="district">
+    <column id="490" parent="317" name="district">
       <Position>8</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="490" parent="317" name="city">
+    <column id="491" parent="317" name="city">
       <Position>9</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="491" parent="317" name="is_default">
+    <column id="492" parent="317" name="is_default">
       <DefaultExpression>0</DefaultExpression>
       <Position>10</Position>
       <StoredType>tinyint(1)|0s</StoredType>
     </column>
-    <foreign-key id="492" parent="317" name="user_information_ibfk_1">
+    <foreign-key id="493" parent="317" name="user_information_ibfk_1">
       <ColNames>account_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>user_account_id</RefColNames>
       <RefTableName>user_account</RefTableName>
     </foreign-key>
-    <index id="493" parent="317" name="PRIMARY">
+    <index id="494" parent="317" name="PRIMARY">
       <ColNames>user_information_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="494" parent="317" name="account_id">
+    <index id="495" parent="317" name="account_id">
       <ColNames>account_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="495" parent="317" name="PRIMARY">
+    <key id="496" parent="317" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

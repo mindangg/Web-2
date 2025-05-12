@@ -62,13 +62,6 @@ class SkuService
             $originalName = $_FILES['image']['name'];
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
-            $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
-            if (!in_array($fileExtension, $allowedExtensions)) {
-                return $response = [
-                    'message' => 'Chỉ cho phép file ảnh png, jpg, jpeg, gif',
-                ];
-            }
-
             $newFileName = Helper::GenerateImageFileName($data->sku_code, $fileExtension);
             $destination = $uploadDir . $newFileName;
 
@@ -132,13 +125,6 @@ class SkuService
             $fileTmpPath = $_FILES['image']['tmp_name'];
             $originalName = $_FILES['image']['name'];
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
-
-            $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
-            if (!in_array($fileExtension, $allowedExtensions)) {
-                return $response = [
-                    'message' => 'Chỉ cho phép file ảnh png, jpg, jpeg, gif',
-                ];
-            }
 
             $oldFileName = $sku['image'];
             $newFileName = Helper::GenerateImageFileName($data->sku_code, $fileExtension);

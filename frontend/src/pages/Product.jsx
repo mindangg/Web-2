@@ -45,7 +45,7 @@ export const Product = () => {
         <>
             {products.length === 0 ? (
                 <div className={'container product'}>
-                    <h1 className="text-center mt-4 mb-4">No products found</h1>
+                    <h1 className="text-center w-100 mt-4 mb-4">Không có sản phẩm nào</h1>
                 </div>
             ) : (
                 <>

@@ -173,6 +173,7 @@ export default function AdminProduct() {
     };
 
     const refreshList = () => {
+        setSearchParams({})
         dispatch({type: 'SET_TRIGGER_REFRESH', payload: !state.triggerRefresh});
     }
 
@@ -382,7 +383,7 @@ export default function AdminProduct() {
                         <Button
                             className={"btn-warning"}
                             onClick={() => {
-                                setSearchParams({})
+                                refreshList()
                             }}
                             style={{height: '37px'}}
                         >

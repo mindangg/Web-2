@@ -1626,7 +1626,7 @@ canvas {
     display: flex;
     gap: 5px;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
 }
 
 .warranty-icon button:hover{
@@ -1666,7 +1666,7 @@ canvas {
     cursor: pointer;
 }
 
-.modal.open{
+.warranty .modal.open{
     position: fixed;
     top: 0;
     left: 0;
@@ -1679,7 +1679,7 @@ canvas {
     z-index: 10;
 }
 
-.modal-content{
+.warranty .modal-content{
     background-color: var(--light-gray);
     padding: 20px;
     border-radius: 10px;
