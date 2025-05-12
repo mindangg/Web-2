@@ -21,7 +21,7 @@ class ProductRepository
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':name', $name);
         $stmt->execute();
-        return $stmt->fetchColumn() > 0;
+        return $stmt->rowCount() > 0;
     }
 
     public function findAll(?string $brand,

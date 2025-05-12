@@ -54,11 +54,12 @@ CREATE TABLE color
 
 CREATE TABLE provider
 (
-    provider_id   INT PRIMARY KEY AUTO_INCREMENT,
-    provider_name VARCHAR(30),
-    phone         VARCHAR(20),
-    address       VARCHAR(255),
-    email         VARCHAR(50)
+    provider_id     INT PRIMARY KEY AUTO_INCREMENT,
+    provider_name   VARCHAR(30),
+    phone           VARCHAR(20),
+    address         VARCHAR(255),
+    email           VARCHAR(50),
+    provider_status BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE product
@@ -117,7 +118,7 @@ CREATE TABLE receipt
     receipt_id          INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     user_information_id INT,
-    created_at          DATETIME                                                 DEFAULT CURRENT_TIMESTAMP,
+    created_at          DATETIME                                                             DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
     status              ENUM ('pending','confirmed', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
     payment_method ENUM('direct_payment', 'transfer_payment') DEFAULT 'direct_payment',
@@ -189,9 +190,10 @@ CREATE TABLE import
 (
     import_id   INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
-    date        DATETIME DEFAULT (CURRENT_TIMESTAMP),
+    date        DATETIME                                                DEFAULT (CURRENT_TIMESTAMP),
     total       INT,
     provider_id INT,
+    status      ENUM ('pending', 'confirmed', 'cancelled', 'on_deliver', 'delivered') DEFAULT 'pending',
     FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,

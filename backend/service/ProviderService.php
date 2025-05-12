@@ -14,16 +14,29 @@ class ProviderService
         $this->providerRepository = new ProviderRepository();
     }
 
-    public function getAllProviders(): array
+    public function getAllProviders($searchBy, $search, $status): array
     {
-        $response = $this->providerRepository->findAll();
-        if(!$response === null) {
-            throw new PDOException('No providers found', 404);
+        $response = [];
+        if($searchBy === null && $search === null && $status === null) {
+            $response = $this->providerRepository->findAllAvailable();
         } else {
-            return $response = [
+            if($status === 'all') {
+                $response = $this->providerRepository->findAll($searchBy, $search);
+            }
+        }
+
+        if(!$response === null) {
+            $response = [
+                'status' => 404,
+                'message' => 'No providers found'
+            ];
+        } else {
+            $response = [
+                'status' => 200,
                 'providers' => $response
             ];
         }
+        return $response;
     }
 
     public function getProviderById(int $id): array
@@ -42,13 +55,60 @@ class ProviderService
         $response = [];
         if($this->providerRepository->isExisted($data->provider_name)) {
             return $response = [
-                'message' => 'Nhà cung cấp đã tồn tại',
+                'status' => 400,
+                'message' => 'Tên nhà cung cấp đã tồn tại',
             ];
         }
 
-        $this->providerRepository->create($data);
-        return $response = [
-            'message' => 'Nhà cung cấp đã được tạo thành công',
-        ];
+        if ($this->providerRepository->create($data)){
+            $response = [
+                'status' => 201,
+                'message' => 'Nhà cung cấp đã được tạo thành công',
+            ];
+        }
+        return $response;
+    }
+
+    public function updateProvider(int $id, object $data): array
+    {
+        $response = [];
+        if($this->providerRepository->isExistedWithAnotherProvider($data->provider_name)) {
+            return $response = [
+                'status' => 400,
+                'message' => 'Tên nhà cung cấp đã tồn tại',
+            ];
+        }
+
+        if ($this->providerRepository->update($id, $data)){
+            $response = [
+                'status' => 200,
+                'message' => 'Nhà cung cấp đã được cập nhật thành công',
+            ];
+        }
+        return $response;
+    }
+
+    public function deleteProvider(int $id): array
+    {
+        $response = [];
+        if($this->providerRepository->isExistedInImport($id) || $this->providerRepository->isExistedInProduct($id)) {
+            $this->providerRepository->blockById($id);
+            return $response = [
+                'status' => 400,
+                'message' => 'Không thể xóa nhà cung cấp này vì đã tồn tại trong hóa đơn hoặc sản phẩm',
+            ];
+        }
+        if ($this->providerRepository->delete($id)){
+            $response = [
+                'status' => 200,
+                'message' => 'Nhà cung cấp đã được xóa thành công',
+            ];
+        } else {
+            $response = [
+                'status' => 404,
+                'message' => 'Nhà cung cấp không tồn tại',
+            ];
+        }
+        return $response;
     }
 }

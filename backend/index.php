@@ -19,7 +19,7 @@ use exception\ExceptionHandler;
 spl_autoload_register(function ($class) {
     require_once __DIR__ . "\\$class.php";
 });
-
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/exception/ExceptionHandler.php';
 require_once __DIR__ . '/config/Database.php';
@@ -94,7 +94,7 @@ switch ($request[2]){
         $providerController = new ProviderController();
         $providerController->processRequest(
             $_SERVER['REQUEST_METHOD'],
-            $request[3] ?? null);
+            intval($request[3] ?? null));
         break;
 
     case 'color':
@@ -125,13 +125,6 @@ switch ($request[2]){
             $_SERVER['REQUEST_METHOD'], 
             $request[3] ?? null);
         break;
-
-    case 'statistic':
-        $statisticController = new StatisticController();
-        $statisticController->processRequest(
-            $_SERVER['REQUEST_METHOD'], 
-            $request[3] ?? null);
-        break;
     case 'warranty':
         $warrantyController = new WarrantyController();
         $warrantyController->processRequest(
@@ -139,6 +132,7 @@ switch ($request[2]){
             isset($request[3]) ? (int)$request[3] : null
         );
         break;
+
 
     default:
         http_response_code(404);

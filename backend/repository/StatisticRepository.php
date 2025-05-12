@@ -2,9 +2,7 @@
 
 namespace repository;
 
-use Cassandra\Date;
 use config\Database;
-use DateTime;
 use PDO;
 
 class StatisticRepository
@@ -51,7 +49,7 @@ class StatisticRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTopBuyers(?string $startDate = null, ?string $endDate = null, string $sortOrder): array {
+    public function getTopBuyers($startDate, $endDate, $sortOrder): array {
         $sql = "
             SELECT 
                 ua.user_account_id, 
@@ -59,7 +57,7 @@ class StatisticRepository
                 ua.email, 
                 ua.status,
                 ua.is_delete,
-                DATE_FORMAT(ua.created_at, '%d/%m/%Y') as created_at, 
+                DATE(ua.created_at) as created_at, 
                 ui.full_name, 
                 ui.phone_number, 
                 ui.house_number, 
@@ -105,7 +103,7 @@ class StatisticRepository
         return $topBuyers;
     }    
     
-    private function getReceiptsByUser(int $userId, ?string $startDate, ?string $endDate): array {
+    private function getReceiptsByUser(int $userId, $startDate, $endDate): array {
         $sql = "
             SELECT r.*,
             rd.detail_id, 
@@ -149,7 +147,7 @@ class StatisticRepository
             if (!isset($receipts[$receiptId])) {
                 $receipts[$receiptId] = [
                     'receipt_id' => $receiptId,
-                    'created_at' => $row['created_at'],'created_at' => date('d-m-Y', strtotime($row['created_at'])),
+                    'created_at' => date('d-m-Y', strtotime($row['created_at'])),
                     'total_price' => $row['total_price'],
                     'status' => $row['status'],
                     'payment_method' => $row['payment_method'],
@@ -173,6 +171,11 @@ class StatisticRepository
         return array_values($receipts);
     }
 
+    public function getImportStatistic(string $startDate, string $endDate, string $sortOrder): array {
+    
+        return [];
+    }   
+
     public function getMinReceiptDate()
     {
         $sql = "SELECT MIN(created_at) AS min_date FROM receipt";
@@ -181,7 +184,7 @@ class StatisticRepository
         return $stmt->fetchColumn();
     }
 
-    public function productStatistic($fromDate, $toDate, $sort, $sortOder, $limit, $page):array
+    public function productStatistic($fromDate, $toDate, $sort, $sortOder, $searchBy, $search, $limit, $page):array
     {
         $offset = ($page - 1) * $limit;
 
@@ -212,24 +215,68 @@ class StatisticRepository
             ) AS sales
                 RIGHT JOIN sku s ON s.sku_id = sales.sku_id";
 
+        if ($searchBy !== null && $search !== null) {
+            if ($searchBy === 'sku_id') {
+                $baseSQL .= " WHERE sku_id = :search";
+            } elseif ($searchBy === 'sku_name') {
+                $baseSQL .= " WHERE sku_name LIKE :search";
+            } elseif ($searchBy === 'product_id') {
+                $baseSQL .= " WHERE product_id = :search";
+            }
+        }
+
         $sql = $baseSQL . " ORDER BY $sort $sortOder LIMIT $limit OFFSET $offset;";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            'fromDate' => $fromDate,
-            'toDate' => $toDate
-        ]);
+        if ($searchBy !== null && $search !== null) {
+            if ($searchBy === 'sku_name') {
+                $stmt->bindValue(':search', "%$search%");
+            } else {
+                $stmt->bindValue(':search', $search);
+            }
+        }
+        $stmt->bindValue(':fromDate', $fromDate);
+        $stmt->bindValue(':toDate', $toDate);
+        $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
 
-        $totalSql = $baseSQL;
-        $totalStmt = $this->pdo->prepare($totalSql);
-        $totalStmt->execute([
-            'fromDate' => $fromDate,
-            'toDate' => $toDate
-        ]);
-        $total = $totalStmt->fetchAll(PDO::FETCH_ASSOC);
-        $total = count($total);
+        // Get total records
+        $countSQL = "SELECT COUNT(*) FROM sku s
+            LEFT JOIN (
+                SELECT rd.sku_id,
+                         SUM(rd.quantity) AS total_quantity_sold
+                FROM 
+                    receipt r
+                    JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
+                WHERE 
+                    r.status = 'delivered'
+                    AND DATE(r.created_at) BETWEEN :fromDate AND :toDate
+                GROUP BY 
+                    rd.sku_id
+                ) AS sales ON s.sku_id = sales.sku_id";
+        if ($searchBy !== null && $search !== null) {
+            if ($searchBy === 'sku_id') {
+                $countSQL .= " WHERE sku_id = :search";
+            } elseif ($searchBy === 'sku_name') {
+                $countSQL .= " WHERE sku_name LIKE :search";
+            } elseif ($searchBy === 'product_id') {
+                $countSQL .= " WHERE product_id = :search";
+            }
+        }
+        $countStmt = $this->pdo->prepare($countSQL);
+        if ($searchBy !== null && $search !== null) {
+            if ($searchBy === 'sku_name') {
+                $countStmt->bindValue(':search', "%$search%");
+            } else {
+                $countStmt->bindValue(':search', $search);
+            }
+        }
+        $countStmt->bindValue(':fromDate', $fromDate);
+        $countStmt->bindValue(':toDate', $toDate);
+        $countStmt->execute();
+        $total = $countStmt->fetchColumn();
+        $countStmt->closeCursor();
 
         $response = [
             'data' => $data,

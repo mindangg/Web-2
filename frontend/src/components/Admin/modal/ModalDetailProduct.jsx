@@ -283,7 +283,7 @@ const ModalDetailProduct = ({ show, handleClose, product, hasPermission }) => {
                                                 <td>{sku.sku_name}</td>
                                                 <td>
                                                     <div
-                                                        className="color-box"
+                                                        className="color-box text-center"
                                                         style={{
                                                             backgroundColor: sku.color.toLowerCase(),
                                                             width: '20px',
@@ -300,14 +300,14 @@ const ModalDetailProduct = ({ show, handleClose, product, hasPermission }) => {
                                                 <td>{sku.storage}</td>
                                                 <td>{sku.import_price.toLocaleString('vi-VN')}đ</td>
                                                 <td>{sku.invoice_price.toLocaleString('vi-VN')}đ</td>
-                                                <td>{sku.sold}</td>
-                                                <td>
+                                                <td className={'text-center'}>{sku.sold}</td>
+                                                <td className={'text-center'}>
                                                     <Badge bg={sku.stock > 0 ? 'success' : 'danger'}>
                                                         {sku.stock}
                                                     </Badge>
                                                 </td>
                                                 <td>{new Date(sku.update_date).toLocaleString('vi-VN')}</td>
-                                                <td>
+                                                <td className={'text-center'}>
                                                     {hasPermission('Sửa') && (
                                                         <Button
                                                             variant="warning"
@@ -318,7 +318,7 @@ const ModalDetailProduct = ({ show, handleClose, product, hasPermission }) => {
                                                         </Button>
                                                     )}
                                                 </td>
-                                                <td>
+                                                <td className={'text-center'}>
                                                     {hasPermission('Xóa') && (
                                                         <Button
                                                             variant="danger"

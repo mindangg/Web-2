@@ -5,9 +5,11 @@ import CustomPagination from "../components/CustomPagination.jsx";
 import {useSearchParams} from "react-router-dom";
 import {useNotificationContext} from "../hooks/useNotificationContext.jsx";
 import TopSellingPieChart from "../components/Admin/chart/TopSellingPieChart.jsx";
+import {useAdminContext} from "../hooks/useAdminContext.jsx";
 
 export const AdminProductStatistic = () => {
 
+    const {admin} = useAdminContext()
     const [sanPhamThongKe, setSanPhamThongKe] = useState([]);
     const [tongQuan, setTongQuan] = useState([]);
     const [startDate, setStartDate] = useState('')
@@ -17,6 +19,8 @@ export const AdminProductStatistic = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
+    const [searchBy, setSearchBy] = useState('')
+    const [searchValue, setSearchValue] = useState('')
     const {showNotification} = useNotificationContext()
 
     useEffect(() => {
@@ -25,9 +29,13 @@ export const AdminProductStatistic = () => {
 
         const fetchData = async () => {
             try {
-                searchParams.set('limit', `${ADMIN_PRODUCT_PER_PAGE}`);
                 const url = `${API_URL}statistic/product?${searchParams.toString()}`
-                const response = await fetch(url, {signal});
+                const response = await fetch(url, {
+                    signal: signal,
+                    headers: {
+                        'Authorization': `Bearer ${admin.token}`
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -56,7 +64,12 @@ export const AdminProductStatistic = () => {
         const fetchData = async () => {
             try {
                 const url = `${API_URL}statistic/product-overview`
-                const response = await fetch(url, {signal});
+                const response = await fetch(url, {
+                    signal: signal,
+                    headers: {
+                        'Authorization': `Bearer ${admin.token}`
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -96,11 +109,19 @@ export const AdminProductStatistic = () => {
         if (sortOrder !== '') {
             searchParams.set('dir', sortOrder)
         }
+
+        if (searchBy !== '') {
+            searchParams.set('searchBy', searchBy)
+        }
+
+        if (searchValue !== '') {
+            searchParams.set('search', searchValue)
+        }
         searchParams.delete('page')
         setSearchParams(searchParams)
 
 
-    }, [startDate, endDate, sortBy, sortOrder])
+    }, [startDate, endDate, sortBy, sortOrder, searchBy, searchValue])
 
     return (
         <Col>
@@ -117,9 +138,30 @@ export const AdminProductStatistic = () => {
                 <Tab eventKey={'chiTiet'} title={'Chi tiết'}>
                     <Row className={"text-center"}>
                         <Col className='user-statistic-controller d-flex justify-content-center align-items-center'>
+                            <FormSelect
+                                className={'mx-3'}
+                                style={{maxWidth: '150px'}}
+                                value={searchBy}
+                                onChange={(e) => {setSearchBy(e.target.value)}}
+                            >
+                                <option value="">Tìm theo</option>
+                                <option value="product_id">Mã SP</option>
+                                <option value="sku_id">Mã PB</option>
+                                <option value="sku_name">Tên SP</option>
+                            </FormSelect>
+                            <Form.Control
+                                type="text"
+                                style={{maxWidth: '200px'}}
+                                className={'m-auto p-2'}
+                                placeholder={'Nhập từ khóa...'}
+                                value={searchValue}
+                                onChange={(e) => {
+                                    setSearchValue(e.target.value)
+                                }}
+                            />
                             <Form.Label
                                 style={{width: '120px'}}
-                            >Từ ngày</Form.Label>
+                            >Từ</Form.Label>
                             <Form.Control type="date"
                                           className={'m-auto'}
                                           value={startDate}
@@ -129,7 +171,7 @@ export const AdminProductStatistic = () => {
                             />
                             <Form.Label
                                 style={{width: '120px'}}
-                            >Đến ngày</Form.Label>
+                            >Đến</Form.Label>
                             <Form.Control type="date"
                                           className={'m-auto'}
                                           value={endDate}

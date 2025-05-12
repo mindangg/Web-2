@@ -17,6 +17,7 @@ import { useAdminLogout } from '../hooks/useAdminLogout'
 
 import { useSearchParams } from "react-router-dom"
 import AdminStatistic from "./AdminStatistic.jsx";
+import AdminImport from "./AdminImport.jsx";
 
 export default function Admin() {
     const { admin } = useAdminContext()
