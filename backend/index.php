@@ -13,6 +13,7 @@ use controller\OrderController;
 use controller\RoleController;
 use controller\ReceiptController;
 use controller\StatisticController;
+use controller\WarrantyController;
 use exception\ExceptionHandler;
 
 spl_autoload_register(function ($class) {
@@ -124,6 +125,14 @@ switch ($request[2]){
             $_SERVER['REQUEST_METHOD'], 
             $request[3] ?? null);
         break;
+    case 'warranty':
+        $warrantyController = new WarrantyController();
+        $warrantyController->processRequest(
+            $_SERVER['REQUEST_METHOD'],
+            isset($request[3]) ? (int)$request[3] : null
+        );
+        break;
+
 
     default:
         http_response_code(404);
