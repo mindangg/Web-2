@@ -1,20 +1,23 @@
-#h2{
+#h2 {
     text-align: center;
     margin: 10px auto;
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.payment{
+
+.payment {
     display: flex;
     flex-wrap: wrap;
     border: solid 3px #C4C4C4;
     border-radius: 20px;
-    background-color:#F8F9FA;
+    background-color: #F8F9FA;
     width: 80%;
     justify-content: center;
     margin: 0 auto;
+    position: relative;
 }
-#complete-btn{
+
+#complete-btn {
     padding: 10px 10px;
     text-align: center;
     border-radius: 10px;
