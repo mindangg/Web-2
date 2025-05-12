@@ -39,7 +39,7 @@ export default function UserCard({ user, handleEdit, hasPermission }) {
             <span>{user.email}</span>
             <span>{user.phone_number}</span>
             <span>
-                {user.house_number} Đường {user.street} Phường {user.ward} Quận {user.district} Thành phố {user.city}
+                {user.house_number} {user.street} {user.ward} {user.district} {user.city}
             </span>
             <span>{user.created_at}</span>
             <span className={user.status === 'Hoạt động' ? 'user-status' : 'user-status-lock'}>{user.status}</span>
