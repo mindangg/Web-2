@@ -39,7 +39,7 @@ class StatisticService
         return $statistic;
     }
 
-    public function getProductStatistic($fromDate, $toDate, $sort, $sortOrder, $limit, $page): array
+    public function getProductStatistic($fromDate, $toDate, $sort, $sortOrder, $searchBy, $search, $limit, $page): array
     {
         if($fromDate === null){
             $fromDate = $this->statisticRepository->getMinReceiptDate();
@@ -49,7 +49,8 @@ class StatisticService
             $toDate = date('Y-m-d');
         }
 
-        $response = $this->statisticRepository->productStatistic($fromDate, $toDate, $sort, $sortOrder, $limit, $page);
+
+        $response = $this->statisticRepository->productStatistic($fromDate, $toDate, $sort, $sortOrder, $searchBy, $search, $limit, $page);
 
         return $response;
     }
