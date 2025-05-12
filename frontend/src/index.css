@@ -68,7 +68,7 @@ body{
 #login{
     width: 90%;
     max-width: 400px;
-    height: 430px;
+    height: 420px;
     padding: 50px 70px;
     background-color: var(--yellow);
     margin: auto;
@@ -171,7 +171,7 @@ body{
 #signup{
     width: 90%;
     max-width: 450px;
-    height: 570px;
+    height: 600px;
     padding: 50px 70px;
     background-color: var(--yellow);
     margin: auto;
@@ -479,6 +479,12 @@ input.error {
     width: 50%;
     cursor: pointer;
 }
+
+.input-error {
+  border: 2px solid var(--error);
+  outline: none;
+}
+
 
 @keyframes fadeIn {
     from {

@@ -1,68 +1,4 @@
-// import React, { useState } from 'react'
-// import { Link } from 'react-router-dom'
-
-// import logo from '../assets/logo.png'
-
-// export default function Signup() {
-//     const [fullname, setFullname] = useState('')
-//     const [email, setEmail] = useState('')
-//     const [phone, setPhone] = useState('')
-//     const [username, setUsername] = useState('')
-//     const [password, setPassword] = useState('')
-//     const [confPassword, setConfPassword] = useState('')
-
-//     return (
-//         <div className='signup-container'>
-//             <div className='signup-logo'>
-//                 <img src={logo}></img>
-//                 <h4>
-//                     Đăng ký ngay để nhận được nhiều<br/>
-//                     khuyến mãi đặc biệt
-//                 </h4>
-//             </div>
-//             <form id='signup'>
-//                 <h2>Tạo tài khoản</h2>
-
-//                 <div>
-//                     <input type='text' placeholder='Nhập họ và tên'
-//                             value={fullname} onChange={(e) => setFullname(e.target.value)}></input>
-//                 </div>
-
-//                 <div> 
-//                     <input type='text' placeholder='Email'
-//                             value={email} onChange={(e) => setEmail(e.target.value)}></input>
-//                 </div>
-
-//                 <div>
-//                     <input type='tel' placeholder='Số điện thoại'
-//                             value={phone} onChange={(e) => setPhone(e.target.value)}></input>
-//                 </div>
-
-//                 <div>
-//                     <input type='text' placeholder='Tên đăng nhập'
-//                             value={username} onChange={(e) => setUsername(e.target.value)}></input>
-//                 </div>
-
-//                 <div>
-//                     <input type='password' placeholder='Mật khẩu'
-//                             value={password} onChange={(e) => setPassword(e.target.value)}></input>
-//                 </div>
-
-//                 <div>
-//                     <input type='password' placeholder='Xác nhận mật khẩu'
-//                             value={confPassword} onChange={(e) => setConfPassword(e.target.value)}></input>
-//                 </div>
-
-//                 <div className='signup-btns'>
-//                     <button><Link to='/signup'>Quay lại</Link></button>
-//                     <button>Đăng ký</button>
-//                 </div>
-//             </form>
-//         </div>
-//     )
-// }
-
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import logo from '../assets/logo.png'
@@ -74,19 +10,40 @@ export default function Signup() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confPassword, setConfPassword] = useState('')
+    
+    const usernameRef = useRef(null)
+    const emailRef = useRef(null)
+    const passwordRef = useRef(null)
+    const confPasswordRef = useRef(null)
 
     const { signup, error, setError, isLoading } = useSignup()
     
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (password !== confPassword) {
-            console.log('Password does not match')
+        if (password !== confPassword)
             return setError('Mật khẩu không khớp')
-        }
 
         await signup(username, email, password)
     }
+
+    useEffect(() => {
+        if (!error) 
+            return
+
+        if (error.includes('username'))
+            usernameRef.current?.focus()
+
+        else if (error.includes('Email') || error.includes('email'))
+            emailRef.current?.focus()
+
+        else if (error.includes('Mật khẩu không khớp'))
+            confPasswordRef.current?.focus()
+
+        else if (error.includes('Mật khẩu') || error.includes('mật khẩu'))
+            passwordRef.current?.focus()
+
+    }, [error])
 
     return (
         <div className='signup-container'>
@@ -107,23 +64,27 @@ export default function Signup() {
             </div>
             <form id='signup' onSubmit={handleSubmit}>
                 <div>
-                    <input type='text' placeholder='Username'
-                            value={username} onChange={(e) => setUsername(e.target.value)}></input>
+                    <input type='text' placeholder='Username' ref={usernameRef}
+                            value={username} onChange={(e) => setUsername(e.target.value)}
+                            className={error?.includes('username') ? 'input-error' : ''}></input>
                 </div>
 
                 <div>
-                    <input type='text' placeholder='Email'
-                            value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                    <input type='text' placeholder='Email' ref={emailRef}
+                            value={email} onChange={(e) => setEmail(e.target.value)}
+                            className={error?.includes('email') ? 'input-error' : ''}></input>
                 </div>
 
                 <div>
-                    <input type='password' placeholder='Mật khẩu'
-                            value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                    <input type='password' placeholder='Mật khẩu' ref={passwordRef}
+                            value={password} onChange={(e) => setPassword(e.target.value)}
+                            className={error?.includes('mật khẩu') || error?.includes('dài') ? 'input-error' : ''}></input>
                 </div>
 
                 <div>
-                    <input type='password' placeholder='Nhập lại mật khẩu'
-                            value={confPassword} onChange={(e) => setConfPassword(e.target.value)}></input>
+                    <input type='password' placeholder='Nhập lại mật khẩu' ref={confPasswordRef}
+                            value={confPassword} onChange={(e) => setConfPassword(e.target.value)}
+                            className={error?.includes('khớp') ? 'input-error' : ''}></input>
                 </div>
 
                 <div style={{textAlign: 'center'}}>
