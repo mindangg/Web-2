@@ -5,25 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrablack8gb512gb.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrapurple16gb2tb.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrawhite12gb1tb.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Admin/modal/ModalDetailProductStatistic.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dc5cee1-b284-45ac-9cc8-c4b51ad1247e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controller/StatisticController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/StatisticController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/repository/StatisticRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/repository/StatisticRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/service/StatisticService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/StatisticService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrablack.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrapurple.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/product/samsunggalaxys23ultrawhite.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/modal/ModalDetailImport.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/modal/ModalDetailImport.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminOrderStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminOrderStatistic.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProductStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProductStatistic.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/AdminImportTab.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/AdminImportTab.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/AdminProviderTab.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/AdminProviderTab.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/EmployeeCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/EmployeeCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/OrderCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/OrderCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Admin/UserCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Admin/UserCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminProduct.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminStatistic.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminUserStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminUserStatistic.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdminWarranty.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdminWarranty.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/styles/Admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Home.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +251,8 @@
       <workItem from="1747027035773" duration="14655000" />
       <workItem from="1747047985962" duration="25758000" />
       <workItem from="1747119854493" duration="8900000" />
-      <workItem from="1747132580860" duration="9508000" />
+      <workItem from="1747132580860" duration="9615000" />
+      <workItem from="1747147629766" duration="2247000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />

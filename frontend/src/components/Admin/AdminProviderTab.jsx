@@ -180,6 +180,7 @@ const AdminProviderTab = ({hasPermission}) => {
                     {hasPermission("Thêm") && (
                         <Form.Group controlId="sortButtons" className="d-flex gap-2">
                             <Button
+                                className={'custom-button'}
                                 variant="success"
                                 style={{height: '37px'}}
                                 onClick={() => setShowAddModal(true)}

@@ -790,6 +790,7 @@
     width: 15%;
     padding: 0 10px;
     color: var(--gray);
+    margin: 5px 0;
 }
 
 .order-statistic-controller button{
@@ -802,6 +803,7 @@
     gap: 5px;
     align-items: center;
     padding: 10px;
+    margin: 5px 0;
 }
 
 .order-statistic-controller button:hover{
@@ -1143,6 +1145,23 @@ canvas {
 }
 
 .import-statistic-controller button:hover{
+    cursor: pointer;
+    background-color: #4ecd87c1;
+}
+
+.custom-button{
+    color: black;
+    background-color: #4ecd87;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+}
+
+.custom-button:hover{
     cursor: pointer;
     background-color: #4ecd87c1;
 }

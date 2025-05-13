@@ -4,6 +4,7 @@ import { useAdminContext } from '../../hooks/useAdminContext'
 import { useUserContext } from '../../hooks/useUserContext'
 
 import Confirm from '../Confirm'
+import {Button} from "react-bootstrap";
 
 export default function UserCard({ user, handleEdit, hasPermission }) {
     const { admin } = useAdminContext()
@@ -45,10 +46,22 @@ export default function UserCard({ user, handleEdit, hasPermission }) {
             <span className={user.status === 'Hoạt động' ? 'user-status' : 'user-status-lock'}>{user.status}</span>
             <span className='user-action'>
                 {hasPermission(admin, 'Người dùng', 'Sửa') && (
-                    <i className='fa-solid fa-pen-to-square' onClick={() => handleEdit(user)}></i>
+                    <Button
+                        className={'mx-2'}
+                        variant="warning"
+                        onClick={() => handleEdit(user)}
+                    >
+                        <i className='fa-solid fa-pen-to-square m-0'></i>
+                    </Button>
                 )}
                 {hasPermission(admin, 'Người dùng', 'Xóa') && (
-                    <i className='fa-solid fa-trash-can' onClick={() => setShowConfirm(true)}></i>
+                    <Button
+                        className={'mx-2'}
+                        variant="danger"
+                        onClick={() => setShowConfirm(true)}
+                    >
+                        <i className='fa-solid fa-trash-can m-0'></i>
+                    </Button>
                 )}
             </span>
             {showConfirm && (

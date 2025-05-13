@@ -275,11 +275,11 @@ export const AdminImportTab = ({ hasPermission }) => {
                                 }}
                             />
                             <Button
-                                className={"btn-warning"}
+                                className={'custom-button'}
                                 onClick={() => {
                                     resetAllState();
                                 }}
-                                style={{ height: "37px" }}
+                                style={{ height: "36px" }}
                             >
                                 <i className="fa-solid fa-rotate-right"></i>
                             </Button>
@@ -288,6 +288,7 @@ export const AdminImportTab = ({ hasPermission }) => {
                     {hasPermission("Thêm") && (
                         <Form.Group className="d-flex gap-2">
                             <Button
+                                className={'custom-button'}
                                 variant="success"
                                 style={{ height: "37px" }}
                                 onClick={() => {

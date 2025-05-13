@@ -47,21 +47,21 @@ const AdminStatistic = () => {
                         <Col className={'d-flex justify-content-between'}>
                             <Button className={"mx-2 h-100"}
                                     variant={'primary'}
-                                    style={{width: "33%"}}
+                                    style={{width: "33.3%"}}
                                     onClick={() => {setToggle('revenue')}}
                             >
                                 Thông kê doanh thu
                             </Button>
                             <Button className={"mx-2 h-100"}
                                     variant={'success'}
-                                    style={{width: "33%"}}
+                                    style={{width: "33.3%"}}
                                     onClick={() => {setToggle('product')}}
                             >
                                 Thông kê sản phẩm
                             </Button>
                             <Button className={"mx-2 h-100"}
                                     variant={'danger'}
-                                    style={{width: "33%"}}
+                                    style={{width: "33.3%"}}
                                     onClick={() => {setToggle('customer')}}
                             >
                                 Thống kê khách hàng

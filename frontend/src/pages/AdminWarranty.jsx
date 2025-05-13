@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../styles/Admin.css';
 import {useAdminContext} from '../hooks/useAdminContext';
+import {Button} from "react-bootstrap";
 
 export default function AdminWarranty() {
     const {admin} = useAdminContext();
@@ -191,14 +192,16 @@ export default function AdminWarranty() {
                                 warranty.status === 'Đang bảo hành' ? 'warranty-status-repairing' :
                                     'warranty-status-inactive'
                         }>
-              {warranty.status}
-            </span>
+                            {warranty.status}
+                        </span>
                         <span className="warranty-action">
-              <i
-                  className="fa-solid fa-eye"
-                  onClick={() => setSelectedWarranty(warranty)}
-              ></i>
-            </span>
+                            <Button
+                                variant="info"
+                                onClick={() => setSelectedWarranty(warranty)}
+                            >
+                                <i className='fa-solid fa-eye'></i>
+                            </Button>
+                        </span>
                     </div>
                 ))
             )}
