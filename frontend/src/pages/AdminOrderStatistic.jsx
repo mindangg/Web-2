@@ -170,7 +170,7 @@ export default function AdminOrderStatistic() {
                         setEndDate(e.target.value)}}/>
 
                 <div className='order-statistic-icon'>
-                    <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Refresh</button>
+                    <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Làm mới</button>
                 </div>
             </div>
 

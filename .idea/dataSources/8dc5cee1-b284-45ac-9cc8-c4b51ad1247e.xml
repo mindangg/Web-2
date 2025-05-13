@@ -912,28 +912,28 @@
     <schema id="289" parent="1" name="information_schema">
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
-    <schema id="290" parent="1" name="mobile_store">
+    <schema id="290" parent="1" name="mysql">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="291" parent="1" name="performance_schema">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="292" parent="1" name="product_db">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="293" parent="1" name="quanlysieuthimini">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="294" parent="1" name="sport_store">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="295" parent="1" name="springboot_jdbc">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="296" parent="1" name="mobile_store">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
       <LastIntrospectionLocalTimestamp>2025-05-12.17:16:38</LastIntrospectionLocalTimestamp>
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="291" parent="1" name="mysql">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="292" parent="1" name="performance_schema">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="293" parent="1" name="product_db">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="294" parent="1" name="quanlysieuthimini">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="295" parent="1" name="sport_store">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="296" parent="1" name="springboot_jdbc">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="297" parent="1" name="mysql.infoschema">
@@ -955,87 +955,87 @@
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <table id="301" parent="290" name="brand">
+    <table id="301" parent="296" name="brand">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="302" parent="290" name="color">
+    <table id="302" parent="296" name="color">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="303" parent="290" name="employee">
+    <table id="303" parent="296" name="employee">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <table id="304" parent="290" name="functional">
+    <table id="304" parent="296" name="functional">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <table id="305" parent="290" name="imei">
+    <table id="305" parent="296" name="imei">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="306" parent="290" name="import">
+    <table id="306" parent="296" name="import">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="307" parent="290" name="import_detail">
+    <table id="307" parent="296" name="import_detail">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="308" parent="290" name="internal_option">
+    <table id="308" parent="296" name="internal_option">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="309" parent="290" name="product">
+    <table id="309" parent="296" name="product">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="310" parent="290" name="provider">
+    <table id="310" parent="296" name="provider">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="311" parent="290" name="receipt">
+    <table id="311" parent="296" name="receipt">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="312" parent="290" name="receipt_detail">
+    <table id="312" parent="296" name="receipt_detail">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="313" parent="290" name="role">
+    <table id="313" parent="296" name="role">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <table id="314" parent="290" name="role_function">
+    <table id="314" parent="296" name="role_function">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <table id="315" parent="290" name="sku">
+    <table id="315" parent="296" name="sku">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="316" parent="290" name="user_account">
+    <table id="316" parent="296" name="user_account">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <table id="317" parent="290" name="user_information">
+    <table id="317" parent="296" name="user_information">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>

@@ -53,10 +53,10 @@ const ModalImportDetail = ({ show, handleClose, importId }) => {
                     <Table striped bordered hover>
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Mã</th>
                             <th>Tên sản phẩm</th>
                             <th>Hình ảnh</th>
-                            <th>Số lượng</th>
+                            <th>SL</th>
                             <th>Giá nhập</th>
                             <th>Tổng tiền</th>
                         </tr>

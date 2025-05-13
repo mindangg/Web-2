@@ -64,5 +64,27 @@ class StatisticService
 
         return $response;
     }
+
+    public function getReceiptAndImport(array $data): array
+    {
+        $skuId = $data['sku_id'] ?? null;
+        $importPrice = $data['import_price'] ?? null;
+        $invoicePrice = $data['invoice_price'] ?? null;
+
+        if ($skuId === null || $importPrice === null || $invoicePrice === null) {
+            return [
+                'status' => 401,
+                'message' => 'Thiếu thông tin dữ liệu'
+            ];
+        }
+        $receipt = $this->statisticRepository->getReceiptWithSkuIdAndPrice($skuId, $invoicePrice);
+        $import = $this->statisticRepository->getImportWithSkuIdAndPrice($skuId, $importPrice);
+
+        return [
+            'status' => 200,
+            'receipt' => $receipt,
+            'import' => $import
+        ];
+    }
 }
 ?>

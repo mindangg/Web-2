@@ -1,11 +1,12 @@
 import {Badge, Col, Form, FormSelect, Row, Tab, Tabs} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {ADMIN_PRODUCT_PER_PAGE, API_URL, PRODUCT_IMAGE_PATH} from "../utils/Constant.jsx";
+import {API_URL, PRODUCT_IMAGE_PATH} from "../utils/Constant.jsx";
 import CustomPagination from "../components/CustomPagination.jsx";
 import {useSearchParams} from "react-router-dom";
 import {useNotificationContext} from "../hooks/useNotificationContext.jsx";
 import TopSellingPieChart from "../components/Admin/chart/TopSellingPieChart.jsx";
 import {useAdminContext} from "../hooks/useAdminContext.jsx";
+import ModalDetailProductStatistic from "../components/Admin/modal/ModalDetailProductStatistic.jsx";
 
 export const AdminProductStatistic = () => {
 
@@ -19,8 +20,15 @@ export const AdminProductStatistic = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
-    const [searchBy, setSearchBy] = useState('')
+    const [searchBy, setSearchBy] = useState('sku_name')
     const [searchValue, setSearchValue] = useState('')
+    const [showModalDetail, setShowModalDetail] = useState(false)
+    const [selectedProduct, setSelectedProduct] = useState({
+        sku_id: '',
+        sku_name: '',
+        import_price: 0,
+        invoice_price: 0,
+    })
     const {showNotification} = useNotificationContext()
 
     useEffect(() => {
@@ -128,8 +136,8 @@ export const AdminProductStatistic = () => {
             <Tabs
                 defaultActiveKey="tongQuan"
                 id="uncontrolled-tab-example"
-                className="w-100 text-center"
-                style={{ backgroundColor: 'lightgray', borderRadius: '5px', borderBottom: '1px solid black' }}
+                className="w-100 mb-4 text-center"
+                style={{backgroundColor: 'lightgray', borderRadius: '5px', borderBottom: '1px solid black'}}
                 justify
             >
                 <Tab eventKey="tongQuan" title="Tổng quan">
@@ -137,21 +145,23 @@ export const AdminProductStatistic = () => {
                 </Tab>
                 <Tab eventKey={'chiTiet'} title={'Chi tiết'}>
                     <Row className={"text-center"}>
-                        <Col className='user-statistic-controller d-flex justify-content-center align-items-center'>
+                        <Col
+                            className='user-statistic-controller d-flex justify-content-center align-items-center gap-2'>
                             <FormSelect
-                                className={'mx-3'}
-                                style={{maxWidth: '150px'}}
+                                className={'mb'}
+                                style={{width: '50%'}}
                                 value={searchBy}
-                                onChange={(e) => {setSearchBy(e.target.value)}}
+                                onChange={(e) => {
+                                    setSearchBy(e.target.value)
+                                }}
                             >
-                                <option value="">Tìm theo</option>
                                 <option value="product_id">Mã SP</option>
                                 <option value="sku_id">Mã PB</option>
                                 <option value="sku_name">Tên SP</option>
                             </FormSelect>
                             <Form.Control
                                 type="text"
-                                style={{maxWidth: '200px'}}
+                                style={{width: '50%'}}
                                 className={'m-auto p-2'}
                                 placeholder={'Nhập từ khóa...'}
                                 value={searchValue}
@@ -159,9 +169,6 @@ export const AdminProductStatistic = () => {
                                     setSearchValue(e.target.value)
                                 }}
                             />
-                            <Form.Label
-                                style={{width: '120px'}}
-                            >Từ</Form.Label>
                             <Form.Control type="date"
                                           className={'m-auto'}
                                           value={startDate}
@@ -169,9 +176,6 @@ export const AdminProductStatistic = () => {
                                               setStartDate(e.target.value)
                                           }}
                             />
-                            <Form.Label
-                                style={{width: '120px'}}
-                            >Đến</Form.Label>
                             <Form.Control type="date"
                                           className={'m-auto'}
                                           value={endDate}
@@ -182,7 +186,7 @@ export const AdminProductStatistic = () => {
                             />
                             <div className={'w-100 d-flex align-items-center mx-3 gap-3'}>
                                 <FormSelect
-                                    className={'w-100 my-3'}
+                                    className={'w-100'}
                                     style={{maxWidth: '300px'}}
                                     value={sortBy}
                                     onChange={(e) => {
@@ -218,10 +222,13 @@ export const AdminProductStatistic = () => {
                                         searchParams.delete('to')
                                         searchParams.delete('sort')
                                         searchParams.delete('dir')
+                                        searchParams.delete('searchBy')
+                                        searchParams.delete('search')
+                                        searchParams.set('page', '1')
                                         setSearchParams(searchParams)
                                     }}
                                 >
-                                    <i className='fa-solid fa-rotate-right'></i>Refresh
+                                    <i className='fa-solid fa-rotate-right'></i>
                                 </button>
                             </div>
                         </Col>
@@ -230,42 +237,56 @@ export const AdminProductStatistic = () => {
                         <Col>
                             <div style={{maxHeight: '630px', overflowY: "auto"}}>
                                 <div className='product-statistic-header'>
-                                    <span>Mã SP</span>
-                                    <span>Mã PB</span>
+                                    <span>Mã</span>
                                     <span>Tên sản phẩm</span>
                                     <span>Hình ảnh</span>
                                     <span>Giá nhập</span>
                                     <span>Giá bán</span>
                                     <span>SL tồn</span>
-                                    <span>SL đã bán</span>
-                                    <span>Tổng tiền mua</span>
+                                    <span>SL nhập</span>
+                                    <span>SL bán</span>
+                                    <span>Tổng tiền nhập</span>
                                     <span>Tổng tiền bán</span>
                                 </div>
                             </div>
                             {sanPhamThongKe && sanPhamThongKe.map((item, index) => (
-                                <div className='product-statistic-info' key={index}>
-                                    <span>{item.product_id}</span>
+                                <div className='product-statistic-info' key={index}
+                                     onClick={() => {
+                                         setShowModalDetail(true);
+                                         setSelectedProduct({
+                                             sku_id: item.sku_id,
+                                             sku_name: item.sku_name,
+                                             import_price: item.import_price,
+                                             invoice_price: item.invoice_price,
+                                         })
+                                     }}
+                                >
                                     <span>{item.sku_id}</span>
                                     <span>{item.sku_name}</span>
                                     <span>
-                                <img
-                                    src={`${PRODUCT_IMAGE_PATH}${item.image}`}
-                                    alt={item.sku_name}
-                                    style={{width: '70px', height: '70px', cursor: 'pointer'}}
-                                />
-                            </span>
+                                        <img
+                                            src={`${PRODUCT_IMAGE_PATH}${item.image}`}
+                                            alt={item.sku_name}
+                                            style={{width: '70px', height: '70px', cursor: 'pointer'}}
+                                        />
+                                    </span>
                                     <span>{item.import_price.toLocaleString('vi-VN')}đ</span>
                                     <span>{item.invoice_price.toLocaleString('vi-VN')}đ</span>
                                     <span>
-                                <Badge bg={item.stock > 0 ? 'success' : 'danger'}>
-                                    {item.stock}
-                                </Badge>
-                            </span>
+                                        <Badge bg={item.stock > 0 ? 'success' : 'danger'}>
+                                            {item.stock}
+                                        </Badge>
+                                    </span>
                                     <span>
-                                <Badge bg={item.total_quantity_sold > 0 ? 'success' : 'danger'}>
-                                    {item.total_quantity_sold}
-                                </Badge>
-                            </span>
+                                        <Badge bg={item.total_quantity_imported > 0 ? 'success' : 'danger'}>
+                                            {item.total_quantity_imported}
+                                        </Badge>
+                                    </span>
+                                    <span>
+                                        <Badge bg={item.total_quantity_sold > 0 ? 'success' : 'danger'}>
+                                            {item.total_quantity_sold}
+                                        </Badge>
+                                    </span>
                                     <span>{parseInt(item.total_cost).toLocaleString('vi-VN')}đ</span>
                                     <span>{parseInt(item.total_revenue).toLocaleString('vi-VN')}đ</span>
                                 </div>
@@ -280,6 +301,15 @@ export const AdminProductStatistic = () => {
                     </Row>
                 </Tab>
             </Tabs>
+            {showModalDetail && selectedProduct && (
+                <ModalDetailProductStatistic
+                    show={showModalDetail}
+                    onClose={() => {
+                        setShowModalDetail(false)
+                    }}
+                    selectedProduct={selectedProduct}
+                />
+            )}
         </Col>
     )
 }
