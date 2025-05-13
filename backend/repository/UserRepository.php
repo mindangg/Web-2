@@ -260,14 +260,27 @@ class UserRepository
             return false;
 
         // function to check if the account has order
-        // if (true)
-        // $sql = "UPDATE user_account
-        //         SET is_delete = TRUE
-        //         WHERE user_account_id = :id;"
+        $orderCheckSql = "SELECT EXISTS (
+            SELECT 1
+            FROM receipt
+            WHERE account_id = :id
+        ) AS has_order";
 
-        $sql = "DELETE
-                FROM user_account
-                WHERE user_account_id = :id";
+        $orderCheckStmt = $this->pdo->prepare($orderCheckSql);
+        $orderCheckStmt->execute(['id' => $id]);
+        $hasOrder = $orderCheckStmt->fetch(PDO::FETCH_ASSOC)['has_order'];
+
+        if ($hasOrder) {
+            $sql = "UPDATE user_account
+                    SET is_delete = TRUE
+                    WHERE user_account_id = :id";
+        }
+
+        else {
+            $sql = "DELETE
+                    FROM user_account
+                    WHERE user_account_id = :id";
+        }
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
