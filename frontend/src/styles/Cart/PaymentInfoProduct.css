@@ -27,3 +27,53 @@
     margin-right: 5px;
     float: right;
 }
+
+@media (max-width: 768px) {
+    .info-product {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .info-product table {
+        font-size: 14px;
+    }
+
+    .info-product img {
+        width: 40px;
+        height: 60px;
+    }
+
+    .info-product button {
+        width: 100%;
+        margin: 10px 0;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-product {
+        width: 95%;
+    }
+
+    .info-product h5 {
+        font-size: 16px;
+    }
+
+    .info-product table {
+        font-size: 12px;
+    }
+
+    .info-product tr, .info-product td, .info-product th {
+        padding: 3px;
+    }
+
+    .info-product img {
+        width: 30px;
+        height: 50px;
+    }
+
+    .info-product button {
+        padding: 6px;
+        font-size: 12px;
+    }
+}

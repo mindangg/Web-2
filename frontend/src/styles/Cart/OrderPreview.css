@@ -83,3 +83,57 @@
 #cancel-order-btn:hover {
     background-color: #c82333;
 }
+
+@media (max-width: 768px) {
+    .order-preview {
+        width: 90%;
+        max-height: 90vh;
+        padding: 15px;
+    }
+
+    .preview-section table {
+        font-size: 14px;
+    }
+
+    .preview-section th, .preview-section td {
+        padding: 6px;
+    }
+
+    .preview-actions button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-preview {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .order-preview h3 {
+        font-size: 18px;
+    }
+
+    .preview-section h5 {
+        font-size: 16px;
+    }
+
+    .preview-section p {
+        font-size: 14px;
+    }
+
+    .preview-section table {
+        font-size: 12px;
+    }
+
+    .preview-section th, .preview-section td {
+        padding: 4px;
+    }
+
+    .preview-actions button {
+        padding: 6px 10px;
+        font-size: 12px;
+        margin: 5px;
+    }
+}
