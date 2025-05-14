@@ -43,27 +43,27 @@ body {
 }
 
 .order-status-pending {
-    color: #ffc107;
+    color: black;
     font-weight: bold;
 }
 
 .order-status-confirmed {
-    color: #17a2b8;
+    color: black;
     font-weight: bold;
 }
 
 .order-status-on_deliver {
-    color: #007bff;
+    color: black;
     font-weight: bold;
 }
 
 .order-status-delivered {
-    color: #28a745;
+    color: black;
     font-weight: bold;
 }
 
 .order-status-cancelled {
-    color: #dc3545;
+    color: black;
     font-weight: bold;
 }
 

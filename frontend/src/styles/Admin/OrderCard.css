@@ -22,7 +22,7 @@
   color: #333;
 }
 
-.order-status-pending select {
+/* .order-status-pending select {
   color: #ff9800;
   border-color: #ff9800;
 }
@@ -45,7 +45,7 @@
 .order-status-cancelled select {
   color: #f44336;
   border-color: #f44336;
-}
+} */
 
 .order-info select {
   padding: 6px 10px;
