@@ -16,9 +16,8 @@ function OrderPreview({ orderData, onConfirm, onCancel }) {
                     <p><b>Địa chỉ:</b> {`${user_information.house_number}, ${user_information.street}, ${user_information.ward}, ${user_information.district}, ${user_information.city}`}</p>
                 </div>
 
-                <div className="preview-section">
-                    <h5>Phương thức thanh toán</h5>
-                    <p>{payment_method === "direct_payment" ? "Thanh toán trực tiếp" : "Chuyển khoản"}</p>
+                <div className="preview-section" >
+                    <p>Phương thức thanh toán: {payment_method === "direct_payment" ? "Thanh toán trực tiếp" : "Chuyển khoản"}</p>
                 </div>
 
                 <div className="preview-section">

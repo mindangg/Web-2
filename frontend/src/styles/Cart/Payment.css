@@ -25,3 +25,34 @@
     background-color: red;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .payment {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #complete-btn {
+        width: 90%;
+        margin: 20px auto;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #h2 {
+        font-size: 20px;
+        margin: 15px auto;
+    }
+
+    .payment {
+        width: 95%;
+        padding: 10px;
+    }
+
+    #complete-btn {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
