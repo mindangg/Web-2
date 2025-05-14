@@ -249,38 +249,28 @@ class UserRepository
 
     public function deleteById(int $id)
     {
-        // Check if the user exists
+        // Check user exists
         $checkSql = "SELECT COUNT(*) FROM user_account WHERE user_account_id = :id";
         $checkStmt = $this->pdo->prepare($checkSql);
         $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
         $checkStmt->execute();
         $userExists = $checkStmt->fetchColumn();
 
-        if (!$userExists)
+        if (!$userExists) {
             return false;
+        }
 
-        // function to check if the account has order
-        $orderCheckSql = "SELECT COUNT(*) FROM receipt WHERE user_account_id = :id";
-        $checkStmt = $this->pdo->prepare($orderCheckSql);
-        $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $checkStmt->execute();
-        $hasOrder = $checkStmt->fetchColumn();
-
+        // Check if the user has order
+        $orderCheckSql = "SELECT COUNT(*) FROM receipt WHERE account_id = :id";
         $orderCheckStmt = $this->pdo->prepare($orderCheckSql);
-        $orderCheckStmt->execute(['id' => $id]);
-        $hasOrder = $orderCheckStmt->fetch(PDO::FETCH_ASSOC)['has_order'];
+        $orderCheckStmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $orderCheckStmt->execute();
+        $hasOrder = $orderCheckStmt->fetchColumn();
 
-        if ($hasOrder) {
-            $sql = "UPDATE user_account
-                    SET is_delete = TRUE
-                    WHERE user_account_id = :id";
-        }
-
-        else {
-            $sql = "DELETE
-                    FROM user_account
-                    WHERE user_account_id = :id";
-        }
+        if ($hasOrder)
+            $sql = "UPDATE user_account SET is_delete = TRUE WHERE user_account_id = :id";
+        else
+            $sql = "DELETE FROM user_account WHERE user_account_id = :id";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -300,7 +290,6 @@ class UserRepository
 
         $this->pdo->beginTransaction();
 
-        // Prepare dynamic parts
         $accountFields = ['username', 'email', 'status'];
         $infoFields = ['full_name', 'phone_number', 'house_number', 'street', 'ward', 'district', 'city'];
 
@@ -342,7 +331,6 @@ class UserRepository
 
         if ($success) {
             $this->pdo->commit();
-            // return true;
 
             return $this->findById($id);
         } 

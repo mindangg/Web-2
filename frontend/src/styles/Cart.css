@@ -91,6 +91,16 @@
     .cart-item img {
         max-width: 60px
     }
+
+    .cart-controller {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .cart-controller button {
+        width: 100%;
+    }
 }
 
 @media (max-width: 500px) {
