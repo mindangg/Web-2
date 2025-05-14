@@ -54,26 +54,26 @@ export default function AdminWarranty() {
                     limit: searchParams.get('limit') || '10',
                 }).toString();
 
-                const response = await fetch(`http://localhost/api/warranty?${queryParams}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${admin.token}`,
-                    },
-                });
-                const data = await response.json();
-                if (!response.ok) {
-                    throw new Error(data.error || 'Không thể tải danh sách bảo hành');
-                }
-                setWarranties(data.warranties || []);
-                setFilteredWarranties(data.warranties || []);
-                setCurrentPage(data.currentPage || 1);
-                setTotalPage(data.totalPage || 0);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+        const response = await fetch(`http://localhost:8080/api/warranty?${queryParams}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${admin.token}`,
+          },
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || 'Không thể tải danh sách bảo hành');
+        }
+        setWarranties(data.warranties || []);
+        setFilteredWarranties(data.warranties || []);
+        setCurrentPage(data.currentPage || 1);
+        setTotalPage(data.totalPage || 0);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
         fetchWarranties();
     }, [admin, searchParams, statusFilter, startDate, endDate, imeiSearch, skuNameSearch, receiptIdSearch]);
@@ -210,7 +210,7 @@ export default function AdminWarranty() {
                         onChange={(e) => setReceiptIdSearch(e.target.value)}
                     />
                 </div>
-
+                
                 <input
                     type="date"
                     value={startDate}

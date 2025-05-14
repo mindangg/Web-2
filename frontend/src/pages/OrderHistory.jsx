@@ -20,7 +20,7 @@ const OrderHistory = () => {
             setError(null);
             try {
                 const response = await fetch(
-                    `http://localhost/api/receipt?account_id=${user.user.user_account_id}`,
+                    `http://localhost:8080/api/receipt?account_id=${user.user.user_account_id}`,
                     {
                         headers: {
                             'Authorization': `Bearer ${user.token}`,

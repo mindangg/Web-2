@@ -43,7 +43,7 @@ export default function AdminUser() {
  
   useEffect(() => {
     const fetchUser = async () => {
-      const url = 'http://localhost/api/user'
+      const url = 'http://localhost:8080/api/user'
       const response = await fetch(`${url}?${searchParams.toString()}`, {
         headers: {
           'Authorization': `Bearer ${admin.token}`
@@ -122,7 +122,7 @@ export default function AdminUser() {
       console.log(updatedData)
 
       try {
-          const response = await fetch(`http://localhost/api/user/${selectedUser.user_account_id}`, {
+          const response = await fetch(`http://localhost:8080api/user/${selectedUser.user_account_id}`, {
               method: 'PATCH',
               headers: {
                   'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export default function AdminUser() {
       e.preventDefault()
 
       try {
-          const response = await fetch('http://localhost/api/user/create', {
+          const response = await fetch('http://localhost:8080/api/user/create', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

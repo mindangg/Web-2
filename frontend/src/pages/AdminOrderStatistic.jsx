@@ -80,8 +80,8 @@ export default function AdminOrderStatistic() {
         const fetchStats = async () => {
             try {
                 const url = searchParams.toString()
-                ? `http://localhost/api/statistic/order?${searchParams}`
-                : `http://localhost/api/statistic/order`
+                ? `http://localhost:8080/api/statistic/order?${searchParams}`
+                : `http://localhost:8080/api/statistic/order`
                 const response = await fetch(url, {
                     headers: {
                         'Authorization': `Bearer ${admin.token}`

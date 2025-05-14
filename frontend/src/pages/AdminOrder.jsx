@@ -36,17 +36,7 @@ export default function AdminOrder() {
     useEffect(() => {
         const fetchReceipts = async () => {
             try {
-                const queryParams = new URLSearchParams({
-                    ...(district && { district }),
-                    ...(city && { city }),
-                    ...(statusFilter !== 'All' && { status: statusFilter.toLowerCase() }),
-                    ...(startDate && { start_date: startDate }),
-                    ...(endDate && { end_date: endDate }),
-                    page: searchParams.get('page') || '1',
-                    limit: searchParams.get('limit') || '10',
-                }).toString();
-
-                const response = await fetch(`http://localhost/api/receipt?${queryParams}`, {
+                const response = await fetch('http://localhost:8080/api/receipt', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${admin.token}`,

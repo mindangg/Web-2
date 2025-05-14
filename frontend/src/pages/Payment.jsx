@@ -40,7 +40,7 @@ function Payment() {
         // Lấy thông tin địa chỉ từ danh sách địa chỉ
         try {
             const response = await fetch(
-                `http://localhost/api/user/addresses/${user.user.user_account_id}`,
+                `http://localhost:8080/api/user/addresses/${user.user.user_account_id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${user.token}`,
@@ -94,7 +94,7 @@ function Payment() {
         };
 
         try {
-            const response = await fetch("http://localhost/api/receipt", {
+            const response = await fetch("http://localhost:8080/api/receipt", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

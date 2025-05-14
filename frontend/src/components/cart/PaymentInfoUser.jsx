@@ -162,7 +162,7 @@ function PaymentInfoUser({ userData = {} }) {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost/api/user/addresses/${user.user.user_account_id}`,
+        `http://localhost:8080/api/user/addresses/${user.user.user_account_id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -231,7 +231,7 @@ function PaymentInfoUser({ userData = {} }) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost/api/user/addresses`, {
+      const response = await fetch(`http://localhost:8080/api/user/addresses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

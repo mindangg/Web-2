@@ -59,7 +59,7 @@ export default function AdminEmployee() {
     }
 
     const fetchEmployee = async () => {
-        const url = 'http://localhost/api/employee'
+        const url = 'http://localhost:8080/api/employee'
         const response = await fetch(`${url}?${searchParams.toString()}`, {
             headers: {
                 'Authorization': `Bearer ${admin.token}`
@@ -79,7 +79,7 @@ export default function AdminEmployee() {
 
     const fetchRole = async () => {
         try {
-            const response = await fetch('http://localhost/api/role', {
+            const response = await fetch('http://localhost:8080/api/role', {
                 headers: {
                     'Authorization': `Bearer ${admin.token}`
                 }
@@ -140,7 +140,7 @@ export default function AdminEmployee() {
             return
 
         try {
-            const response = await fetch(`http://localhost/api/employee/${selectedEmployee.employee_id}`, {
+            const response = await fetch(`http://localhost:8080/api/employee/${selectedEmployee.employee_id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ export default function AdminEmployee() {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost/api/employee/create', {
+            const response = await fetch('http://localhost:8080/api/employee/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -288,7 +288,7 @@ export default function AdminEmployee() {
             return
     
         try {
-            const response = await fetch(`http://localhost/api/role/${selectedRole.role_id}`, {
+            const response = await fetch(`http://localhost:8080/api/role/${selectedRole.role_id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -312,7 +312,7 @@ export default function AdminEmployee() {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost/api/role', {
+            const response = await fetch('http://localhost:8080/api/role', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -334,7 +334,7 @@ export default function AdminEmployee() {
     
     const handleDeleteRole = async (id) => {
         try {
-            const response = await fetch('http://localhost/api/role/' + id, {
+            const response = await fetch('http://localhost:8080/api/role/' + id, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${admin.token}`

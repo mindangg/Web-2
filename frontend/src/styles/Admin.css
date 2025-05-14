@@ -277,10 +277,12 @@
     flex-direction: column;
 }
 
-.order-controller{
+.order-controller {
     display: flex;
     align-items: center;
     margin-bottom: 25px;
+    gap: 15px;
+    flex-wrap: wrap; 
 }
 
 .order-controller select {
@@ -290,31 +292,31 @@
     height: 40px;
     width: 12%;
     cursor: pointer;
-    margin-right: 20px;
+    margin-right: 0;
 }
 
 .order-controller input{
-    background-color: var(--black);
-    border-radius: 5px;
+   border-radius: 5px;
     border: 1px solid var(--gray);
     height: 36px;
-    color: black;
-    margin-right: 25px;
-    /* width: 450px; */
     padding: 0 10px 0 40px;
     font-size: 16px;
     flex-grow: 1;
+    max-width: 300px;
+    color: black;
 }
 
 .order-controller input[type='date']{
-    width: 12%;
+    width: 15%;
     padding: 0 10px;
     color: var(--gray);
+    height: 36px;
 }
 
 .order-search{
-    position: relative;
-    width: 40%;
+   position: relative;
+    flex-grow: 1;
+    max-width: 300px;
 }
 
 .order-search i{
@@ -325,11 +327,10 @@
     color: black;
 }
 
-.order-search-district{
-    width: 200px;
-}
-.order-search-city{
-    width: 150px;
+.order-search-district,
+.order-search-city {
+    flex-grow: 1;
+    max-width: 200px; 
 }
 
 .order-controller i:nth-of-type(1){
@@ -1321,6 +1322,15 @@ canvas {
         width: 100%;
     }
 
+    .order-search i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: black;
+        font-size: 16px;
+    }
+
     .order-icon {
         flex-direction: column;
         gap: 10px;
@@ -1330,6 +1340,74 @@ canvas {
         width: 100%;
         justify-content: center;
     }
+
+    /*Responsive order*/
+@media (max-width: 1200px) {
+    .order-controller {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .order-controller select,
+    .order-controller input,
+    .order-controller input[type='date'],
+    .order-search,
+    .order-search-district,
+    .order-search-city {
+        width: 100%;
+        max-width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+        margin: 0;
+    }
+
+    .order-icon {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .order-icon button {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .order-controller label {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .order-controller input,
+    .order-controller select {
+        font-size: 14px;
+        height: 34px;
+    }
+
+    .order-search i {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-controller input,
+    .order-controller select {
+        font-size: 12px;
+        height: 32px;
+    }
+
+    .order-search i {
+        font-size: 12px;
+    }
+
+    .order-icon button {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .order-controller label {
+        font-size: 12px;
+    }
+}
+
 
     .user-controller {
         flex-direction: column;
@@ -1644,7 +1722,8 @@ canvas {
     display: flex;
     align-items: center;
     margin-bottom: 25px;
-    width: 100%;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .warranty-controller select {
@@ -1657,32 +1736,42 @@ canvas {
 }
 
 .warranty-controller input{
-    background-color: var(--black);
     border-radius: 5px;
     border: 1px solid var(--gray);
     height: 36px;
     color: black;
     margin-right: 25px;
-    padding: 0 10px 0 10px;
+    padding: 0 10px 0 40px;
     font-size: 16px;
     flex-grow: 1;
+    max-width: 400px;
 }
 
 .warranty-controller input[type='date']{
+    width: 15%;
     padding: 0 10px;
     color: var(--gray);
+    height: 36px;
 }
 
-.warranty-search{
+
+.warranty-search,
+.warranty-search-name,
+.warranty-search-receipt {
     position: relative;
+    flex-grow: 1;
+    max-width: 300px;
 }
 
-.warranty-search i{
+.warranty-search i,
+.warranty-search-name i,
+.warranty-search-receipt i {
     position: absolute;
     left: 10px;
     top: 50%;
-    transform: translateY(-50%); 
+    transform: translateY(-50%);
     color: black;
+    font-size: 16px;
 }
 
 .warranty-controller label{
@@ -1692,6 +1781,11 @@ canvas {
 
 .warranty-header{
     font-weight: bold;
+}
+
+.warranty-icon {
+    display: flex;
+    gap: 15px;
 }
 
 .warranty-icon button{
@@ -1764,6 +1858,8 @@ canvas {
     width: 90%;
     max-width: 600px;
     color: black;
+    max-height: 80vh; 
+    overflow-y: auto; 
 }
 
 .warranty-details p{
@@ -1796,8 +1892,32 @@ canvas {
     background-color: #d65b4b;
 }
 
+.warranty-info > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+}
+
 /* Responsive warranty */
 @media (max-width: 1200px) {
+    .warranty-controller {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .warranty-controller select,
+    .warranty-controller input,
+    .warranty-controller input[type='date'],
+    .warranty-search,
+    .warranty-search-name,
+    .warranty-search-receipt {
+        width: 100%;
+        max-width: 100%; 
+        margin: 0;
+    }
+
     .warranty-header,
     .warranty-info {
         grid-template-columns: 1fr 2.5fr 2fr 2fr 1.5fr 1.5fr;
@@ -1856,11 +1976,12 @@ canvas {
         margin-bottom: 20px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         background-color: #fff;
+        gap: 10px;
     }
 
     .warranty-info > span {
         display: flex;
-        justify-content: space-between;
+        grid-template-columns: 120px 1fr;
         align-items: center;
         padding: 5px 0;
         font-size: 14px;
@@ -1870,6 +1991,7 @@ canvas {
         content: attr(data-label);
         font-weight: bold;
         color: #333;
+        grid-column: 1;
         margin-right: 10px;
     }
 
@@ -1902,13 +2024,52 @@ canvas {
     }
 
     .warranty-info > span {
-        flex-direction: column;
+        display: flex;
+        flex-wrap: nowrap;
         align-items: flex-start;
-        gap: 2px;
+        gap: 5px;
+        font-size: 12px;
+    }
+
+   .warranty-info > span::before {
+        text-align: left;
+    }
+
+    .warranty-info > span > span {
+        text-align: left;
+    }
+
+    .warranty-status-active,
+    .warranty-status-inactive,
+    .warranty-status-repairing {
+        font-size: 12px;
+        min-width: 60px;
     }
 
     .warranty-action {
-        justify-content: flex-start;
         gap: 10px;
+        font-size: 16px;
+        justify-content: flex-start;
     }
+
+    .warranty-controller input,
+    .warranty-controller select {
+        font-size: 12px;
+        height: 32px;
+    }
+
+    .warranty-icon button {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .warranty .modal-content {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    .warranty-details p {
+        font-size: 12px;
+    }
+    
 }
