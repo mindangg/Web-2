@@ -28,12 +28,12 @@ const AdminStatistic = () => {
                         <AdminProductStatistic/>
                     </Col>
                 )
-            case 'import':
-                return (
-                    <Col>
-                        <AdminImportStatistic/>
-                    </Col>
-                )
+            // case 'import':
+            //     return (
+            //         <Col>
+            //             <AdminImportStatistic/>
+            //         </Col>
+            //     )
         }
     }
 
@@ -45,10 +45,28 @@ const AdminStatistic = () => {
                 <Col className={"text-center"}>
                     <Row className={'mt-3'}>
                         <Col className={'d-flex justify-content-between'}>
-                            <Button className={"mx-2 w-25 h-100"} variant={'primary'} onClick={() => {setToggle('revenue')}}>Thông kê doanh thu</Button>
-                            <Button className={"mx-2 w-25 h-100"} variant={'success'} onClick={() => {setToggle('product')}}>Thông kê sản phẩm</Button>
-                            <Button className={"mx-2 w-25 h-100"} variant={'danger'} onClick={() => {setToggle('customer')}}>Thống kê khách hàng</Button>
-                            <Button className={"mx-2 w-25 h-100"} variant={'warning'} onClick={() => {setToggle('import')}}>Thống kê nhập hàng</Button>
+                            <Button className={"mx-2 h-100"}
+                                    variant={'primary'}
+                                    style={{width: "33.3%"}}
+                                    onClick={() => {setToggle('revenue')}}
+                            >
+                                Thông kê doanh thu
+                            </Button>
+                            <Button className={"mx-2 h-100"}
+                                    variant={'success'}
+                                    style={{width: "33.3%"}}
+                                    onClick={() => {setToggle('product')}}
+                            >
+                                Thông kê sản phẩm
+                            </Button>
+                            <Button className={"mx-2 h-100"}
+                                    variant={'danger'}
+                                    style={{width: "33.3%"}}
+                                    onClick={() => {setToggle('customer')}}
+                            >
+                                Thống kê khách hàng
+                            </Button>
+                            {/*<Button className={"mx-2 w-25 h-100"} variant={'warning'} onClick={() => {setToggle('import')}}>Thống kê nhập hàng</Button>*/}
                         </Col>
                     </Row>
                 </Col>

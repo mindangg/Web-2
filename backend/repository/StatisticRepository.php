@@ -189,31 +189,37 @@ class StatisticRepository
         $offset = ($page - 1) * $limit;
 
         $baseSQL = "
-        SELECT s.product_id                                          AS product_id,
-               s.sku_id                                              AS sku_id,
-               s.sku_name                                            AS sku_name,
-               s.image                                               AS image,
-               s.import_price                                        AS import_price,
-               IFNULL(sales.price, s.invoice_price)                  AS invoice_price,
-               s.stock                                               AS stock,
-               IFNULL(sales.total_quantity_sold, 0)                  AS total_quantity_sold,
-               IFNULL(s.import_price * sales.total_quantity_sold, 0) AS total_cost,
-               IFNULL(sales.price * sales.total_quantity_sold, 0)    AS total_revenue
-        FROM (
-            SELECT rd.sku_id,
+        SELECT s.sku_id                                                 AS sku_id,
+               s.sku_name                                               AS sku_name,
+               s.image                                                  AS image,
+               IFNULL(import.price, s.import_price)                     AS import_price,
+               IFNULL(sale.price, s.invoice_price)                      AS invoice_price,
+               s.stock                                                  AS stock,
+               IFNULL(import.total_quantity_imported, 0)                AS total_quantity_imported,
+               IFNULL(sale.total_quantity_sold, 0)                      AS total_quantity_sold,
+               IFNULL(import.price * import.total_quantity_imported, 0) AS total_cost,
+               IFNULL(sale.price * sale.total_quantity_sold, 0)         AS total_revenue
+        FROM
+            (SELECT rd.sku_id,
                      rd.price,
                      SUM(rd.quantity) AS total_quantity_sold
-            FROM 
-                receipt r
-                JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
-            WHERE 
-                r.status = 'delivered'
+              FROM receipt r
+                       JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
+              WHERE r.status = 'delivered'
                 AND DATE(r.created_at) BETWEEN :fromDate AND :toDate
-            GROUP BY 
-                rd.sku_id, 
-                rd.price
-            ) AS sales
-                RIGHT JOIN sku s ON s.sku_id = sales.sku_id";
+              GROUP BY rd.sku_id,
+                       rd.price) AS sale
+                 JOIN
+             (SELECT id.sku_id,
+                     id.price,
+                     SUM(id.quantity) AS total_quantity_imported
+              FROM import i
+                       JOIN import_detail id ON i.import_id = id.import_id
+              WHERE i.status = 'delivered'
+                AND DATE(i.date) BETWEEN :fromDate AND :toDate
+              GROUP BY id.sku_id,
+                       id.price) AS import ON import.sku_id = sale.sku_id
+                RIGHT JOIN sku s ON s.sku_id = sale.sku_id";
 
         if ($searchBy !== null && $search !== null) {
             if ($searchBy === 'sku_id') {
@@ -242,19 +248,29 @@ class StatisticRepository
         $stmt->closeCursor();
 
         // Get total records
-        $countSQL = "SELECT COUNT(*) FROM sku s
-            LEFT JOIN (
-                SELECT rd.sku_id,
+        $countSQL = "
+            SELECT COUNT(*) 
+            FROM
+                (SELECT rd.sku_id,
+                         rd.price,
                          SUM(rd.quantity) AS total_quantity_sold
-                FROM 
-                    receipt r
-                    JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
-                WHERE 
-                    r.status = 'delivered'
+                  FROM receipt r
+                           JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
+                  WHERE r.status = 'delivered'
                     AND DATE(r.created_at) BETWEEN :fromDate AND :toDate
-                GROUP BY 
-                    rd.sku_id
-                ) AS sales ON s.sku_id = sales.sku_id";
+                  GROUP BY rd.sku_id,
+                           rd.price) AS sale
+                     JOIN
+                 (SELECT id.sku_id,
+                         id.price,
+                         SUM(id.quantity) AS total_quantity_imported
+                  FROM import i
+                           JOIN import_detail id ON i.import_id = id.import_id
+                  WHERE i.status = 'delivered'
+                    AND DATE(i.date) BETWEEN :fromDate AND :toDate
+                  GROUP BY id.sku_id,
+                           id.price) AS import ON import.sku_id = sale.sku_id
+                    RIGHT JOIN sku s ON s.sku_id = sale.sku_id";
         if ($searchBy !== null && $search !== null) {
             if ($searchBy === 'sku_id') {
                 $countSQL .= " WHERE sku_id = :search";
@@ -325,6 +341,38 @@ class StatisticRepository
         ]);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
+    }
+
+    public function getReceiptWithSkuIdAndPrice(int $id, int $price): array
+    {
+        $sql = "SELECT r.receipt_id,
+                       ui.full_name,
+                       r.created_at,
+                       r.total_price
+                FROM receipt r
+                         JOIN receipt_detail rd ON r.receipt_id = rd.receipt_id
+                         JOIN user_information ui ON ui.user_information_id = r.user_information_id
+                WHERE rd.sku_id = :skuId
+                  AND rd.price = :price;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['skuId' => $id, 'price' => $price]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function getImportWithSkuIdAndPrice(int $id, int $price): array
+    {
+        $sql = "SELECT i.import_id,
+                       p.provider_name,
+                       i.date,
+                       i.total
+                FROM import i
+                         JOIN import_detail id ON i.import_id = id.import_id
+                         JOIN provider p ON p.provider_id = i.provider_id
+                WHERE id.sku_id = :skuId
+                  AND id.price = :price";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['skuId' => $id, 'price' => $price]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 }
 

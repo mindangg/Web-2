@@ -17,7 +17,7 @@ class StatisticController
 
     public function processRequest(string $method, ?string $param): void
     {
-//        AuthMiddleware::verifyToken();
+        AuthMiddleware::verifyToken();
 
         switch ($method) {
             case 'GET':
@@ -44,7 +44,12 @@ class StatisticController
                     http_response_code(404);
 
                 break;
-                
+            case 'POST':
+                if ($param === 'product-detail'){
+                    $this->getReceiptAndImport();
+                }
+                break;
+
             default:
                 http_response_code(405);
                 header("Allow: GET POST PATCH DELETE");
@@ -80,7 +85,7 @@ class StatisticController
     {
         $fromDate = $_GET['from'] ?? null;
         $toDate = $_GET['to'] ?? null;
-        $sort = $_GET['sort'] ?? "product_id";
+        $sort = $_GET['sort'] ?? "sku_id";
         $sortOrder = $_GET['dir'] ?? "ASC";
         $searchBy = $_GET['searchBy'] ?? null;
         $search = $_GET['search'] ?? null;
@@ -112,6 +117,19 @@ class StatisticController
     {
         $statistic = $this->statisticService->getProductStatisticOverView();
         echo json_encode($statistic);
+    }
+
+    private function getReceiptAndImport(): void
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $response = $this->statisticService->getReceiptAndImport($data);
+        if($response['status'] === 401){
+            http_response_code(401);
+            echo json_encode($response);
+        }else if($response['status'] === 200){
+            http_response_code(200);
+            echo json_encode($response);
+        }
     }
 }
 ?>

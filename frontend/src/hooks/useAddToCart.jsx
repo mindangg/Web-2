@@ -1,17 +1,21 @@
 import { useNotificationContext } from './useNotificationContext'
 import { useAuthContext } from './useAuthContext'
 import { useCartContext } from './useCartContext'
+import {useNavigate} from "react-router-dom";
 
 export const useAddToCart = () => {
     const { showNotification } = useNotificationContext()
     const { user } = useAuthContext()
     const { dispatch } = useCartContext()
+    const navigator = useNavigate()
 
     const addToCart = async (product) => {
         console.log('product', product.stock)
         // console.log('product', product)
         if (!user) {
+
             showNotification('Vui lòng đăng nhập để thêm vào giỏ hàng')
+            navigator("/login")
             return
         }
 

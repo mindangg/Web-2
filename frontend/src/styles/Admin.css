@@ -790,6 +790,7 @@
     width: 15%;
     padding: 0 10px;
     color: var(--gray);
+    margin: 5px 0;
 }
 
 .order-statistic-controller button{
@@ -802,6 +803,7 @@
     gap: 5px;
     align-items: center;
     padding: 10px;
+    margin: 5px 0;
 }
 
 .order-statistic-controller button:hover{
@@ -901,6 +903,7 @@ canvas {
     gap: 5px;
     align-items: center;
     padding: 10px;
+    text-align: center;
 }
 
 .user-statistic-controller button:hover{
@@ -910,6 +913,7 @@ canvas {
 
 .user-statistic-controller button i{
     color: black;
+    width: 100%;
 }
 
 .user-statistic-controller label{
@@ -957,7 +961,6 @@ canvas {
 }
 
 .user-statistic-icon i{
-    margin-right: 5px;
     color: black!important;
 }
 
@@ -983,7 +986,7 @@ canvas {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1;
+    z-index: 5;
     overflow-y: scroll;
 }
 
@@ -1085,12 +1088,17 @@ canvas {
 .product-statistic-header,
 .product-statistic-info{
     display: grid;
-    grid-template-columns: 1.5fr 1.5fr 5fr 2fr 2fr 2fr 1.5fr 1.5fr 2.5fr 2.5fr;
+    grid-template-columns: 1fr 4fr 2fr 2fr 2fr 1.3fr 1.3fr 1.3fr 2fr 2fr;
     padding: 25px 0;
     text-align: center;
     align-items: center;
     color: black;
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
+}
+
+.product-statistic-info:hover{
+    cursor: pointer;
+    background-color: lightgray;
 }
 
 .import-statistic-container{
@@ -1137,6 +1145,23 @@ canvas {
 }
 
 .import-statistic-controller button:hover{
+    cursor: pointer;
+    background-color: #4ecd87c1;
+}
+
+.custom-button{
+    color: black;
+    background-color: #4ecd87;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+}
+
+.custom-button:hover{
     cursor: pointer;
     background-color: #4ecd87c1;
 }
@@ -1194,6 +1219,13 @@ canvas {
     .user-statistic-header,
     .user-statistic-info {
         grid-template-columns: 2.5fr 3fr 2.5fr 5.5fr 3fr 3.5fr 1.5fr;
+        font-size: 14px;
+        padding: 15px 0;
+    }
+
+    .product-statistic-header,
+    .product-statistic-info {
+        grid-template-columns: 1fr 4fr 2fr 2fr 2fr 1.3fr 1.3fr 1.3fr 2fr 2fr;
         font-size: 14px;
         padding: 15px 0;
     }
@@ -1337,10 +1369,10 @@ canvas {
     .user-statistic-controller button {
         width: 100%;
         max-width: 100%;
+        margin: 10px 0;
     }
 
     .user-statistic-controller label {
-        margin: 0 0 5px 0;
     }
 
     .user-order-header,
@@ -1376,7 +1408,8 @@ canvas {
     .order-statistic-icon {
         justify-content: flex-start;
     }
-    
+
+    .product-statistic-header,
     .user-statistic-header,
     .user-header,
     .employee-header,
@@ -1385,6 +1418,7 @@ canvas {
         display: none;
     }
 
+    .product-statistic-info,
     .user-statistic-info,
     .user-info,
     .user-info,
@@ -1401,6 +1435,7 @@ canvas {
         background-color: #fff;
     }
 
+    .product-statistic-info > div,
     .user-statistic-info > div,
     .user-info > div,
     .employee-info > div, 
@@ -1413,6 +1448,7 @@ canvas {
         font-size: 14px;
     }
 
+    .product-statistic-info > div span:first-child,
     .user-statistic-info > div span:first-child,
     .user-info > div span:first-child,
     .employee-info > div span:first-child,
@@ -1420,6 +1456,10 @@ canvas {
     .product-info > div span:first-child {
         font-weight: bold;
         color: #333;
+    }
+
+    .product-statistic-info span *{
+        margin-bottom: 10px;
     }
 
     .user-status,
@@ -1458,6 +1498,7 @@ canvas {
 }
 
 @media (max-width: 480px) {
+    .product-statistic-info,
     .user-statistic-info,
     .user-info,
     .employee-info,
@@ -1466,6 +1507,7 @@ canvas {
         padding: 10px;
     }
 
+    .product-statistic-info > div,
     .user-statistic-info > div,
     .user-info > div,
     .employee-info > div,
@@ -1656,7 +1698,7 @@ canvas {
     display: flex;
     gap: 5px;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
 }
 
 .warranty-icon button:hover{
@@ -1696,7 +1738,7 @@ canvas {
     cursor: pointer;
 }
 
-.modal.open{
+.warranty .modal.open{
     position: fixed;
     top: 0;
     left: 0;
@@ -1709,7 +1751,7 @@ canvas {
     z-index: 10;
 }
 
-.modal-content{
+.warranty .modal-content{
     background-color: var(--light-gray);
     padding: 20px;
     border-radius: 10px;

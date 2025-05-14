@@ -20,13 +20,13 @@ CREATE TABLE user_information
     user_information_id INT PRIMARY KEY AUTO_INCREMENT,
     account_id          INT,
     full_name           VARCHAR(30),
-    phone_number        VARCHAR(10),           -- Bỏ UNIQUE để hỗ trợ nhiều địa chỉ
+    phone_number        VARCHAR(10),
     house_number        VARCHAR(10),
     street              VARCHAR(50),
     ward                VARCHAR(50),
     district            VARCHAR(50),
     city                VARCHAR(50),
-    is_default          BOOLEAN DEFAULT FALSE, -- Thêm để đánh dấu địa chỉ mặc định
+    is_default          BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -120,7 +120,7 @@ CREATE TABLE receipt
     user_information_id INT,
     created_at          DATETIME                                                             DEFAULT CURRENT_TIMESTAMP,
     total_price         INT,
-    status              ENUM ('pending','confirmed', 'cancelled', 'on deliver', 'delivered') DEFAULT 'pending',
+    status              ENUM ('pending','confirmed', 'cancelled', 'on_deliver', 'delivered') DEFAULT 'pending',
     payment_method ENUM('direct_payment', 'transfer_payment') DEFAULT 'direct_payment',
     FOREIGN KEY (account_id) REFERENCES user_account (user_account_id)
         ON DELETE CASCADE
@@ -267,6 +267,14 @@ BEGIN
              WHERE product_id = OLD.product_id),
             0)
     WHERE product_id = OLD.product_id;
+END$$
+
+CREATE TRIGGER trg_update_sku_date
+    BEFORE UPDATE
+    ON sku
+    FOR EACH ROW
+BEGIN
+    SET NEW.update_date = CURRENT_TIMESTAMP;
 END$$
 
 DELIMITER ;
