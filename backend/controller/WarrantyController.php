@@ -37,10 +37,11 @@ class WarrantyController {
             $status = $_GET['status'] ?? null;
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
+            $account_id = isset($_GET['account_id']) ? (int)$_GET['account_id'] : null;
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
 
-            $result = $this->warrantyService->getAllWarranties($imei, $sku_name, $receipt_id, $status, $startDate, $endDate, $page, $limit);
+            $result = $this->warrantyService->getAllWarranties($imei, $sku_name, $receipt_id, $status, $startDate, $endDate, $account_id, $page, $limit);
             $warranties = $result['warranties'];
             $userInfoRepo = new \repository\UserInformationRepository();
             foreach ($warranties as &$warranty) {

@@ -10,7 +10,7 @@ class WarrantyRepository {
         $this->db = (new Database())->getConnection();
     }
 
-    public function findAll(?string $imei = null, ?string $sku_name = null, ?string $receipt_id = null, ?string $status = null, ?string $startDate = null, ?string $endDate = null, int $page = 1, int $limit = 10): array {
+    public function findAll(?string $imei = null, ?string $sku_name = null, ?string $receipt_id = null, ?string $status = null, ?string $startDate = null, ?string $endDate = null, ?int $account_id = null, int $page = 1, int $limit = 10): array {
         $offset = ($page - 1) * $limit;
 
         $query = "
@@ -29,6 +29,7 @@ class WarrantyRepository {
             LEFT JOIN receipt_detail rd ON i.receipt_detail_id = rd.detail_id
             LEFT JOIN sku s ON rd.sku_id = s.sku_id
             LEFT JOIN receipt r ON rd.receipt_id = r.receipt_id
+            LEFT JOIN user_information ui ON r.user_information_id = ui.user_information_id
             WHERE 1=1
         ";
 
@@ -57,12 +58,17 @@ class WarrantyRepository {
             $query .= " AND i.date <= :endDate";
             $params[':endDate'] = $endDate;
         }
+        if ($account_id) {
+            $query .= " AND ui.account_id = :account_id";
+            $params[':account_id'] = $account_id;
+        }
 
         // Đếm tổng số bản ghi để tính tổng số trang
         $countQuery = "SELECT COUNT(*) as total FROM imei i
                        LEFT JOIN receipt_detail rd ON i.receipt_detail_id = rd.detail_id
                        LEFT JOIN sku s ON rd.sku_id = s.sku_id
                        LEFT JOIN receipt r ON rd.receipt_id = r.receipt_id
+                       LEFT JOIN user_information ui ON r.user_information_id = ui.user_information_id
                        WHERE 1=1";
         if ($imei) {
             $countQuery .= " AND i.imei LIKE :imei";
@@ -81,6 +87,9 @@ class WarrantyRepository {
         }
         if ($endDate) {
             $countQuery .= " AND i.date <= :endDate";
+        }
+        if ($account_id) {
+            $countQuery .= " AND ui.account_id = :account_id";
         }
 
         $countStmt = $this->db->prepare($countQuery);

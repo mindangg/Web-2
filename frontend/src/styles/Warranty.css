@@ -1,0 +1,190 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.table th {
+    background-color: #343a40;
+    color: #fff;
+    font-weight: 600;
+}
+
+.table tr:hover {
+    background-color: #f1f3f5;
+}
+
+.table td {
+    font-size: 15px;
+    color: #495057;
+}
+
+.warranty-status-Hoạt_động {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.warranty-status-Đang_bảo_hành {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.warranty-status-Hết_hạn {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.view-button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.view-button:hover {
+    background-color: #0056b3;
+}
+
+.close-button {
+    background-color: #6c757d;
+    color: #fff;
+    padding: 10px 20px;
+    float: right;
+}
+
+.close-button:hover {
+    background-color: #5a6268;
+}
+
+.history .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.history .modal.open {
+    display: flex;
+}
+
+.history .modal-content {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.history .modal-content h2 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.history .modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.history .modal-content th, .modal-content td {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 14px;
+}
+
+.history .modal-content th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+}
+
+.warranty-user-info {
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.warranty-user-info h3 {
+    margin: 0 0 15px;
+    font-size: 18px;
+    color: #2c3e50;
+    width: 100%;
+}
+
+.warranty-user-info p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #495057;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .modal-content {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .modal-content h2 {
+        font-size: 20px;
+    }
+
+    .button {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
