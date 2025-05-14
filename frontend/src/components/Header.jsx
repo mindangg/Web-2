@@ -178,8 +178,14 @@ export default function Header() {
                     <Link to={'/product'} onClick={() => setToggle('product')}
                           className={toggle === 'product' ? 'active' : ''}>SẢN PHẨM</Link>
                     {brands && brands.map((brand) => (
-                    <Link to={`/product?brand=${brand.brand_name.toLowerCase()}`} key={brand.id} onClick={() => setToggle(brand.brand_name.toLowerCase())}
-                              className={toggle === brand.brand_name.toLowerCase() ? 'active' : ''}>{brand.brand_name.toUpperCase()}</Link>
+                    <Link
+                        to={`/product?brand=${brand.brand_name.toLowerCase()}`}
+                        key={brand.brand_id}
+                        onClick={() => setToggle(brand.brand_name.toLowerCase())}
+                        className={toggle === brand.brand_name.toLowerCase() ? 'active' : ''}
+                    >
+                        {brand.brand_name.toUpperCase()}
+                    </Link>
                     ))}
                 </nav>
             </div>
