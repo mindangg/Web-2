@@ -260,11 +260,11 @@ class UserRepository
             return false;
 
         // function to check if the account has order
-        $orderCheckSql = "SELECT EXISTS (
-            SELECT 1
-            FROM receipt
-            WHERE account_id = :id
-        ) AS has_order";
+        $orderCheckSql = "SELECT COUNT(*) FROM receipt WHERE user_account_id = :id";
+        $checkStmt = $this->pdo->prepare($orderCheckSql);
+        $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $checkStmt->execute();
+        $hasOrder = $checkStmt->fetchColumn();
 
         $orderCheckStmt = $this->pdo->prepare($orderCheckSql);
         $orderCheckStmt->execute(['id' => $id]);
