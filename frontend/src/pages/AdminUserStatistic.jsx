@@ -136,7 +136,7 @@ export default function AdminUserStatistic() {
                         setSortOrder('DESC')
                     }}>Giảm</button>
 
-                    <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i>Refresh</button>
+                    <button onClick={handleRefresh}><i className='fa-solid fa-rotate-right'></i></button>
                 </div>
             </div>
             

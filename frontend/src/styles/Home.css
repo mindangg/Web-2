@@ -12,7 +12,6 @@
     display: block;
 }
 
-/* Product Slider Styles */
 .product-slider {
     margin-top: 10px;
     padding: 20px;
@@ -35,7 +34,7 @@
 }
 
 .product-slider .slick-list {
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
 .product-slider .slick-prev,
@@ -48,10 +47,8 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
-.product-slider .slick-prev:focus,
 .product-slider .slick-prev:hover,
-.product-slider .slick-next:hover,
-.product-slider .slick-next:focus {
+.product-slider .slick-next:hover {
     color: transparent;
     outline: none;
     background: gray !important;

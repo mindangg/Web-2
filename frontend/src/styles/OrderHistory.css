@@ -22,7 +22,7 @@ body {
 }
 
 .table th, .table td {
-    padding: 15px;
+    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #e9ecef;
 }
@@ -200,20 +200,20 @@ body {
         font-size: 14px;
     }
 
-    .modal-content {
+    .history .modal-content {
         padding: 15px;
         width: 95%;
     }
 
-    .modal-content h2 {
+    .history .modal-content h2 {
         font-size: 20px;
     }
 
-    .modal-content img {
+    .history .modal-content img {
         max-width: 50px;
     }
 
-    .button {
+    .history .button {
         padding: 6px 12px;
         font-size: 13px;
     }

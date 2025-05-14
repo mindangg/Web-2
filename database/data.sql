@@ -119,7 +119,7 @@ VALUES (1, 1, 'iPhone 14 Series', 'iPhone 14 Pro Max', 'iphone14promax.jpg', 'A1
         32990000, '2025-03-10', 12, 1);
 
 INSERT INTO sku(product_id, internal_id, color_id, sku_code, sku_name, image, import_price, invoice_price, sold, stock)
-VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxwhite4gb128gb.jpg',
+VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB Black', 'iphone14promaxblack4gb128gb.jpg',
         32200000, 34500000, 0, 10),
        (1, 7, 2, 'IPHONE14PROMAX-WHITE-6GB/256GB', 'iPhone 14 Pro Max 6GB/256GB White', 'iphone14promaxwhite6gb256gb.jpg',
         33350000, 35650000, 0, 8),
@@ -131,11 +131,11 @@ VALUES (1, 1, 1, 'IPHONE14PROMAX-BLACK-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB 
         31050000, 5, 10),
        (2, 25, 5, 'IPHONE13PRO-GREEN-12GB/1TB', 'iPhone 13 Pro 12GB/1TB Green', 'iphone13progreen.jpg', 29900000,
         32200000, 2, 7),
-       (3, 13, 1, 'SAMSUNGGALAXYS23ULTRA-BLACK-8GB/512GB', 'Samsung Galaxy S23 Ultra 8GB/512GB Black',
+       (4, 13, 1, 'SAMSUNGGALAXYS23ULTRA-BLACK-8GB/512GB', 'Samsung Galaxy S23 Ultra 8GB/512GB Black',
         'samsunggalaxys23ultrablack.jpg', 29900000, 32200000, 4, 12),
-       (3, 24, 2, 'SAMSUNGGALAXYS23ULTRA-WHITE-12GB/1TB', 'Samsung Galaxy S23 Ultra 12GB/1TB White',
+       (4, 24, 2, 'SAMSUNGGALAXYS23ULTRA-WHITE-12GB/1TB', 'Samsung Galaxy S23 Ultra 12GB/1TB White',
         'samsunggalaxys23ultrawhite.jpg', 31050000, 33350000, 3, 9),
-       (3, 30, 7, 'SAMSUNGGALAXYS23ULTRA-PURPLE-16GB/2TB', 'Samsung Galaxy S23 Ultra 16GB/2TB Purple',
+       (4, 30, 7, 'SAMSUNGGALAXYS23ULTRA-PURPLE-16GB/2TB', 'Samsung Galaxy S23 Ultra 16GB/2TB Purple',
         'samsunggalaxys23ultrapurple.jpg', 32200000, 34500000, 1, 6),
        (1, 1, 2, 'IPHONE14PROMAX-WHITE-4GB/128GB', 'iPhone 14 Pro Max 4GB/128GB White', 'iphone14promaxwhite4gb128gb.jpg',
         32200000, 34500000, 0, 10),

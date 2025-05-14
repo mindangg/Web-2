@@ -49,7 +49,7 @@ function Payment() {
                 }
             );
             const addresses = await response.json();
-            const selectedAddress = addresses.find(addr => addr.user_information_id === selectedAddressId);
+            const selectedAddress = addresses.find(addr => addr.user_information_id === parseInt(selectedAddressId));
 
             if (!selectedAddress) {
                 showNotification("Địa chỉ không hợp lệ");
@@ -112,7 +112,7 @@ function Payment() {
 
                 showNotification("Đặt hàng thành công!");
                 setShowPreview(false);
-                navigate("/order-confirmation");
+                navigate("/");
             } else {
                 showNotification(`Lỗi: ${data.message || "Không thể tạo đơn hàng"}`);
             }

@@ -14,12 +14,12 @@ import '../styles/Header.css'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../hooks/useLogout'
 import { useNotificationContext } from '../hooks/useNotificationContext'
-import {API_URL} from '../utils/Constant.jsx';
+import useHeaderContext from "../hooks/useHeaderContext.jsx";
 
 export default function Header() {
+    const {brands} = useHeaderContext()
     const { user } = useAuthContext()
     const { logout } = useLogout()
-    const [brands, setBrands] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const { showNotification } = useNotificationContext()
@@ -28,31 +28,6 @@ export default function Header() {
     const [brand, setBrand] = useState('');
     const [priceFrom, setPriceFrom] = useState('');
     const [priceTo, setPriceTo] = useState('');
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-        const fetchBrands = async () => {
-            try {
-                const response = await fetch(`${API_URL}brand`, { signal });
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-                const data = await response.json();
-                setBrands(data.brands);
-            } catch (error) {
-                if (error.name === 'AbortError') {
-                    console.log('Fetch aborted');
-                } else {
-                    console.error(error);
-                }
-            }
-        };
-        fetchBrands()
-        return () => {
-            controller.abort();
-        };
-    }, []);
 
     const [toggle, setToggle] = useState('home')
 
@@ -202,20 +177,10 @@ export default function Header() {
                           className={toggle === 'home' ? 'active' : ''}>TRANG CHỦ</Link>
                     <Link to={'/product'} onClick={() => setToggle('product')}
                           className={toggle === 'product' ? 'active' : ''}>SẢN PHẨM</Link>
-                    <Link to={'/product?brand=apple'} onClick={() => setToggle('apple')}
-                          className={toggle === 'apple' ? 'active' : ''}>IPHONE</Link>
-                    <Link to={'/product?brand=samsung'} onClick={() => setToggle('samsung')}
-                          className={toggle === 'samsung' ? 'active' : ''}>SAMSUNG</Link>
-                    <Link to={'/product?brand=oppo'} onClick={() => setToggle('oppo')}
-                          className={toggle === 'oppo' ? 'active' : ''}>OPPO</Link>
-                    <Link to={'/product?brand=huawei'} onClick={() => setToggle('huawei')}
-                          className={toggle === 'huawei' ? 'active' : ''}>HUAWEI</Link>
-                    <Link to={'/product?brand=realme'} onClick={() => setToggle('realme')}
-                          className={toggle === 'realme' ? 'active' : ''}>REALME</Link>
-                    <Link to={'/product?brand=vivo'} onClick={() => setToggle('vivo')}
-                          className={toggle === 'vivo' ? 'active' : ''}>VIVO</Link>
-                    <Link to={'/product?brand=xiaomi'} onClick={() => setToggle('xiaomi')}
-                          className={toggle === 'xiaomi' ? 'active' : ''}>XIAOMI</Link>
+                    {brands && brands.map((brand) => (
+                    <Link to={`/product?brand=${brand.brand_name.toLowerCase()}`} key={brand.id} onClick={() => setToggle(brand.brand_name.toLowerCase())}
+                              className={toggle === brand.brand_name.toLowerCase() ? 'active' : ''}>{brand.brand_name.toUpperCase()}</Link>
+                    ))}
                 </nav>
             </div>
         </header>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../styles/Admin.css';
 import { useAdminContext } from '../hooks/useAdminContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
@@ -23,13 +23,13 @@ export default function AdminWarranty() {
   const [totalPage, setTotalPage] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams({ limit: '10' });
 
-  useEffect(() => {
-    const fetchWarranties = async () => {
-      if (!admin || !admin.token) {
-        setError('Không tìm thấy thông tin đăng nhập. Vui lòng đăng nhập lại.');
-        setLoading(false);
-        return;
-      }
+    useEffect(() => {
+        const fetchWarranties = async () => {
+            if (!admin || !admin.token) {
+                setError('Không tìm thấy thông tin đăng nhập. Vui lòng đăng nhập lại.');
+                setLoading(false);
+                return;
+            }
 
       try {
         const queryParams = new URLSearchParams({
@@ -76,9 +76,9 @@ export default function AdminWarranty() {
 
     let filtered = warranties;
 
-    if (statusFilter !== 'All') {
-      filtered = filtered.filter((warranty) => warranty.status === statusFilter);
-    }
+        if (statusFilter !== 'All') {
+            filtered = filtered.filter((warranty) => warranty.status === statusFilter);
+        }
 
     if (startDate) {
       filtered = filtered.filter(
@@ -151,26 +151,26 @@ export default function AdminWarranty() {
     }
   };
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('vi-VN');
-  };
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString('vi-VN');
+    };
 
-  if (!admin) {
-    return <div className="warranty-container">Vui lòng đăng nhập để xem bảo hành.</div>;
-  }
+    if (!admin) {
+        return <div className="warranty-container">Vui lòng đăng nhập để xem bảo hành.</div>;
+    }
 
-  if (loading) return <div className="warranty-container">Đang tải...</div>;
-  if (error) return <div className="warranty-container">Lỗi: {error}</div>;
+    if (loading) return <div className="warranty-container">Đang tải...</div>;
+    if (error) return <div className="warranty-container">Lỗi: {error}</div>;
 
-  return (
-    <div className="warranty-container">
-      <div className="warranty-controller">
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-          <option value="All">Tất cả</option>
-          <option value="Hoạt động">Hoạt động</option>
-          <option value="Đang bảo hành">Đang bảo hành</option>
-          <option value="Hết hạn">Hết hạn</option>
-        </select>
+    return (
+        <div className="warranty-container">
+            <div className="warranty-controller">
+                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                    <option value="All">Tất cả</option>
+                    <option value="Hoạt động">Hoạt động</option>
+                    <option value="Đang bảo hành">Đang bảo hành</option>
+                    <option value="Hết hạn">Hết hạn</option>
+                </select>
 
         <div className="warranty-search">
           <input
@@ -203,12 +203,12 @@ export default function AdminWarranty() {
           <i className="fa-solid fa-magnifying-glass"></i>
         </div>
 
-        <label>Từ</label>
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
+                <label>Từ</label>
+                <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                />
 
         <label>Đến</label>
         <input
@@ -218,21 +218,21 @@ export default function AdminWarranty() {
           onChange={(e) => setEndDate(e.target.value)}
         />
 
-        <div className="warranty-icon">
-          <button onClick={handleRefresh}>
-            <i className="fa-solid fa-rotate-right"></i> Làm mới
-          </button>
-        </div>
-      </div>
+                <div className="warranty-icon">
+                    <button onClick={handleRefresh}>
+                        <i className="fa-solid fa-rotate-right"></i> Làm mới
+                    </button>
+                </div>
+            </div>
 
-      <div className="warranty-header">
-        <span>IMEI</span>
-        <span>Sản phẩm</span>
-        <span>Ngày kích hoạt</span>
-        <span>Ngày hết hạn</span>
-        <span>Trạng thái</span>
-        <span>Chi tiết</span>
-      </div>
+            <div className="warranty-header">
+                <span>IMEI</span>
+                <span>Sản phẩm</span>
+                <span>Ngày kích hoạt</span>
+                <span>Ngày hết hạn</span>
+                <span>Trạng thái</span>
+                <span>Chi tiết</span>
+            </div>
 
       {filteredWarranties.length === 0 ? (
         <div>Không có bản ghi bảo hành phù hợp.</div>
@@ -269,44 +269,48 @@ export default function AdminWarranty() {
         />
       )}
 
-      {selectedWarranty && (
-        <div className="modal open">
-          <div className="modal-content">
-            <h2>Chi tiết bảo hành #{selectedWarranty.imei}</h2>
-            <div className="warranty-details">
-              <p><strong>IMEI:</strong> {selectedWarranty.imei}</p>
-              <p><strong>Sản phẩm:</strong> {selectedWarranty.sku_name}</p>
-              <p><strong>Đơn hàng:</strong> #{selectedWarranty.receipt_detail_id}</p>
-              <p><strong>Ngày kích hoạt:</strong> {formatDate(selectedWarranty.date)}</p>
-              <p><strong>Ngày hết hạn:</strong> {formatDate(selectedWarranty.expired_date)}</p>
-              <p><strong>Trạng thái:</strong> {selectedWarranty.status}</p>
-              {selectedWarranty.user_info && (
-                <>
-                  <p><strong>Người mua:</strong> {selectedWarranty.user_info.full_name}</p>
-                  <p><strong>Số điện thoại:</strong> {selectedWarranty.user_info.phone_number}</p>
-                  <p><strong>Địa chỉ:</strong> {selectedWarranty.user_info.house_number}, {selectedWarranty.user_info.street}, {selectedWarranty.user_info.ward}, {selectedWarranty.user_info.district}, {selectedWarranty.user_info.city}</p>
-                </>
-              )}
-            </div>
-            <div className="warranty-actions">
-              {selectedWarranty.status !== 'Hết hạn' && (
-                <button
-                  className="button"
-                  onClick={() => handleStatusUpdate(selectedWarranty.imei, selectedWarranty.status === 'Hoạt động' ? 'Đang bảo hành' : 'Hoạt động')}
-                >
-                  {selectedWarranty.status === 'Hoạt động' ? 'Chuyển sang Đang bảo hành' : 'Chuyển sang Hoạt động'}
-                </button>
-              )}
-              <button
-                className="button close-button"
-                onClick={() => setSelectedWarranty(null)}
-              >
-                Đóng
-              </button>
-            </div>
-          </div>
+            {selectedWarranty && (
+                <div className={'warranty'}>
+                    <div className="modal open">
+                        <div className="modal-content">
+                            <h2>Chi tiết bảo hành #{selectedWarranty.imei}</h2>
+                            <div className="warranty-details">
+                                <p><strong>IMEI:</strong> {selectedWarranty.imei}</p>
+                                <p><strong>Sản phẩm:</strong> {selectedWarranty.sku_name}</p>
+                                <p><strong>Đơn hàng:</strong> #{selectedWarranty.receipt_detail_id}</p>
+                                <p><strong>Ngày kích hoạt:</strong> {formatDate(selectedWarranty.date)}</p>
+                                <p><strong>Ngày hết hạn:</strong> {formatDate(selectedWarranty.expired_date)}</p>
+                                <p><strong>Trạng thái:</strong> {selectedWarranty.status}</p>
+                                {selectedWarranty.user_info && (
+                                    <>
+                                        <p><strong>Người mua:</strong> {selectedWarranty.user_info.full_name}</p>
+                                        <p><strong>Số điện thoại:</strong> {selectedWarranty.user_info.phone_number}</p>
+                                        <p><strong>Địa
+                                            chỉ:</strong> {selectedWarranty.user_info.house_number}, {selectedWarranty.user_info.street}, {selectedWarranty.user_info.ward}, {selectedWarranty.user_info.district}, {selectedWarranty.user_info.city}
+                                        </p>
+                                    </>
+                                )}
+                            </div>
+                            <div className="warranty-actions">
+                                {selectedWarranty.status !== 'Hết hạn' && (
+                                    <button
+                                        className="button"
+                                        onClick={() => handleStatusUpdate(selectedWarranty.imei, selectedWarranty.status === 'Hoạt động' ? 'Đang bảo hành' : 'Hoạt động')}
+                                    >
+                                        {selectedWarranty.status === 'Hoạt động' ? 'Chuyển sang Đang bảo hành' : 'Chuyển sang Hoạt động'}
+                                    </button>
+                                )}
+                                <button
+                                    className="button close-button"
+                                    onClick={() => setSelectedWarranty(null)}
+                                >
+                                    Đóng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 }

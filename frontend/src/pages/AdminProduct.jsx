@@ -173,6 +173,7 @@ export default function AdminProduct() {
     };
 
     const refreshList = () => {
+        setSearchParams({})
         dispatch({type: 'SET_TRIGGER_REFRESH', payload: !state.triggerRefresh});
     }
 
@@ -313,38 +314,39 @@ export default function AdminProduct() {
                     </Form.Group>
 
                     <Form.Group controlId="sortButtons" className="d-flex gap-2">
-                        <Button className={"btn-primary"}
-                                style={{height: '37px'}}
-                                onClick={() => {
-                                    const newParams = new URLSearchParams(searchParams.toString());
-                                    newParams.forEach((_, key) => newParams.delete(key));
+                        <Button
+                            className={'custom-button'}
+                            style={{height: '37px'}}
+                            onClick={() => {
+                                const newParams = new URLSearchParams(searchParams.toString());
+                                newParams.forEach((_, key) => newParams.delete(key));
 
-                                    const min = parseInt(state.minPrice || "0");
-                                    const max = parseInt(state.maxPrice || "0");
+                                const min = parseInt(state.minPrice || "0");
+                                const max = parseInt(state.maxPrice || "0");
 
-                                    if (state.minPrice && state.maxPrice && max < min) {
-                                        showNotification('Giá tối đa không thể nhỏ hơn giá tối thiểu');
-                                        return;
-                                    }
+                                if (state.minPrice && state.maxPrice && max < min) {
+                                    showNotification('Giá tối đa không thể nhỏ hơn giá tối thiểu');
+                                    return;
+                                }
 
-                                    if (state.minPrice && state.maxPrice) {
-                                        newParams.set('min_price', state.minPrice);
-                                        newParams.set('max_price', state.maxPrice);
-                                    } else {
-                                        newParams.delete('min_price');
-                                        newParams.delete('max_price');
-                                    }
+                                if (state.minPrice && state.maxPrice) {
+                                    newParams.set('min_price', state.minPrice);
+                                    newParams.set('max_price', state.maxPrice);
+                                } else {
+                                    newParams.delete('min_price');
+                                    newParams.delete('max_price');
+                                }
 
-                                    if (state.search) {
-                                        newParams.set("searchBy", state.searchBy);
-                                        newParams.set("search", state.search);
-                                    } else {
-                                        newParams.delete("searchBy");
-                                        newParams.delete("search");
-                                    }
+                                if (state.search) {
+                                    newParams.set("searchBy", state.searchBy);
+                                    newParams.set("search", state.search);
+                                } else {
+                                    newParams.delete("searchBy");
+                                    newParams.delete("search");
+                                }
 
-                                    setSearchParams(newParams);
-                                }}
+                                setSearchParams(newParams);
+                            }}
                         >
                             Áp dụng
                         </Button>
@@ -380,10 +382,10 @@ export default function AdminProduct() {
                             Giá giảm
                         </Button>
                         <Button
-                            className={"btn-warning"}
                             onClick={() => {
-                                setSearchParams({})
+                                refreshList()
                             }}
+                            className={'custom-button'}
                             style={{height: '37px'}}
                         >
                             <i className='fa-solid fa-rotate-right'></i>
@@ -392,6 +394,7 @@ export default function AdminProduct() {
                     {hasPermission("Thêm") && (
                         <Form.Group controlId="sortButtons" className="d-flex gap-2">
                             <Button
+                                className={'custom-button'}
                                 variant="success"
                                 onClick={() => dispatch({type: 'SET_SHOW_ADD_MODAL', payload: true})}
                                 style={{height: '38px'}}
@@ -442,12 +445,14 @@ export default function AdminProduct() {
                                 </Badge>
                             </td>
                             <td className={'text-center'}>
-                                {hasPermission("Xem") && (<Button
-                                    variant="info"
-                                    onClick={() => handleShowDetailModal(product)}
-                                >
-                                    <i className='fa-solid fa-eye'></i>
-                                </Button>)}
+                                {hasPermission("Xem") && (
+                                    <Button
+                                        variant="info"
+                                        onClick={() => handleShowDetailModal(product)}
+                                    >
+                                        <i className='fa-solid fa-eye'></i>
+                                    </Button>
+                                )}
                             </td>
                             <td className={'text-center'}>
                                 {hasPermission("Sửa") && (

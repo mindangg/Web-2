@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {BrowserRouter, Navigate, Route, Routes, useLocation} from 'react-router-dom'
 
 // pages
@@ -20,6 +20,7 @@ import CardDetails from "./pages/ProductDetail.jsx";
 import Notification from './components/Notification.jsx'
 import {useAuthContext} from './hooks/useAuthContext.jsx'
 import AdminWarranty from './pages/AdminWarranty.jsx'
+import useHeaderContext from "./hooks/useHeaderContext.jsx";
 
 const Layout = () => {
     const hideLayout = useLocation().pathname === '/admin'
@@ -28,7 +29,7 @@ const Layout = () => {
 
   return (
     <div className='App'>
-      {!hideLayout && <Header/>}
+      {!hideLayout && <Header />}
       <div className='pages'>
         <Routes>
           <Route path='/' element={<Home/>}/>

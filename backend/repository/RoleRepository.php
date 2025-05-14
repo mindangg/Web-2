@@ -121,51 +121,6 @@ class RoleRepository
         return array_values($roles);
     }
     
-    // public function createRole(array $data): ?array
-    // {
-    //     $this->pdo->beginTransaction();
-
-    //     $sql = "INSERT INTO role (role_name) 
-    //             VALUES (:role_name)";
-    //     $stmt = $this->pdo->prepare($sql);
-    //     $stmt->bindValue(':role_name', $data['role_name']);
-    //     $stmt->execute();
-    
-    //     $roleId = $this->pdo->lastInsertId();
-
-    //     $insertFunctional = $this->pdo->prepare(
-    //         "INSERT INTO functional (function_name) VALUES (:function_name)"
-    //     );
-
-    //     $insertRoleFunction = $this->pdo->prepare(
-    //         "INSERT INTO role_function (role_id, function_id, action) 
-    //          VALUES (:role_id, :function_id, :action)"
-    //     );
-
-    //     foreach ($data['functions'] as $function) {
-    //         $functionId = $function['function_id'] ?? null;
-
-    //         if (!$functionId && isset($function['function_name'])) {
-    //             $insertFunctional->execute([
-    //                 ':function_name' => $function['function_name']
-    //             ]);
-    //             $functionId = $this->pdo->lastInsertId();
-    //         }
-
-    //         foreach ($function['actions'] as $action) {
-    //             $insertRoleFunction->execute([
-    //                 ':role_id' => $roleId,
-    //                 ':function_id' => $functionId,
-    //                 ':action' => $action
-    //             ]);
-    //         }
-    //     }
-
-    //     $this->pdo->commit();
-
-    //     return $this->findById($roleId);
-    // }   
-    
     public function createRole(array $data): ?array
     {
 

@@ -281,9 +281,9 @@ const ModalDetailProduct = ({ show, handleClose, product, hasPermission }) => {
                                                     />
                                                 </td>
                                                 <td>{sku.sku_name}</td>
-                                                <td>
+                                                <td className={'text-center'}>
                                                     <div
-                                                        className="color-box text-center"
+                                                        className="color-box"
                                                         style={{
                                                             backgroundColor: sku.color.toLowerCase(),
                                                             width: '20px',
