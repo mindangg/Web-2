@@ -34,7 +34,6 @@ VALUES ('Apple'),
        ('Xiaomi'),
        ('Oppo'),
        ('Vivo'),
-       ('Huawei'),
        ('Realme');
 
 INSERT INTO color (color)
