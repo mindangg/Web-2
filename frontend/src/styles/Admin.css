@@ -1703,7 +1703,7 @@ canvas {
     display: flex;
     gap: 5px;
     align-items: center;
-    padding: 5px;
+    padding: 10px 10px;
 }
 
 .warranty-icon button:hover{
@@ -1822,9 +1822,20 @@ canvas {
     .warranty-icon {
         width: 100%;
         margin-right: 0;
+        margin-bottom: 15px;
     }
 
-    .warranty-controller input[type='date'] {
+    .warranty-controller input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .warranty-controller button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .warranty-controller i {
         width: 100%;
     }
 
