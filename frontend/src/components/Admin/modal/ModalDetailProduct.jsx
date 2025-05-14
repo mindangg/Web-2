@@ -31,6 +31,25 @@ const reducer = (state, action) => {
     }
 };
 
+const colorMap = new Map([
+    ['Đen', 'Black'],
+    ['Trắng', 'White'],
+    ['Xanh dương', 'Blue'],
+    ['Đỏ', 'Red'],
+    ['Xanh lá', 'Green'],
+    ['Hồng', 'Pink'],
+    ['Tím', 'Purple'],
+    ['Vàng Gold', 'Gold'],
+    ['Bạc', 'Silver'],
+    ['Xám', 'Gray'],
+    ['Vàng', 'Yellow'],
+    ['Cam', 'Orange'],
+    ['Nâu', 'Brown'],
+    ['Be', 'Beige'],
+    ['Xanh lam', 'Teal'],
+    ['Xanh navy', 'Navy Blue']
+]);
+
 const ModalDetailProduct = ({ show, handleClose, product, hasPermission }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { showNotification } = useNotificationContext();
@@ -285,7 +304,7 @@ const ModalDetailProduct = ({ show, handleClose, product, hasPermission }) => {
                                                     <div
                                                         className="color-box"
                                                         style={{
-                                                            backgroundColor: sku.color.toLowerCase(),
+                                                            backgroundColor: colorMap.get(sku.color).toLowerCase(),
                                                             width: '20px',
                                                             height: '20px',
                                                             borderRadius: '50%',

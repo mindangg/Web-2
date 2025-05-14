@@ -23,6 +23,16 @@ export default function AdminOrder() {
     const [totalPage, setTotalPage] = useState(0);
     const [searchParams, setSearchParams] = useSearchParams({ limit: '10' });
 
+    const hasAccess = (functionName, action) => {
+        const functions = admin?.employee?.[0]?.role?.functions || []
+        const matchedFunc = functions.find(f => f.function_name === functionName)
+        return matchedFunc?.actions?.includes(action)
+    }
+
+    const hasPermission = (action) => {
+        return hasAccess("Đơn hàng", action)
+    }
+
     useEffect(() => {
         const fetchReceipts = async () => {
             try {
@@ -191,6 +201,7 @@ export default function AdminOrder() {
             ) : (
                 filteredReceipts.map((receipt) => (
                     <OrderCard
+                        hasPermission={hasPermission}
                         key={receipt.receipt_id}
                         receipt={receipt}
                         onViewDetails={() => setSelectedReceipt(receipt)}

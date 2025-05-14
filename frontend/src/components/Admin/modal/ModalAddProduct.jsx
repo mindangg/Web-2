@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import { useNotificationContext } from "../../../hooks/useNotificationContext.jsx";
 import { API_URL, PRODUCT_API_URL } from "../../../utils/Constant.jsx";
+import ModalAddProvider from "./ModalAddProvider.jsx";
 
 export default function ModalAddProduct({ show, handleClose, refreshList, optionList }) {
     const { showNotification } = useNotificationContext();
@@ -40,6 +41,20 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
         release_date: "",
         warranty_period: "",
     });
+
+    const [validationErrors, setValidationErrors] = useState({
+        provider_name: false,
+        phone: false,
+        address: false,
+        email: false
+    });
+    const [brandError, setBrandError] = useState(false);
+
+    const providerNameRef = useRef(null);
+    const phoneRef = useRef(null);
+    const addressRef = useRef(null);
+    const emailRef = useRef(null);
+    const brandInputRef = useRef(null);
 
     // Validate form fields based on schema
     const validateForm = () => {
@@ -126,21 +141,73 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
         setErrors(prev => ({ ...prev, ...tempErrors }));
     };
 
-    // Handle change for brand form
     const handleBrandChange = (e) => {
         const { name, value } = e.target;
         setBrandFormData(prev => ({ ...prev, [name]: value }));
+        if (brandError) {
+            setBrandError(false);
+        }
     };
 
-    // Handle change for provider form
     const handleProviderChange = (e) => {
         const { name, value } = e.target;
         setProviderFormData(prev => ({ ...prev, [name]: value }));
+
+        if (validationErrors[name]) {
+            setValidationErrors(prev => ({ ...prev, [name]: false }));
+        }
     };
 
-    // Submit brand form
+    const validateBrandForm = () => {
+        if (!brandFormData.brand_name.trim()) {
+            setBrandError(true);
+            // Focus vào trường input
+            brandInputRef.current?.focus();
+            return false;
+        }
+        return true;
+    };
+
+    const validateProviderForm = () => {
+        const errors = {
+            provider_name: !providerFormData.provider_name.trim(),
+            phone: !providerFormData.phone.trim() || !/^0\d{9}$/.test(providerFormData.phone),
+            address: !providerFormData.address.trim(),
+            email: !providerFormData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(providerFormData.email),
+        };
+
+        setValidationErrors(errors);
+
+        if (errors.provider_name) {
+            providerNameRef.current?.focus();
+            return false;
+        }
+
+        if (errors.phone) {
+            phoneRef.current?.focus();
+            return false;
+        }
+
+        if (errors.address) {
+            addressRef.current?.focus();
+            return false;
+        }
+
+        if (errors.email) {
+            emailRef.current?.focus();
+            return false;
+        }
+
+        return !Object.values(errors).some(Boolean);
+    };
+
     const handleSubmitBrand = async (e) => {
         e.preventDefault();
+
+        if (!validateBrandForm()) {
+            return;
+        }
+
         try {
             const response = await fetch(`${API_URL}brand`, {
                 method: 'POST',
@@ -154,18 +221,24 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
 
             const data = await response.json();
             showNotification(data.message);
+            if (data.status === 400) {
+                setShowAddBrand(false);
+                refreshList();
+            }
             setBrandFormData({ brand_name: "" });
-            setShowAddBrand(false);
-            refreshList();
         } catch (error) {
             console.error(error);
             showNotification('Có lỗi xảy ra khi thêm thương hiệu', 'error');
         }
     };
 
-    // Submit provider form
     const handleSubmitProvider = async (e) => {
         e.preventDefault();
+
+        if (!validateProviderForm()) {
+            return;
+        }
+
         try {
             const response = await fetch(`${API_URL}provider`, {
                 method: 'POST',
@@ -175,24 +248,21 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
                 body: JSON.stringify(providerFormData),
             });
 
-            if (!response.ok) throw new Error('Thêm nhà cung cấp thất bại');
-
             const data = await response.json();
             showNotification(data.message);
+            if (data.status !== 400) {
+                setShowAddProvider(false);
+                refreshList();
+            }
             setProviderFormData({ provider_name: "", phone: "", address: "", email: "" });
-            setShowAddProvider(false);
-            refreshList();
         } catch (error) {
             console.error(error);
-            showNotification('Có lỗi xảy ra khi thêm nhà cung cấp', 'error');
         }
     };
 
-    // Submit product form
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) {
-            // Focus on the first invalid field
             const firstErrorField = Object.keys(errors)[0];
             if (firstErrorField && formRefs.current[firstErrorField]) {
                 formRefs.current[firstErrorField].focus();
@@ -514,8 +584,15 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
                                 value={brandFormData.brand_name}
                                 onChange={handleBrandChange}
                                 placeholder="Nhập tên thương hiệu"
-                                
+                                isInvalid={brandError}
+                                ref={brandInputRef}
+                                style={brandError ? { borderColor: 'red' } : {}}
                             />
+                            {brandError && (
+                                <Form.Control.Feedback type="invalid">
+                                    Vui lòng nhập tên thương hiệu
+                                </Form.Control.Feedback>
+                            )}
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
@@ -529,7 +606,6 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
                 </Form>
             </Modal>
 
-            {/* Modal thêm nhà cung cấp */}
             <Modal show={showAddProvider} onHide={() => setShowAddProvider(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Thêm nhà cung cấp mới</Modal.Title>
@@ -544,18 +620,31 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
                                 value={providerFormData.provider_name}
                                 onChange={handleProviderChange}
                                 placeholder="Nhập tên nhà cung cấp"
-                                
+                                isInvalid={validationErrors.provider_name}
+                                ref={providerNameRef}
                             />
+                            {validationErrors.provider_name && (
+                                <Form.Control.Feedback type="invalid">
+                                    Vui lòng nhập tên nhà cung cấp
+                                </Form.Control.Feedback>
+                            )}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Số điện thoại</Form.Label>
                             <Form.Control
-                                type="tel"
+                                type="number"
                                 name="phone"
                                 value={providerFormData.phone}
                                 onChange={handleProviderChange}
                                 placeholder="Nhập số điện thoại"
+                                isInvalid={validationErrors.phone}
+                                ref={phoneRef}
                             />
+                            {validationErrors.phone && (
+                                <Form.Control.Feedback type="invalid">
+                                    Số điện thoại không hợp lệ
+                                </Form.Control.Feedback>
+                            )}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Địa chỉ</Form.Label>
@@ -565,17 +654,31 @@ export default function ModalAddProduct({ show, handleClose, refreshList, option
                                 value={providerFormData.address}
                                 onChange={handleProviderChange}
                                 placeholder="Nhập địa chỉ"
+                                isInvalid={validationErrors.address}
+                                ref={addressRef}
                             />
+                            {validationErrors.address && (
+                                <Form.Control.Feedback type="invalid">
+                                    Vui lòng nhập địa chỉ
+                                </Form.Control.Feedback>
+                            )}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
-                                type="email"
+                                type="text"
                                 name="email"
                                 value={providerFormData.email}
                                 onChange={handleProviderChange}
                                 placeholder="Nhập email"
+                                isInvalid={validationErrors.email}
+                                ref={emailRef}
                             />
+                            {validationErrors.email && (
+                                <Form.Control.Feedback type="invalid">
+                                    Email không hợp lệ
+                                </Form.Control.Feedback>
+                            )}
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>

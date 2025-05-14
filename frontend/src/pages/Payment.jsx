@@ -28,7 +28,6 @@ function Payment() {
             return;
         }
 
-        // Lấy thông tin địa chỉ từ PaymentInfoUser
         const paymentInfoUser = document.querySelector(".info-user");
         const selectedAddressId = paymentInfoUser.dataset.selectedAddressId || null;
         const paymentMethod = paymentInfoUser.dataset.paymentMethod || "direct_payment";

@@ -24,7 +24,6 @@ const ModalUpdateSku = ({ show, handleClose, skuData, onSkuUpdated }) => {
     const { showNotification } = useNotificationContext();
 
     // State for color modal
-    const [showAddColor, setShowAddColor] = useState(false);
     const [colorFormData, setColorFormData] = useState({
         color: ''
     });
@@ -131,14 +130,6 @@ const ModalUpdateSku = ({ show, handleClose, skuData, onSkuUpdated }) => {
         }
     };
 
-    const handleColorChange = (e) => {
-        const { name, value } = e.target;
-        setColorFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -156,33 +147,6 @@ const ModalUpdateSku = ({ show, handleClose, skuData, onSkuUpdated }) => {
     const handleCloseModal = () => {
         setValidated(false);
         handleClose();
-    };
-
-    // Handle color submission
-    const handleSubmitColor = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch(`${API_URL}color`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(colorFormData),
-            });
-
-            if (!response.ok) throw new Error('Thêm màu sắc thất bại');
-
-            const data = await response.json();
-            showNotification(data.message);
-            setColorFormData({ color: '' });
-            setShowAddColor(false);
-
-            // Refresh danh sách màu sắc
-            await refreshData();
-        } catch (error) {
-            console.error(error);
-            showNotification('Có lỗi xảy ra khi thêm màu sắc', 'error');
-        }
     };
 
     const handleSubmit = async (e) => {
@@ -336,13 +300,6 @@ const ModalUpdateSku = ({ show, handleClose, skuData, onSkuUpdated }) => {
                                                 </option>
                                             ))}
                                         </Form.Select>
-                                        <Button
-                                            variant={'outline-success'}
-                                            style={{height: '40px'}}
-                                            onClick={() => setShowAddColor(true)}
-                                        >
-                                            <i className="fa-solid fa-plus"></i>
-                                        </Button>
                                     </div>
                                     <Form.Control.Feedback type="invalid">
                                         Vui lòng chọn màu sắc
@@ -408,43 +365,6 @@ const ModalUpdateSku = ({ show, handleClose, skuData, onSkuUpdated }) => {
                         </Button>
                         <Button variant="primary" type="submit">
                             Cập nhật
-                        </Button>
-                    </Modal.Footer>
-                </Form>
-            </Modal>
-
-            {/* Modal thêm màu sắc */}
-            <Modal
-                show={showAddColor}
-                onHide={() => setShowAddColor(false)}
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>Thêm màu sắc mới</Modal.Title>
-                </Modal.Header>
-                <Form onSubmit={handleSubmitColor}>
-                    <Modal.Body>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Tên màu <span className="text-danger">*</span></Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="color"
-                                value={colorFormData.color}
-                                onChange={handleColorChange}
-                                placeholder="Nhập tên màu (VD: Black, White, Red,...)"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Vui lòng nhập tên màu sắc
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShowAddColor(false)}>
-                            Hủy
-                        </Button>
-                        <Button variant="primary" type="submit">
-                            Thêm màu sắc
                         </Button>
                     </Modal.Footer>
                 </Form>

@@ -295,6 +295,7 @@ export default function AdminWarranty() {
                                 {selectedWarranty.status !== 'Hết hạn' && (
                                     <button
                                         className="button"
+                                        disabled={!hasPermission("Sửa")}
                                         onClick={() => handleStatusUpdate(selectedWarranty.imei, selectedWarranty.status === 'Hoạt động' ? 'Đang bảo hành' : 'Hoạt động')}
                                     >
                                         {selectedWarranty.status === 'Hoạt động' ? 'Chuyển sang Đang bảo hành' : 'Hoàn tất bảo hành'}
