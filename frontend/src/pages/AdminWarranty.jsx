@@ -14,6 +14,15 @@ export default function AdminWarranty() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedWarranty, setSelectedWarranty] = useState(null);
+    const hasAccess = (functionName, action) => {
+        const functions = admin?.employee?.[0]?.role?.functions || []
+        const matchedFunc = functions.find(f => f.function_name === functionName)
+        return matchedFunc?.actions?.includes(action)
+    }
+
+    const hasPermission = (action) => {
+        return hasAccess("Bảo hành", action)
+    }
 
     useEffect(() => {
         const fetchWarranties = async () => {
@@ -195,12 +204,12 @@ export default function AdminWarranty() {
                             {warranty.status}
                         </span>
                         <span className="warranty-action">
-                            <Button
+                            {hasPermission("Xem") && (<Button
                                 variant="info"
                                 onClick={() => setSelectedWarranty(warranty)}
                             >
                                 <i className='fa-solid fa-eye'></i>
-                            </Button>
+                            </Button>)}
                         </span>
                     </div>
                 ))
@@ -232,6 +241,7 @@ export default function AdminWarranty() {
                                 {selectedWarranty.status !== 'Hết hạn' && (
                                     <button
                                         className="button"
+                                        disabled={!hasPermission("Sửa")}
                                         onClick={() => handleStatusUpdate(selectedWarranty.imei, selectedWarranty.status === 'Hoạt động' ? 'Đang bảo hành' : 'Hoạt động')}
                                     >
                                         {selectedWarranty.status === 'Hoạt động' ? 'Chuyển sang Đang bảo hành' : 'Chuyển sang Hoạt động'}

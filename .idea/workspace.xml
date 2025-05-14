@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/Mobile_Store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/Mobile_Store.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useAddToCart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useAddToCart.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Cart/OrderPreview.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Cart/OrderPreview.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +245,8 @@
       <workItem from="1747151923934" duration="624000" />
       <workItem from="1747182418310" duration="665000" />
       <workItem from="1747187825896" duration="2328000" />
-      <workItem from="1747198691911" duration="639000" />
+      <workItem from="1747198691911" duration="823000" />
+      <workItem from="1747212859419" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />

@@ -4,7 +4,7 @@ import '../../styles/Admin.css';
 import {useAdminContext} from '../../hooks/useAdminContext';
 import {Button} from "react-bootstrap";
 
-export default function OrderCard({receipt, onViewDetails}) {
+export default function OrderCard({hasPermission, receipt, onViewDetails}) {
     const [status, setStatus] = useState(receipt.status);
     const {admin} = useAdminContext();
 
@@ -77,6 +77,7 @@ export default function OrderCard({receipt, onViewDetails}) {
                 className={`order-status-${status}`}
                 value={status}
                 onChange={(e) => handleStatusChange(e.target.value)}
+                disabled={!hasPermission("Sửa") || status === 'cancelled' || status === 'delivered'}
             >
                 {statusOptions.map((opt) => (
                     <option key={opt} value={opt}>
@@ -85,11 +86,11 @@ export default function OrderCard({receipt, onViewDetails}) {
                 ))}
             </select>
             <span className="order-action" onClick={onViewDetails}>
-                <Button
+                {hasPermission("Xem") && (<Button
                     variant="info"
                 >
                     <i className='fa-solid fa-eye m-0'></i>
-                </Button>
+                </Button>)}
             </span>
         </div>
     );

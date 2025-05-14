@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useRef} from 'react';
 import { Modal, Button, Form, Row, Col, Image } from 'react-bootstrap';
 import { API_URL } from "../../../utils/Constant.jsx";
 import {useNotificationContext} from "../../../hooks/useNotificationContext.jsx";
@@ -25,7 +25,10 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
         color: ''
     });
 
-    // Fetch internal options (RAM/Storage combinations)
+    const [colorError, setColorError] = useState(false);
+
+    const colorInputRef = useRef(null);
+
     useEffect(() => {
         const fetchInternalOptions = async () => {
             try {
@@ -38,7 +41,6 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
             }
         };
 
-        // Fetch color options
         const fetchColorOptions = async () => {
             try {
                 const response = await fetch(`${API_URL}color`);
@@ -92,6 +94,19 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
             ...prev,
             [name]: value
         }));
+        // Reset lỗi khi người dùng thay đổi giá trị
+        if (colorError) {
+            setColorError(false);
+        }
+    };
+
+    const validateColorForm = () => {
+        if (!colorFormData.color.trim()) {
+            setColorError(true);
+            colorInputRef.current?.focus();
+            return false;
+        }
+        return true;
     };
 
     const handleImageChange = (e) => {
@@ -126,9 +141,13 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
         handleClose();
     };
 
-    // Xử lý submit thêm màu sắc
     const handleSubmitColor = async (e) => {
         e.preventDefault();
+
+        if (!validateColorForm()) {
+            return;
+        }
+
         try {
             const response = await fetch(`${API_URL}color`, {
                 method: 'POST',
@@ -142,11 +161,12 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
 
             const data = await response.json();
             showNotification(data.message);
-            setColorFormData({ color: '' });
-            setShowAddColor(false);
 
-            // Refresh danh sách màu sắc
-            await refreshData();
+            if (data.status === 400) {
+                await refreshData();
+                setShowAddColor(false);
+            }
+            setColorFormData({ color: '' });
         } catch (error) {
             console.error(error);
             showNotification('Có lỗi xảy ra khi thêm màu sắc', 'error');
@@ -342,7 +362,6 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
                 </Form>
             </Modal>
 
-            {/* Modal thêm màu sắc */}
             <Modal
                 show={showAddColor}
                 onHide={() => setShowAddColor(false)}
@@ -351,7 +370,7 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
                 <Modal.Header closeButton>
                     <Modal.Title>Thêm màu sắc mới</Modal.Title>
                 </Modal.Header>
-                <Form onSubmit={handleSubmitColor}>
+                <Form onSubmit={handleSubmitColor} noValidate>
                     <Modal.Body>
                         <Form.Group className="mb-3">
                             <Form.Label>Tên màu <span className="text-danger">*</span></Form.Label>
@@ -360,8 +379,9 @@ const ModalAddSku = ({ show, handleClose, productId, onSkuAdded }) => {
                                 name="color"
                                 value={colorFormData.color}
                                 onChange={handleColorChange}
-                                placeholder="Nhập tên màu (VD: Black, White, Red,...)"
-                                required
+                                placeholder="Nhập tên màu (VD: Đen, Trắng, Đỏ,...)"
+                                isInvalid={colorError}
+                                ref={colorInputRef}
                             />
                             <Form.Control.Feedback type="invalid">
                                 Vui lòng nhập tên màu sắc
