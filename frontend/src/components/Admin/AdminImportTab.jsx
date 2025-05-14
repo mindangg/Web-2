@@ -322,7 +322,7 @@ export const AdminImportTab = ({ hasPermission }) => {
                             <td>{importItem.import_id}</td>
                             <td>{importItem.provider_name}</td>
                             <td>{new Date(importItem.date).toLocaleString()}</td>
-                            <td>{importItem.total.toLocaleString()} VND</td>
+                            <td>{parseInt(importItem.total).toLocaleString('vi-VN')} VND</td>
                             <td>
                                 <FormSelect
                                     disabled={

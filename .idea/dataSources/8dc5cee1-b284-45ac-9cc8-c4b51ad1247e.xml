@@ -1216,7 +1216,7 @@
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="354" parent="306" name="import_id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>5</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
@@ -1232,7 +1232,7 @@
     </column>
     <column id="357" parent="306" name="total">
       <Position>4</Position>
-      <StoredType>int|0s</StoredType>
+      <StoredType>mediumtext|0s</StoredType>
     </column>
     <column id="358" parent="306" name="provider_id">
       <Position>5</Position>

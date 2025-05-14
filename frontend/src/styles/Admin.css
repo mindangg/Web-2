@@ -1644,14 +1644,14 @@ canvas {
     display: flex;
     align-items: center;
     margin-bottom: 25px;
+    width: 100%;
 }
 
 .warranty-controller select {
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid var(--gray);
-    height: 40px;
-    width: 12%;
+    height: 35px;
     cursor: pointer;
     margin-right: 25px;
 }
@@ -1663,14 +1663,12 @@ canvas {
     height: 36px;
     color: black;
     margin-right: 25px;
-    width: 450px;
-    padding: 0 10px 0 40px;
+    padding: 0 10px 0 10px;
     font-size: 16px;
     flex-grow: 1;
 }
 
 .warranty-controller input[type='date']{
-    width: 15%;
     padding: 0 10px;
     color: var(--gray);
 }
@@ -1681,7 +1679,7 @@ canvas {
 
 .warranty-search i{
     position: absolute;
-    left: 10px;   
+    left: 10px;
     top: 50%;
     transform: translateY(-50%); 
     color: black;
