@@ -297,7 +297,7 @@ export default function AdminWarranty() {
                                         className="button"
                                         onClick={() => handleStatusUpdate(selectedWarranty.imei, selectedWarranty.status === 'Hoạt động' ? 'Đang bảo hành' : 'Hoạt động')}
                                     >
-                                        {selectedWarranty.status === 'Hoạt động' ? 'Chuyển sang Đang bảo hành' : 'Chuyển sang Hoạt động'}
+                                        {selectedWarranty.status === 'Hoạt động' ? 'Chuyển sang Đang bảo hành' : 'Hoàn tất bảo hành'}
                                     </button>
                                 )}
                                 <button

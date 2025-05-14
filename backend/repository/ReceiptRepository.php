@@ -119,9 +119,27 @@ class ReceiptRepository{
     // Đếm tổng số bản ghi
     $countSql = "SELECT COUNT(*) as total FROM receipt r JOIN user_information ui ON r.user_information_id = ui.user_information_id WHERE 1=1";
     $countParams = $params;
-    foreach ($params as $key => $value) {
-        $countSql .= " AND " . str_replace(':', '', $key) . " = :$key";
+
+    // Thêm các điều kiện vào countSql tương tự sql
+    if ($filters['account_id'] && is_numeric($filters['account_id'])) {
+        $countSql .= " AND r.account_id = :account_id";
     }
+    if ($filters['start_date']) {
+        $countSql .= " AND r.created_at >= :start_date";
+    }
+    if ($filters['end_date']) {
+        $countSql .= " AND r.created_at <= :end_date";
+    }
+    if ($filters['district']) {
+        $countSql .= " AND ui.district LIKE :district";
+    }
+    if ($filters['city']) {
+        $countSql .= " AND ui.city LIKE :city";
+    }
+    if ($filters['status']) {
+        $countSql .= " AND r.status = :status";
+    }
+
     $countStmt = $this->pdo->prepare($countSql);
     $countStmt->execute($countParams);
     $totalRecords = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
