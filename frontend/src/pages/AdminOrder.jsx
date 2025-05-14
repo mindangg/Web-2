@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../styles/Admin.css';
 import OrderCard from '../components/Admin/OrderCard';
 import { useAdminContext } from '../hooks/useAdminContext';
@@ -22,6 +22,8 @@ export default function AdminOrder() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const [searchParams, setSearchParams] = useSearchParams({ limit: '10' });
+    const startDateRef = useRef(null);
+    const endDateRef = useRef(null);
 
     const hasAccess = (functionName, action) => {
         const functions = admin?.employee?.[0]?.role?.functions || []
@@ -73,18 +75,34 @@ export default function AdminOrder() {
     useEffect(() => {
         let filtered = receipts;
 
-        // Kiểm tra ngày bắt đầu và ngày kết thúc
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Validate start date
+        if (startDate) {
+            const start = new Date(startDate);
+            if (start > today) {
+                showNotification('Ngày bắt đầu không thể là ngày trong tương lai', 'error');
+                setStartDate('');
+                startDateRef.current?.focus();
+                return;
+            }
+        }
+
+        // Validate date range
         if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
             showNotification('Ngày bắt đầu không thể lớn hơn ngày kết thúc', 'error');
+            setStartDate('');
+            startDateRef.current?.focus();
             return;
         }
 
-        // Lọc theo trạng thái
+        // Filter by status
         if (statusFilter !== 'All') {
             filtered = filtered.filter((receipt) => receipt.status === statusFilter.toLowerCase());
         }
 
-        // Lọc theo khoảng thời gian
+        // Filter by time range
         if (startDate) {
             filtered = filtered.filter(
                 (receipt) => new Date(receipt.created_at) >= new Date(startDate)
@@ -96,14 +114,14 @@ export default function AdminOrder() {
             );
         }
 
-        // Lọc theo quận/huyện
+        // Filter by district
         if (district) {
             filtered = filtered.filter(
                 (receipt) => receipt.user_information?.district.toLowerCase().includes(district.toLowerCase())
             );
         }
 
-        // Lọc theo thành phố
+        // Filter by city
         if (city) {
             filtered = filtered.filter(
                 (receipt) => receipt.user_information?.city.toLowerCase().includes(city.toLowerCase())
@@ -170,6 +188,7 @@ export default function AdminOrder() {
                 <input
                     type="date"
                     value={startDate}
+                    ref={startDateRef}
                     onChange={(e) => setStartDate(e.target.value)}
                 />
 
@@ -177,6 +196,7 @@ export default function AdminOrder() {
                 <input
                     type="date"
                     value={endDate}
+                    ref={endDateRef}
                     onChange={(e) => setEndDate(e.target.value)}
                 />
 
