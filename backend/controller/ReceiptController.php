@@ -39,26 +39,33 @@ class ReceiptController {
     }
 
     private function getReceipts(): void {
-        $filters = [
-            'account_id' => $_GET['account_id'] ?? null,
-            'start_date' => $_GET['start_date'] ?? null,
-            'end_date' => $_GET['end_date'] ?? null,
-            'district' => $_GET['district'] ?? null,
-            'status' => $_GET['status'] ?? null,
-        ];
+    $filters = [
+        'account_id' => $_GET['account_id'] ?? null,
+        'start_date' => $_GET['start_date'] ?? null,
+        'end_date' => $_GET['end_date'] ?? null,
+        'district' => $_GET['district'] ?? null,
+        'city' => $_GET['city'] ?? null,
+        'status' => $_GET['status'] ?? null,
+        'page' => $_GET['page'] ?? 1,
+        'limit' => $_GET['limit'] ?? 10,
+    ];
 
-        try {
-            $receipts = $this->receiptService->getFilteredReceipts($filters);
-            foreach ($receipts as &$receipt) {
-                $receipt['details'] = $this->receiptService->getReceiptDetails($receipt['receipt_id']);
-                $receipt['user_information'] = $this->receiptService->getUserInformation($receipt['user_information_id']);
-            }
-            http_response_code(200);
-            echo json_encode(['receipts' => $receipts]);
-        } catch (\Exception $e) {
-            ExceptionHandler::handleException($e);
+    try {
+        $result = $this->receiptService->getFilteredReceipts($filters);
+        foreach ($result['receipts'] as &$receipt) {
+            $receipt['details'] = $this->receiptService->getReceiptDetails($receipt['receipt_id']);
+            $receipt['user_information'] = $this->receiptService->getUserInformation($receipt['user_information_id']);
         }
+        http_response_code(200);
+        echo json_encode([
+            'receipts' => $result['receipts'],
+            'currentPage' => $result['currentPage'],
+            'totalPage' => $result['totalPage']
+        ]);
+    } catch (\Exception $e) {
+        ExceptionHandler::handleException($e);
     }
+}
 
     private function getReceiptById(int $receiptId): void {
         try {

@@ -48,7 +48,7 @@ function Payment() {
                 }
             );
             const addresses = await response.json();
-            const selectedAddress = addresses.find(addr => addr.user_information_id === parseInt(selectedAddressId));
+            const selectedAddress = addresses.find(addr => addr.user_information_id === selectedAddressId);
 
             if (!selectedAddress) {
                 showNotification("Địa chỉ không hợp lệ");
