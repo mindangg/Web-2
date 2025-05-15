@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import '../styles/Admin.css';
 import {useAdminContext} from '../hooks/useAdminContext';
 import {useNotificationContext} from '../hooks/useNotificationContext';
@@ -22,6 +22,8 @@ export default function AdminWarranty() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const [searchParams, setSearchParams] = useSearchParams({limit: '10'});
+    const startDateRef = useRef(null);
+    const endDateRef = useRef(null);
 
     const hasAccess = (functionName, action) => {
         const functions = admin?.employee?.[0]?.role?.functions || []
@@ -32,7 +34,6 @@ export default function AdminWarranty() {
     const hasPermission = (action) => {
         return hasAccess("Bảo hành", action)
     }
-
 
     useEffect(() => {
         const fetchWarranties = async () => {
@@ -79,9 +80,25 @@ export default function AdminWarranty() {
     }, [admin, searchParams, statusFilter, startDate, endDate, imeiSearch, skuNameSearch, receiptIdSearch]);
 
     useEffect(() => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Validate start date
+        if (startDate) {
+            const start = new Date(startDate);
+            if (start > today) {
+                showNotification('Ngày bắt đầu không thể là ngày trong tương lai', 'error');
+                setStartDate('');
+                startDateRef.current?.focus();
+                return;
+            }
+        }
+
+        // Validate date range
         if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-            showNotification('Ngày kết thúc không thể trước ngày bắt đầu', 'error');
-            setEndDate('');
+            showNotification('Ngày bắt đầu không thể lớn hơn ngày kết thúc', 'error');
+            setStartDate('');
+            startDateRef.current?.focus();
             return;
         }
 
@@ -214,6 +231,7 @@ export default function AdminWarranty() {
                 <input
                     type="date"
                     value={startDate}
+                    ref={startDateRef}
                     onChange={(e) => setStartDate(e.target.value)}
                 />
 
@@ -221,6 +239,7 @@ export default function AdminWarranty() {
                     type="date"
                     value={endDate}
                     min={startDate || undefined}
+                    ref={endDateRef}
                     onChange={(e) => setEndDate(e.target.value)}
                 />
 

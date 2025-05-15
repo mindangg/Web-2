@@ -35,16 +35,16 @@ class WarrantyRepository {
 
         $params = [];
         if ($imei) {
-            $query .= " AND i.imei LIKE :imei";
-            $params[':imei'] = "%$imei%";
+            $query .= " AND i.imei = :imei";
+            $params[':imei'] = $imei;
         }
         if ($sku_name) {
             $query .= " AND s.sku_name LIKE :sku_name";
             $params[':sku_name'] = "%$sku_name%";
         }
         if ($receipt_id) {
-            $query .= " AND i.receipt_detail_id LIKE :receipt_id";
-            $params[':receipt_id'] = "%$receipt_id%";
+            $query .= " AND i.receipt_detail_id = :receipt_id";
+            $params[':receipt_id'] = $receipt_id;
         }
         if ($status && $status !== 'All') {
             $query .= " AND i.status = :status";
@@ -71,13 +71,13 @@ class WarrantyRepository {
                        LEFT JOIN user_information ui ON r.user_information_id = ui.user_information_id
                        WHERE 1=1";
         if ($imei) {
-            $countQuery .= " AND i.imei LIKE :imei";
+            $countQuery .= " AND i.imei = :imei";
         }
         if ($sku_name) {
             $countQuery .= " AND s.sku_name LIKE :sku_name";
         }
         if ($receipt_id) {
-            $countQuery .= " AND i.receipt_detail_id LIKE :receipt_id";
+            $countQuery .= " AND i.receipt_detail_id = :receipt_id";
         }
         if ($status && $status !== 'All') {
             $countQuery .= " AND i.status = :status";

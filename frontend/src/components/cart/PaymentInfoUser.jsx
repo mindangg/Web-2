@@ -13,6 +13,7 @@ function PaymentInfoUser({ userData = {} }) {
   const [addressList, setAddressList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { showNotification } = useNotificationContext();
   
   // Form fields for new address
   const [formData, setFormData] = useState({
@@ -248,7 +249,7 @@ function PaymentInfoUser({ userData = {} }) {
         setAddressList([...addressList, data.address]);
         setSelectedAddress(data.address.user_information_id);
         setShowAddForm(false);
-        alert("Đã thêm địa chỉ mới");
+        showNotification("Đã thêm địa chỉ mới");
       } else {
         setError(data.message || "Lỗi khi thêm địa chỉ");
       }
