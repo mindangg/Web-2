@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import "../../styles/Cart/PaymentInfoUser.css";
 import PropTypes from "prop-types";
 import { useAuthContext } from '../../hooks/useAuthContext';
-import qrCode from "../../../public/qr.png"; 
+import qrCode from "../../../public/qr.png";
+import {useNotificationContext} from "../../hooks/useNotificationContext.jsx";
 
 function PaymentInfoUser({ userData = {} }) {
   const { user } = useAuthContext();
@@ -267,7 +268,7 @@ function PaymentInfoUser({ userData = {} }) {
     <div className="info-user">
       <h5>Thông tin khách hàng</h5>
 
-      {error && <p className="error-message" style={{ color: "red" }}>{error}</p>}
+      {/*{error && <p className="error-message" style={{ color: "red" }}>{error}</p>}*/}
       {loading && <p>Đang tải...</p>}
 
       {/* Hiển thị thông tin khách hàng từ địa chỉ được chọn */}

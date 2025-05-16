@@ -57,12 +57,12 @@ class UserService
             $this->respond(400, ["message" => "Định dạng email không hợp lệ"]);
         }
 
-        // Check if username or email exists
-        if (isset($data['username']) && $this->userRepository->userExists($data['username'])) {
+        if($this->userRepository->userExists($username)){
             $this->respond(400, ["message" => "Username đã tồn tại"]);
         }
 
-        if (isset($data['email']) && $this->userRepository->userExists($data['email'])) {
+
+        if($this->userRepository->userExists($email)){
             $this->respond(400, ["message" => "Email đã tồn tại"]);
         }
 

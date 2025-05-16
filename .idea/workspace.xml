@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463fa848-0d7d-4388-b49d-c57e164de61e" name="Changes" comment="merge main">
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/xiaomi14pro.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/product/xiaomi14prohng8gb256gb.webp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/Database.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/Database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/service/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/service/UserService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/cart/PaymentInfoUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/cart/PaymentInfoUser.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,6 +252,7 @@
       <workItem from="1747187825896" duration="2328000" />
       <workItem from="1747198691911" duration="823000" />
       <workItem from="1747212859419" duration="8000" />
+      <workItem from="1747278019975" duration="76000" />
     </task>
     <task id="LOCAL-00001" summary="merge main">
       <option name="closed" value="true" />
