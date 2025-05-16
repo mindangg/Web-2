@@ -149,9 +149,9 @@
 
 .user-search i{
     position: absolute;
-    left: 10px;   
+    left: 10px;
     top: 50%;
-    transform: translateY(-50%); 
+    transform: translateY(-50%);
 }
 
 .user-search input{
@@ -288,6 +288,7 @@
     border-radius: 5px;
     border: 1px solid var(--gray);
     height: 40px;
+    width: 12%;
     cursor: pointer;
     margin-right: 20px;
 }
@@ -318,9 +319,9 @@
 
 .order-search i{
     position: absolute;
-    left: 10px;   
+    left: 10px;
     top: 50%;
-    transform: translateY(-50%); 
+    transform: translateY(-50%);
     color: black;
 }
 
@@ -347,7 +348,7 @@
 .order-icon{
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    gap: 20px;
 }
 
 .order-icon button{
@@ -493,9 +494,9 @@
 
 .employee-search i{
     position: absolute;
-    left: 10px;   
+    left: 10px;
     top: 50%;
-    transform: translateY(-50%); 
+    transform: translateY(-50%);
 }
 
 .employee-search input{
@@ -545,7 +546,7 @@
     align-items: center;
     color: black;
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
-} 
+}
 
 .employee-role-manager{
     background-color: #f84c2c;
@@ -625,20 +626,20 @@
 }
 
 .add-role-container{
-    position: fixed; 
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 5;
 }
 
 .add-role{
     position: absolute;
     top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 20px;
     color: black;
     background-color: var(--light-gray);
@@ -708,20 +709,20 @@
 }
 
 .manage-role-container{
-    position: fixed; 
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
 .manage-role{
     position: absolute;
     top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 20px;
     color: black;
     background-color: var(--light-gray);
@@ -939,7 +940,7 @@ canvas {
     align-items: center;
     color: black;
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
-} 
+}
 
 .user-statistic-status-Active{
     background-color: #28ac64;
@@ -986,12 +987,12 @@ canvas {
 }
 
 .user-order-container{
-    position: fixed; 
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 5;
     overflow-y: scroll;
 }
@@ -999,8 +1000,8 @@ canvas {
 .user-order{
     position: absolute;
     top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 20px;
     color: black;
     background-color: var(--light-gray);
@@ -1033,20 +1034,20 @@ canvas {
 }
 
 .user-details-container{
-    position: fixed; 
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
 .user-details{
     position: absolute;
     top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 20px;
     color: black;
     background-color: var(--light-gray);
@@ -1194,7 +1195,7 @@ canvas {
     align-items: center;
     color: black;
     border-bottom: 1px solid hsl(0, 0%, 50%, 0.3);
-} 
+}
 
 .import-statistic-action{
     cursor: pointer;
@@ -1261,7 +1262,7 @@ canvas {
         font-size: 14px;
         padding: 15px 0;
     }
-    
+
     .employee-icon button {
         padding: 0 8px;
         font-size: 14px;
@@ -1298,7 +1299,7 @@ canvas {
         width: 100%;
     }
 
-        .order-controller {
+    .order-controller {
         flex-direction: column;
         align-items: stretch;
     }
@@ -1444,7 +1445,7 @@ canvas {
     .product-statistic-info > div,
     .user-statistic-info > div,
     .user-info > div,
-    .employee-info > div, 
+    .employee-info > div,
     .order-info > div,
     .product-info > div {
         display: flex;
@@ -1680,7 +1681,7 @@ canvas {
     position: absolute;
     left: 10px;
     top: 50%;
-    transform: translateY(-50%); 
+    transform: translateY(-50%);
     color: black;
 }
 
@@ -1728,9 +1729,9 @@ canvas {
 }
 
 .warranty-status-repairing {
-        color: #ffa500; /* Màu cam cho trạng thái Đang bảo hành */
-        font-weight: bold;
-    }
+    color: #ffa500; /* Màu cam cho trạng thái Đang bảo hành */
+    font-weight: bold;
+}
 
 .warranty-status-inactive{
     background-color: #ee7560;
